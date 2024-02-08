@@ -1,0 +1,68 @@
+name: request_hr
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  get: ^4.6.6
+  flutter_easyloading: ^3.0.5
+  flutter_screenutil: ^5.9.0
+  dio: ^5.3.3
+  logger: ^2.0.2+1
+  get_storage: ^2.1.1
+  flutter_launcher_icons: ^0.13.1
+  circular_countdown_timer: ^0.2.3
+  flutter_floating_bottom_bar: ^1.2.0
+  syncfusion_flutter_charts: ^24.1.47+2
+  syncfusion_flutter_datepicker: ^24.1.47
+  intl: ^0.19.0
+  fluttertoast: ^8.2.4
+  video_player: ^2.8.2
+  curved_navigation_bar: ^1.0.3
+  carousel_slider: ^4.2.1
+  percent_indicator: ^4.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+
+flutter_launcher_icons:
+  image_path_android: "assets/images/logo.png"
+  image_path_ios: "assets/images/logo.png"
+  android: true
+  ios: true
+  min_sdk_android: 21
+  remove_alpha_ios: true
+  background_color_ios: "#e0e0e0"
+  web:
+    generate: true
+    image_path: "assets/images/logo.png"
+    background_color: "#ffffff"
+    theme_color: "#ffffff"
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter/Inter-Black.ttf
+        - asset: assets/fonts/Inter/Inter-Bold.ttf
+        - asset: assets/fonts/Inter/Inter-ExtraBold.ttf
+        - asset: assets/fonts/Inter/Inter-ExtraLight.ttf
+        - asset: assets/fonts/Inter/Inter-Light.ttf
+        - asset: assets/fonts/Inter/Inter-Medium.ttf
+        - asset: assets/fonts/Inter/Inter-Regular.ttf
+        - asset: assets/fonts/Inter/Inter-SemiBold.ttf
+        - asset: assets/fonts/Inter/Inter-Thin.ttf
+
