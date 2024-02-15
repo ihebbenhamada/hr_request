@@ -1,21 +1,15 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
-import 'package:request_hr/app/dashboard/tabs/mail/screens/mail_screen.dart';
-import 'package:request_hr/app/dashboard/tabs/meetings/screens/meetings_screen.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/main/screens/vacations_screen.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
+import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
 
 import '../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/image_urls/image_urls.dart';
-import '../../tabs/decisions/main/screens/decisions_screen.dart';
 
 class DashboardController extends BaseController {
   RxInt pageIndex = 2.obs;
-  GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
 
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GetStorage storage = GetStorage();
   final List<Map<String, dynamic>> drawerItems = [
     {
@@ -121,38 +115,125 @@ class DashboardController extends BaseController {
       'icon_height': 27.0,
     },
   ];
-
   onItemSelected(int index) {
     pageIndex.value = index;
-    update();
   }
 
-  void navigateToPage(int index, BuildContext context) {
-    Navigator.of(context).pop(); // Close the drawer if open
-    pageIndex.value = index;
-    update();
-    // Navigate to the selected page
+  onTapDrawer(int index) {
+    print('onTapDrawer $index');
     switch (index) {
       case 0:
-        // Navigate to Home Page
-        Get.to(() => DecisionsScreen(), id: 1);
+        // Navigate to Dashboard
+        Get.back();
+        pageIndex.value = 2;
         break;
       case 1:
-        // Navigate to Search Page
-        Get.to(() => VacationsScreen(), id: 1);
+        // Navigate to Decision
+        Get.back();
+        pageIndex.value = 0;
         break;
       case 2:
-        // Navigate to Search Page
-        Get.to(() => HomeScreen(), id: 1);
+        // Navigate vacation
+        Get.back();
+        pageIndex.value = 1;
         break;
       case 3:
-        // Navigate to Search Page
-        Get.to(() => MeetingsScreen(), id: 1);
+        // Navigate to final exit
+        Get.back();
+        pageIndex.value = 1;
+        Get.to(() => VacationsStepsScreen());
         break;
       case 4:
-        // Navigate to Profile Page
-        Get.to(() => MailScreen(), id: 1);
+        // Navigate to evaluation
+        Get.back();
+        pageIndex.value = 1;
         break;
+      case 5:
+        // Navigate to loan
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 6:
+        // Navigate to Bonus
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 7:
+        // Navigate to punishments
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 8:
+        // Navigate to Alerts
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 9:
+        // Navigate to messages
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 10:
+        // Navigate to meetings
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 11:
+        // Navigate to complaint
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 12:
+        // Navigate to ticket
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 13:
+        // Navigate to sign out
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 14:
+        // Navigate to custody
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 15:
+        // Navigate to purchase
+        Get.back();
+        pageIndex.value = 1;
+        break;
+      case 16:
+        // Navigate to settings
+        Get.back();
+        pageIndex.value = 1;
+        break;
+
+      default:
+        Get.back();
+        pageIndex.value = 1;
     }
   }
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  /// FUNCTIONS
+  onClickDrawer(GlobalKey<ScaffoldState> scaffoldKey) {
+    scaffoldKey.currentState!.openDrawer();
+  }
+
+  onClickMessage() {
+    Get.to(
+      () => MailScreen(),
+      transition: Transition.downToUp,
+      curve: Curves.ease,
+      duration: const Duration(milliseconds: 500),
+    );
+  }
+
+  onClickNotification() {}
+  onClickProfile() {}
 }

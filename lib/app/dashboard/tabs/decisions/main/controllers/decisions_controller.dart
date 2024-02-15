@@ -19,12 +19,14 @@ class DecisionsController extends BaseController {
       'employee_position': 'project Manager',
       'employee_image': AppImages.profile,
       'date': '13-2-2024',
+      'editable': false,
     },
     {
       'employee_name': 'Mohamed Ahmed ismail',
       'employee_position': 'project Manager',
       'employee_image': AppImages.profile,
       'date': '13-2-2024',
+      'editable': false,
     },
     {
       'employee_name': 'Mohamed Ahmed ismail',
@@ -38,6 +40,7 @@ class DecisionsController extends BaseController {
       'employee_position': 'project Manager',
       'employee_image': AppImages.profile,
       'date': '13-2-2024',
+      'editable': false,
     },
     {
       'employee_name': 'Mohamed Ahmed ismail',
@@ -51,30 +54,35 @@ class DecisionsController extends BaseController {
       'employee_position': 'project Manager',
       'employee_image': AppImages.profile,
       'date': '13-2-2024',
+      'editable': false,
     },
     {
       'employee_name': 'Mohamed Ahmed ismail',
       'employee_position': 'project Manager',
       'employee_image': AppImages.profile,
       'date': '13-2-2024',
+      'editable': false,
     },
     {
       'employee_name': 'Mohamed Ahmed ismail',
       'employee_position': 'project Manager',
       'employee_image': AppImages.profile,
       'date': '13-2-2024',
+      'editable': false,
     },
     {
       'employee_name': 'Mohamed Ahmed ismail',
       'employee_position': 'project Manager',
       'employee_image': AppImages.profile,
       'date': '13-2-2024',
+      'editable': false,
     },
     {
       'employee_name': 'Mohamed Ahmed ismail',
       'employee_position': 'project Manager',
       'employee_image': AppImages.profile,
       'date': '13-2-2024',
+      'editable': false,
     },
   ];
 

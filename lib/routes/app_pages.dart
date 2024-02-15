@@ -2,12 +2,16 @@ import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/main/screen/dashboard-screen.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
-import 'package:request_hr/app/dashboard/tabs/mail/screens/mail_screen.dart';
-import 'package:request_hr/app/dashboard/tabs/meetings/screens/meetings_screen.dart';
+import 'package:request_hr/app/dashboard/tabs/meetings/main/screens/meetings_screen.dart';
+import 'package:request_hr/app/dashboard/tabs/meetings/meetings-details/screens/meetings_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/screens/vacations_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/screens/success_vacation_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
+import 'package:request_hr/app/mail/create-mail/screens/create_mail_screen.dart';
+import 'package:request_hr/app/mail/mail-details/screens/mail_details_screen.dart';
+import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
+import 'package:request_hr/app/mail/replay-mail/screens/replay_mail_screen.dart';
 
 import '../app/auth/login/screens/login_screen.dart';
 import '../app/dashboard/tabs/decisions/main/screens/decisions_screen.dart';
@@ -24,19 +28,50 @@ class AppPages {
       binding: LoginPageBindings(),
     ),
     GetPage(
-      name: AppRoutes.dashboard,
-      page: () => DashboardScreen(),
-      binding: DashboardPageBindings(),
+        name: AppRoutes.dashboard,
+        page: () => DashboardScreen(),
+        binding: DashboardPageBindings(),
+        children: [
+          GetPage(
+            name: AppRoutes.decisions,
+            page: () => DecisionsScreen(),
+            binding: DecisionsPageBindings(),
+          ),
+          GetPage(
+            name: AppRoutes.vacations,
+            page: () => VacationsScreen(),
+            binding: VacationPageBindings(),
+          ),
+          GetPage(
+            name: AppRoutes.meetings,
+            page: () => MeetingsScreen(),
+            binding: MeetingsPageBindings(),
+          ),
+          GetPage(
+            name: AppRoutes.home,
+            page: () => HomeScreen(),
+            binding: HomePageBindings(),
+          ),
+        ]),
+    GetPage(
+      name: AppRoutes.mail,
+      page: () => MailScreen(),
+      binding: MailPageBindings(),
     ),
     GetPage(
-      name: AppRoutes.decisions,
-      page: () => DecisionsScreen(),
-      binding: DecisionsPageBindings(),
+      name: AppRoutes.createMail,
+      page: () => CreateMailScreen(),
+      binding: CreateMailPageBindings(),
     ),
     GetPage(
-      name: AppRoutes.vacations,
-      page: () => VacationsScreen(),
-      binding: VacationPageBindings(),
+      name: AppRoutes.mailDetails,
+      page: () => MailDetailsScreen(),
+      binding: MailDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.replyMail,
+      page: () => ReplayMailScreen(),
+      binding: ReplayMailPageBindings(),
     ),
     GetPage(
       name: AppRoutes.vacationsForm,
@@ -54,19 +89,9 @@ class AppPages {
       binding: SuccessVacationPageBindings(),
     ),
     GetPage(
-      name: AppRoutes.meetings,
-      page: () => MeetingsScreen(),
-      binding: MeetingsPageBindings(),
-    ),
-    GetPage(
-      name: AppRoutes.mail,
-      page: () => MailScreen(),
-      binding: MailPageBindings(),
-    ),
-    GetPage(
-      name: AppRoutes.home,
-      page: () => HomeScreen(),
-      binding: HomePageBindings(),
+      name: AppRoutes.meetingsDetails,
+      page: () => MeetingsDetailsScreen(),
+      binding: MeetingsDetailsPageBindings(),
     ),
     GetPage(
       name: AppRoutes.decisionsDetails,

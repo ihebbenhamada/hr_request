@@ -35,7 +35,6 @@ class VacationItem extends StatelessWidget {
         children: [
           Container(
             width: 130,
-            height: 167.h,
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(13.h),

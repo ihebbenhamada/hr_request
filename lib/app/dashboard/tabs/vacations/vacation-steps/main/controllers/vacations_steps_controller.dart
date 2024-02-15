@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/main/controller/dashboard-controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/screens/success_vacation_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/disclaimer.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/final_exit_approval.dart';
@@ -16,6 +17,8 @@ class VacationsStepsController extends BaseController
 
   /// CONTROLLERS
   final PageController pageController = PageController(initialPage: 0);
+  final DashboardController _dashboardController =
+      Get.find<DashboardController>();
 
   /// VARIABLES
   RxDouble animatedSecondStepBarWidth = 0.0.obs;
@@ -93,7 +96,7 @@ class VacationsStepsController extends BaseController
       }
       animateSecondStep('back');
     } else {
-      /*Get.offAll(()=>);*/
+      Get.back();
     }
   }
 

@@ -164,26 +164,27 @@ class DecisionsDetailsScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 50.h,
-                      width: 50.h,
-                      decoration: const ShapeDecoration(
-                        color: AppColors.primary,
-                        shape: OvalBorder(),
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.tick,
-                          color: AppColors.white,
-                          height: 30.h,
+                    GestureDetector(
+                      onTap: _decisionsDetailsController.onClickDone,
+                      child: Container(
+                        height: 50.h,
+                        width: 50.h,
+                        decoration: const ShapeDecoration(
+                          color: AppColors.primary,
+                          shape: OvalBorder(),
+                        ),
+                        child: Center(
+                          child: Image.asset(
+                            AppImages.tick,
+                            color: AppColors.white,
+                            height: 30.h,
+                          ),
                         ),
                       ),
                     ),
                     23.horizontalSpace,
                     GestureDetector(
-                      onTap: () {
-                        Get.back(id: 1);
-                      },
+                      onTap: _decisionsDetailsController.onClickBack,
                       child: Container(
                         height: 50.h,
                         width: 50.h,

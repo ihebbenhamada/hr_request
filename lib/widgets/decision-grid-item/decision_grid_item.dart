@@ -13,13 +13,15 @@ class DecisionGridItem extends StatelessWidget {
     required this.employeeImage,
     required this.date,
     required this.onClick,
-    this.editable = false,
+    this.editable,
+    this.type,
   });
   final String employeeName;
   final String employeePosition;
   final String employeeImage;
   final String date;
   final bool? editable;
+  final int? type;
   final void Function() onClick;
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,8 @@ class DecisionGridItem extends StatelessWidget {
                   image: employeeImage,
                   iconSize: 14.h,
                 ),
-                editable == true
+                (editable == true && type == null) ||
+                        (editable == null && type != 2)
                     ? Image.asset(
                         AppImages.edit,
                         height: 22.5.h,
@@ -71,6 +74,7 @@ class DecisionGridItem extends StatelessWidget {
               style: TextStyle(
                 color: AppColors.blueDark,
                 fontSize: 16.sp,
+                height: 1.2,
               ),
             ),
             2.h.verticalSpace,
@@ -78,7 +82,7 @@ class DecisionGridItem extends StatelessWidget {
               employeePosition,
               style: TextStyle(
                 color: AppColors.blueDark,
-                fontSize: 16.sp,
+                fontSize: 14.sp,
               ),
             ),
             Expanded(
@@ -88,7 +92,11 @@ class DecisionGridItem extends StatelessWidget {
                   height: 24.h,
                   width: 80,
                   decoration: BoxDecoration(
-                    color: AppColors.primary,
+                    color: type == 2
+                        ? AppColors.redLight
+                        : type == 0
+                            ? AppColors.gray5
+                            : AppColors.primary,
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: const [
                       BoxShadow(

@@ -83,7 +83,15 @@ class VacationsFormController extends BaseController {
   }
 
   onClickSubmit() {
-    Get.off(
+    Get.back(id: 2);
+  }
+
+  onClickBack() {
+    Get.back(id: 2);
+  }
+
+  onClickCompleteProcedures() {
+    Get.to(
       () => VacationsStepsScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,

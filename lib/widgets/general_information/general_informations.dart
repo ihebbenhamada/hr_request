@@ -12,7 +12,7 @@ class GeneralInformation extends StatelessWidget {
     return Row(
       children: [
         Container(
-          height: 234.h,
+          height: 236.h,
           width: 140.w,
           decoration: BoxDecoration(
             color: AppColors.primary,
@@ -59,7 +59,7 @@ class GeneralInformation extends StatelessWidget {
                 'Start : 1/1/2023',
                 style: TextStyle(
                   color: AppColors.white,
-                  fontSize: 10.h,
+                  fontSize: 10.sp,
                 ),
               ),
               3.h.verticalSpace,
@@ -67,7 +67,7 @@ class GeneralInformation extends StatelessWidget {
                 'End : 1/1/2025',
                 style: TextStyle(
                   color: AppColors.white,
-                  fontSize: 10.h,
+                  fontSize: 10.sp,
                 ),
               ),
             ],
@@ -79,13 +79,13 @@ class GeneralInformation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                height: 234.h,
+                height: 236.h,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       width: 100.w,
-                      height: 111.h,
+                      height: 113.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -117,9 +117,9 @@ class GeneralInformation extends StatelessWidget {
                               fontSize: 10.sp,
                             ),
                           ),
-                          9.h.verticalSpace,
+                          4.h.verticalSpace,
                           CircularPercentIndicator(
-                            radius: 17.0,
+                            radius: 16.0,
                             lineWidth: 4.0,
                             animation: true,
                             percent: 0.25,
@@ -134,12 +134,12 @@ class GeneralInformation extends StatelessWidget {
                             progressColor: AppColors.primary,
                             backgroundColor: AppColors.blueLight1,
                           ),
-                          6.h.verticalSpace,
+                          5.h.verticalSpace,
                           Text(
                             'Left 27',
                             style: TextStyle(
                               color: AppColors.blueDark,
-                              fontSize: 12.h,
+                              fontSize: 12.sp,
                             ),
                           ),
                         ],
@@ -147,7 +147,7 @@ class GeneralInformation extends StatelessWidget {
                     ),
                     Container(
                       width: 100.w,
-                      height: 111.h,
+                      height: 113.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -192,13 +192,13 @@ class GeneralInformation extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 234.h,
+                height: 236.h,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       width: 100.w,
-                      height: 111.h,
+                      height: 113.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -230,17 +230,17 @@ class GeneralInformation extends StatelessWidget {
                               fontSize: 10.sp,
                             ),
                           ),
-                          9.h.verticalSpace,
+                          4.h.verticalSpace,
                           Image.asset(
                             AppImages.tick,
                             height: 31.h,
                           ),
-                          12.h.verticalSpace,
+                          5.h.verticalSpace,
                           Text(
                             'Yes',
                             style: TextStyle(
                               color: AppColors.blueDark,
-                              fontSize: 12.h,
+                              fontSize: 12.sp,
                             ),
                           ),
                         ],
@@ -248,7 +248,7 @@ class GeneralInformation extends StatelessWidget {
                     ),
                     Container(
                       width: 100.w,
-                      height: 111.h,
+                      height: 113.h,
                       decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(

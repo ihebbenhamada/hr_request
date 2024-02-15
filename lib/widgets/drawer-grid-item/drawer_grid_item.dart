@@ -9,39 +9,45 @@ class DrawerGridItem extends StatelessWidget {
     required this.icon,
     required this.iconWidth,
     required this.iconHeight,
+    required this.onTap,
   });
   final String title;
   final String icon;
   final double iconWidth;
   final double iconHeight;
+  final void Function() onTap;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 60.h,
-          width: 60.h,
-          decoration: const ShapeDecoration(
-            shape: OvalBorder(),
-            color: AppColors.blueDark,
-          ),
-          child: Center(
-            child: Image.asset(
-              icon,
-              height: iconHeight.h,
-              width: iconWidth,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            height: 60.h,
+            width: 60.h,
+            clipBehavior: Clip.none,
+            decoration: const ShapeDecoration(
+              shape: OvalBorder(),
+              color: AppColors.blueDark,
+            ),
+            child: Center(
+              child: Image.asset(
+                icon,
+                height: iconHeight.h,
+                width: iconWidth,
+              ),
             ),
           ),
-        ),
-        5.h.verticalSpace,
-        Text(
-          title,
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 14.sp,
+          2.h.verticalSpace,
+          Text(
+            title,
+            style: TextStyle(
+              color: AppColors.white,
+              fontSize: 14.sp,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

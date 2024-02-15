@@ -9,13 +9,10 @@ import 'package:request_hr/widgets/footer/footer.dart';
 import '../../config/colors/colors.dart';
 import '../header-drawer/header_drawer.dart';
 
-class DrawerContent extends StatelessWidget {
-  DrawerContent({
+class DrawerContent extends GetView<DashboardController> {
+  const DrawerContent({
     super.key,
-    required this.scaffoldKey,
   });
-  GlobalKey<ScaffoldState> scaffoldKey;
-  final DashboardController _dashboardController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,9 +29,7 @@ class DrawerContent extends StatelessWidget {
         child: Column(
           children: [
             HeaderDrawer(
-              closeDrawer: () {
-                scaffoldKey.currentState!.closeDrawer();
-              },
+              closeDrawer: () {},
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
@@ -128,16 +123,15 @@ class DrawerContent extends StatelessWidget {
               padding: const EdgeInsets.only(left: 22.0, right: 22),
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true, // padding around the grid
-              itemCount: _dashboardController
-                  .drawerItems.length, // total number of items
+              itemCount: controller.drawerItems.length, // total number of items
               itemBuilder: (context, index) {
-                Map<String, dynamic> item =
-                    _dashboardController.drawerItems[index];
+                Map<String, dynamic> item = controller.drawerItems[index];
                 return DrawerGridItem(
                   title: item['title'],
                   icon: item['icon'],
                   iconWidth: item['icon_width'],
                   iconHeight: item['icon_height'],
+                  onTap: () {},
                 );
               },
             ),

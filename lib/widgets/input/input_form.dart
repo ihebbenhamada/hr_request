@@ -17,6 +17,11 @@ class InputForm extends StatelessWidget {
     this.height,
     this.textEditingController,
     this.onSelectDate,
+    this.paddingRight,
+    this.paddingTop,
+    this.paddingBottom,
+    this.paddingLeft,
+    this.nbrLines,
   });
 
   final RxString? selectedDropDownItem;
@@ -26,7 +31,12 @@ class InputForm extends StatelessWidget {
   final String? text;
   final String inputType;
   final double? width;
+  final double? paddingRight;
+  final double? paddingTop;
+  final double? paddingBottom;
+  final double? paddingLeft;
   final double? height;
+  final int? nbrLines;
   final TextEditingController? textEditingController;
   final void Function()? onSelectDate;
 
@@ -35,7 +45,12 @@ class InputForm extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      padding: const EdgeInsets.symmetric(horizontal: 11),
+      padding: EdgeInsets.only(
+        left: paddingLeft ?? 11,
+        right: paddingRight ?? 11,
+        bottom: paddingBottom ?? 0,
+        top: paddingTop ?? 0,
+      ),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12.h),
@@ -54,7 +69,7 @@ class InputForm extends StatelessWidget {
             ? MainAxisAlignment.start
             : MainAxisAlignment.center,
         children: [
-          inputType == 'input' ? 8.h.verticalSpace : 0.h.verticalSpace,
+          inputType == 'input' ? 5.h.verticalSpace : 0.h.verticalSpace,
           Text(
             title,
             style: TextStyle(
@@ -62,9 +77,7 @@ class InputForm extends StatelessWidget {
               fontSize: 14.sp,
             ),
           ),
-          inputType == 'select' || inputType == 'input'
-              ? 3.h.verticalSpace
-              : 8.verticalSpace,
+          inputType == 'input' ? 0.h.verticalSpace : 3.verticalSpace,
           renderWidget(inputType),
         ],
       ),
@@ -139,7 +152,7 @@ class InputForm extends StatelessWidget {
             color: AppColors.blueDark,
           ),
           keyboardType: TextInputType.multiline,
-          maxLines: 5,
+          maxLines: nbrLines ?? 4,
           cursorColor: AppColors.gray1,
           decoration: const InputDecoration(
             isDense: true,

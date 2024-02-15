@@ -20,7 +20,7 @@ class CarouselSliderItem extends StatelessWidget {
             child: Container(
               width: 115.w,
               height: 142.h,
-              padding: EdgeInsets.symmetric(vertical: 17.h),
+              padding: EdgeInsets.only(top: 17.h),
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -38,8 +38,8 @@ class CarouselSliderItem extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    width: 58.h,
-                    height: 58.h,
+                    width: 57.h,
+                    height: 57.h,
                     decoration: const ShapeDecoration(
                       color: AppColors.gray2,
                       shape: OvalBorder(),
@@ -64,7 +64,7 @@ class CarouselSliderItem extends StatelessWidget {
                     item['value'].toString(),
                     style: TextStyle(
                       color: AppColors.primary,
-                      fontSize: 14.h,
+                      fontSize: 14.sp,
                     ),
                   ),
                 ],

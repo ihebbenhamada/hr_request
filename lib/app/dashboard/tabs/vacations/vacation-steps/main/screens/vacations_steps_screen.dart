@@ -248,23 +248,28 @@ class VacationsStepsScreen extends StatelessWidget {
                   },
                 ),
               ),
-              Obx(
-                () => CustomButton(
-                  text: _vacationsStepsController.activePage.value == 2
-                      ? 'Finish'
-                      : 'Next'.tr,
-                  onClick: _vacationsStepsController.activePage.value == 2
-                      ? _vacationsStepsController.onClickFinish
-                      : _vacationsStepsController.onClickNext,
-                ),
+              Column(
+                children: [
+                  10.h.verticalSpace,
+                  Obx(
+                    () => CustomButton(
+                      text: _vacationsStepsController.activePage.value == 2
+                          ? 'Finish'
+                          : 'Next'.tr,
+                      onClick: _vacationsStepsController.activePage.value == 2
+                          ? _vacationsStepsController.onClickFinish
+                          : _vacationsStepsController.onClickNext,
+                    ),
+                  ),
+                  18.h.verticalSpace,
+                  CustomButton(
+                    text: 'Back'.tr,
+                    onClick: _vacationsStepsController.onClickBack,
+                    isPrimary: false,
+                  ),
+                  56.h.verticalSpace,
+                ],
               ),
-              18.h.verticalSpace,
-              CustomButton(
-                text: 'Back'.tr,
-                onClick: _vacationsStepsController.onClickBack,
-                isPrimary: false,
-              ),
-              56.h.verticalSpace,
             ],
           ),
         ),

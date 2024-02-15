@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/dashboard/main/screen/dashboard-screen.dart';
 import 'package:request_hr/config/theme/request-theme.dart';
+import 'package:request_hr/routes/app_routes.dart';
 
 import '../config/binding/binding.dart';
 import '../config/translation/translation.dart';
@@ -31,6 +32,7 @@ class RequestApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
+          initialRoute: AppRoutes.dashboard,
           getPages: AppPages.routes,
           translations: Translation(),
           theme: RequestTheme.lightTheme,

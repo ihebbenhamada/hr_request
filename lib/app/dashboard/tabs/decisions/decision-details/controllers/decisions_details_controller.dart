@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../services/decisions_details_service.dart';
 
@@ -28,4 +30,11 @@ class DecisionsDetailsController extends BaseController {
   void initValues() {}
 
   /// FUNCTIONS
+  onClickDone() {
+    Get.back(id: 1);
+  }
+
+  onClickBack() {
+    Get.back(id: 1);
+  }
 }

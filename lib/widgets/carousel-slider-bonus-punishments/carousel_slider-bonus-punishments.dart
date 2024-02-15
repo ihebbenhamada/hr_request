@@ -49,7 +49,7 @@ class CarouselSliderBonusPunishmentsItem extends StatelessWidget {
                           item['title'],
                           style: TextStyle(
                             color: AppColors.blueDark,
-                            fontSize: 14.h,
+                            fontSize: 14.sp,
                           ),
                         ),
                         9.h.verticalSpace,

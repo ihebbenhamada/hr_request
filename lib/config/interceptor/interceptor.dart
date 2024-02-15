@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -102,7 +103,7 @@ class AppInterceptor {
       timeInSecForIosWeb: 1,
       backgroundColor: AppColors.redLight,
       textColor: AppColors.white,
-      fontSize: 16.0,
+      fontSize: 16.0.sp,
     );
   }
 

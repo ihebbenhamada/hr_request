@@ -19,9 +19,9 @@ class VacationsScreen extends StatelessWidget {
   VacationsScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.gray2,
-      body: SingleChildScrollView(
+    return Container(
+      color: AppColors.gray2,
+      child: SingleChildScrollView(
         padding: EdgeInsets.only(left: 25.0, right: 25.0, bottom: 60.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,10 +36,13 @@ class VacationsScreen extends StatelessWidget {
                     fontSize: 16.sp,
                   ),
                 ),
-                Image.asset(
-                  AppImages.addDecision,
-                  height: 34.h,
-                  width: 34.h,
+                GestureDetector(
+                  onTap: _vacationsController.onClickVacationItem,
+                  child: Image.asset(
+                    AppImages.addDecision,
+                    height: 34.h,
+                    width: 34.h,
+                  ),
                 )
               ],
             ),
@@ -69,7 +72,7 @@ class VacationsScreen extends StatelessWidget {
                 );
               },
               options: CarouselOptions(
-                height: 170.h,
+                height: 182.h,
                 animateToClosest: true,
                 viewportFraction: 0.43,
                 initialPage: 0,
@@ -85,7 +88,7 @@ class VacationsScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
               ),
             ),
-            8.h.verticalSpace,
+            14.h.verticalSpace,
             CustomDotsIndicator(
               carouselData: _vacationsController.vacationsList,
               current: _vacationsController.currentVacationIndex,

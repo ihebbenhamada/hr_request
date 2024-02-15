@@ -70,6 +70,21 @@ class AppImages {
   static const String upload = '$iconsFolder/upload.png';
   static const String print = '$iconsFolder/print.png';
   static const String cup = '$iconsFolder/cup.png';
+  static const String list = '$iconsFolder/list.png';
+  static const String add = '$iconsFolder/add.png';
+  static const String forwardEmail = '$iconsFolder/forward-mail.png';
+  static const String forwardMailContainer =
+      '$iconsFolder/forward-mail-container.png';
+
+  static const String attachEmail = '$iconsFolder/attach-mail.png';
+  static const String menuEmail = '$iconsFolder/menu-mail.png';
+  static const String refreshEmail = '$iconsFolder/refresh-mail.png';
+  static const String replayEmail = '$iconsFolder/replay.png';
+  static const String selectAll = '$iconsFolder/select-all.png';
+  static const String deselect = '$iconsFolder/deselect.png';
+  static const String inverseMail = '$iconsFolder/inverse.png';
+  static const String replayDark = '$iconsFolder/replay-dark.png';
+  static const String trash = '$iconsFolder/trash.png';
 
   /// IMAGES
   static const String bgLogin = '$imagesFolder/bg-login.png';
@@ -82,4 +97,6 @@ class AppImages {
   static const String avatar2 = '$imagesFolder/avatar2.png';
   static const String avatar3 = '$imagesFolder/avatar3.png';
   static const String poster = '$imagesFolder/poster.png';
+  static const String bottomNavigationShape =
+      '$imagesFolder/bottom-navigation-shape.png';
 }

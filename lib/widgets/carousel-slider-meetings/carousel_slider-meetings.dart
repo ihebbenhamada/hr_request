@@ -61,7 +61,7 @@ class CarouselSliderMeetingsItem extends StatelessWidget {
                                   item['title'],
                                   style: TextStyle(
                                     color: AppColors.primary,
-                                    fontSize: 14.h,
+                                    fontSize: 14.sp,
                                   ),
                                 ),
                                 9.h.verticalSpace,

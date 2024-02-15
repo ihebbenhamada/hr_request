@@ -14,9 +14,9 @@ class DecisionsScreen extends StatelessWidget {
   DecisionsScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.gray2,
-      body: Padding(
+    return Container(
+      color: AppColors.gray2,
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,10 +31,13 @@ class DecisionsScreen extends StatelessWidget {
                     fontSize: 16.sp,
                   ),
                 ),
-                Image.asset(
-                  AppImages.addDecision,
-                  height: 34.h,
-                  width: 34.h,
+                GestureDetector(
+                  onTap: _decisionsController.onClickDecision,
+                  child: Image.asset(
+                    AppImages.addDecision,
+                    height: 34.h,
+                    width: 34.h,
+                  ),
                 )
               ],
             ),

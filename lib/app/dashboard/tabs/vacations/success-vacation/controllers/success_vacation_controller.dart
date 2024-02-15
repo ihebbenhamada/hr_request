@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/main/controller/dashboard-controller.dart';
+import 'package:request_hr/app/dashboard/main/screen/dashboard-screen.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
-import '../../../../main/screen/dashboard-screen.dart';
 import '../services/success_vacation_service.dart';
 
 class SuccessVacationController extends BaseController {
@@ -11,6 +12,7 @@ class SuccessVacationController extends BaseController {
       SuccessVacationService();
 
   /// CONTROLLERS
+  final DashboardController _dashboardController = Get.find();
 
   /// VARIABLES
 
@@ -28,10 +30,11 @@ class SuccessVacationController extends BaseController {
 
   /// FUNCTIONS
   onClickContinue() {
-    Get.off(
-      DashboardScreen(),
+    Get.offAll(
+      () => DashboardScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
+      duration: const Duration(milliseconds: 500),
     );
   }
 }
