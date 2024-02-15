@@ -90,7 +90,7 @@ class VacationsScreen extends StatelessWidget {
             ),
             14.h.verticalSpace,
             CustomDotsIndicator(
-              carouselData: _vacationsController.vacationsList,
+              length: _vacationsController.vacationsList.length,
               current: _vacationsController.currentVacationIndex,
             ),
             13.h.verticalSpace,
@@ -130,7 +130,7 @@ class VacationsScreen extends StatelessWidget {
             ),
             7.h.verticalSpace,
             CustomDotsIndicator(
-              carouselData: _vacationsController.officialVacationList,
+              length: _vacationsController.officialVacationList.length,
               current: _vacationsController.currentOfficialVacationIndex,
             ),
             20.h.verticalSpace,

@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           CustomDotsIndicator(
-            carouselData: _homeController.carouselData,
+            length: _homeController.carouselData.length,
             current: _homeController.current,
           ),
           15.h.verticalSpace,
@@ -135,7 +135,7 @@ class HomeScreen extends StatelessWidget {
           ),
           10.h.verticalSpace,
           CustomDotsIndicator(
-            carouselData: _homeController.carouselBonusPunishmentsData,
+            length: _homeController.carouselBonusPunishmentsData.length,
             current: _homeController.currentBonusPunishments,
           ),
           15.h.verticalSpace,
@@ -176,7 +176,7 @@ class HomeScreen extends StatelessWidget {
           ),
           7.h.verticalSpace,
           CustomDotsIndicator(
-            carouselData: _homeController.carouselMeetingsData,
+            length: _homeController.carouselMeetingsData.length,
             current: _homeController.currentMeeting,
           ),
           20.h.verticalSpace,

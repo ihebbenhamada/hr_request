@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/mail/create-mail/screens/create_mail_screen.dart';
 import 'package:request_hr/app/mail/mail-details/screens/mail_details_screen.dart';
+import 'package:request_hr/app/mail/main/widget/search_mail_bottom_sheet.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 import '../../../../../config/controllerConfig/base_controller.dart';
 import '../services/mail_service.dart';
 import '../widget/menu_mail.dart';
-import '../widget/search_bottom_sheet.dart';
 
 class MailController extends BaseController {
   /// SERVICES
@@ -123,7 +123,7 @@ class MailController extends BaseController {
 
   onClickSearch(BuildContext context) {
     Get.bottomSheet(
-      SearchBottomSheet(
+      SearchMailBottomSheet(
         dateFrom: dateFrom,
         dateTo: dateTo,
         selectDate: (context, value) => selectDate(context, value),

@@ -6,8 +6,8 @@ import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/widgets/custom-button/custom-button.dart';
 import 'package:request_hr/widgets/input/input_form.dart';
 
-class SearchBottomSheet extends StatelessWidget {
-  const SearchBottomSheet({
+class SearchMailBottomSheet extends StatelessWidget {
+  const SearchMailBottomSheet({
     super.key,
     required this.dateFrom,
     required this.dateTo,

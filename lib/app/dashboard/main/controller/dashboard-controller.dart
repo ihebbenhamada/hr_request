@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
+import 'package:request_hr/app/evaluations/main/screens/evaluations_screen.dart';
 import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
+import 'package:request_hr/app/notification/screens/notifications_screen.dart';
+import 'package:request_hr/config/colors/colors.dart';
+import 'package:request_hr/widgets/search-bottom-sheet/search_bottom_sheet.dart';
 
 import '../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/image_urls/image_urls.dart';
@@ -11,6 +15,17 @@ class DashboardController extends BaseController {
   RxInt pageIndex = 2.obs;
 
   final GetStorage storage = GetStorage();
+  Rx<Color> decisionsIconColor = AppColors.white.obs;
+  Rx<Color> vacationsIconColor = AppColors.white.obs;
+  Rx<Color> innTechIconColor = AppColors.white.obs;
+  Rx<Color> meetingIconColor = AppColors.white.obs;
+  Rx<Color> searchIconColor = AppColors.white.obs;
+  Rx<DateTime> dateFrom = DateTime.now().obs;
+  Rx<DateTime> dateTo = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day + 1,
+  ).obs;
   final List<Map<String, dynamic>> drawerItems = [
     {
       'title': 'Dashboard',
@@ -115,8 +130,72 @@ class DashboardController extends BaseController {
       'icon_height': 27.0,
     },
   ];
+  final List<String> companyList = ['Annual', 'Monthly', 'Weekly', 'daily'];
+  final List<String> departmentsList = ['Annual', 'Monthly', 'Weekly', 'daily'];
+  RxString selectedCompany = 'Annual'.obs;
+  RxString selectedDepartment = 'Annual'.obs;
+
   onItemSelected(int index) {
-    pageIndex.value = index;
+    switch (index) {
+      case 0:
+        pageIndex.value = index;
+        decisionsIconColor.value = AppColors.primary;
+        vacationsIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
+        break;
+      case 1:
+        pageIndex.value = index;
+        vacationsIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        break;
+      case 2:
+        pageIndex.value = index;
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 3:
+        pageIndex.value = index;
+        meetingIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        break;
+      case 4:
+        searchIconColor.value = AppColors.primary;
+        vacationsIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        pageIndex.value = pageIndex.value;
+        Get.bottomSheet(
+          SearchBottomSheet(
+            dateFrom: dateFrom,
+            dateTo: dateTo,
+            selectDate: (context, value) => selectDate(context, value),
+            companyList: companyList,
+            selectedCompany: selectedCompany,
+            departmentsList: departmentsList,
+            selectedDepartment: selectedDepartment,
+            onSelectCompany: (value) => onSelectCompany(value),
+            onSelectDepartment: (value) => onSelectDepartment(value),
+          ),
+          barrierColor: AppColors.primary.withOpacity(0.54),
+          isDismissible: false,
+          enableDrag: false,
+        );
+        break;
+      default:
+        break;
+    }
   }
 
   onTapDrawer(int index) {
@@ -146,7 +225,8 @@ class DashboardController extends BaseController {
       case 4:
         // Navigate to evaluation
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
+        Get.to(() => EvaluationsScreen());
         break;
       case 5:
         // Navigate to loan
@@ -234,6 +314,59 @@ class DashboardController extends BaseController {
     );
   }
 
-  onClickNotification() {}
+  onClickNotification() {
+    Get.to(
+      () => NotificationsScreen(),
+      transition: Transition.downToUp,
+      curve: Curves.ease,
+      duration: const Duration(milliseconds: 500),
+    );
+  }
+
   onClickProfile() {}
+  onSelectCompany(String value) {
+    selectedCompany.value = value;
+  }
+
+  onSelectDepartment(String value) {
+    selectedDepartment.value = value;
+  }
+
+  void selectDate(
+    BuildContext context,
+    String selectedDate,
+  ) async {
+    final DateTime? pickedDate = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primary, // header background color
+              onPrimary: AppColors.white, // header text color
+              onSurface: AppColors.gray6, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.gray6, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2030),
+    );
+    if (selectedDate == 'from') {
+      if (pickedDate != null && pickedDate != dateFrom.value) {
+        dateFrom.value = pickedDate;
+      }
+    } else {
+      if (pickedDate != null && pickedDate != dateTo.value) {
+        dateTo.value = pickedDate;
+      }
+    }
+  }
 }

@@ -8,10 +8,13 @@ import 'package:request_hr/app/dashboard/tabs/vacations/main/controllers/vacatio
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/controllers/success_vacation_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/controllers/vacations_form_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
+import 'package:request_hr/app/evaluations/evaluations-steps/main/controllers/evaluations_steps_controller.dart';
+import 'package:request_hr/app/evaluations/main/controllers/evaluations_controller.dart';
 import 'package:request_hr/app/mail/create-mail/controllers/create_mail_controller.dart';
 import 'package:request_hr/app/mail/mail-details/controllers/mail_details_controller.dart';
 import 'package:request_hr/app/mail/main/controllers/mail_controller.dart';
 import 'package:request_hr/app/mail/replay-mail/controllers/replay_mail_controller.dart';
+import 'package:request_hr/app/notification/controllers/notifications_controller.dart';
 
 import '../app/auth/login/controllers/login_controller.dart';
 import '../app/dashboard/tabs/decisions/main/controllers/decisions_controller.dart';
@@ -118,5 +121,26 @@ class HomePageBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<HomeController>(() => HomeController());
+  }
+}
+
+class NotificationsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<NotificationsController>(() => NotificationsController());
+  }
+}
+
+class EvaluationsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<EvaluationsController>(() => EvaluationsController());
+  }
+}
+
+class EvaluationsStepsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<EvaluationsStepsController>(() => EvaluationsStepsController());
   }
 }

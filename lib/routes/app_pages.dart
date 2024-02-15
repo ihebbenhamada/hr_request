@@ -12,6 +12,7 @@ import 'package:request_hr/app/mail/create-mail/screens/create_mail_screen.dart'
 import 'package:request_hr/app/mail/mail-details/screens/mail_details_screen.dart';
 import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
 import 'package:request_hr/app/mail/replay-mail/screens/replay_mail_screen.dart';
+import 'package:request_hr/app/notification/screens/notifications_screen.dart';
 
 import '../app/auth/login/screens/login_screen.dart';
 import '../app/dashboard/tabs/decisions/main/screens/decisions_screen.dart';
@@ -97,6 +98,11 @@ class AppPages {
       name: AppRoutes.decisionsDetails,
       page: () => DecisionsDetailsScreen(),
       binding: DecisionsDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.notifications,
+      page: () => NotificationsScreen(),
+      binding: NotificationsPageBindings(),
     ),
   ];
 }

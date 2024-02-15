@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 class CustomDotsIndicator extends StatefulWidget {
-  final Map<String, dynamic> carouselData;
+  const CustomDotsIndicator({
+    super.key,
+    required this.current,
+    required this.length,
+  });
+  final int length;
   final RxInt current;
-
-  const CustomDotsIndicator(
-      {super.key, required this.carouselData, required this.current});
 
   @override
   _CustomDotsIndicatorState createState() => _CustomDotsIndicatorState();
@@ -21,7 +23,7 @@ class _CustomDotsIndicatorState extends State<CustomDotsIndicator> {
       () => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
-          widget.carouselData.length,
+          widget.length,
           (index) => Padding(
             padding: const EdgeInsets.all(4.0),
             child: Container(

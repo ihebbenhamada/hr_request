@@ -19,4 +19,7 @@ class AppRoutes {
   static const String meetingsDetails = '/meetingsDetails';
   static const String decisions = '/decisions';
   static const String decisionsDetails = '/decisionsDetails';
+  static const String notifications = '/notifications';
+  static const String evaluation = '/evaluation';
+  static const String evaluationSteps = '/evaluationSteps';
 }

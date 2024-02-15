@@ -286,45 +286,27 @@ class DashboardScreen extends StatelessWidget {
                 index: _dashboardController.pageIndex.value,
                 height: Platform.isIOS ? 50.h : 64.h,
                 items: <Widget>[
-                  Image.asset(
-                    AppImages.decisions,
-                    height: 29.h,
-                    width: 29.h,
-                    color: _dashboardController.pageIndex.value == 0
-                        ? AppColors.primary
-                        : AppColors.white,
-                  ),
-                  Image.asset(
-                    AppImages.vacations,
-                    height: 29.h,
-                    width: 29.h,
-                    color: _dashboardController.pageIndex.value == 1
-                        ? AppColors.primary
-                        : AppColors.white,
-                  ),
-                  Image.asset(
-                    AppImages.innTechLogo,
-                    height: 29.h,
-                    width: 29.h,
-                    color: _dashboardController.pageIndex.value == 2
-                        ? null
-                        : AppColors.white,
-                  ),
-                  Image.asset(
-                    AppImages.meetings,
-                    height: 29,
-                    width: 29,
-                    color: _dashboardController.pageIndex.value == 3
-                        ? AppColors.primary
-                        : AppColors.white,
-                  ),
+                  Image.asset(AppImages.decisions,
+                      height: 29.h,
+                      width: 29.h,
+                      color: _dashboardController.decisionsIconColor.value),
+                  Image.asset(AppImages.vacations,
+                      height: 29.h,
+                      width: 29.h,
+                      color: _dashboardController.vacationsIconColor.value),
+                  Image.asset(AppImages.innTechLogo,
+                      height: 29.h,
+                      width: 29.h,
+                      color: _dashboardController.innTechIconColor.value),
+                  Image.asset(AppImages.meetings,
+                      height: 29,
+                      width: 29,
+                      color: _dashboardController.meetingIconColor.value),
                   Image.asset(
                     AppImages.searchMail,
                     height: 29.h,
                     width: 29.h,
-                    color: _dashboardController.pageIndex.value == 4
-                        ? AppColors.primary
-                        : AppColors.white,
+                    color: _dashboardController.searchIconColor.value,
                   ),
                 ],
                 color: AppColors.primary,
