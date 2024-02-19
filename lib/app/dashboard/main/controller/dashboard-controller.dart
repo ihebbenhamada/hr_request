@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:request_hr/app/alert/main/screens/alert_screen.dart';
 import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
 import 'package:request_hr/app/complaint/main/screens/complaint_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
@@ -278,12 +279,14 @@ class DashboardController extends BaseController {
       case 8:
         // Navigate to Alerts
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
+        Get.to(() => AlertScreen());
         break;
       case 9:
         // Navigate to messages
         Get.back();
         pageIndex.value = 1;
+        Get.to(() => MailScreen());
         break;
       case 10:
         // Navigate to meetings

@@ -30,4 +30,6 @@ class AppRoutes {
   static const String punishmentsDetails = '/punishmentsDetails';
   static const String complaint = '/complaint';
   static const String complaintDetails = '/complaintDetails';
+  static const String alert = '/alert';
+  static const String alertDetails = '/alertDetails';
 }

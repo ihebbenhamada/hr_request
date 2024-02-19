@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:request_hr/app/alert/alert-details/controllers/alert_details_controller.dart';
+import 'package:request_hr/app/alert/main/controllers/alert_controller.dart';
 import 'package:request_hr/app/bonus/bonus-details/controllers/bonus_details_controller.dart';
 import 'package:request_hr/app/bonus/main/controllers/bonus_controller.dart';
 import 'package:request_hr/app/complaint/complaint-details/controllers/complaint_details_controller.dart';
@@ -207,5 +209,19 @@ class ComplaintDetailsPageBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<ComplaintDetailsController>(() => ComplaintDetailsController());
+  }
+}
+
+class AlertPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AlertController>(() => AlertController());
+  }
+}
+
+class AlertDetailsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<AlertDetailsController>(() => AlertDetailsController());
   }
 }
