@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:request_hr/app/bonus/bonus-details/screens/bonus_details_screen.dart';
+import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
+import 'package:request_hr/app/complaint/complaint-details/screens/complaint_details_screen.dart';
+import 'package:request_hr/app/complaint/main/screens/complaint_screen.dart';
 import 'package:request_hr/app/dashboard/main/screen/dashboard-screen.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
@@ -8,11 +12,15 @@ import 'package:request_hr/app/dashboard/tabs/vacations/main/screens/vacations_s
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/screens/success_vacation_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
+import 'package:request_hr/app/loan/loan-details/screens/loan_details_screen.dart';
+import 'package:request_hr/app/loan/main/screens/loan_screen.dart';
 import 'package:request_hr/app/mail/create-mail/screens/create_mail_screen.dart';
 import 'package:request_hr/app/mail/mail-details/screens/mail_details_screen.dart';
 import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
 import 'package:request_hr/app/mail/replay-mail/screens/replay_mail_screen.dart';
 import 'package:request_hr/app/notification/screens/notifications_screen.dart';
+import 'package:request_hr/app/punishments/main/screens/punishments_screen.dart';
+import 'package:request_hr/app/punishments/punishments-details/screens/punishments_details_screen.dart';
 
 import '../app/auth/login/screens/login_screen.dart';
 import '../app/dashboard/tabs/decisions/main/screens/decisions_screen.dart';
@@ -103,6 +111,46 @@ class AppPages {
       name: AppRoutes.notifications,
       page: () => NotificationsScreen(),
       binding: NotificationsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.loan,
+      page: () => LoanScreen(),
+      binding: LoanPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.loanDetails,
+      page: () => LoanDetailsScreen(),
+      binding: LoanDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.bonus,
+      page: () => BonusScreen(),
+      binding: BonusPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.bonusDetails,
+      page: () => BonusDetailsScreen(),
+      binding: BonusDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.punishments,
+      page: () => PunishmentsScreen(),
+      binding: PunishmentsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.punishmentsDetails,
+      page: () => PunishmentsDetailsScreen(),
+      binding: PunishmentsDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.complaint,
+      page: () => ComplaintScreen(),
+      binding: ComplaintPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.complaintDetails,
+      page: () => ComplaintDetailsScreen(),
+      binding: ComplaintDetailsPageBindings(),
     ),
   ];
 }

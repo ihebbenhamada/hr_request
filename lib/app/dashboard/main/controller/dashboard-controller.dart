@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
+import 'package:request_hr/app/complaint/main/screens/complaint_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
 import 'package:request_hr/app/evaluations/main/screens/evaluations_screen.dart';
+import 'package:request_hr/app/loan/main/screens/loan_screen.dart';
 import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
 import 'package:request_hr/app/notification/screens/notifications_screen.dart';
+import 'package:request_hr/app/punishments/main/screens/punishments_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/widgets/search-bottom-sheet/search_bottom_sheet.dart';
 
@@ -205,43 +209,71 @@ class DashboardController extends BaseController {
         // Navigate to Dashboard
         Get.back();
         pageIndex.value = 2;
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
         break;
       case 1:
         // Navigate to Decision
         Get.back();
         pageIndex.value = 0;
+        decisionsIconColor.value = AppColors.primary;
+        vacationsIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
         break;
       case 2:
         // Navigate vacation
         Get.back();
         pageIndex.value = 1;
+        vacationsIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         break;
       case 3:
         // Navigate to final exit
         Get.back();
         pageIndex.value = 1;
         Get.to(() => VacationsStepsScreen());
+        vacationsIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         break;
       case 4:
         // Navigate to evaluation
         Get.back();
         pageIndex.value = 2;
         Get.to(() => EvaluationsScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
         break;
       case 5:
         // Navigate to loan
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
+        Get.to(() => LoanScreen());
         break;
       case 6:
         // Navigate to Bonus
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
+        Get.to(() => BonusScreen());
         break;
       case 7:
         // Navigate to punishments
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
+        Get.to(() => PunishmentsScreen());
         break;
       case 8:
         // Navigate to Alerts
@@ -256,12 +288,18 @@ class DashboardController extends BaseController {
       case 10:
         // Navigate to meetings
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 3;
+        meetingIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         break;
       case 11:
         // Navigate to complaint
         Get.back();
         pageIndex.value = 1;
+        Get.to(() => ComplaintScreen());
         break;
       case 12:
         // Navigate to ticket

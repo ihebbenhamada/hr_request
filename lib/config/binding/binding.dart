@@ -1,4 +1,8 @@
 import 'package:get/get.dart';
+import 'package:request_hr/app/bonus/bonus-details/controllers/bonus_details_controller.dart';
+import 'package:request_hr/app/bonus/main/controllers/bonus_controller.dart';
+import 'package:request_hr/app/complaint/complaint-details/controllers/complaint_details_controller.dart';
+import 'package:request_hr/app/complaint/main/controllers/complaint_controller.dart';
 import 'package:request_hr/app/dashboard/main/controller/dashboard-controller.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/controllers/decisions_details_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/main/controllers/decisions_controller.dart';
@@ -11,11 +15,15 @@ import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/controller
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
 import 'package:request_hr/app/evaluations/evaluations-steps/main/controllers/evaluations_steps_controller.dart';
 import 'package:request_hr/app/evaluations/main/controllers/evaluations_controller.dart';
+import 'package:request_hr/app/loan/loan-details/controllers/loan_details_controller.dart';
+import 'package:request_hr/app/loan/main/controllers/loan_controller.dart';
 import 'package:request_hr/app/mail/create-mail/controllers/create_mail_controller.dart';
 import 'package:request_hr/app/mail/mail-details/controllers/mail_details_controller.dart';
 import 'package:request_hr/app/mail/main/controllers/mail_controller.dart';
 import 'package:request_hr/app/mail/replay-mail/controllers/replay_mail_controller.dart';
 import 'package:request_hr/app/notification/controllers/notifications_controller.dart';
+import 'package:request_hr/app/punishments/main/controllers/punishments_controller.dart';
+import 'package:request_hr/app/punishments/punishments-details/controllers/punishments_details_controller.dart';
 
 import '../../app/auth/login/controllers/login_controller.dart';
 
@@ -40,5 +48,13 @@ class Binding extends Bindings {
     Get.lazyPut(() => NotificationsController());
     Get.lazyPut(() => EvaluationsController());
     Get.lazyPut(() => EvaluationsStepsController());
+    Get.lazyPut(() => LoanController());
+    Get.lazyPut(() => LoanDetailsController());
+    Get.lazyPut(() => BonusController());
+    Get.lazyPut(() => BonusDetailsController());
+    Get.lazyPut(() => PunishmentsController());
+    Get.lazyPut(() => PunishmentsDetailsController());
+    Get.lazyPut(() => ComplaintController());
+    Get.lazyPut(() => ComplaintDetailsController());
   }
 }

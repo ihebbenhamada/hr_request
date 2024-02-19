@@ -97,6 +97,7 @@ class AppImages {
   static const String avatar2 = '$imagesFolder/avatar2.png';
   static const String avatar3 = '$imagesFolder/avatar3.png';
   static const String poster = '$imagesFolder/poster.png';
+  static const String complaintChart = '$imagesFolder/complaint-chart.png';
   static const String bottomNavigationShape =
       '$imagesFolder/bottom-navigation-shape.png';
 }

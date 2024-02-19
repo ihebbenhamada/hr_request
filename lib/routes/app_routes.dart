@@ -22,4 +22,12 @@ class AppRoutes {
   static const String notifications = '/notifications';
   static const String evaluation = '/evaluation';
   static const String evaluationSteps = '/evaluationSteps';
+  static const String loan = '/loan';
+  static const String loanDetails = '/loanDetails';
+  static const String bonus = '/bonus';
+  static const String bonusDetails = '/bonusDetails';
+  static const String punishments = '/punishments';
+  static const String punishmentsDetails = '/punishmentsDetails';
+  static const String complaint = '/complaint';
+  static const String complaintDetails = '/complaintDetails';
 }
