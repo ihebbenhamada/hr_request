@@ -25,6 +25,8 @@ import 'package:request_hr/app/punishments/main/screens/punishments_screen.dart'
 import 'package:request_hr/app/punishments/punishments-details/screens/punishments_details_screen.dart';
 import 'package:request_hr/app/purchase/main/screens/purchase_screen.dart';
 import 'package:request_hr/app/purchase/purchase-details/screens/purchase_details_screen.dart';
+import 'package:request_hr/app/sign-in-out/main/screens/sign_in_out_screen.dart';
+import 'package:request_hr/app/sign-in-out/sign-in-out-details/screens/sign_in_out_details_screen.dart';
 import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
 import 'package:request_hr/app/ticket/ticket-details/screens/ticket_details_screen.dart';
 
@@ -187,6 +189,16 @@ class AppPages {
       name: AppRoutes.custodyDetails,
       page: () => CustodyDetailsScreen(),
       binding: CustodyDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.signInOut,
+      page: () => SignInOutScreen(),
+      binding: SignInOutPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.signInOutDetails,
+      page: () => SignInOutDetailsScreen(),
+      binding: SignInOutDetailsPageBindings(),
     ),
   ];
 }

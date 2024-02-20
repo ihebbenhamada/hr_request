@@ -29,6 +29,8 @@ import 'package:request_hr/app/notification/controllers/notifications_controller
 import 'package:request_hr/app/punishments/main/controllers/punishments_controller.dart';
 import 'package:request_hr/app/punishments/punishments-details/controllers/punishments_details_controller.dart';
 import 'package:request_hr/app/purchase/main/controllers/purchase_controller.dart';
+import 'package:request_hr/app/sign-in-out/main/controllers/sign_in_out_controller.dart';
+import 'package:request_hr/app/sign-in-out/sign-in-out-details/controllers/sign_in_out_details_controller.dart';
 import 'package:request_hr/app/ticket/main/controllers/ticket_controller.dart';
 import 'package:request_hr/app/ticket/ticket-details/controllers/ticket_details_controller.dart';
 
@@ -71,5 +73,7 @@ class Binding extends Bindings {
     Get.lazyPut(() => PunishmentsDetailsController());
     Get.lazyPut(() => CustodyController());
     Get.lazyPut(() => CustodyDetailsController());
+    Get.lazyPut(() => SignInOutController());
+    Get.lazyPut(() => SignInOutDetailsController());
   }
 }

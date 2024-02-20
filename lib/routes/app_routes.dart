@@ -38,4 +38,6 @@ class AppRoutes {
   static const String purchaseDetails = '/purchaseDetails';
   static const String custody = '/custody';
   static const String custodyDetails = '/custodyDetails';
+  static const String signInOut = '/signInOut';
+  static const String signInOutDetails = '/signInOutDetails';
 }

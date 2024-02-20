@@ -29,6 +29,8 @@ import 'package:request_hr/app/punishments/main/controllers/punishments_controll
 import 'package:request_hr/app/punishments/punishments-details/controllers/punishments_details_controller.dart';
 import 'package:request_hr/app/purchase/main/controllers/purchase_controller.dart';
 import 'package:request_hr/app/purchase/purchase-details/controllers/purchase_details_controller.dart';
+import 'package:request_hr/app/sign-in-out/main/controllers/sign_in_out_controller.dart';
+import 'package:request_hr/app/sign-in-out/sign-in-out-details/controllers/sign_in_out_details_controller.dart';
 import 'package:request_hr/app/ticket/main/controllers/ticket_controller.dart';
 import 'package:request_hr/app/ticket/ticket-details/controllers/ticket_details_controller.dart';
 
@@ -271,5 +273,19 @@ class CustodyDetailsPageBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<CustodyDetailsController>(() => CustodyDetailsController());
+  }
+}
+
+class SignInOutPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<SignInOutController>(() => SignInOutController());
+  }
+}
+
+class SignInOutDetailsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<SignInOutDetailsController>(() => SignInOutDetailsController());
   }
 }

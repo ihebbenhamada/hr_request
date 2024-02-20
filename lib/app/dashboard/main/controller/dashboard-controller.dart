@@ -12,6 +12,7 @@ import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
 import 'package:request_hr/app/notification/screens/notifications_screen.dart';
 import 'package:request_hr/app/punishments/main/screens/punishments_screen.dart';
 import 'package:request_hr/app/purchase/main/screens/purchase_screen.dart';
+import 'package:request_hr/app/sign-in-out/main/screens/sign_in_out_screen.dart';
 import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/widgets/search-bottom-sheet/search_bottom_sheet.dart';
@@ -351,7 +352,13 @@ class DashboardController extends BaseController {
       case 13:
         // Navigate to sign out
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
+        Get.to(() => SignInOutScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
         break;
       case 14:
         // Navigate to custody
