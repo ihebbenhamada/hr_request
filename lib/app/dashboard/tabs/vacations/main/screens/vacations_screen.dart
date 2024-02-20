@@ -47,7 +47,7 @@ class VacationsScreen extends StatelessWidget {
               ],
             ),
             16.h.verticalSpace,
-            VacationCategories(
+            CategoriesFilter(
               selectedFilter: _vacationsController.selectedFilter,
               onSelectFilter: (int index) =>
                   _vacationsController.onSelectFilter(index),

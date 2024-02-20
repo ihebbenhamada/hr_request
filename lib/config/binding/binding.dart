@@ -26,6 +26,9 @@ import 'package:request_hr/app/mail/replay-mail/controllers/replay_mail_controll
 import 'package:request_hr/app/notification/controllers/notifications_controller.dart';
 import 'package:request_hr/app/punishments/main/controllers/punishments_controller.dart';
 import 'package:request_hr/app/punishments/punishments-details/controllers/punishments_details_controller.dart';
+import 'package:request_hr/app/purchase/main/controllers/purchase_controller.dart';
+import 'package:request_hr/app/ticket/main/controllers/ticket_controller.dart';
+import 'package:request_hr/app/ticket/ticket-details/controllers/ticket_details_controller.dart';
 
 import '../../app/auth/login/controllers/login_controller.dart';
 
@@ -60,5 +63,9 @@ class Binding extends Bindings {
     Get.lazyPut(() => ComplaintDetailsController());
     Get.lazyPut(() => AlertController());
     Get.lazyPut(() => AlertDetailsController());
+    Get.lazyPut(() => TicketController());
+    Get.lazyPut(() => TicketDetailsController());
+    Get.lazyPut(() => PurchaseController());
+    Get.lazyPut(() => PunishmentsDetailsController());
   }
 }

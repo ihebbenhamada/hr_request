@@ -67,7 +67,7 @@ class LoanScreen extends StatelessWidget {
               ],
             ),
             16.h.verticalSpace,
-            VacationCategories(
+            CategoriesFilter(
               selectedFilter: _loanController.selectedFilter,
               onSelectFilter: (int index) =>
                   _loanController.onSelectFilter(index),

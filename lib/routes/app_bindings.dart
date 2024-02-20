@@ -25,6 +25,10 @@ import 'package:request_hr/app/mail/replay-mail/controllers/replay_mail_controll
 import 'package:request_hr/app/notification/controllers/notifications_controller.dart';
 import 'package:request_hr/app/punishments/main/controllers/punishments_controller.dart';
 import 'package:request_hr/app/punishments/punishments-details/controllers/punishments_details_controller.dart';
+import 'package:request_hr/app/purchase/main/controllers/purchase_controller.dart';
+import 'package:request_hr/app/purchase/purchase-details/controllers/purchase_details_controller.dart';
+import 'package:request_hr/app/ticket/main/controllers/ticket_controller.dart';
+import 'package:request_hr/app/ticket/ticket-details/controllers/ticket_details_controller.dart';
 
 import '../app/auth/login/controllers/login_controller.dart';
 import '../app/dashboard/tabs/decisions/main/controllers/decisions_controller.dart';
@@ -223,5 +227,33 @@ class AlertDetailsPageBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<AlertDetailsController>(() => AlertDetailsController());
+  }
+}
+
+class TicketPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<TicketController>(() => TicketController());
+  }
+}
+
+class TicketDetailsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<TicketDetailsController>(() => TicketDetailsController());
+  }
+}
+
+class PurchasePageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<PurchaseController>(() => PurchaseController());
+  }
+}
+
+class PurchaseDetailsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<PurchaseDetailsController>(() => PurchaseDetailsController());
   }
 }

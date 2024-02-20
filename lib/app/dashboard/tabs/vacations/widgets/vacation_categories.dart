@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../../../config/colors/colors.dart';
 
-class VacationCategories extends StatelessWidget {
-  const VacationCategories({
+class CategoriesFilter extends StatelessWidget {
+  const CategoriesFilter({
     super.key,
     required this.onSelectFilter,
     required this.selectedFilter,

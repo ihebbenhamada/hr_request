@@ -21,6 +21,10 @@ import 'package:request_hr/app/mail/replay-mail/screens/replay_mail_screen.dart'
 import 'package:request_hr/app/notification/screens/notifications_screen.dart';
 import 'package:request_hr/app/punishments/main/screens/punishments_screen.dart';
 import 'package:request_hr/app/punishments/punishments-details/screens/punishments_details_screen.dart';
+import 'package:request_hr/app/purchase/main/screens/purchase_screen.dart';
+import 'package:request_hr/app/purchase/purchase-details/screens/purchase_details_screen.dart';
+import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
+import 'package:request_hr/app/ticket/ticket-details/screens/ticket_details_screen.dart';
 
 import '../app/auth/login/screens/login_screen.dart';
 import '../app/dashboard/tabs/decisions/main/screens/decisions_screen.dart';
@@ -151,6 +155,26 @@ class AppPages {
       name: AppRoutes.complaintDetails,
       page: () => ComplaintDetailsScreen(),
       binding: ComplaintDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.ticket,
+      page: () => TicketScreen(),
+      binding: TicketPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.ticketDetails,
+      page: () => TicketDetailsScreen(),
+      binding: TicketDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.purchase,
+      page: () => PurchaseScreen(),
+      binding: PurchasePageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.purchaseDetails,
+      page: () => PurchaseDetailsScreen(),
+      binding: PurchaseDetailsPageBindings(),
     ),
   ];
 }

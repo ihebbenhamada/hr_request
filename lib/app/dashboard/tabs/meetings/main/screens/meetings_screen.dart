@@ -44,7 +44,7 @@ class MeetingsScreen extends StatelessWidget {
               ],
             ),
             20.h.verticalSpace,
-            VacationCategories(
+            CategoriesFilter(
               selectedFilter: _meetingsController.selectedFilter,
               onSelectFilter: (int index) =>
                   _meetingsController.onSelectFilter(index),
