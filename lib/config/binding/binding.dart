@@ -5,6 +5,8 @@ import 'package:request_hr/app/bonus/bonus-details/controllers/bonus_details_con
 import 'package:request_hr/app/bonus/main/controllers/bonus_controller.dart';
 import 'package:request_hr/app/complaint/complaint-details/controllers/complaint_details_controller.dart';
 import 'package:request_hr/app/complaint/main/controllers/complaint_controller.dart';
+import 'package:request_hr/app/custody/custody-details/controllers/custody_details_controller.dart';
+import 'package:request_hr/app/custody/main/controllers/custody_controller.dart';
 import 'package:request_hr/app/dashboard/main/controller/dashboard-controller.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/controllers/decisions_details_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/main/controllers/decisions_controller.dart';
@@ -67,5 +69,7 @@ class Binding extends Bindings {
     Get.lazyPut(() => TicketDetailsController());
     Get.lazyPut(() => PurchaseController());
     Get.lazyPut(() => PunishmentsDetailsController());
+    Get.lazyPut(() => CustodyController());
+    Get.lazyPut(() => CustodyDetailsController());
   }
 }

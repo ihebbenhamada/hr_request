@@ -36,4 +36,6 @@ class AppRoutes {
   static const String ticketDetails = '/ticketDetails';
   static const String purchase = '/purchase';
   static const String purchaseDetails = '/purchaseDetails';
+  static const String custody = '/custody';
+  static const String custodyDetails = '/custodyDetails';
 }

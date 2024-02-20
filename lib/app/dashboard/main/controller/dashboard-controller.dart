@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/alert/main/screens/alert_screen.dart';
 import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
 import 'package:request_hr/app/complaint/main/screens/complaint_screen.dart';
+import 'package:request_hr/app/custody/main/screens/custody_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
 import 'package:request_hr/app/evaluations/main/screens/evaluations_screen.dart';
 import 'package:request_hr/app/loan/main/screens/loan_screen.dart';
@@ -355,7 +356,13 @@ class DashboardController extends BaseController {
       case 14:
         // Navigate to custody
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
+        Get.to(() => CustodyScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
         break;
       case 15:
         // Navigate to purchase

@@ -3,6 +3,8 @@ import 'package:request_hr/app/bonus/bonus-details/screens/bonus_details_screen.
 import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
 import 'package:request_hr/app/complaint/complaint-details/screens/complaint_details_screen.dart';
 import 'package:request_hr/app/complaint/main/screens/complaint_screen.dart';
+import 'package:request_hr/app/custody/custody-details/screens/custody_details_screen.dart';
+import 'package:request_hr/app/custody/main/screens/custody_screen.dart';
 import 'package:request_hr/app/dashboard/main/screen/dashboard-screen.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
@@ -175,6 +177,16 @@ class AppPages {
       name: AppRoutes.purchaseDetails,
       page: () => PurchaseDetailsScreen(),
       binding: PurchaseDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.custody,
+      page: () => CustodyScreen(),
+      binding: CustodyPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.custodyDetails,
+      page: () => CustodyDetailsScreen(),
+      binding: CustodyDetailsPageBindings(),
     ),
   ];
 }
