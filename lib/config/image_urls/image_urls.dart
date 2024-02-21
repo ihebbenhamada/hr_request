@@ -85,6 +85,10 @@ class AppImages {
   static const String inverseMail = '$iconsFolder/inverse.png';
   static const String replayDark = '$iconsFolder/replay-dark.png';
   static const String trash = '$iconsFolder/trash.png';
+  static const String languageSetting = '$iconsFolder/language-setting.png';
+  static const String logout = '$iconsFolder/log-out.png';
+  static const String theme = '$iconsFolder/theme.png';
+  static const String bigTrash = '$iconsFolder/big-trash.png';
 
   /// IMAGES
   static const String bgLogin = '$imagesFolder/bg-login.png';

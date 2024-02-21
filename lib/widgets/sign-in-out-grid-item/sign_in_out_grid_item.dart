@@ -18,7 +18,7 @@ class SignInOutGridItem extends StatelessWidget {
   final String employeeName;
   final String workPlace;
   final String date;
-  final bool? time;
+  final String? time;
   final int? type;
   final void Function() onClick;
   @override
@@ -50,6 +50,8 @@ class SignInOutGridItem extends StatelessWidget {
             AvatarCircle(
               size: 66.h,
               image: AppImages.signOutDrawer,
+              imageColor: AppColors.primary,
+              imageSize: 28.h,
               iconSize: 14.h,
             ),
             4.h.verticalSpace,
@@ -74,13 +76,9 @@ class SignInOutGridItem extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: Container(
                   height: 24.h,
-                  width: 80,
+                  width: 125,
                   decoration: BoxDecoration(
-                    color: type == 2
-                        ? AppColors.redLight
-                        : type == 0
-                            ? AppColors.gray5
-                            : AppColors.primary,
+                    color: type == 0 ? AppColors.blueDark : AppColors.primary,
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: const [
                       BoxShadow(

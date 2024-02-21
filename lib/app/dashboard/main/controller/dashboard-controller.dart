@@ -12,6 +12,7 @@ import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
 import 'package:request_hr/app/notification/screens/notifications_screen.dart';
 import 'package:request_hr/app/punishments/main/screens/punishments_screen.dart';
 import 'package:request_hr/app/purchase/main/screens/purchase_screen.dart';
+import 'package:request_hr/app/settings/screens/settings_screen.dart';
 import 'package:request_hr/app/sign-in-out/main/screens/sign_in_out_screen.dart';
 import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
@@ -167,7 +168,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 3:
@@ -385,7 +386,13 @@ class DashboardController extends BaseController {
       case 16:
         // Navigate to settings
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
+        Get.to(() => SettingsScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
         break;
 
       default:
@@ -396,7 +403,16 @@ class DashboardController extends BaseController {
 
   @override
   void onInit() {
+    initView();
     super.onInit();
+  }
+
+  initView() {
+    innTechIconColor.value = AppColors.primary;
+    searchIconColor.value = AppColors.white;
+    vacationsIconColor.value = AppColors.white;
+    searchIconColor.value = AppColors.white;
+    meetingIconColor.value = AppColors.white;
   }
 
   /// FUNCTIONS

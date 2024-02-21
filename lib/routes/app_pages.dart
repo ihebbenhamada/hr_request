@@ -14,6 +14,7 @@ import 'package:request_hr/app/dashboard/tabs/vacations/main/screens/vacations_s
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/screens/success_vacation_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
+import 'package:request_hr/app/delete/screens/delete_screen.dart';
 import 'package:request_hr/app/loan/loan-details/screens/loan_details_screen.dart';
 import 'package:request_hr/app/loan/main/screens/loan_screen.dart';
 import 'package:request_hr/app/mail/create-mail/screens/create_mail_screen.dart';
@@ -25,6 +26,7 @@ import 'package:request_hr/app/punishments/main/screens/punishments_screen.dart'
 import 'package:request_hr/app/punishments/punishments-details/screens/punishments_details_screen.dart';
 import 'package:request_hr/app/purchase/main/screens/purchase_screen.dart';
 import 'package:request_hr/app/purchase/purchase-details/screens/purchase_details_screen.dart';
+import 'package:request_hr/app/settings/screens/settings_screen.dart';
 import 'package:request_hr/app/sign-in-out/main/screens/sign_in_out_screen.dart';
 import 'package:request_hr/app/sign-in-out/sign-in-out-details/screens/sign_in_out_details_screen.dart';
 import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
@@ -199,6 +201,16 @@ class AppPages {
       name: AppRoutes.signInOutDetails,
       page: () => SignInOutDetailsScreen(),
       binding: SignInOutDetailsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.settings,
+      page: () => SettingsScreen(),
+      binding: SettingsPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.delete,
+      page: () => DeleteScreen(),
+      binding: DeletePageBindings(),
     ),
   ];
 }

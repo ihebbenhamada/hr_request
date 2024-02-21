@@ -9,7 +9,7 @@ import 'package:request_hr/app/loan/widgets/loan_statistics_container.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
-import 'package:request_hr/widgets/carousel-slider/custom_dots-indicator.dart';
+import 'package:request_hr/widgets/carousel-info-item/custom_dots-indicator.dart';
 
 import '../../widgets/loan_info_container.dart';
 

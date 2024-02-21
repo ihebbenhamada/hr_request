@@ -12,6 +12,7 @@ class AvatarCircle extends StatelessWidget {
     this.bottom,
     this.left,
     this.circleColor,
+    this.imageColor,
     this.icon,
   });
   final String image;
@@ -22,6 +23,7 @@ class AvatarCircle extends StatelessWidget {
   final double? bottom;
   final double? left;
   final Color? circleColor;
+  final Color? imageColor;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -38,6 +40,7 @@ class AvatarCircle extends StatelessWidget {
               image,
               width: imageSize ?? size,
               height: imageSize ?? size,
+              color: imageColor,
             ),
           ),
         ),

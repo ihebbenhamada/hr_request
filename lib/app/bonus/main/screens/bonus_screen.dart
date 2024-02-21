@@ -8,8 +8,8 @@ import 'package:request_hr/app/bonus/main/controllers/bonus_controller.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
+import 'package:request_hr/widgets/carousel-info-item/custom_dots-indicator.dart';
 
-import '../../../../widgets/carousel-slider/custom_dots-indicator.dart';
 import '../../widgets/bonus_item.dart';
 
 class BonusScreen extends StatelessWidget {

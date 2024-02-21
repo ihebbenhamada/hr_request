@@ -40,4 +40,6 @@ class AppRoutes {
   static const String custodyDetails = '/custodyDetails';
   static const String signInOut = '/signInOut';
   static const String signInOutDetails = '/signInOutDetails';
+  static const String settings = '/settings';
+  static const String delete = '/delete';
 }

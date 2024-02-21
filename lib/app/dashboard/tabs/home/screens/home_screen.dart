@@ -6,12 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/home/controllers/home_controller.dart';
 import 'package:request_hr/config/colors/colors.dart';
+import 'package:request_hr/widgets/carousel-info-item/carousel_info_item.dart';
+import 'package:request_hr/widgets/carousel-info-item/custom_dots-indicator.dart';
 import 'package:request_hr/widgets/carousel-slider-meetings/carousel_slider-meetings.dart';
-import 'package:request_hr/widgets/carousel-slider/custom_dots-indicator.dart';
 
 import '../../../../../widgets/bonus-punishment-category-item/bonus_punishments_category_item.dart';
 import '../../../../../widgets/carousel-slider-bonus-punishments/carousel_slider-bonus-punishments.dart';
-import '../../../../../widgets/carousel-slider/carousel_slider.dart';
 import '../../../../../widgets/general_information/general_informations.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -35,31 +35,34 @@ class HomeScreen extends StatelessWidget {
               fontSize: 16.sp,
             ),
           ),
-          5.h.verticalSpace,
+          12.h.verticalSpace,
           CarouselSlider.builder(
             itemCount: _homeController.carouselData.length,
             itemBuilder: (context, index, i) {
-              String slideKey =
-                  _homeController.carouselData.keys.elementAt(index);
-              List<Map<String, dynamic>> slideItems =
-                  _homeController.carouselData[slideKey];
-              return CarouselSliderItem(slideItems: slideItems);
+              Map<String, dynamic> item = _homeController.carouselData[index];
+              return CarouselInfoItem(
+                title: item['title'],
+                value: item['value'],
+                image: item['image'],
+              );
             },
             options: CarouselOptions(
-              height: 165.h,
-              viewportFraction: 1,
+              height: 142.h,
               clipBehavior: Clip.none,
               initialPage: 0,
-              enableInfiniteScroll: false,
+              viewportFraction: 0.39,
+              pageSnapping: false,
+              enableInfiniteScroll: true,
               reverse: false,
               autoPlay: false,
-              enlargeCenterPage: true,
+              enlargeCenterPage: false,
               padEnds: false,
               onPageChanged: (index, reason) =>
                   _homeController.onChangeCarousel(index, reason),
               scrollDirection: Axis.horizontal,
             ),
           ),
+          12.h.verticalSpace,
           CustomDotsIndicator(
             length: _homeController.carouselData.length,
             current: _homeController.current,
@@ -109,24 +112,25 @@ class HomeScreen extends StatelessWidget {
           CarouselSlider.builder(
             itemCount: _homeController.carouselBonusPunishmentsData.length,
             itemBuilder: (context, index, i) {
-              String slideKey = _homeController
-                  .carouselBonusPunishmentsData.keys
-                  .elementAt(index);
-              List<Map<String, dynamic>> slideItems =
-                  _homeController.carouselBonusPunishmentsData[slideKey];
+              Map<String, dynamic> item =
+                  _homeController.carouselBonusPunishmentsData[index];
               return CarouselSliderBonusPunishmentsItem(
-                slideItems: slideItems,
+                title: item['title'],
+                amount: item['amount'],
+                image: item['image'],
+                type: item['type'],
               );
             },
             options: CarouselOptions(
               height: 148.h,
-              viewportFraction: 1,
+              viewportFraction: 0.39,
               clipBehavior: Clip.none,
               initialPage: 0,
-              enableInfiniteScroll: false,
+              enableInfiniteScroll: true,
+              pageSnapping: false,
               reverse: false,
               autoPlay: false,
-              enlargeCenterPage: true,
+              enlargeCenterPage: false,
               padEnds: false,
               onPageChanged: (index, reason) => _homeController
                   .onChangeBonusPunishmentsCarousel(index, reason),
@@ -149,12 +153,13 @@ class HomeScreen extends StatelessWidget {
           CarouselSlider.builder(
             itemCount: _homeController.carouselMeetingsData.length,
             itemBuilder: (context, index, i) {
-              String slideKey =
-                  _homeController.carouselMeetingsData.keys.elementAt(index);
-              List<Map<String, dynamic>> slideItems =
-                  _homeController.carouselMeetingsData[slideKey];
+              Map<String, dynamic> item =
+                  _homeController.carouselMeetingsData[index];
               return CarouselSliderMeetingsItem(
-                slideItems: slideItems,
+                title: item['title'],
+                image: item['image'],
+                description: item['description'],
+                date: item['date'],
               );
             },
             options: CarouselOptions(
@@ -163,9 +168,9 @@ class HomeScreen extends StatelessWidget {
               clipBehavior: Clip.none,
               viewportFraction: 0.7,
               initialPage: 0,
-              enableInfiniteScroll: false,
+              enableInfiniteScroll: true,
               reverse: false,
-              autoPlay: true,
+              autoPlay: false,
               enlargeCenterPage: true,
               padEnds: false,
               pageSnapping: false,
@@ -174,7 +179,7 @@ class HomeScreen extends StatelessWidget {
               scrollDirection: Axis.horizontal,
             ),
           ),
-          7.h.verticalSpace,
+          15.h.verticalSpace,
           CustomDotsIndicator(
             length: _homeController.carouselMeetingsData.length,
             current: _homeController.currentMeeting,
