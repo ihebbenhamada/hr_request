@@ -69,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
               ],
             ),
             28.h.verticalSpace,
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               textDirection: TextDirection.ltr,
               children: [
@@ -85,6 +85,7 @@ class SettingsScreen extends StatelessWidget {
                   title: 'sign_out',
                   description: 'sign_out_from_app',
                   isDarkMode: false,
+                  onClickItem: _settingsController.logout,
                 ),
               ],
             ),

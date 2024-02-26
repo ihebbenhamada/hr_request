@@ -3,13 +3,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:request_hr/app/dashboard/main/screen/dashboard-screen.dart';
+import 'package:request_hr/app/auth/login/screens/login_screen.dart';
 import 'package:request_hr/config/theme/request-theme.dart';
-import 'package:request_hr/routes/app_routes.dart';
 
 import '../config/binding/binding.dart';
 import '../config/translation/translation.dart';
 import '../routes/app_pages.dart';
+import 'app/dashboard/main/screen/dashboard-screen.dart';
 import 'config/theme/theme_controller.dart';
 
 class RequestApp extends StatelessWidget {
@@ -25,6 +25,7 @@ class RequestApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('is Logged In :  $isLoggedIn');
     return ScreenUtilInit(
       designSize: const Size(430, 932),
       minTextAdapt: true,
@@ -32,7 +33,6 @@ class RequestApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.dashboard,
           getPages: AppPages.routes,
           translations: Translation(),
           theme: RequestTheme.lightTheme,
@@ -44,7 +44,7 @@ class RequestApp extends StatelessWidget {
               : const Locale('en', 'US'),
           initialBinding: Binding(),
           smartManagement: SmartManagement.keepFactory,
-          home: DashboardScreen(),
+          home: isLoggedIn ? DashboardScreen() : LoginScreen(),
           builder: EasyLoading.init(),
         );
       },

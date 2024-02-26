@@ -9,9 +9,10 @@ class LoginService {
     required String id,
     required String password,
   }) async {
-    Map<String, String> data = {
-      "email": id,
-      "password": password,
+    Map<String, dynamic> data = {
+      "UserName": id,
+      "Password": password,
+      "FK_DefBranchId": 4,
     };
     Response? response =
         await AppInterceptor.dio?.post(EndPoints.LOGIN_URL, data: data);

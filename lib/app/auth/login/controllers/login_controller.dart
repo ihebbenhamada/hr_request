@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:request_hr/app/dashboard/main/screen/dashboard-screen.dart';
+import 'package:request_hr/config/colors/colors.dart';
 
 import '../../../../config/controllerConfig/base_controller.dart';
-import '../../../dashboard/main/screen/dashboard-screen.dart';
 import '../services/login_service.dart';
 
 class LoginController extends BaseController {
@@ -39,8 +41,8 @@ class LoginController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    idTextEditingController = TextEditingController();
-    passwordTextEditingController = TextEditingController();
+    idTextEditingController = TextEditingController(text: '4010');
+    passwordTextEditingController = TextEditingController(text: 'Req@12');
     idErrorText = "invalid_email";
     isIdError = false;
     isPasswordVisible = false;
@@ -72,20 +74,17 @@ class LoginController extends BaseController {
 
   /// SIGN IN METHODS
   handleClickSignIn() {
-    Get.offAll(
-      () => DashboardScreen(),
-      transition: Transition.leftToRight,
-      curve: Curves.ease,
-      duration: const Duration(milliseconds: 500),
-    );
-    /*if (idTextEditingController.value.text.isNotEmpty &&
+    if (idTextEditingController.value.text.isNotEmpty &&
         passwordTextEditingController.value.text.isNotEmpty) {
-      */ /*_loginService
+      _loginService
           .login(
-              id: idTextEditingController.value.text,
-              password: passwordTextEditingController.value.text)
+        id: idTextEditingController.value.text,
+        password: passwordTextEditingController.value.text,
+      )
           .then((value) {
         if (value != null) {
+          print(value.userName);
+          print(value.token);
           storage.write('token', value.token);
           storage.write('user', value.toJson());
           Get.offAll(
@@ -97,13 +96,7 @@ class LoginController extends BaseController {
         } else {
           print('error');
         }
-      });*/ /*
-      Get.offAll(
-        () => DashboardScreen(),
-        transition: Transition.leftToRight,
-        curve: Curves.ease,
-        duration: const Duration(milliseconds: 500),
-      );
+      });
     } else {
       Fluttertoast.showToast(
         msg: "Fill in the credentials",
@@ -114,6 +107,6 @@ class LoginController extends BaseController {
         textColor: AppColors.white,
         fontSize: 16.0,
       );
-    }*/
+    }
   }
 }

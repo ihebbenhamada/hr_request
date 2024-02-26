@@ -209,7 +209,6 @@ class DashboardController extends BaseController {
   }
 
   onTapDrawer(int index) {
-    print('onTapDrawer $index');
     switch (index) {
       case 0:
         // Navigate to Dashboard
@@ -218,7 +217,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 1:

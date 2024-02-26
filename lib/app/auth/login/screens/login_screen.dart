@@ -69,6 +69,7 @@ class LoginScreen extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
                 ],
                 onChanged: (value) {},
                 prefixIcon: Padding(
