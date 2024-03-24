@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/colors/colors.dart';
+import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
 import '../services/ticket_details_service.dart';
 
 class TicketDetailsController extends BaseController {
@@ -12,13 +13,20 @@ class TicketDetailsController extends BaseController {
   /// CONTROLLERS
 
   /// VARIABLES
-  RxString selectedType = 'Cash'.obs;
   Rx<DateTime> dueDate = DateTime.now().obs;
   Rx<DateTime> employeeBirthDate = DateTime.now().obs;
   Rx<DateTime> employeeWifeBirthDate = DateTime.now().obs;
   Rx<DateTime> employeeSonUnderTwelveBirthDate = DateTime.now().obs;
   Rx<DateTime> employeeSecondSonBirthDate = DateTime.now().obs;
-  final List<String> paymentTypeList = ['Cash', 'Credit card', 'Visa', 'Rajhi'];
+
+  final List<DropDownModel> paymentTypeList = [
+    DropDownModel(disabled: false, text: 'Choose', value: '0'),
+    DropDownModel(disabled: false, text: 'Cash', value: '1'),
+    DropDownModel(disabled: false, text: 'Credit card', value: '2'),
+    DropDownModel(disabled: false, text: 'Visa', value: '3'),
+    DropDownModel(disabled: false, text: 'Rajhi', value: '4'),
+  ];
+  late Rx<DropDownModel> selectedPaymentType;
 
   /// VALIDATION
 
@@ -35,7 +43,9 @@ class TicketDetailsController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    selectedPaymentType = paymentTypeList[0].obs;
+  }
 
   /// FUNCTIONS
   void selectDate(BuildContext context, int type) async {
@@ -95,8 +105,8 @@ class TicketDetailsController extends BaseController {
     }
   }
 
-  onSelectPaymentType(String value) {
-    selectedType.value = value;
+  onSelectPaymentType(DropDownModel value) {
+    selectedPaymentType.value = value;
   }
 
   onClickSubmit() {

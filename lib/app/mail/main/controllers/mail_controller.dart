@@ -8,6 +8,7 @@ import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 import '../../../../../config/controllerConfig/base_controller.dart';
+import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
 import '../services/mail_service.dart';
 import '../widget/menu_mail.dart';
 
@@ -90,8 +91,15 @@ class MailController extends BaseController {
           'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and ',
     },
   ];
-  final List<String> employeeList = ['Annual', 'Monthly', 'Weekly', 'daily'];
-  RxString selectedEmployee = 'Annual'.obs;
+  final List<DropDownModel> employeeList = [
+    DropDownModel(disabled: false, text: 'Choose', value: '0'),
+    DropDownModel(disabled: false, text: 'Annual', value: '1'),
+    DropDownModel(disabled: false, text: 'Monthly', value: '2'),
+    DropDownModel(disabled: false, text: 'Weekly', value: '3'),
+    DropDownModel(disabled: false, text: 'daily', value: '4'),
+  ];
+
+  late Rx<DropDownModel> selectedEmployee;
 
   /// VALIDATION
 
@@ -146,7 +154,7 @@ class MailController extends BaseController {
     );
   }
 
-  onSelectEmployee(String value) {
+  onSelectEmployee(DropDownModel value) {
     selectedEmployee.value = value;
   }
 

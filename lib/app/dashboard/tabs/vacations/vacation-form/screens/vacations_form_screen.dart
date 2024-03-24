@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/controllers/vacations_form_controller.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
 import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 import 'package:request_hr/widgets/input/input_form.dart';
+
+import '../controllers/vacations_form_controller.dart';
 
 class VacationsFormScreen extends StatelessWidget {
   final _vacationsFormController = Get.put(VacationsFormController());
@@ -51,8 +51,9 @@ class VacationsFormScreen extends StatelessWidget {
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     title: 'Due Date',
+                    isDynamicText: true,
+                    dynamicText: _vacationsFormController.dueDate,
                     inputType: 'text',
-                    text: '20-10-2024',
                   ),
                 ],
               ),
@@ -66,8 +67,7 @@ class VacationsFormScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                       title: 'Date From',
                       inputType: 'date',
-                      text: DateFormat('dd-MM-yyyy')
-                          .format(_vacationsFormController.dateFrom.value),
+                      text: _vacationsFormController.dateFrom.value,
                       onSelectDate: () =>
                           _vacationsFormController.selectDate(context, 'from'),
                     ),
@@ -79,8 +79,7 @@ class VacationsFormScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                       title: 'Date To',
                       inputType: 'date',
-                      text: DateFormat('dd-MM-yyyy')
-                          .format(_vacationsFormController.dateTo.value),
+                      text: _vacationsFormController.dateTo.value,
                       onSelectDate: () =>
                           _vacationsFormController.selectDate(context, 'to'),
                     ),
@@ -92,16 +91,24 @@ class VacationsFormScreen extends StatelessWidget {
                 height: 55.h,
                 width: double.infinity,
                 title: 'Alternative Employee',
-                inputType: 'text',
-                text: 'Ahmed Mohamed Kazem',
+                inputType: 'select',
+                selectedDropDownItem:
+                    _vacationsFormController.selectedAlternativeEmployee,
+                onSelect: (value) =>
+                    _vacationsFormController.onSelectAlternativeEmployee(value),
+                listDropDown: _vacationsFormController.employeesList,
               ),
               15.h.verticalSpace,
               InputForm(
                 height: 55.h,
                 width: double.infinity,
                 title: 'Alternative To Paying Any Due',
-                inputType: 'text',
-                text: 'Mohamed Maged Saleh',
+                inputType: 'select',
+                selectedDropDownItem:
+                    _vacationsFormController.selectedAlternativeToPay,
+                onSelect: (value) =>
+                    _vacationsFormController.onSelectAlternativeToPay(value),
+                listDropDown: _vacationsFormController.employeesList,
               ),
               15.h.verticalSpace,
               const InputForm(

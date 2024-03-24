@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
@@ -22,11 +23,13 @@ class InputForm extends StatelessWidget {
     this.paddingBottom,
     this.paddingLeft,
     this.nbrLines,
+    this.isDynamicText = false,
+    this.dynamicText,
   });
 
-  final RxString? selectedDropDownItem;
-  final void Function(String value)? onSelect;
-  final List<String>? listDropDown;
+  final Rx<DropDownModel>? selectedDropDownItem;
+  final void Function(DropDownModel value)? onSelect;
+  final List<DropDownModel>? listDropDown;
   final String title;
   final String? text;
   final String inputType;
@@ -39,6 +42,8 @@ class InputForm extends StatelessWidget {
   final int? nbrLines;
   final TextEditingController? textEditingController;
   final void Function()? onSelectDate;
+  final bool isDynamicText;
+  final RxString? dynamicText;
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +94,9 @@ class InputForm extends StatelessWidget {
       case 'select':
         return Obx(
           () => DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
+            child: DropdownButton<DropDownModel>(
               isDense: true,
-              value: selectedDropDownItem?.value ?? '',
+              value: selectedDropDownItem!.value,
               style: TextStyle(
                 color: AppColors.blueDark,
                 fontSize: 14.sp,
@@ -102,26 +107,36 @@ class InputForm extends StatelessWidget {
                 AppImages.arrowDown,
                 height: 8.h,
               ),
-              onChanged: (String? newValue) => onSelect!(newValue ?? ''),
-              items:
-                  listDropDown?.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
+              onChanged: (DropDownModel? newValue) => onSelect!(newValue!),
+              items: listDropDown
+                  ?.map<DropdownMenuItem<DropDownModel>>((DropDownModel value) {
+                return DropdownMenuItem<DropDownModel>(
                   alignment: Alignment.centerLeft,
                   value: value,
-                  child: Text(value),
+                  child: Text(value.text),
                 );
               }).toList(),
             ),
           ),
         );
       case 'text':
-        return Text(
-          text ?? '',
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: AppColors.blueDark,
-          ),
-        );
+        return isDynamicText
+            ? Obx(
+                () => Text(
+                  dynamicText!.value,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: AppColors.blueDark,
+                  ),
+                ),
+              )
+            : Text(
+                text ?? '',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: AppColors.blueDark,
+                ),
+              );
       case 'date':
         return GestureDetector(
           onTap: onSelectDate,
@@ -168,7 +183,7 @@ class InputForm extends StatelessWidget {
           enableInteractiveSelection: true,
         );
       default:
-        return SizedBox();
+        return const SizedBox();
     }
   }
 }

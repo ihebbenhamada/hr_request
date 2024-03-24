@@ -20,6 +20,7 @@ import 'package:request_hr/widgets/search-bottom-sheet/search_bottom_sheet.dart'
 
 import '../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/image_urls/image_urls.dart';
+import '../../tabs/vacations/main/models/drop_down.dart';
 
 class DashboardController extends BaseController {
   RxInt pageIndex = 2.obs;
@@ -140,10 +141,23 @@ class DashboardController extends BaseController {
       'icon_height': 27.0,
     },
   ];
-  final List<String> companyList = ['Annual', 'Monthly', 'Weekly', 'daily'];
-  final List<String> departmentsList = ['Annual', 'Monthly', 'Weekly', 'daily'];
-  RxString selectedCompany = 'Annual'.obs;
-  RxString selectedDepartment = 'Annual'.obs;
+
+  final List<DropDownModel> companyList = [
+    DropDownModel(disabled: false, text: 'Choose', value: '0'),
+    DropDownModel(disabled: false, text: 'Annual', value: '1'),
+    DropDownModel(disabled: false, text: 'Monthly', value: '2'),
+    DropDownModel(disabled: false, text: 'Weekly', value: '3'),
+    DropDownModel(disabled: false, text: 'daily', value: '4'),
+  ];
+  final List<DropDownModel> departmentsList = [
+    DropDownModel(disabled: false, text: 'Choose', value: '0'),
+    DropDownModel(disabled: false, text: 'Annual', value: '1'),
+    DropDownModel(disabled: false, text: 'Monthly', value: '2'),
+    DropDownModel(disabled: false, text: 'Weekly', value: '3'),
+    DropDownModel(disabled: false, text: 'daily', value: '4'),
+  ];
+  late Rx<DropDownModel> selectedCompany;
+  late Rx<DropDownModel> selectedDepartment;
 
   onItemSelected(int index) {
     switch (index) {
@@ -438,11 +452,11 @@ class DashboardController extends BaseController {
   }
 
   onClickProfile() {}
-  onSelectCompany(String value) {
+  onSelectCompany(DropDownModel value) {
     selectedCompany.value = value;
   }
 
-  onSelectDepartment(String value) {
+  onSelectDepartment(DropDownModel value) {
     selectedDepartment.value = value;
   }
 

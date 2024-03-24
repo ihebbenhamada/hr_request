@@ -34,11 +34,14 @@ class VacationsStepsController extends BaseController
   late AnimationController _animationSecondStepContainer;
   late Animation<double> secondStepContainerAnimation;
 
-  final List<Widget> steps = [
-    const FinalExitApproval(),
-    const TicketExchangeRequest(),
-    const Disclaimer(),
-  ];
+  final RxString firstStepEmployeeName = "".obs;
+  final RxString firstStepCreationDate = "".obs;
+  final RxString firstStepLastWorkingDayDate = "".obs;
+  final RxString firstStepPhone = "".obs;
+  final RxString firstStepMobile = "".obs;
+  final RxString firstStepAddress = "".obs;
+
+  late List<Widget> steps = [];
 
   final List<String> paymentTypeList = ['Annual', 'Monthly', 'Weekly', 'daily'];
   RxString selectedType = 'Annual'.obs;
@@ -63,6 +66,17 @@ class VacationsStepsController extends BaseController
         Tween(begin: 0.0, end: 1.0).animate(_animationFirstStepContainer);
     secondStepContainerAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_animationSecondStepContainer);
+
+    _vacationsStepsService.getCreateFirstStep(4010.toString()).then((value) {
+      if (value != null) {
+        firstStepEmployeeName.value = value.employeeName ?? "";
+        firstStepCreationDate.value = value.creationDate ?? "";
+        firstStepLastWorkingDayDate.value = value.lastWorkingDayDate ?? "";
+        firstStepPhone.value = value.phone ?? "";
+        firstStepMobile.value = value.mobile ?? "";
+        firstStepAddress.value = value.address ?? "";
+      }
+    });
   }
 
   @override
@@ -73,7 +87,20 @@ class VacationsStepsController extends BaseController
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    steps = [
+      FinalExitApproval(
+        firstStepEmployeeName: firstStepEmployeeName,
+        firstStepCreationDate: firstStepCreationDate,
+        firstStepLastWorkingDayDate: firstStepLastWorkingDayDate,
+        firstStepPhone: firstStepPhone,
+        firstStepMobile: firstStepMobile,
+        firstStepAddress: firstStepAddress,
+      ),
+      const TicketExchangeRequest(),
+      const Disclaimer(),
+    ];
+  }
 
   /// FUNCTIONS
   onClickNext() {

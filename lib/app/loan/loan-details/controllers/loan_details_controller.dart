@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/colors/colors.dart';
+import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
 import '../services/loan_details_service.dart';
 
 class LoanDetailsController extends BaseController {
@@ -12,9 +13,16 @@ class LoanDetailsController extends BaseController {
   /// CONTROLLERS
 
   /// VARIABLES
-  RxString selectedType = 'Cash'.obs;
   Rx<DateTime> loanDate = DateTime.now().obs;
-  final List<String> paymentTypeList = ['Cash', 'Credit card', 'Visa', 'Rajhi'];
+  final List<DropDownModel> paymentTypeList = [
+    DropDownModel(disabled: false, text: 'Choose', value: '0'),
+    DropDownModel(disabled: false, text: 'Cash', value: '1'),
+    DropDownModel(disabled: false, text: 'Credit card', value: '2'),
+    DropDownModel(disabled: false, text: 'Visa', value: '3'),
+    DropDownModel(disabled: false, text: 'Rajhi', value: '4'),
+  ];
+
+  late Rx<DropDownModel> selectedPaymentType;
 
   /// VALIDATION
 
@@ -31,7 +39,9 @@ class LoanDetailsController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    selectedPaymentType = paymentTypeList[0].obs;
+  }
 
   /// FUNCTIONS
   void selectDate(
@@ -65,8 +75,8 @@ class LoanDetailsController extends BaseController {
     }
   }
 
-  onSelectPaymentType(String value) {
-    selectedType.value = value;
+  onSelectPaymentType(DropDownModel value) {
+    selectedPaymentType.value = value;
   }
 
   onClickSubmit() {

@@ -76,7 +76,8 @@ class TicketDetailsScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     title: 'Payment Type',
                     inputType: 'select',
-                    selectedDropDownItem: _ticketDetailsController.selectedType,
+                    selectedDropDownItem:
+                        _ticketDetailsController.selectedPaymentType,
                     onSelect: (value) =>
                         _ticketDetailsController.onSelectPaymentType(value),
                     listDropDown: _ticketDetailsController.paymentTypeList,

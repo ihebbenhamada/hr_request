@@ -1,9 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
-class FinalExitApproval extends StatelessWidget {
-  const FinalExitApproval({super.key});
+class FinalExitApproval extends StatefulWidget {
+  FinalExitApproval({
+    super.key,
+    required this.firstStepEmployeeName,
+    required this.firstStepCreationDate,
+    required this.firstStepLastWorkingDayDate,
+    required this.firstStepPhone,
+    required this.firstStepMobile,
+    required this.firstStepAddress,
+  });
+  final RxString firstStepEmployeeName;
+  final RxString firstStepCreationDate;
+  final RxString firstStepLastWorkingDayDate;
+  final RxString firstStepPhone;
+  final RxString firstStepMobile;
+  final RxString firstStepAddress;
+
+  @override
+  State<FinalExitApproval> createState() => _FinalExitApprovalState();
+}
+
+class _FinalExitApprovalState extends State<FinalExitApproval> {
+  late TextEditingController phone;
+  late TextEditingController mobile;
+  late TextEditingController address;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    phone = TextEditingController(text: widget.firstStepPhone.value);
+    mobile = TextEditingController(text: widget.firstStepMobile.value);
+    address = TextEditingController(text: widget.firstStepAddress.value);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,55 +63,59 @@ class FinalExitApproval extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'mohamed Gamal Kotb',
+                  widget.firstStepEmployeeName.value,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.white,
                   ),
                 ),
                 5.h.verticalSpace,
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'End of working day',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: AppColors.white,
+                Obx(
+                  () => Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'End of working day',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.white,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '21-10-2024',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: AppColors.white,
+                          Text(
+                            widget.firstStepLastWorkingDayDate.value
+                                    .substring(0, 10) ??
+                                '',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.white,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    43.horizontalSpace,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Adopted from',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: AppColors.white,
+                        ],
+                      ),
+                      43.horizontalSpace,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Adopted from',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.white,
+                            ),
                           ),
-                        ),
-                        Text(
-                          '20-10-2024',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: AppColors.white,
+                          Text(
+                            widget.firstStepCreationDate.value.substring(0, 10),
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.white,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 5.h.verticalSpace,
                 Text(
@@ -129,7 +166,6 @@ class FinalExitApproval extends StatelessWidget {
                             ),
                           ),
                           TextFormField(
-                            key: key,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -172,7 +208,6 @@ class FinalExitApproval extends StatelessWidget {
                             ),
                           ),
                           TextFormField(
-                            key: key,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -218,7 +253,6 @@ class FinalExitApproval extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
-                        key: key,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,

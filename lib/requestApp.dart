@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +27,7 @@ class RequestApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('is Logged In :  $isLoggedIn');
+    log('is Logged In :  $isLoggedIn');
     return ScreenUtilInit(
       designSize: const Size(430, 932),
       minTextAdapt: true,

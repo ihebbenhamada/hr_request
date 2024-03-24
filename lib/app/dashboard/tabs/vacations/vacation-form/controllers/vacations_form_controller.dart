@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
@@ -13,19 +14,19 @@ class VacationsFormController extends BaseController {
   /// CONTROLLERS
 
   /// VARIABLES
-  RxString selectedType = 'Annual'.obs;
-  Rx<DateTime> dateFrom = DateTime.now().obs;
-  Rx<DateTime> dateTo = DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day + 1,
-  ).obs;
-  final List<String> vacationTypeList = [
-    'Annual',
-    'Monthly',
-    'Weekly',
-    'daily'
-  ];
+  Rx<DropDownModel> selectedType =
+      DropDownModel(disabled: false, text: 'اختر', value: '0').obs;
+  Rx<DropDownModel> selectedAlternativeEmployee =
+      DropDownModel(disabled: false, text: 'اختر', value: '0').obs;
+  Rx<DropDownModel> selectedAlternativeToPay =
+      DropDownModel(disabled: false, text: 'اختر', value: '0').obs;
+
+  RxString dateFrom = "".obs;
+  RxString dateTo = "".obs;
+  RxString dueDate = "".obs;
+  RxList<DropDownModel> vacationTypeList = <DropDownModel>[].obs;
+  RxList<DropDownModel> employeesList = <DropDownModel>[].obs;
+  RxBool isProcedureCompleted = false.obs;
 
   /// VALIDATION
 
@@ -37,11 +38,35 @@ class VacationsFormController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    _vacationsFormService.getCreateVacations().then((value) {
+      if (value != null) {
+        selectedType.value = value.vacationTypes[0];
+        vacationTypeList.value = value.vacationTypes;
+        dateFrom.value = value.dateFrom.substring(0, 10);
+        dateTo.value = value.dateTo.substring(0, 10);
+        dueDate.value = DateTime.parse(dateTo.value)
+            .difference(DateTime.parse(dateFrom.value))
+            .inDays
+            .toString();
+        employeesList.value = value.employees;
+        selectedAlternativeToPay.value = value.employees[0];
+        selectedAlternativeEmployee.value = value.employees[0];
+      }
+    });
+  }
 
   /// FUNCTIONS
-  onSelectVacationType(String value) {
+  onSelectVacationType(DropDownModel value) {
     selectedType.value = value;
+  }
+
+  onSelectAlternativeEmployee(DropDownModel value) {
+    selectedAlternativeEmployee.value = value;
+  }
+
+  onSelectAlternativeToPay(DropDownModel value) {
+    selectedAlternativeToPay.value = value;
   }
 
   void selectDate(
@@ -72,18 +97,28 @@ class VacationsFormController extends BaseController {
       lastDate: DateTime(2030),
     );
     if (selectedDate == 'from') {
-      if (pickedDate != null && pickedDate != dateFrom.value) {
-        dateFrom.value = pickedDate;
+      if (pickedDate != null && pickedDate.toString() != dateFrom.value) {
+        dateFrom.value = pickedDate.toString().substring(0, 10);
+        dueDate.value = DateTime.parse(dateTo.value)
+            .difference(DateTime.parse(dateFrom.value))
+            .inDays
+            .toString();
       }
     } else {
-      if (pickedDate != null && pickedDate != dateTo.value) {
-        dateTo.value = pickedDate;
+      if (pickedDate != null && pickedDate.toString() != dateTo.value) {
+        dateTo.value = pickedDate.toString().substring(0, 10);
+        dueDate.value = DateTime.parse(dateTo.value)
+            .difference(DateTime.parse(dateFrom.value))
+            .inDays
+            .toString();
       }
     }
   }
 
   onClickSubmit() {
-    Get.back(id: 2);
+    if (isProcedureCompleted.value) {
+      Get.back(id: 2);
+    }
   }
 
   onClickBack() {

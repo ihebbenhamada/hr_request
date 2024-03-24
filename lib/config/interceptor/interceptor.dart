@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -48,11 +50,13 @@ class AppInterceptor {
               HttpHeaders.contentTypeHeader: "application/json",
             });
             handler.next(requestOptions);
+            onRequestSent(requestOptions);
           },
           onResponse: (
             response,
             ResponseInterceptorHandler handler,
           ) {
+            onResponseReceived(response);
             hideLoader();
             _reestablishDefaultConfig();
             handler.next(response);
@@ -61,6 +65,7 @@ class AppInterceptor {
             DioException error,
             ErrorInterceptorHandler handler,
           ) {
+            onResponseFailed(error);
             EasyLoading.dismiss();
             _reestablishDefaultConfig();
             _handleError(error);
@@ -109,5 +114,48 @@ class AppInterceptor {
 
   static void _reestablishDefaultConfig() {
     responseType = ResponseType.json;
+  }
+
+  static void onRequestSent(RequestOptions requestOptions) {
+    if (kDebugMode) {
+      log('✅✅✅✅✅✅✅✅✅✅✅✅ Request ✅✅✅✅✅✅✅✅✅✅✅✅✅');
+      log('Method : ${requestOptions.method}');
+      log('Path : ${requestOptions.baseUrl}${requestOptions.path}');
+      if (requestOptions.method != 'GET') {
+        log('Data : ${requestOptions.data}');
+      }
+      log('✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅');
+    }
+  }
+
+  static void onResponseReceived(Response response) {
+    if (kDebugMode) {
+      if (response.statusCode == 200) {
+        log('✅✅✅✅✅✅✅✅✅✅✅✅ Response success ✅✅✅✅✅✅✅✅✅✅✅✅✅');
+        log('Status Code : ${response.statusCode}');
+        log('Status Message : ${response.statusMessage}');
+        log('Data : ${response.data}');
+        log('✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅');
+      } else {
+        log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️ Response failed ⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
+        log('Status Code : ${response.statusCode}');
+        log('Status Message : ${response.statusMessage}');
+        log('Data : ${response.data.toString()}');
+        log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
+      }
+    }
+  }
+
+  static void onResponseFailed(DioException dioException) {
+    if (kDebugMode) {
+      log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️ Response error ⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
+      log('Exception status code : ${dioException.response?.statusCode}');
+      log('Exception status message : ${dioException.response?.statusMessage}');
+      log('Exception type name : ${dioException.type.name}');
+      log('Exception message : ${dioException.message}');
+      log('Exception error : ${dioException.error.toString()}');
+
+      log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
+    }
   }
 }

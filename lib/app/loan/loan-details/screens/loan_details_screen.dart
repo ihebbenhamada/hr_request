@@ -41,7 +41,8 @@ class LoanDetailsScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     title: 'Payment Type',
                     inputType: 'select',
-                    selectedDropDownItem: _loanDetailsController.selectedType,
+                    selectedDropDownItem:
+                        _loanDetailsController.selectedPaymentType,
                     onSelect: (value) =>
                         _loanDetailsController.onSelectPaymentType(value),
                     listDropDown: _loanDetailsController.paymentTypeList,

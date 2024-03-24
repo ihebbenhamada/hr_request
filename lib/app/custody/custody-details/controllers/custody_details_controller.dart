@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/colors/colors.dart';
+import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
 import '../services/custody_details_service.dart';
 
 class CustodyDetailsController extends BaseController {
@@ -12,18 +13,26 @@ class CustodyDetailsController extends BaseController {
   /// CONTROLLERS
 
   /// VARIABLES
-  RxString selectedPaymentType = 'Cash'.obs;
-  RxString selectedCustodyType = 'Custody1'.obs;
 
   Rx<DateTime> custodyDate = DateTime.now().obs;
 
-  final List<String> paymentTypeList = ['Cash', 'Credit card', 'Visa', 'Rajhi'];
-  final List<String> custodyTypeList = [
-    'Custody1',
-    'Custody2',
-    'Custody3',
-    'Custody4'
+  final List<DropDownModel> paymentTypeList = [
+    DropDownModel(disabled: false, text: 'Choose', value: '0'),
+    DropDownModel(disabled: false, text: 'Cash', value: '1'),
+    DropDownModel(disabled: false, text: 'Credit card', value: '2'),
+    DropDownModel(disabled: false, text: 'Visa', value: '3'),
+    DropDownModel(disabled: false, text: 'Rajhi', value: '4'),
   ];
+  final List<DropDownModel> custodyTypeList = [
+    DropDownModel(disabled: false, text: 'Choose', value: '0'),
+    DropDownModel(disabled: false, text: 'Custody1', value: '1'),
+    DropDownModel(disabled: false, text: 'Custody2', value: '2'),
+    DropDownModel(disabled: false, text: 'Custody3', value: '3'),
+    DropDownModel(disabled: false, text: 'Custody4', value: '4'),
+  ];
+
+  late Rx<DropDownModel> selectedPaymentType;
+  late Rx<DropDownModel> selectedCustodyType;
 
   /// VALIDATION
 
@@ -40,7 +49,10 @@ class CustodyDetailsController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    selectedPaymentType = paymentTypeList[0].obs;
+    selectedCustodyType = custodyTypeList[0].obs;
+  }
 
   /// FUNCTIONS
   void selectDate(BuildContext context) async {
@@ -72,11 +84,11 @@ class CustodyDetailsController extends BaseController {
     }
   }
 
-  onSelectPaymentType(String value) {
+  onSelectPaymentType(DropDownModel value) {
     selectedPaymentType.value = value;
   }
 
-  onSelectCustodyType(String value) {
+  onSelectCustodyType(DropDownModel value) {
     selectedCustodyType.value = value;
   }
 

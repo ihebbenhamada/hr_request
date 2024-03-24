@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
@@ -87,7 +89,11 @@ class VacationsController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    _vacationsService.getEmployeeVacations().then((value) {
+      log(value.toString());
+    });
+  }
 
   /// FUNCTIONS
   onSelectFilter(int index) {

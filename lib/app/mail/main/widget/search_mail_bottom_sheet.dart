@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/widgets/custom-button/custom-button.dart';
 import 'package:request_hr/widgets/input/input_form.dart';
 
 class SearchMailBottomSheet extends StatelessWidget {
-  const SearchMailBottomSheet({
+  SearchMailBottomSheet({
     super.key,
     required this.dateFrom,
     required this.dateTo,
@@ -19,9 +20,9 @@ class SearchMailBottomSheet extends StatelessWidget {
   final Rx<DateTime> dateFrom;
   final Rx<DateTime> dateTo;
   final void Function(BuildContext, String) selectDate;
-  final void Function(String) onSelectEmployee;
-  final List<String> employeeList;
-  final RxString selectedEmployee;
+  final void Function(DropDownModel) onSelectEmployee;
+  final List<DropDownModel> employeeList;
+  Rx<DropDownModel> selectedEmployee;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
