@@ -1,42 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/model/get_create_first_step.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
-class FinalExitApproval extends StatefulWidget {
-  FinalExitApproval({
+class FinalExitApproval extends StatelessWidget {
+  const FinalExitApproval({
     super.key,
-    required this.firstStepEmployeeName,
-    required this.firstStepCreationDate,
-    required this.firstStepLastWorkingDayDate,
-    required this.firstStepPhone,
-    required this.firstStepMobile,
-    required this.firstStepAddress,
+    required this.firstStepData,
+    required this.phoneController,
+    required this.mobileController,
+    required this.addressController,
   });
-  final RxString firstStepEmployeeName;
-  final RxString firstStepCreationDate;
-  final RxString firstStepLastWorkingDayDate;
-  final RxString firstStepPhone;
-  final RxString firstStepMobile;
-  final RxString firstStepAddress;
 
-  @override
-  State<FinalExitApproval> createState() => _FinalExitApprovalState();
-}
-
-class _FinalExitApprovalState extends State<FinalExitApproval> {
-  late TextEditingController phone;
-  late TextEditingController mobile;
-  late TextEditingController address;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    phone = TextEditingController(text: widget.firstStepPhone.value);
-    mobile = TextEditingController(text: widget.firstStepMobile.value);
-    address = TextEditingController(text: widget.firstStepAddress.value);
-    super.initState();
-  }
+  final Rx<GetCreateFirstStep> firstStepData;
+  final TextEditingController phoneController;
+  final TextEditingController mobileController;
+  final TextEditingController addressController;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +43,7 @@ class _FinalExitApprovalState extends State<FinalExitApproval> {
                   ),
                 ),
                 Text(
-                  widget.firstStepEmployeeName.value,
+                  firstStepData.value.employeeName ?? "",
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.white,
@@ -84,8 +64,8 @@ class _FinalExitApprovalState extends State<FinalExitApproval> {
                             ),
                           ),
                           Text(
-                            widget.firstStepLastWorkingDayDate.value
-                                    .substring(0, 10) ??
+                            firstStepData.value.lastWorkingDayDate
+                                    ?.substring(0, 10) ??
                                 '',
                             style: TextStyle(
                               fontSize: 14.sp,
@@ -106,7 +86,7 @@ class _FinalExitApprovalState extends State<FinalExitApproval> {
                             ),
                           ),
                           Text(
-                            widget.firstStepCreationDate.value.substring(0, 10),
+                            firstStepData.value.creationDate.substring(0, 10),
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -170,6 +150,7 @@ class _FinalExitApprovalState extends State<FinalExitApproval> {
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
+                            controller: phoneController,
                             keyboardType: TextInputType.number,
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
@@ -212,6 +193,7 @@ class _FinalExitApprovalState extends State<FinalExitApproval> {
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
+                            controller: mobileController,
                             keyboardType: TextInputType.number,
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
@@ -257,6 +239,7 @@ class _FinalExitApprovalState extends State<FinalExitApproval> {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
+                        controller: addressController,
                         keyboardType: TextInputType.number,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(

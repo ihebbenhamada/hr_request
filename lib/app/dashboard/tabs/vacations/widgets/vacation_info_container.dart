@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../../../config/colors/colors.dart';
 import '../../../../../config/image_urls/image_urls.dart';
 
 class VacationInfoContainer extends StatelessWidget {
-  const VacationInfoContainer({super.key});
+  const VacationInfoContainer({
+    super.key,
+    required this.vacationPercentage,
+    required this.takenDays,
+    required this.leftDays,
+  });
+
+  final RxDouble vacationPercentage;
+  final RxDouble takenDays;
+  final RxDouble leftDays;
 
   @override
   Widget build(BuildContext context) {
@@ -60,20 +70,22 @@ class VacationInfoContainer extends StatelessWidget {
                 Stack(
                   alignment: Alignment.centerLeft,
                   children: [
-                    Container(
-                      width: 108,
-                      height: 21.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(11.h),
-                        border: Border.all(color: AppColors.primary),
-                        color: AppColors.blueLight2,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Taken: 27',
-                          style: TextStyle(
-                            color: AppColors.blueDark,
-                            fontSize: 14.sp,
+                    Obx(
+                      () => Container(
+                        width: 108,
+                        height: 21.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(11.h),
+                          border: Border.all(color: AppColors.primary),
+                          color: AppColors.blueLight2,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Taken: ${takenDays.value}',
+                            style: TextStyle(
+                              color: AppColors.blueDark,
+                              fontSize: 14.sp,
+                            ),
                           ),
                         ),
                       ),
@@ -99,19 +111,21 @@ class VacationInfoContainer extends StatelessWidget {
                 Stack(
                   alignment: Alignment.centerLeft,
                   children: [
-                    Container(
-                      width: 108,
-                      height: 21.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(11.h),
-                        color: AppColors.primary,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Left: 27',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 14.sp,
+                    Obx(
+                      () => Container(
+                        width: 108,
+                        height: 21.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(11.h),
+                          color: AppColors.primary,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Left: ${leftDays.value}',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 14.sp,
+                            ),
                           ),
                         ),
                       ),
@@ -137,21 +151,23 @@ class VacationInfoContainer extends StatelessWidget {
             ),
           ),
           SizedBox(
-            child: CircularPercentIndicator(
-              radius: 48.0,
-              lineWidth: 10.0,
-              animation: true,
-              percent: 0.25,
-              center: Text(
-                '25%',
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: 27.sp,
+            child: Obx(
+              () => CircularPercentIndicator(
+                radius: 48.0,
+                lineWidth: 10.0,
+                animation: true,
+                percent: vacationPercentage.value,
+                center: Text(
+                  '${vacationPercentage.value * 100}%',
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 27.sp,
+                  ),
                 ),
+                circularStrokeCap: CircularStrokeCap.butt,
+                progressColor: AppColors.primary,
+                backgroundColor: AppColors.blueLight1,
               ),
-              circularStrokeCap: CircularStrokeCap.butt,
-              progressColor: AppColors.primary,
-              backgroundColor: AppColors.blueLight1,
             ),
           ),
         ],

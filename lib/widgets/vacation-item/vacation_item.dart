@@ -20,10 +20,10 @@ class VacationItem extends StatelessWidget {
   final String title;
   final String startDate;
   final String endDate;
-  final String icon;
-  final Color color;
-  final bool withAlert;
-  final double iconHeight;
+  final String? icon;
+  final Color? color;
+  final bool? withAlert;
+  final double? iconHeight;
   final void Function() onClick;
 
   @override
@@ -62,8 +62,8 @@ class VacationItem extends StatelessWidget {
                       ),
                       child: Center(
                         child: Image.asset(
-                          icon,
-                          height: iconHeight.h,
+                          icon!,
+                          height: iconHeight!.h,
                         ),
                       ),
                     ),
@@ -71,6 +71,7 @@ class VacationItem extends StatelessWidget {
                   9.h.verticalSpace,
                   Text(
                     title,
+                    maxLines: 2,
                     style: TextStyle(
                       color: AppColors.blueDark,
                       fontSize: 14.sp,
@@ -95,7 +96,7 @@ class VacationItem extends StatelessWidget {
               ),
             ),
           ),
-          withAlert
+          withAlert!
               ? Positioned(
                   left: 13,
                   top: -17.h,

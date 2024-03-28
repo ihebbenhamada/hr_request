@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../../config/colors/colors.dart';
 import '../../../../../config/image_urls/image_urls.dart';
 
 class VacationOfficialInfoContainer extends StatelessWidget {
-  const VacationOfficialInfoContainer({super.key});
+  const VacationOfficialInfoContainer({
+    super.key,
+    required this.nextVacation,
+  });
+  final RxString nextVacation;
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +77,13 @@ class VacationOfficialInfoContainer extends StatelessWidget {
                   fontSize: 14.sp,
                 ),
               ),
-              Text(
-                '20-5-2024',
-                style: TextStyle(
-                  color: AppColors.blueDark,
-                  fontSize: 14.sp,
+              Obx(
+                () => Text(
+                  nextVacation.value,
+                  style: TextStyle(
+                    color: AppColors.blueDark,
+                    fontSize: 14.sp,
+                  ),
                 ),
               ),
             ],

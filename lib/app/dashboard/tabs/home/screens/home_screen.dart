@@ -63,9 +63,11 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           12.h.verticalSpace,
-          CustomDotsIndicator(
-            length: _homeController.carouselData.length,
-            current: _homeController.current,
+          Obx(
+            () => CustomDotsIndicator(
+              length: _homeController.carouselData.length,
+              current: _homeController.current.value,
+            ),
           ),
           15.h.verticalSpace,
           const GeneralInformation(),
@@ -138,9 +140,11 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           10.h.verticalSpace,
-          CustomDotsIndicator(
-            length: _homeController.carouselBonusPunishmentsData.length,
-            current: _homeController.currentBonusPunishments,
+          Obx(
+            () => CustomDotsIndicator(
+              length: _homeController.carouselBonusPunishmentsData.length,
+              current: _homeController.currentBonusPunishments.value,
+            ),
           ),
           15.h.verticalSpace,
           Text(
@@ -180,9 +184,11 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           15.h.verticalSpace,
-          CustomDotsIndicator(
-            length: _homeController.carouselMeetingsData.length,
-            current: _homeController.currentMeeting,
+          Obx(
+            () => CustomDotsIndicator(
+              length: _homeController.carouselMeetingsData.length,
+              current: _homeController.currentMeeting.value,
+            ),
           ),
           20.h.verticalSpace,
         ],

@@ -8,6 +8,7 @@ import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/tic
 import 'package:request_hr/config/controllerConfig/base_controller.dart';
 
 import '../../../../../../../config/colors/colors.dart';
+import '../model/get_create_first_step.dart';
 import '../services/vacations_steps_service.dart';
 
 class VacationsStepsController extends BaseController
@@ -34,17 +35,17 @@ class VacationsStepsController extends BaseController
   late AnimationController _animationSecondStepContainer;
   late Animation<double> secondStepContainerAnimation;
 
-  final RxString firstStepEmployeeName = "".obs;
-  final RxString firstStepCreationDate = "".obs;
-  final RxString firstStepLastWorkingDayDate = "".obs;
-  final RxString firstStepPhone = "".obs;
-  final RxString firstStepMobile = "".obs;
-  final RxString firstStepAddress = "".obs;
+  final Rx<GetCreateFirstStep> firstStepData =
+      GetCreateFirstStep(creationDate: '', lastModifiedDate: '').obs;
 
   late List<Widget> steps = [];
 
   final List<String> paymentTypeList = ['Annual', 'Monthly', 'Weekly', 'daily'];
   RxString selectedType = 'Annual'.obs;
+
+  TextEditingController phoneTextEditingController = TextEditingController();
+  TextEditingController mobileTextEditingController = TextEditingController();
+  TextEditingController addressTextEditingController = TextEditingController();
 
   /// VALIDATION
 
@@ -69,12 +70,7 @@ class VacationsStepsController extends BaseController
 
     _vacationsStepsService.getCreateFirstStep(4010.toString()).then((value) {
       if (value != null) {
-        firstStepEmployeeName.value = value.employeeName ?? "";
-        firstStepCreationDate.value = value.creationDate ?? "";
-        firstStepLastWorkingDayDate.value = value.lastWorkingDayDate ?? "";
-        firstStepPhone.value = value.phone ?? "";
-        firstStepMobile.value = value.mobile ?? "";
-        firstStepAddress.value = value.address ?? "";
+        firstStepData.value = value;
       }
     });
   }
@@ -90,12 +86,10 @@ class VacationsStepsController extends BaseController
   void initValues() {
     steps = [
       FinalExitApproval(
-        firstStepEmployeeName: firstStepEmployeeName,
-        firstStepCreationDate: firstStepCreationDate,
-        firstStepLastWorkingDayDate: firstStepLastWorkingDayDate,
-        firstStepPhone: firstStepPhone,
-        firstStepMobile: firstStepMobile,
-        firstStepAddress: firstStepAddress,
+        firstStepData: firstStepData,
+        phoneController: phoneTextEditingController,
+        mobileController: mobileTextEditingController,
+        addressController: addressTextEditingController,
       ),
       const TicketExchangeRequest(),
       const Disclaimer(),
@@ -107,11 +101,33 @@ class VacationsStepsController extends BaseController
     if (activePage < steps.length - 1) {
       paginate(activePage.value + 1, true);
       if (activePage.value == 0) {
+        createFirstStep();
         animateSecondStep('forward');
         return;
       }
       animateThirdStep('forward');
     }
+  }
+
+  createFirstStep() {
+    _vacationsStepsService
+        .createFinalExitApproval(
+          id: firstStepData.value.id,
+          fKHrEmployeeId: firstStepData.value.fKHrEmployeeId,
+          fKReqFinalExitId: firstStepData.value.fKReqFinalExitId,
+          employeeName: firstStepData.value.employeeName,
+          creationDate: firstStepData.value.creationDate,
+          quitDate: firstStepData.value.quitDate,
+          lastWorkingDayDate: firstStepData.value.lastWorkingDayDate,
+          hasCommitment: firstStepData.value.hasCommitment,
+          phone: phoneTextEditingController.value.text,
+          mobile: mobileTextEditingController.value.text,
+          address: addressTextEditingController.value.text,
+          lastModifiedDate: firstStepData.value.lastModifiedDate,
+          isActive: firstStepData.value.isActive,
+          isDeleted: firstStepData.value.isDeleted,
+        )
+        .then((value) {});
   }
 
   onClickBack() {

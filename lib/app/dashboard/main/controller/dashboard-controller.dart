@@ -426,6 +426,8 @@ class DashboardController extends BaseController {
     vacationsIconColor.value = AppColors.white;
     searchIconColor.value = AppColors.white;
     meetingIconColor.value = AppColors.white;
+    selectedCompany = companyList[0].obs;
+    selectedDepartment = departmentsList[0].obs;
   }
 
   /// FUNCTIONS

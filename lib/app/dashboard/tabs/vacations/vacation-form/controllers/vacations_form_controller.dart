@@ -27,6 +27,7 @@ class VacationsFormController extends BaseController {
   RxList<DropDownModel> vacationTypeList = <DropDownModel>[].obs;
   RxList<DropDownModel> employeesList = <DropDownModel>[].obs;
   RxBool isProcedureCompleted = false.obs;
+  TextEditingController remarkTextEditingController = TextEditingController();
 
   /// VALIDATION
 
@@ -80,11 +81,11 @@ class VacationsFormController extends BaseController {
             colorScheme: const ColorScheme.light(
               primary: AppColors.primary, // header background color
               onPrimary: AppColors.white, // header text color
-              onSurface: AppColors.gray6, // body text color
+              onSurface: AppColors.black, // body text color
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: AppColors.gray6, // button text color
+                foregroundColor: AppColors.black, // button text color
               ),
             ),
           ),
@@ -116,9 +117,19 @@ class VacationsFormController extends BaseController {
   }
 
   onClickSubmit() {
-    if (isProcedureCompleted.value) {
-      Get.back(id: 2);
-    }
+    _vacationsFormService
+        .createVacation(
+          fKAlternativeEmployee:
+              int.parse(selectedAlternativeEmployee.value.value),
+          fKAlternativeToPayingAnyDue:
+              int.parse(selectedAlternativeToPay.value.value),
+          fKHrVacationTypeId: int.parse(selectedType.value.value),
+          fKReqStatusId: 9,
+          dateFrom: dateFrom.value,
+          dateTo: dateTo.value,
+          description: remarkTextEditingController.value.text,
+        )
+        .then((value) {});
   }
 
   onClickBack() {

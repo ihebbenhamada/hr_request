@@ -112,9 +112,11 @@ class LoanScreen extends StatelessWidget {
               ),
             ),
             20.h.verticalSpace,
-            CustomDotsIndicator(
-              current: _loanController.currentLoanIndex,
-              length: _loanController.carouselLoanList.length,
+            Obx(
+              () => CustomDotsIndicator(
+                current: _loanController.currentLoanIndex.value,
+                length: _loanController.carouselLoanList.length,
+              ),
             ),
             13.h.verticalSpace,
             const LoanInfoContainer(),

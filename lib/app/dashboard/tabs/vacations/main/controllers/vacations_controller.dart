@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/main/models/vacation.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
@@ -20,64 +19,34 @@ class VacationsController extends BaseController {
   RxInt selectedFilter = 0.obs;
   RxInt currentVacationIndex = 0.obs;
   RxInt currentOfficialVacationIndex = 0.obs;
-  final Map<String, dynamic> vacationsList = {
-    'slide1': [
-      {
-        'title': 'Sick\nVacation',
-        'icon': AppImages.doubleCheck,
-        'start_date': '23-10-2023',
-        'end_date': '24-10-2023',
-        'color': AppColors.primary,
-        'with_alert': true,
-        'icon_height': 15.0,
-      },
-    ],
-    'slide2': [
-      {
-        'title': 'Wedding\nVacation',
-        'icon': AppImages.progress,
-        'start_date': '23-10-2023',
-        'end_date': '24-10-2023',
-        'color': AppColors.gray5,
-        'with_alert': false,
-        'icon_height': 30.0,
-      },
-    ],
-    'slide3': [
-      {
-        'title': 'Summer\nVacation',
-        'icon': AppImages.x,
-        'start_date': '23-10-2023',
-        'end_date': '24-10-2023',
-        'color': AppColors.redLight,
-        'with_alert': false,
-        'icon_height': 23.0,
-      },
-    ],
-  };
-  final Map<String, dynamic> officialVacationList = {
-    'slide1': [
-      {
-        'title': 'National day',
-        'icon': AppImages.doubleCheck,
-        'date': '23-10-2023',
-      },
-    ],
-    'slide2': [
-      {
-        'title': 'National day',
-        'icon': AppImages.doubleCheck,
-        'date': '23-10-2023',
-      },
-    ],
-    'slide3': [
-      {
-        'title': 'National day',
-        'icon': AppImages.doubleCheck,
-        'date': '23-10-2023',
-      },
-    ],
-  };
+  RxList<Vacation> allVacationsList = <Vacation>[].obs;
+  RxList<Vacation> pendingVacationsList = <Vacation>[].obs;
+  RxList<Vacation> approvedVacationsList = <Vacation>[].obs;
+  RxList<Vacation> rejectedVacationList = <Vacation>[].obs;
+
+  RxList<Vacation> vacationsList = <Vacation>[].obs;
+  final List<Map<String, dynamic>> officialVacationList = [
+    {
+      'title': 'National day',
+      'date': '23 september',
+    },
+    {
+      'title': 'Founding day',
+      'date': '22 February',
+    },
+    {
+      'title': 'Eid al-Adha',
+      'date': '9-12 Dhul-Hijjah',
+    },
+    {
+      'title': 'Eid al-Fitr',
+      'date': '1-3 Shawwal',
+    },
+  ];
+  RxDouble takenDays = 0.0.obs;
+  RxDouble leftDays = 0.0.obs;
+  RxDouble vacationPercentage = 0.0.obs;
+  RxString nextVacation = "".obs;
 
   /// VALIDATION
 
@@ -91,13 +60,59 @@ class VacationsController extends BaseController {
   /// INITIALISATION
   void initValues() {
     _vacationsService.getEmployeeVacations().then((value) {
-      log(value.toString());
+      if (value != null) {
+        leftDays.value = value.leftDays;
+        takenDays.value = value.takenDays;
+        vacationPercentage.value = value.vacationsPercentage;
+        nextVacation.value = value.nextVacation;
+        allVacationsList.value = value.all.map((e) {
+          e.color = AppColors.gray5;
+          e.icon = AppImages.progress;
+          e.iconHeight = 30.0;
+          e.withAlert = false;
+          return e;
+        }).toList();
+        pendingVacationsList.value = value.pending.map((e) {
+          e.color = AppColors.gray5;
+          e.icon = AppImages.progress;
+          e.iconHeight = 30.0;
+          e.withAlert = false;
+          return e;
+        }).toList();
+        approvedVacationsList.value = value.approved.map((e) {
+          e.color = AppColors.primary;
+          e.icon = AppImages.doubleCheck;
+          e.iconHeight = 15.0;
+          e.withAlert = true;
+          return e;
+        }).toList();
+        rejectedVacationList.value = value.rejected.map((e) {
+          e.color = AppColors.redLight;
+          e.icon = AppImages.x;
+          e.iconHeight = 23.0;
+          e.withAlert = false;
+          return e;
+        }).toList();
+        vacationsList.value = allVacationsList;
+      }
     });
   }
 
   /// FUNCTIONS
   onSelectFilter(int index) {
     selectedFilter.value = index;
+    switch (index) {
+      case 0:
+        vacationsList.value = allVacationsList;
+      case 1:
+        vacationsList.value = pendingVacationsList;
+      case 2:
+        vacationsList.value = approvedVacationsList;
+      case 3:
+        vacationsList.value = rejectedVacationList;
+      default:
+        vacationsList.value = allVacationsList;
+    }
   }
 
   onChangeVacationList(int index, CarouselPageChangedReason reason) {

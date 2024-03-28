@@ -115,10 +115,12 @@ class EvaluationsScreen extends StatelessWidget {
                     ),
                   ),
                   20.h.verticalSpace,
-                  CustomDotsIndicator(
-                    current: _evaluationsController.currentEvaluation,
-                    length:
-                        _evaluationsController.carouselEvaluationList.length,
+                  Obx(
+                    () => CustomDotsIndicator(
+                      current: _evaluationsController.currentEvaluation.value,
+                      length:
+                          _evaluationsController.carouselEvaluationList.length,
+                    ),
                   ),
                   20.h.verticalSpace,
                   Container(

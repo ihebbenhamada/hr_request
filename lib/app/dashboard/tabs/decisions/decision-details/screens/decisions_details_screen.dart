@@ -148,17 +148,23 @@ class DecisionsDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Column(
               children: [
-                const DecisionDetailsContainer(
-                  text: '25 jun is day off ',
+                DecisionDetailsInput(
                   icon: AppImages.title,
+                  controller:
+                      _decisionsDetailsController.subjectTextEditingController,
+                  nbrLines: 1,
+                  paddingRight: 50,
+                  hint: 'Subject',
                 ),
                 40.h.verticalSpace,
-                DecisionDetailsContainer(
-                  text:
-                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+                DecisionDetailsInput(
                   icon: AppImages.description,
-                  paddingTop: 40.h,
-                  paddingBottom: 40.h,
+                  paddingTop: 20.h,
+                  paddingBottom: 20.h,
+                  controller: _decisionsDetailsController
+                      .descriptionTextEditingController,
+                  nbrLines: 13,
+                  hint: 'Description',
                 ),
                 30.h.verticalSpace,
                 Row(

@@ -9,6 +9,14 @@ class EndPoints {
   static const String GET_ALL_VACATION_SENT_URL = '/ReqVacation/GetAllSent';
   static const String CREATE_VACATION_URL = '/ReqVacation/Create';
   static const String GET_CREATE_VACATION_URL = '/ReqVacation/GetCreate';
+
+  /// FIRST STEP VACATION
   static const String GET_CREATE_FIRST_STEP_URL =
       '/ReqFinalExitAPI/GetFirstStep?employeeId=';
+  static const String CREATE_FIRST_STEP_URL =
+      '/ReqFinalExitAPI/CreateFirstStep';
+
+  /// GET DECISIONS
+  static const String GET_DECISIONS_URL = '/ReqDecisionAPI/GetDecisions';
+  static const String CREATE_DECISIONS_URL = '/ReqDecisionAPI/Create';
 }

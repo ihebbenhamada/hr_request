@@ -112,9 +112,11 @@ class ComplaintScreen extends StatelessWidget {
                     ),
                   ),
                   20.h.verticalSpace,
-                  CustomDotsIndicator(
-                    current: _complaintController.currentComplaint,
-                    length: _complaintController.carouselComplaintList.length,
+                  Obx(
+                    () => CustomDotsIndicator(
+                      current: _complaintController.currentComplaint.value,
+                      length: _complaintController.carouselComplaintList.length,
+                    ),
                   ),
                   20.h.verticalSpace,
                   Container(

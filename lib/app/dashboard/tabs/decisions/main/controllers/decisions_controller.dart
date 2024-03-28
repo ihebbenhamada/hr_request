@@ -1,7 +1,7 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
-import 'package:request_hr/config/image_urls/image_urls.dart';
+import 'package:request_hr/app/dashboard/tabs/decisions/main/model/get_decisions_response.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../services/decisions_service.dart';
@@ -13,78 +13,7 @@ class DecisionsController extends BaseController {
   /// CONTROLLERS
 
   /// VARIABLES
-  final List<Map<String, dynamic>> decisionList = [
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'Senior front end developer',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': true,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': true,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-  ];
+  RxList<DecisionsResponse> decisionList = <DecisionsResponse>[].obs;
 
   /// VALIDATION
 
@@ -101,7 +30,13 @@ class DecisionsController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    _decisionsService.getDecisions().then((value) {
+      if (value != null) {
+        decisionList.value = value;
+      }
+    });
+  }
 
   /// FUNCTIONS
   onClickDecision() {

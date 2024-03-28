@@ -111,7 +111,9 @@ class VacationsFormScreen extends StatelessWidget {
                 listDropDown: _vacationsFormController.employeesList,
               ),
               15.h.verticalSpace,
-              const InputForm(
+              InputForm(
+                textEditingController:
+                    _vacationsFormController.remarkTextEditingController,
                 width: double.infinity,
                 title: 'Remark',
                 inputType: 'input',

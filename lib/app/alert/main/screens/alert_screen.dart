@@ -110,9 +110,11 @@ class AlertScreen extends StatelessWidget {
                     ),
                   ),
                   20.h.verticalSpace,
-                  CustomDotsIndicator(
-                    current: _alertController.currentAlert,
-                    length: _alertController.carouselAlertList.length,
+                  Obx(
+                    () => CustomDotsIndicator(
+                      current: _alertController.currentAlert.value,
+                      length: _alertController.carouselAlertList.length,
+                    ),
                   ),
                   20.h.verticalSpace,
                   Container(

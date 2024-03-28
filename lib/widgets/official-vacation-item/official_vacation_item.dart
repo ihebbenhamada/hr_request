@@ -8,12 +8,10 @@ class OfficialVacationItem extends StatelessWidget {
   const OfficialVacationItem({
     super.key,
     required this.title,
-    required this.icon,
     required this.date,
   });
 
   final String title;
-  final String icon;
   final String date;
 
   @override

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Vacation {
   final int vacationId;
   final int fKHrEmployeeId;
@@ -10,17 +12,17 @@ class Vacation {
   final String? alternativeToPayingEmployeeNameAr;
   final String? alternativeToPayingEmployeeNameEn;
   final int fKHrVacationTypeId;
-  final DateTime dateFrom;
-  final DateTime dateTo;
+  final String dateFrom;
+  final String dateTo;
   final double consideredDays;
   final int year;
-  final String description;
-  final DateTime creationDate;
-  final DateTime lastModifiedDate;
+  final String? description;
+  final String creationDate;
+  final String lastModifiedDate;
   final bool isActive;
   final bool isDeleted;
   final bool canEdit;
-  final DateTime? dueDate;
+  final String? dueDate;
   final int fKReqStatusId;
   final int vacationTypeId;
   final String? vacationTypeCode;
@@ -30,6 +32,10 @@ class Vacation {
   final List<dynamic> vacationTypes;
   final List<dynamic> employees;
   final String? message;
+  Color? color;
+  String? icon;
+  double? iconHeight;
+  bool? withAlert;
 
   Vacation({
     required this.vacationId,
@@ -63,42 +69,50 @@ class Vacation {
     required this.vacationTypes,
     required this.employees,
     this.message,
+    this.color,
+    this.icon,
+    this.iconHeight,
+    this.withAlert,
   });
   factory Vacation.fromJson(Map<String, dynamic> json) {
     return Vacation(
       vacationId: json['vacationId'] as int,
       fKHrEmployeeId: json['fK_HrEmployeeId'] as int,
-      employeeNameAr: json['employeeNameAr'] as String,
-      employeeNameEn: json['employeeNameEn'] as String,
+      employeeNameAr: json['employeeNameAr'] as String?,
+      employeeNameEn: json['employeeNameEn'] as String?,
       fKAlternativeEmployee: json['fK_AlternativeEmployee'] as int,
-      alternativeEmployeeNameAr: json['alternativeEmployeeNameAr'] as String,
-      alternativeEmployeeNameEn: json['alternativeEmployeeNameEn'] as String,
+      alternativeEmployeeNameAr: json['alternativeEmployeeNameAr'] as String?,
+      alternativeEmployeeNameEn: json['alternativeEmployeeNameEn'] as String?,
       fKAlternativeToPayingAnyDue: json['fK_AlternativeToPayingAnyDue'] as int,
       alternativeToPayingEmployeeNameAr:
-          json['alternativeToPayingEmployeeNameAr'] as String,
+          json['alternativeToPayingEmployeeNameAr'] as String?,
       alternativeToPayingEmployeeNameEn:
-          json['alternativeToPayingEmployeeNameAr'] as String,
+          json['alternativeToPayingEmployeeNameAr'] as String?,
       fKHrVacationTypeId: json['fK_HrVacationTypeId'] as int,
-      dateFrom: json['dateFrom'] as DateTime,
-      dateTo: json['dateTo'] as DateTime,
+      dateFrom: json['dateFrom'] as String,
+      dateTo: json['dateTo'] as String,
       consideredDays: json['consideredDays'] as double,
       year: json['year'] as int,
-      description: json['description'] as String,
-      creationDate: json['creationDate'] as DateTime,
-      lastModifiedDate: json['lastModifiedDate'] as DateTime,
+      description: json['description'] as String?,
+      creationDate: json['creationDate'] as String,
+      lastModifiedDate: json['lastModifiedDate'] as String,
       isActive: json['isActive'] as bool,
       isDeleted: json['isDeleted'] as bool,
       canEdit: json['canEdit'] as bool,
-      dueDate: json['dueDate'] as DateTime,
-      fKReqStatusId: json['fKReqStatusId'] as int,
+      dueDate: json['dueDate'] as String?,
+      fKReqStatusId: json['fK_ReqStatusId'] as int,
       vacationTypeId: json['vacationTypeId'] as int,
-      vacationTypeCode: json['vacationTypeCode'] as String,
-      vacationTypeNameAr: json['vacationTypeNameAr'] as String,
-      vacationTypeNameEn: json['vacationTypeNameEn'] as String,
-      vacationTypeDescription: json['vacationTypeDescription'] as String,
+      vacationTypeCode: json['vacationTypeCode'] as String?,
+      vacationTypeNameAr: json['vacationTypeNameAr'] as String?,
+      vacationTypeNameEn: json['vacationTypeNameEn'] as String?,
+      vacationTypeDescription: json['vacationTypeDescription'] as String?,
       vacationTypes: json['vacationTypes'] as List,
       employees: json['employees'] as List,
-      message: json['message'] as String,
+      message: json['message'] as String?,
+      color: null,
+      icon: null,
+      iconHeight: null,
+      withAlert: null,
     );
   }
 

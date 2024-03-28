@@ -3,18 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../config/colors/colors.dart';
 
-class DecisionDetailsContainer extends StatelessWidget {
-  const DecisionDetailsContainer({
+class DecisionDetailsInput extends StatelessWidget {
+  const DecisionDetailsInput({
     super.key,
-    required this.text,
+    required this.controller,
+    required this.nbrLines,
     required this.icon,
     this.paddingTop,
     this.paddingBottom,
     this.paddingLeft,
     this.paddingRight,
+    this.hint,
   });
-  final String text;
+  final TextEditingController controller;
+  final int nbrLines;
   final String icon;
+  final String? hint;
   final double? paddingTop;
   final double? paddingBottom;
   final double? paddingLeft;
@@ -27,10 +31,10 @@ class DecisionDetailsContainer extends StatelessWidget {
         Container(
           width: double.infinity,
           padding: EdgeInsets.only(
-            top: paddingTop ?? 14.h,
-            bottom: paddingBottom ?? 14.h,
-            left: paddingLeft ?? 20.h,
-            right: paddingRight ?? 20.h,
+            top: 14.h,
+            bottom: 14.h,
+            left: 20.h,
+            right: 20.h,
           ),
           decoration: BoxDecoration(
             color: AppColors.white,
@@ -48,18 +52,43 @@ class DecisionDetailsContainer extends StatelessWidget {
               )
             ],
           ),
-          child: Text(
-            text,
+          child: TextFormField(
+            key: key,
+            controller: controller,
             style: TextStyle(
-              height: 1.3,
-              color: AppColors.blueDark,
               fontSize: 14.sp,
+              color: AppColors.blueDark,
             ),
+            keyboardType: TextInputType.multiline,
+            maxLines: nbrLines,
+            cursorColor: AppColors.gray1,
+            decoration: InputDecoration(
+                isDense: true,
+                focusedBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
+                contentPadding: EdgeInsets.only(
+                  left: paddingLeft ?? 0,
+                  right: paddingRight ?? 0,
+                  top: paddingTop ?? 0,
+                  bottom: paddingBottom ?? 0,
+                ),
+                hintText: hint,
+                hintStyle: TextStyle(
+                  color: AppColors.gray,
+                  fontSize: 14.sp,
+                )),
+            autocorrect: false,
+            enableSuggestions: false,
+            enabled: true,
+            enableInteractiveSelection: true,
           ),
         ),
         Positioned(
           right: 28,
-          top: -28,
+          top: -32,
           child: Container(
             height: 55.h,
             width: 55.h,

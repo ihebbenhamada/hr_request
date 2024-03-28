@@ -111,9 +111,11 @@ class BonusScreen extends StatelessWidget {
                     ),
                   ),
                   20.h.verticalSpace,
-                  CustomDotsIndicator(
-                    current: _bonusController.currentBonus,
-                    length: _bonusController.carouselBonusList.length,
+                  Obx(
+                    () => CustomDotsIndicator(
+                      current: _bonusController.currentBonus.value,
+                      length: _bonusController.carouselBonusList.length,
+                    ),
                   ),
                   20.h.verticalSpace,
                   Container(

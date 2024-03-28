@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
@@ -9,6 +10,8 @@ class DecisionsDetailsController extends BaseController {
       DecisionsDetailsService();
 
   /// CONTROLLERS
+  late final TextEditingController subjectTextEditingController;
+  late final TextEditingController descriptionTextEditingController;
 
   /// VARIABLES
 
@@ -27,11 +30,21 @@ class DecisionsDetailsController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    subjectTextEditingController = TextEditingController();
+    descriptionTextEditingController = TextEditingController();
+  }
 
   /// FUNCTIONS
   onClickDone() {
-    Get.back(id: 1);
+    _decisionsDetailsService
+        .createDecisions(
+          fKHrEmployeeId: 0,
+          fKHrDepartmentId: 1,
+          subject: subjectTextEditingController.value.text,
+          description: descriptionTextEditingController.value.text,
+        )
+        .then((value) {});
   }
 
   onClickBack() {

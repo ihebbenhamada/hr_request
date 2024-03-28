@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/controllers/vacations_controller.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/main/models/vacation.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_categories.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_info_container.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_official_info_container.dart';
@@ -53,62 +54,71 @@ class VacationsScreen extends StatelessWidget {
                   _vacationsController.onSelectFilter(index),
             ),
             30.h.verticalSpace,
-            CarouselSlider.builder(
-              itemCount: _vacationsController.vacationsList.length,
-              itemBuilder: (context, index, i) {
-                String slideKey =
-                    _vacationsController.vacationsList.keys.elementAt(index);
-                List<Map<String, dynamic>> slideItems =
-                    _vacationsController.vacationsList[slideKey];
-                return VacationItem(
-                  title: slideItems[0]['title'],
-                  startDate: slideItems[0]['start_date'],
-                  endDate: slideItems[0]['end_date'],
-                  icon: slideItems[0]['icon'],
-                  withAlert: slideItems[0]['with_alert'],
-                  color: slideItems[0]['color'],
-                  iconHeight: slideItems[0]['icon_height'],
-                  onClick: _vacationsController.onClickVacationItem,
-                );
-              },
-              options: CarouselOptions(
-                height: 182.h,
-                animateToClosest: true,
-                viewportFraction: 0.43,
-                initialPage: 0,
-                clipBehavior: Clip.none,
-                enableInfiniteScroll: false,
-                reverse: false,
-                autoPlay: false,
-                enlargeCenterPage: false,
-                padEnds: false,
-                pageSnapping: false,
-                onPageChanged: (index, reason) =>
-                    _vacationsController.onChangeVacationList(index, reason),
-                scrollDirection: Axis.horizontal,
-              ),
+            Obx(
+              () => _vacationsController.vacationsList.isNotEmpty
+                  ? CarouselSlider.builder(
+                      itemCount: _vacationsController.vacationsList.length,
+                      itemBuilder: (context, index, i) {
+                        Vacation item =
+                            _vacationsController.vacationsList[index];
+                        return VacationItem(
+                          title: "${item.description}\nVacation",
+                          startDate: item.dateFrom.substring(0, 10),
+                          endDate: item.dateTo.substring(0, 10),
+                          icon: item.icon,
+                          withAlert: item.withAlert,
+                          color: item.color,
+                          iconHeight: item.iconHeight,
+                          onClick: _vacationsController.onClickVacationItem,
+                        );
+                      },
+                      options: CarouselOptions(
+                        height: 182.h,
+                        animateToClosest: true,
+                        viewportFraction: 0.43,
+                        initialPage: 0,
+                        clipBehavior: Clip.none,
+                        enableInfiniteScroll: false,
+                        reverse: false,
+                        autoPlay: false,
+                        enlargeCenterPage: false,
+                        padEnds: false,
+                        pageSnapping: false,
+                        onPageChanged: (index, reason) => _vacationsController
+                            .onChangeVacationList(index, reason),
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    )
+                  : const Center(
+                      child: Text('No Vacation found'),
+                    ),
             ),
             14.h.verticalSpace,
-            CustomDotsIndicator(
-              length: _vacationsController.vacationsList.length,
-              current: _vacationsController.currentVacationIndex,
+            Obx(
+              () => CustomDotsIndicator(
+                length: _vacationsController.vacationsList.length,
+                current: _vacationsController.currentVacationIndex.value,
+              ),
             ),
             13.h.verticalSpace,
-            const VacationInfoContainer(),
+            VacationInfoContainer(
+              vacationPercentage: _vacationsController.vacationPercentage,
+              takenDays: _vacationsController.takenDays,
+              leftDays: _vacationsController.leftDays,
+            ),
             22.h.verticalSpace,
-            const VacationOfficialInfoContainer(),
+            VacationOfficialInfoContainer(
+              nextVacation: _vacationsController.nextVacation,
+            ),
             22.h.verticalSpace,
             CarouselSlider.builder(
               itemCount: _vacationsController.officialVacationList.length,
               itemBuilder: (context, index, i) {
-                String slideKey = _vacationsController.officialVacationList.keys
-                    .elementAt(index);
-                List<Map<String, dynamic>> slideItems =
-                    _vacationsController.officialVacationList[slideKey];
+                Map<String, dynamic> item =
+                    _vacationsController.officialVacationList[index];
                 return OfficialVacationItem(
-                  title: slideItems[0]['title'],
-                  icon: slideItems[0]['icon'],
-                  date: slideItems[0]['date'],
+                  title: item['title'],
+                  date: item['date'],
                 );
               },
               options: CarouselOptions(
@@ -129,9 +139,12 @@ class VacationsScreen extends StatelessWidget {
               ),
             ),
             7.h.verticalSpace,
-            CustomDotsIndicator(
-              length: _vacationsController.officialVacationList.length,
-              current: _vacationsController.currentOfficialVacationIndex,
+            Obx(
+              () => CustomDotsIndicator(
+                length: _vacationsController.officialVacationList.length,
+                current:
+                    _vacationsController.currentOfficialVacationIndex.value,
+              ),
             ),
             20.h.verticalSpace,
           ],

@@ -115,10 +115,12 @@ class PunishmentsScreen extends StatelessWidget {
                     ),
                   ),
                   20.h.verticalSpace,
-                  CustomDotsIndicator(
-                    current: _punishmentsController.currentPunishment,
-                    length:
-                        _punishmentsController.carouselPunishmentsList.length,
+                  Obx(
+                    () => CustomDotsIndicator(
+                      current: _punishmentsController.currentPunishment.value,
+                      length:
+                          _punishmentsController.carouselPunishmentsList.length,
+                    ),
                   ),
                   20.h.verticalSpace,
                   Container(

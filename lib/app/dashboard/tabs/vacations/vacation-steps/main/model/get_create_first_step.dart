@@ -3,14 +3,14 @@ class GetCreateFirstStep {
   final int? fKHrEmployeeId;
   final int? fKReqFinalExitId;
   final String? employeeName;
-  final String? creationDate;
+  final String creationDate;
   final String? quitDate;
   final String? lastWorkingDayDate;
   final bool? hasCommitment;
   final String? phone;
   final String? mobile;
   final String? address;
-  final String? lastModifiedDate;
+  final String lastModifiedDate;
   final bool? isActive;
   final bool? isDeleted;
 
@@ -19,14 +19,14 @@ class GetCreateFirstStep {
     this.fKHrEmployeeId,
     this.fKReqFinalExitId,
     this.employeeName,
-    this.creationDate,
+    required this.creationDate,
     this.quitDate,
     this.lastWorkingDayDate,
     this.hasCommitment,
     this.phone,
     this.mobile,
     this.address,
-    this.lastModifiedDate,
+    required this.lastModifiedDate,
     this.isActive,
     this.isDeleted,
   });
@@ -37,14 +37,14 @@ class GetCreateFirstStep {
       fKHrEmployeeId: json['fK_HrEmployeeId'] as int?,
       fKReqFinalExitId: json['fK_ReqFinalExitId'] as int?,
       employeeName: json['employeeName'] as String?,
-      creationDate: json['creationDate'] as String?,
+      creationDate: json['creationDate'] as String,
       quitDate: json['quitDate'] as String?,
       lastWorkingDayDate: json['lastWorkingDayDate'] as String?,
       hasCommitment: json['hasCommitment'] as bool?,
       phone: json['phone'] as String?,
       mobile: json['mobile'] as String?,
       address: json['address'] as String?,
-      lastModifiedDate: json['lastModifiedDate'] as String?,
+      lastModifiedDate: json['lastModifiedDate'] as String,
       isActive: json['isActive'] as bool?,
       isDeleted: json['isDeleted'] as bool?,
     );

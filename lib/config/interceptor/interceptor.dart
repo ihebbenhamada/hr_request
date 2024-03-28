@@ -100,9 +100,19 @@ class AppInterceptor {
 
   /// ERROR HANDLER
 
-  static void _handleError(DioException error) {
+  static void _handleError(DioException dioException) {
+    if (kDebugMode) {
+      log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️ error ⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
+      log('Exception status code : ${dioException.response?.statusCode}');
+      log('Exception status message : ${dioException.response?.statusMessage}');
+      log('Exception type name : ${dioException.type.name}');
+      log('Exception message : ${dioException.message}');
+      log('Exception error : ${dioException.error.toString()}');
+
+      log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
+    }
     Fluttertoast.showToast(
-      msg: "${error.response?.data}",
+      msg: "${dioException.response?.data}",
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
