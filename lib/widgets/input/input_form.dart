@@ -25,6 +25,7 @@ class InputForm extends StatelessWidget {
     this.nbrLines,
     this.isDynamicText = false,
     this.dynamicText,
+    this.dropDown,
   });
 
   final Rx<DropDownModel>? selectedDropDownItem;
@@ -44,6 +45,7 @@ class InputForm extends StatelessWidget {
   final void Function()? onSelectDate;
   final bool isDynamicText;
   final RxString? dynamicText;
+  final Type? dropDown;
 
   @override
   Widget build(BuildContext context) {

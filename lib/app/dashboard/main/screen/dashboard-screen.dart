@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/main/screens/meetings_screen.dart';
+import 'package:request_hr/app/dashboard/tabs/meetings/meetings-details/screens/meetings_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/screens/vacations_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
@@ -132,6 +133,13 @@ class DashboardScreen extends StatelessWidget {
                                 routeName: AppRoutes.meetings,
                                 page: () => MeetingsScreen(),
                                 binding: MeetingsPageBindings(),
+                              );
+                            } else if (routeSettings.name ==
+                                AppRoutes.meetingsDetails) {
+                              return GetPageRoute(
+                                routeName: AppRoutes.meetingsDetails,
+                                page: () => MeetingsDetailsScreen(),
+                                binding: MeetingsDetailsPageBindings(),
                               );
                             }
                             return null;

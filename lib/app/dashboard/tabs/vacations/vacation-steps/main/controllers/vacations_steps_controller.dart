@@ -6,6 +6,7 @@ import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/dis
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/final_exit_approval.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/ticket_exchange_request.dart';
 import 'package:request_hr/config/controllerConfig/base_controller.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../../config/colors/colors.dart';
 import '../model/get_create_first_step.dart';
@@ -67,11 +68,12 @@ class VacationsStepsController extends BaseController
         Tween(begin: 0.0, end: 1.0).animate(_animationFirstStepContainer);
     secondStepContainerAnimation =
         Tween(begin: 0.0, end: 1.0).animate(_animationSecondStepContainer);
-
+    AppInterceptor.showLoader();
     _vacationsStepsService.getCreateFirstStep(4010.toString()).then((value) {
       if (value != null) {
         firstStepData.value = value;
       }
+      AppInterceptor.hideLoader();
     });
   }
 

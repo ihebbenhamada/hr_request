@@ -1,8 +1,13 @@
 import 'dart:io';
 
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/api/models/public/department.dart';
+import 'package:request_hr/api/models/public/employee.dart';
+import 'package:request_hr/api/models/public/meeting_point.dart';
+import 'package:request_hr/app/dashboard/tabs/meetings/main/model/meeting_response.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/meetings-details/widgets/meeting_point_item.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
@@ -13,7 +18,12 @@ import '../controllers/meetings_details_controller.dart';
 
 class MeetingsDetailsScreen extends StatelessWidget {
   final _meetingsDetailsController = Get.put(MeetingsDetailsController());
-  MeetingsDetailsScreen({super.key});
+  MeetingsDetailsScreen({
+    super.key,
+    this.meetingItem,
+  });
+  final MeetingResponse? meetingItem;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -159,19 +169,92 @@ class MeetingsDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      InputForm(
-                        height: 55.h,
-                        width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                        title: 'Date',
-                        inputType: 'text',
-                        text: '12-05-2024',
+                      Obx(
+                        () => InputForm(
+                          height: 55.h,
+                          width:
+                              MediaQuery.of(context).size.width * 0.485 - 25.0,
+                          title: 'Date',
+                          inputType: 'date',
+                          text: _meetingsDetailsController.meetingDate.value,
+                          onSelectDate: () => _meetingsDetailsController
+                              .selectDate(context, 'from'),
+                        ),
                       ),
-                      InputForm(
+                      Container(
                         height: 55.h,
                         width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                        title: 'Depart',
-                        inputType: 'text',
-                        text: 'It Solutions',
+                        padding: const EdgeInsets.only(
+                          left: 11,
+                          right: 11,
+                          bottom: 0,
+                          top: 0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(12.h),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x29000000),
+                              blurRadius: 3,
+                              offset: Offset(0, 3),
+                              spreadRadius: 0,
+                            )
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Depart",
+                              style: TextStyle(
+                                color: AppColors.gray6,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                            3.verticalSpace,
+                            Obx(
+                              () => DropdownButtonHideUnderline(
+                                child: DropdownButton<Department>(
+                                  isDense: true,
+                                  value: _meetingsDetailsController
+                                      .selectedDepartment.value,
+                                  style: TextStyle(
+                                    color: AppColors.blueDark,
+                                    fontSize: 14.sp,
+                                  ),
+                                  isExpanded: true,
+                                  alignment: Alignment.bottomCenter,
+                                  icon: Image.asset(
+                                    AppImages.arrowDown,
+                                    height: 8.h,
+                                  ),
+                                  onChanged: (Department? newValue) =>
+                                      _meetingsDetailsController
+                                          .onSelectDepartment(newValue!),
+                                  items: _meetingsDetailsController
+                                      .departmentList
+                                      .map<DropdownMenuItem<Department>>(
+                                          (Department value) {
+                                    return DropdownMenuItem<Department>(
+                                      alignment: Alignment.centerLeft,
+                                      value: value,
+                                      child: Text(
+                                        value.departmentNameEn ?? "",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -179,74 +262,111 @@ class MeetingsDetailsScreen extends StatelessWidget {
                   Stack(
                     alignment: Alignment.bottomRight,
                     children: [
-                      const InputForm(
-                        paddingRight: 36.0,
-                        paddingBottom: 11,
-                        width: double.infinity,
-                        title: 'Invitation To',
-                        inputType: 'text',
-                        text:
-                            'Dina Ali Ibraim. ali Samir Mohsen, Yaseer Ibrahim Ali',
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0, bottom: 6.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 11),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(12.h),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x29000000),
+                              blurRadius: 3,
+                              offset: Offset(0, 3),
+                              spreadRadius: 0,
+                            )
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 20.h,
-                              width: 20.h,
-                              decoration: const ShapeDecoration(
-                                shape: OvalBorder(
-                                  side: BorderSide(color: AppColors.gray3),
-                                ),
-                              ),
-                              child: Center(
-                                child: Image.asset(AppImages.profile),
+                            5.h.verticalSpace,
+                            Text(
+                              "Invitation To",
+                              style: TextStyle(
+                                color: AppColors.gray6,
+                                fontSize: 14.sp,
                               ),
                             ),
-                            Container(
-                              height: 20.h,
-                              width: 20.h,
-                              decoration: const ShapeDecoration(
-                                shape: OvalBorder(
-                                  side: BorderSide(color: AppColors.gray3),
+                            CustomDropdown<Employee>.multiSelectSearchRequest(
+                              items: _meetingsDetailsController.employeeList,
+                              hintText: "Select employees",
+                              closedHeaderPadding:
+                                  EdgeInsets.only(bottom: 10.h),
+                              listItemBuilder: (context, employee, isSelected,
+                                  onItemSelect) {
+                                return Text(employee.fullName ?? "");
+                              },
+                              decoration: CustomDropdownDecoration(
+                                hintStyle: TextStyle(
+                                  fontSize: 14.sp,
+                                ),
+                                closedSuffixIcon: const Icon(
+                                  Icons.arrow_drop_down,
+                                  color: AppColors.white,
                                 ),
                               ),
-                              child: Center(
-                                child: Image.asset(AppImages.avatar3),
-                              ),
-                            ),
-                            Container(
-                              height: 20.h,
-                              width: 20.h,
-                              decoration: const ShapeDecoration(
-                                shape: OvalBorder(
-                                  side: BorderSide(color: AppColors.gray3),
-                                ),
-                              ),
-                              child: Center(
-                                child: Image.asset(AppImages.avatar2),
-                              ),
+                              headerListBuilder: (context, employees) {
+                                String listEmployees = "";
+                                employees.forEach((e) {
+                                  listEmployees =
+                                      '$listEmployees${e.fullName!}, ';
+                                });
+                                return Text(listEmployees);
+                              },
+                              onListChanged: (List<Employee> list) =>
+                                  _meetingsDetailsController
+                                      .onChangeListEmployee(list),
+                              futureRequest: (value) =>
+                                  _meetingsDetailsController
+                                      .searchEmployee(value),
                             ),
                           ],
                         ),
-                      )
+                      ),
+                      Obx(
+                        () => Container(
+                          height: 26.h,
+                          padding: EdgeInsets.only(right: 8.0, bottom: 6.h),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount:
+                                _meetingsDetailsController.imageList.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                height: 20.h,
+                                width: 20.h,
+                                decoration: const ShapeDecoration(
+                                  shape: OvalBorder(
+                                    side: BorderSide(color: AppColors.gray3),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Image.asset(AppImages.profile),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   13.h.verticalSpace,
                   InputForm(
-                    height: 55.h,
                     width: double.infinity,
                     title: 'Meeting Title',
-                    inputType: 'text',
-                    text: 'Emergency Meeting',
+                    inputType: 'input',
+                    nbrLines: 1,
+                    textEditingController: _meetingsDetailsController
+                        .meetingTitleTextEditingController,
                   ),
                   13.h.verticalSpace,
-                  const InputForm(
+                  InputForm(
                     width: double.infinity,
                     title: 'Meeting Subject',
                     inputType: 'input',
+                    textEditingController: _meetingsDetailsController
+                        .meetingSubjectTextEditingController,
                   ),
                   22.h.verticalSpace,
                   Container(
@@ -343,9 +463,9 @@ class MeetingsDetailsScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       itemBuilder: (context, index) {
-                        String name =
+                        MeetingPoint item =
                             _meetingsDetailsController.meetingPointList[index];
-                        return MeetingPointItem(name: name);
+                        return MeetingPointItem(name: item.pointText);
                       },
                       separatorBuilder: (context, index) {
                         return 13.h.verticalSpace;
@@ -395,43 +515,49 @@ class MeetingsDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   20.h.verticalSpace,
-                  SizedBox(
-                    height: 100.h,
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _meetingsDetailsController.files.length,
-                      itemBuilder: (context, index) {
-                        return Image.file(
-                          File(
-                            _meetingsDetailsController.files[index].path,
-                          ),
-                          fit: BoxFit.cover,
-                          width: 100.h,
+                  _meetingsDetailsController.files.isNotEmpty
+                      ? SizedBox(
                           height: 100.h,
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return 10.horizontalSpace;
-                      },
-                    ),
-                  ),
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _meetingsDetailsController.files.length,
+                            itemBuilder: (context, index) {
+                              return Image.file(
+                                File(
+                                  _meetingsDetailsController.files[index].path,
+                                ),
+                                fit: BoxFit.cover,
+                                width: 100.h,
+                                height: 100.h,
+                              );
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return 10.horizontalSpace;
+                            },
+                          ),
+                        )
+                      : const SizedBox(),
                   30.h.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 50.h,
-                        width: 50.h,
-                        decoration: const ShapeDecoration(
-                          color: AppColors.primary,
-                          shape: OvalBorder(),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            AppImages.tick,
-                            color: AppColors.white,
-                            height: 30.h,
+                      GestureDetector(
+                        onTap: _meetingsDetailsController.onClickDone,
+                        child: Container(
+                          height: 50.h,
+                          width: 50.h,
+                          decoration: const ShapeDecoration(
+                            color: AppColors.primary,
+                            shape: OvalBorder(),
+                          ),
+                          child: Center(
+                            child: Image.asset(
+                              AppImages.tick,
+                              color: AppColors.white,
+                              height: 30.h,
+                            ),
                           ),
                         ),
                       ),

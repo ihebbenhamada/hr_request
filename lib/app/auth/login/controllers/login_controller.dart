@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/dashboard/main/screen/dashboard-screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../config/controllerConfig/base_controller.dart';
 import '../services/login_service.dart';
@@ -76,6 +77,7 @@ class LoginController extends BaseController {
   handleClickSignIn() {
     if (idTextEditingController.value.text.isNotEmpty &&
         passwordTextEditingController.value.text.isNotEmpty) {
+      AppInterceptor.showLoader();
       _loginService
           .login(
         id: idTextEditingController.value.text,
@@ -96,6 +98,7 @@ class LoginController extends BaseController {
         } else {
           print('error');
         }
+        AppInterceptor.hideLoader();
       });
     } else {
       Fluttertoast.showToast(

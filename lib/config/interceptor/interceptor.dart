@@ -33,7 +33,6 @@ class AppInterceptor {
             RequestOptions requestOptions,
             RequestInterceptorHandler handler,
           ) {
-            showLoader();
             if (requestOptions.method == 'GET') {
               requestOptions.queryParameters.removeWhere(
                 (key, value) => value == null,
@@ -57,7 +56,6 @@ class AppInterceptor {
             ResponseInterceptorHandler handler,
           ) {
             onResponseReceived(response);
-            hideLoader();
             _reestablishDefaultConfig();
             handler.next(response);
           },

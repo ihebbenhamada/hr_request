@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/vacation.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../../../config/image_urls/image_urls.dart';
@@ -59,6 +60,11 @@ class VacationsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
+    getListVacations();
+  }
+
+  getListVacations() {
+    AppInterceptor.showLoader();
     _vacationsService.getEmployeeVacations().then((value) {
       if (value != null) {
         leftDays.value = value.leftDays;
@@ -95,6 +101,7 @@ class VacationsController extends BaseController {
         }).toList();
         vacationsList.value = allVacationsList;
       }
+      AppInterceptor.hideLoader();
     });
   }
 
@@ -131,5 +138,18 @@ class VacationsController extends BaseController {
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+  }
+
+  void navigateAndRefresh() async {
+    final result = await Get.to(
+      id: 2,
+      () => VacationsFormScreen(),
+      transition: Transition.leftToRight,
+      curve: Curves.ease,
+      duration: const Duration(milliseconds: 500),
+    ); //or use default navigation
+    if (result != null) {
+      getListVacations(); // call your own function here to refresh screen
+    }
   }
 }

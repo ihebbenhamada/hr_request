@@ -33,7 +33,7 @@ class DecisionsScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _decisionsController.onClickDecision,
+                  onTap: _decisionsController.navigateAndRefresh,
                   child: Image.asset(
                     AppImages.addDecision,
                     height: 34.h,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/main/controllers/meetings_controller.dart';
+import 'package:request_hr/app/dashboard/tabs/meetings/main/model/meeting_response.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_categories.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
@@ -34,7 +35,7 @@ class MeetingsScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _meetingsController.onClickMeetingItem,
+                  onTap: _meetingsController.navigateAndRefresh,
                   child: Image.asset(
                     AppImages.addDecision,
                     height: 34.h,
@@ -64,17 +65,18 @@ class MeetingsScreen extends StatelessWidget {
                   ),
                   shrinkWrap: true, // padding around the grid
                   itemCount: _meetingsController
-                      .meetingList.length, // total number of items
+                      .filteredMeetingList.length, // total number of items
                   itemBuilder: (context, index) {
-                    Map<String, dynamic> item =
-                        _meetingsController.meetingList[index];
+                    MeetingResponse item =
+                        _meetingsController.filteredMeetingList[index];
                     return DecisionGridItem(
-                      employeeName: item['employee_name'],
-                      employeePosition: item['meeting_title'],
-                      employeeImage: item['employee_image'],
-                      type: item['type'],
-                      date: item['date'],
-                      onClick: _meetingsController.onClickMeetingItem,
+                      employeeName: item.assigneeByName ?? "",
+                      employeePosition: item.meetingTitle ?? "",
+                      employeeImage: AppImages.profile,
+                      type: 0,
+                      date: item.creationDate.toString().substring(0, 10),
+                      onClick: () =>
+                          _meetingsController.onClickMeetingItem(item),
                     );
                   },
                 ),

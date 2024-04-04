@@ -38,7 +38,7 @@ class VacationsScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _vacationsController.onClickVacationItem,
+                  onTap: _vacationsController.navigateAndRefresh,
                   child: Image.asset(
                     AppImages.addDecision,
                     height: 34.h,
