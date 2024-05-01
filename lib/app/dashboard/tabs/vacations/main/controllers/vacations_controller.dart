@@ -8,6 +8,7 @@ import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../../../config/image_urls/image_urls.dart';
+import '../models/get_update_response.dart';
 import '../services/vacations_service.dart';
 
 class VacationsController extends BaseController {
@@ -48,6 +49,7 @@ class VacationsController extends BaseController {
   RxDouble leftDays = 0.0.obs;
   RxDouble vacationPercentage = 0.0.obs;
   RxString nextVacation = "".obs;
+  GetUpdateVacationResponse? selectedVacation;
 
   /// VALIDATION
 
@@ -130,17 +132,28 @@ class VacationsController extends BaseController {
     currentOfficialVacationIndex.value = index;
   }
 
-  onClickVacationItem() {
-    Get.to(
-      id: 2,
-      () => VacationsFormScreen(),
-      transition: Transition.leftToRight,
-      curve: Curves.ease,
-      duration: const Duration(milliseconds: 500),
-    );
+  onClickVacationItem(int id) {
+    AppInterceptor.showLoader();
+    _vacationsService.getUpdateVacation(vacationId: id).then((value) async {
+      if (value != null) {
+        AppInterceptor.hideLoader();
+        selectedVacation = value;
+        final result = await Get.to(
+          id: 2,
+          () => VacationsFormScreen(),
+          transition: Transition.leftToRight,
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        ); //or use default navigation
+        if (result != null) {
+          getListVacations(); // call your own function here to refresh screen
+        }
+      }
+    });
   }
 
   void navigateAndRefresh() async {
+    selectedVacation = null;
     final result = await Get.to(
       id: 2,
       () => VacationsFormScreen(),

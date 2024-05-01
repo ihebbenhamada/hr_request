@@ -6,7 +6,7 @@ import '../../../../../../config/colors/colors.dart';
 class DecisionDetailsInput extends StatelessWidget {
   const DecisionDetailsInput({
     super.key,
-    required this.controller,
+    this.controller,
     required this.nbrLines,
     required this.icon,
     this.paddingTop,
@@ -14,8 +14,10 @@ class DecisionDetailsInput extends StatelessWidget {
     this.paddingLeft,
     this.paddingRight,
     this.hint,
+    this.initialValue,
+    this.enabled,
   });
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final int nbrLines;
   final String icon;
   final String? hint;
@@ -23,6 +25,8 @@ class DecisionDetailsInput extends StatelessWidget {
   final double? paddingBottom;
   final double? paddingLeft;
   final double? paddingRight;
+  final String? initialValue;
+  final bool? enabled;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -62,6 +66,7 @@ class DecisionDetailsInput extends StatelessWidget {
             keyboardType: TextInputType.multiline,
             maxLines: nbrLines,
             cursorColor: AppColors.gray1,
+            initialValue: initialValue,
             decoration: InputDecoration(
                 isDense: true,
                 focusedBorder: InputBorder.none,
@@ -82,7 +87,7 @@ class DecisionDetailsInput extends StatelessWidget {
                 )),
             autocorrect: false,
             enableSuggestions: false,
-            enabled: true,
+            enabled: enabled,
             enableInteractiveSelection: true,
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/alert/main/screens/alert_screen.dart';
@@ -473,11 +474,14 @@ class DashboardController extends BaseController {
             colorScheme: const ColorScheme.light(
               primary: AppColors.primary, // header background color
               onPrimary: AppColors.white, // header text color
-              onSurface: AppColors.gray6, // body text color
+              onSurface: AppColors.black, // body text color
             ),
+            textTheme: Theme.of(context).textTheme.copyWith(
+                  bodyLarge: TextStyle(fontSize: 14.sp),
+                ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: AppColors.gray6, // button text color
+                foregroundColor: AppColors.black, // button text color
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -51,8 +52,15 @@ class CustodyDetailsScreen extends StatelessWidget {
                   height: 55.h,
                   width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                   title: 'Total Custody Amount',
-                  inputType: 'text',
-                  text: '00',
+                  inputType: 'input',
+                  nbrLines: 1,
+                  textEditingController: _custodyDetailsController
+                      .totalCustodyTextEditingController,
+                  keyboardType: TextInputType.number,
+                  inputFormatter: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10),
+                  ],
                 ),
               ],
             ),
@@ -61,16 +69,20 @@ class CustodyDetailsScreen extends StatelessWidget {
               height: 55.h,
               width: double.infinity,
               title: 'Title',
-              inputType: 'text',
-              text: 'Custody Title',
+              inputType: 'input',
+              nbrLines: 1,
+              textEditingController:
+                  _custodyDetailsController.titleCustodyTextEditingController,
             ),
             15.h.verticalSpace,
             InputForm(
               height: 55.h,
               width: double.infinity,
               title: 'Custody Name',
-              inputType: 'text',
-              text: 'Custody Name',
+              inputType: 'input',
+              nbrLines: 1,
+              textEditingController:
+                  _custodyDetailsController.nameCustodyTextEditingController,
             ),
             15.h.verticalSpace,
             Row(
@@ -106,8 +118,10 @@ class CustodyDetailsScreen extends StatelessWidget {
             16.h.verticalSpace,
             InputForm(
               title: 'Topic',
-              inputType: 'input',
               nbrLines: 4,
+              inputType: 'input',
+              textEditingController:
+                  _custodyDetailsController.topicCustodyTextEditingController,
             ),
             30.h.verticalSpace,
             Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/bonus/bonus-details/controllers/bonus_details_controller.dart';
@@ -169,8 +170,18 @@ class BonusDetailsScreen extends StatelessWidget {
                         height: 55.h,
                         width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                         title: 'Bonus Amount',
-                        inputType: 'text',
-                        text: '2000',
+                        inputType: 'input',
+                        nbrLines: 1,
+                        textEditingController:
+                            _bonusDetailsController.amountTextEditingController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                          signed: true,
+                        ),
+                        inputFormatter: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(10),
+                        ],
                       ),
                     ],
                   ),
@@ -179,23 +190,26 @@ class BonusDetailsScreen extends StatelessWidget {
                     height: 55.h,
                     width: double.infinity,
                     title: 'Bonus Title',
-                    inputType: 'text',
-                    text: 'Proficiency bonus',
+                    inputType: 'input',
+                    nbrLines: 1,
+                    keyboardType: TextInputType.text,
+                    textEditingController:
+                        _bonusDetailsController.titleTextEditingController,
                   ),
                   13.h.verticalSpace,
-                  const InputForm(
+                  InputForm(
                     width: double.infinity,
                     title: 'Remark',
                     inputType: 'input',
+                    textEditingController:
+                        _bonusDetailsController.remarkTextEditingController,
                   ),
                   30.h.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
+                        onTap: _bonusDetailsController.onClickSubmit,
                         child: Container(
                           height: 50.h,
                           width: 50.h,

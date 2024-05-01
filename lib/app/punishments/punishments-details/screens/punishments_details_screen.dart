@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/punishments/punishments-details/controllers/punishments_details_controller.dart';
@@ -169,9 +170,16 @@ class PunishmentsDetailsScreen extends StatelessWidget {
                       InputForm(
                         height: 55.h,
                         width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                        title: 'Bonus Amount',
-                        inputType: 'text',
-                        text: '2000',
+                        title: 'Punishment Amount',
+                        inputType: 'input',
+                        nbrLines: 1,
+                        textEditingController: _punishmentsDetailsController
+                            .amountTextEditingController,
+                        keyboardType: TextInputType.number,
+                        inputFormatter: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(8),
+                        ],
                       ),
                     ],
                   ),
@@ -179,24 +187,26 @@ class PunishmentsDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: double.infinity,
-                    title: 'Bonus Title',
-                    inputType: 'text',
-                    text: 'Proficiency bonus',
+                    title: 'Punishment Title',
+                    inputType: 'input',
+                    nbrLines: 1,
+                    textEditingController: _punishmentsDetailsController
+                        .titleTextEditingController,
                   ),
                   13.h.verticalSpace,
-                  const InputForm(
+                  InputForm(
                     width: double.infinity,
                     title: 'Remark',
                     inputType: 'input',
+                    textEditingController: _punishmentsDetailsController
+                        .remarkTextEditingController,
                   ),
                   30.h.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
+                        onTap: _punishmentsDetailsController.onClickSubmit,
                         child: Container(
                           height: 50.h,
                           width: 50.h,

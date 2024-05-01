@@ -17,7 +17,7 @@ class BonusItem extends StatelessWidget {
     this.type,
   });
   final String employeeName;
-  final int employeeBonus;
+  final double employeeBonus;
   final String employeeImage;
   final String date;
   final bool? editable;

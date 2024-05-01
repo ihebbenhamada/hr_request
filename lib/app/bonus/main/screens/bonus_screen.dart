@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:request_hr/app/bonus/main/controllers/bonus_controller.dart';
+import 'package:request_hr/app/bonus/main/models/bonus_response.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
@@ -63,7 +64,7 @@ class BonusScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: _bonusController.onClickCreateBonus,
+                        onTap: _bonusController.navigateAndRefresh,
                         child: Image.asset(
                           AppImages.addDecision,
                           height: 34.h,
@@ -74,20 +75,19 @@ class BonusScreen extends StatelessWidget {
                   ),
                   20.h.verticalSpace,
                   CarouselSlider.builder(
-                    itemCount: _bonusController.carouselBonusList.length + 1,
+                    itemCount: _bonusController.bonusList.length + 1,
                     itemBuilder: (context, index, i) {
-                      if (index == _bonusController.carouselBonusList.length) {
+                      if (index == _bonusController.bonusList.length) {
                         // Display fake item at the last index
                         return const SizedBox();
                       } else {
-                        Map<String, dynamic> item =
-                            _bonusController.carouselBonusList[index];
+                        BonusResponse item = _bonusController.bonusList[index];
                         // Display real items
                         return BonusItem(
-                          employeeName: item['employee_name'],
-                          employeeBonus: item['employee_bonus'],
-                          employeeImage: item['employee_image'],
-                          date: item['date'],
+                          employeeName: item.assigneeName ?? "",
+                          employeeBonus: item.amount ?? 0.0,
+                          employeeImage: item.imagePath ?? "",
+                          date: item.creationDate ?? "",
                           editable: true,
                           onClick: _bonusController.onClickItemBonus,
                         );
@@ -114,7 +114,7 @@ class BonusScreen extends StatelessWidget {
                   Obx(
                     () => CustomDotsIndicator(
                       current: _bonusController.currentBonus.value,
-                      length: _bonusController.carouselBonusList.length,
+                      length: _bonusController.bonusList.length,
                     ),
                   ),
                   20.h.verticalSpace,

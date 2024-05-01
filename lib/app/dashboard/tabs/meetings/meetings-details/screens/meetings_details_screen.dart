@@ -16,13 +16,32 @@ import 'package:request_hr/widgets/input/input_form.dart';
 import '../../../../../../config/colors/colors.dart';
 import '../controllers/meetings_details_controller.dart';
 
-class MeetingsDetailsScreen extends StatelessWidget {
-  final _meetingsDetailsController = Get.put(MeetingsDetailsController());
-  MeetingsDetailsScreen({
+class MeetingsDetailsScreen extends StatefulWidget {
+  const MeetingsDetailsScreen({
     super.key,
     this.meetingItem,
   });
   final MeetingResponse? meetingItem;
+
+  @override
+  State<MeetingsDetailsScreen> createState() => _MeetingsDetailsScreenState();
+}
+
+class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
+  final _meetingsDetailsController = Get.put(MeetingsDetailsController());
+
+  @override
+  void initState() {
+    if (widget.meetingItem != null) {
+      _meetingsDetailsController.meetingDate.value =
+          widget.meetingItem!.meetingDate!.substring(0, 10);
+      /* _meetingsDetailsController.meetingPointList.value =
+          widget.meetingItem!.meetingPoints!;
+      _meetingsDetailsController.meetingDate.value =
+          widget.meetingItem!.meetingDate!;*/
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -354,6 +373,7 @@ class MeetingsDetailsScreen extends StatelessWidget {
                   13.h.verticalSpace,
                   InputForm(
                     width: double.infinity,
+                    height: 55.h,
                     title: 'Meeting Title',
                     inputType: 'input',
                     nbrLines: 1,

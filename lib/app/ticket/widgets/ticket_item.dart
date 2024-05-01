@@ -10,11 +10,11 @@ class TicketItem extends StatelessWidget {
     required this.title,
     required this.date,
     required this.onClick,
-    required this.type,
+    required this.status,
   });
   final String title;
   final String date;
-  final int type;
+  final String status;
   final void Function() onClick;
   @override
   Widget build(BuildContext context) {
@@ -64,10 +64,10 @@ class TicketItem extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: type == 0
+                color: status == "RequestTicketApproved"
                     ? AppColors.primary
-                    : type == 1
-                        ? AppColors.gray1
+                    : status == "RequestTicketInProgress"
+                        ? AppColors.gray5
                         : AppColors.redLight,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: const [
@@ -83,7 +83,9 @@ class TicketItem extends StatelessWidget {
                 date,
                 style: TextStyle(
                   fontSize: 9.sp,
-                  color: type == 1 ? AppColors.blueDark : AppColors.white,
+                  color: status == "RequestTicketInProgress"
+                      ? AppColors.blueDark
+                      : AppColors.white,
                 ),
               ),
             ),
@@ -98,23 +100,23 @@ class TicketItem extends StatelessWidget {
       height: 44.h,
       width: 44.h,
       decoration: ShapeDecoration(
-        color: type == 0
+        color: status == "RequestTicketApproved"
             ? AppColors.primary
-            : type == 1
-                ? AppColors.gray1
+            : status == "RequestTicketInProgress"
+                ? AppColors.gray5
                 : AppColors.redLight,
         shape: const OvalBorder(),
       ),
       child: Center(
         child: Image.asset(
-          type == 0
+          status == "RequestTicketApproved"
               ? AppImages.doubleCheck
-              : type == 1
+              : status == "RequestTicketInProgress"
                   ? AppImages.progress
                   : AppImages.x,
-          height: type == 0
+          height: status == "RequestTicketApproved"
               ? 11.5.h
-              : type == 1
+              : status == "RequestTicketInProgress"
                   ? 25.h
                   : 19.h,
         ),

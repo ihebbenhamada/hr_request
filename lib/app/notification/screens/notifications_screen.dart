@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/notification/controllers/notifications_controller.dart';
+import 'package:request_hr/app/notification/model/notification.dart'
+    as notifModel;
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
@@ -62,30 +64,33 @@ class NotificationsScreen extends StatelessWidget {
             ),
           ),
           10.h.verticalSpace,
-          Expanded(
-            child: ListView.separated(
-              shrinkWrap: true,
-              padding: EdgeInsets.only(
-                left: 25,
-                right: 25,
-                top: 20.h,
+          Obx(
+            () => Expanded(
+              child: ListView.separated(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(
+                  left: 25,
+                  right: 25,
+                  top: 20.h,
+                  bottom: 50.h,
+                ),
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  notifModel.Notification item =
+                      _notificationsController.notificationList[index];
+                  return NotificationItem(
+                    image: null,
+                    name: item.creatorName,
+                    job: item.notificationText,
+                    date: item.creationDate,
+                    type: item.requestType,
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return 30.h.verticalSpace;
+                },
+                itemCount: _notificationsController.notificationList.length,
               ),
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, index) {
-                Map<String, dynamic> item =
-                    _notificationsController.listNotifications[index];
-                return NotificationItem(
-                  image: item['image'],
-                  name: item['name'],
-                  job: item['job'],
-                  date: item['date'],
-                  type: item['type'],
-                );
-              },
-              separatorBuilder: (context, index) {
-                return 30.h.verticalSpace;
-              },
-              itemCount: _notificationsController.listNotifications.length,
             ),
           ),
         ],

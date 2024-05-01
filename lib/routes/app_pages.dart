@@ -47,31 +47,45 @@ class AppPages {
       binding: LoginPageBindings(),
     ),
     GetPage(
-        name: AppRoutes.dashboard,
-        page: () => DashboardScreen(),
-        binding: DashboardPageBindings(),
-        children: [
-          GetPage(
-            name: AppRoutes.decisions,
-            page: () => DecisionsScreen(),
-            binding: DecisionsPageBindings(),
-          ),
-          GetPage(
+      name: AppRoutes.dashboard,
+      page: () => DashboardScreen(),
+      binding: DashboardPageBindings(),
+      children: [
+        GetPage(
+          name: AppRoutes.decisions,
+          page: () => DecisionsScreen(),
+          binding: DecisionsPageBindings(),
+          children: [
+            GetPage(
+              name: AppRoutes.decisionsDetails,
+              page: () => DecisionsDetailsScreen(),
+              binding: DecisionsDetailsPageBindings(),
+            ),
+          ],
+        ),
+        GetPage(
             name: AppRoutes.vacations,
             page: () => VacationsScreen(),
             binding: VacationPageBindings(),
-          ),
-          GetPage(
-            name: AppRoutes.meetings,
-            page: () => MeetingsScreen(),
-            binding: MeetingsPageBindings(),
-          ),
-          GetPage(
-            name: AppRoutes.home,
-            page: () => HomeScreen(),
-            binding: HomePageBindings(),
-          ),
-        ]),
+            children: [
+              GetPage(
+                name: AppRoutes.vacationsForm,
+                page: () => VacationsFormScreen(),
+                binding: VacationsFormPageBindings(),
+              ),
+            ]),
+        GetPage(
+          name: AppRoutes.meetings,
+          page: () => MeetingsScreen(),
+          binding: MeetingsPageBindings(),
+        ),
+        GetPage(
+          name: AppRoutes.home,
+          page: () => HomeScreen(),
+          binding: HomePageBindings(),
+        ),
+      ],
+    ),
     GetPage(
       name: AppRoutes.mail,
       page: () => MailScreen(),
@@ -93,11 +107,6 @@ class AppPages {
       binding: ReplayMailPageBindings(),
     ),
     GetPage(
-      name: AppRoutes.vacationsForm,
-      page: () => VacationsFormScreen(),
-      binding: VacationsFormPageBindings(),
-    ),
-    GetPage(
       name: AppRoutes.vacationsSteps,
       page: () => VacationsStepsScreen(),
       binding: VacationsStepsPageBindings(),
@@ -109,13 +118,8 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.meetingsDetails,
-      page: () => MeetingsDetailsScreen(),
+      page: () => const MeetingsDetailsScreen(),
       binding: MeetingsDetailsPageBindings(),
-    ),
-    GetPage(
-      name: AppRoutes.decisionsDetails,
-      page: () => DecisionsDetailsScreen(),
-      binding: DecisionsDetailsPageBindings(),
     ),
     GetPage(
       name: AppRoutes.notifications,
@@ -169,7 +173,10 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.ticketDetails,
-      page: () => TicketDetailsScreen(),
+      page: () {
+        TicketDetailsScreen ticketDetailsPage = Get.arguments;
+        return ticketDetailsPage;
+      },
       binding: TicketDetailsPageBindings(),
     ),
     GetPage(
@@ -189,7 +196,10 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.custodyDetails,
-      page: () => CustodyDetailsScreen(),
+      page: () {
+        CustodyDetailsScreen custodyDetailsScreen = Get.arguments;
+        return custodyDetailsScreen;
+      },
       binding: CustodyDetailsPageBindings(),
     ),
     GetPage(

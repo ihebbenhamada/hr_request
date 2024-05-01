@@ -1,8 +1,10 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/custody/custody-details/screens/custody_details_screen.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../models/custody.dart';
 import '../services/custody_service.dart';
 
 class CustodyController extends BaseController {
@@ -13,69 +15,13 @@ class CustodyController extends BaseController {
 
   /// VARIABLES
   RxInt selectedFilter = 0.obs;
-  RxList custodyList = [].obs;
-  final List<Map<String, dynamic>> custodyData = [
-    {
-      'title': 'Request Custody',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Custody',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-  ];
+
+  RxList<Custody> allCustodyList = <Custody>[].obs;
+  RxList<Custody> pendingCustodyList = <Custody>[].obs;
+  RxList<Custody> approvedCustodyList = <Custody>[].obs;
+  RxList<Custody> rejectedCustodyList = <Custody>[].obs;
+
+  RxList<Custody> custodyList = <Custody>[].obs;
 
   /// VALIDATION
 
@@ -88,49 +34,93 @@ class CustodyController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    custodyList.value = custodyData;
+    getCustodyList();
   }
 
   /// FUNCTIONS
+  getCustodyList() {
+    AppInterceptor.showLoader();
+    _custodyService.getCustodyList().then((value) {
+      if (value != null) {
+        List<Custody> list = [
+          Custody(
+            custodyId: 1,
+            fkHrEmployeeId: 1,
+            paymentType: 1,
+            dateCustody: "2024-05-12",
+            totalAmount: 2000,
+            fkCbCustodyTypeId: 1,
+            custodyName: "Iheb",
+            subject: "subject",
+            description: "description",
+            fkReqStatusId: 31,
+          ),
+          Custody(
+            custodyId: 2,
+            fkHrEmployeeId: 1,
+            paymentType: 4,
+            dateCustody: "2024-05-20",
+            totalAmount: 5000,
+            fkCbCustodyTypeId: 2,
+            custodyName: "rabeb",
+            subject: "subbbbbbb",
+            description: "dessssss",
+            fkReqStatusId: 32,
+          ),
+        ];
+        allCustodyList.value = list;
+        pendingCustodyList.value =
+            list.where((map) => map.fkReqStatusId == 31).toList();
+        approvedCustodyList.value =
+            list.where((map) => map.fkReqStatusId == 32).toList();
+        rejectedCustodyList.value =
+            list.where((map) => map.fkReqStatusId == 33).toList();
+        custodyList.value = allCustodyList;
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   onSelectFilter(int index) {
     selectedFilter.value = index;
     switch (index) {
       case 0:
-        custodyList.value = custodyData;
+        custodyList.value = allCustodyList;
         break;
       case 1:
-        custodyList.value =
-            custodyData.where((map) => map['type'] == 1).toList();
+        custodyList.value = pendingCustodyList;
         break;
       case 2:
-        custodyList.value =
-            custodyData.where((map) => map['type'] == 0).toList();
+        custodyList.value = approvedCustodyList;
         break;
       case 3:
-        custodyList.value =
-            custodyData.where((map) => map['type'] == 2).toList();
+        custodyList.value = rejectedCustodyList;
         break;
       default:
-        custodyList.value = custodyData;
+        custodyList.value = allCustodyList;
         break;
     }
   }
 
-  onClickCustodyItem() {
+  onClickCustodyItem(Custody item) {
     Get.to(
       () => CustodyDetailsScreen(),
       transition: Transition.leftToRight,
+      arguments: item,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
   }
 
-  onClickCreateCustody() {
-    Get.to(
+  void navigateAndRefresh() async {
+    final result = await Get.to(
       () => CustodyDetailsScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+    if (result != null) {
+      getCustodyList();
+    }
   }
 }

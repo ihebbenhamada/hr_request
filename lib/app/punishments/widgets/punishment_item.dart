@@ -17,7 +17,7 @@ class PunishmentItem extends StatelessWidget {
     this.type,
   });
   final String employeeName;
-  final int employeePunishment;
+  final double employeePunishment;
   final String employeeImage;
   final String date;
   final bool? editable;

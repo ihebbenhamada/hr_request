@@ -14,6 +14,7 @@ class AvatarCircle extends StatelessWidget {
     this.circleColor,
     this.imageColor,
     this.icon,
+    this.isNetworkImage = false,
   });
   final String image;
   final String? icon;
@@ -24,6 +25,7 @@ class AvatarCircle extends StatelessWidget {
   final double? left;
   final Color? circleColor;
   final Color? imageColor;
+  final bool isNetworkImage;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -35,13 +37,35 @@ class AvatarCircle extends StatelessWidget {
           decoration: const ShapeDecoration(
             shape: OvalBorder(),
           ),
+          clipBehavior: Clip.hardEdge,
           child: Center(
-            child: Image.asset(
-              image,
-              width: imageSize ?? size,
-              height: imageSize ?? size,
-              color: imageColor,
-            ),
+            child: isNetworkImage
+                ? Image.network(
+                    image,
+                    width: imageSize ?? size,
+                    height: imageSize ?? size,
+                    color: imageColor,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, widget, event) {
+                      if (event == null) return widget;
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    errorBuilder: (context, object, stackTrace) {
+                      return Image.asset(
+                        AppImages.profile,
+                        width: imageSize ?? size,
+                        height: imageSize ?? size,
+                      );
+                    },
+                  )
+                : Image.asset(
+                    AppImages.profile,
+                    width: imageSize ?? size,
+                    height: imageSize ?? size,
+                    color: imageColor,
+                  ),
           ),
         ),
         Positioned(

@@ -1,6 +1,9 @@
 import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/ticket/main/models/ticket_response.dart';
 import 'package:request_hr/app/ticket/ticket-details/screens/ticket_details_screen.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../services/ticket_service.dart';
@@ -13,69 +16,11 @@ class TicketController extends BaseController {
 
   /// VARIABLES
   RxInt selectedFilter = 0.obs;
-  RxList ticketList = [].obs;
-  final List<Map<String, dynamic>> ticketData = [
-    {
-      'title': 'Request Ticked',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Ticked',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-  ];
+  RxList<Ticket> allTicketsList = <Ticket>[].obs;
+  RxList<Ticket> pendingTicketsList = <Ticket>[].obs;
+  RxList<Ticket> approvedTicketsList = <Ticket>[].obs;
+  RxList<Ticket> rejectedTicketsList = <Ticket>[].obs;
+  RxList<Ticket> ticketsList = <Ticket>[].obs;
 
   /// VALIDATION
 
@@ -88,46 +33,70 @@ class TicketController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    ticketList.value = ticketData;
+    getTickets();
   }
 
   /// FUNCTIONS
+  getTickets() {
+    AppInterceptor.showLoader();
+    _ticketService.getTickets().then((value) {
+      if (value != null) {
+        allTicketsList.value = value.all;
+        pendingTicketsList.value = value.pending;
+        approvedTicketsList.value = value.approved;
+        rejectedTicketsList.value = value.rejected;
+        ticketsList.value = allTicketsList;
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   onSelectFilter(int index) {
     selectedFilter.value = index;
     switch (index) {
       case 0:
-        ticketList.value = ticketData;
+        ticketsList.value = allTicketsList;
         break;
       case 1:
-        ticketList.value = ticketData.where((map) => map['type'] == 1).toList();
+        ticketsList.value = pendingTicketsList;
         break;
       case 2:
-        ticketList.value = ticketData.where((map) => map['type'] == 0).toList();
+        ticketsList.value = approvedTicketsList;
         break;
       case 3:
-        ticketList.value = ticketData.where((map) => map['type'] == 2).toList();
+        ticketsList.value = rejectedTicketsList;
         break;
       default:
-        ticketList.value = ticketData;
+        ticketsList.value = allTicketsList;
         break;
     }
   }
 
-  onClickTicketItem() {
-    Get.to(
-      () => TicketDetailsScreen(),
-      transition: Transition.leftToRight,
-      curve: Curves.ease,
-      duration: const Duration(milliseconds: 500),
-    );
+  getTicketDetails({required int id}) {}
+
+  onClickTicketItem(Ticket ticket) {
+    _ticketService.getTicketDetails(id: ticket.id).then((value) {
+      if (value != null) {
+        Get.to(
+          () => TicketDetailsScreen(),
+          arguments: value,
+          transition: Transition.leftToRight,
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        );
+      }
+    });
   }
 
-  onClickCreateTicket() {
-    Get.to(
+  void navigateAndRefresh() async {
+    final result = await Get.to(
       () => TicketDetailsScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+    if (result != null) {
+      getTickets();
+    }
   }
 }

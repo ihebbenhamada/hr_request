@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:request_hr/api/models/public/meeting_point.dart';
+
 class MeetingResponse {
   final int id;
   final String? assigneeByName;
@@ -19,7 +21,7 @@ class MeetingResponse {
   final int? fKHrDepartmentId;
   final List<int>? assignees;
   final List<int>? departmentsIds;
-  final List<Map<String, String>>? meetingPoints;
+  final List<MeetingPoint>? meetingPoints;
 
   MeetingResponse({
     required this.id,
@@ -63,7 +65,7 @@ class MeetingResponse {
       fKHrDepartmentId: json['fK_HrDepartmentId'] as int?,
       assignees: json['assignees'] as List<int>?,
       departmentsIds: json['departmentsIds'] as List<int>?,
-      meetingPoints: json['meetingPoints'] as List<Map<String, String>>?,
+      meetingPoints: json['meetingPoints'] as List<MeetingPoint>?,
     );
   }
 

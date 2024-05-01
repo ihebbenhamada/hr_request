@@ -61,6 +61,7 @@ class EvaluationItem extends StatelessWidget {
                       size: 66.h,
                       image: employeeImage,
                       iconSize: 14.h,
+                      isNetworkImage: true,
                     ),
                     (editable == true && type == null) ||
                             (editable == null && type != 2)

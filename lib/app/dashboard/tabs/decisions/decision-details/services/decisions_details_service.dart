@@ -18,7 +18,7 @@ class DecisionsDetailsService {
     Response? response = await AppInterceptor.dio
         ?.post(EndPoints.CREATE_DECISIONS_URL, data: data);
     if (response != null && response.statusCode == 200) {
-      return response.data;
+      return true;
     } else {
       return null;
     }

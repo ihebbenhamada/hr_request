@@ -3,10 +3,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/bonus/bonus-details/screens/bonus_details_screen.dart';
+import 'package:request_hr/app/bonus/main/models/bonus_chart.dart';
+import 'package:request_hr/app/bonus/main/models/bonus_response.dart';
 import 'package:request_hr/config/colors/colors.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
-import '../../../../config/image_urls/image_urls.dart';
 import '../services/bonus_service.dart';
 
 class BonusController extends BaseController {
@@ -18,30 +20,9 @@ class BonusController extends BaseController {
   /// VARIABLES
   RxInt currentBonus = 0.obs;
   RxInt selectedChart = 0.obs;
-  final List<Map<String, dynamic>> carouselBonusList = [
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_bonus': 3000,
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_bonus': 2000,
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_bonus': 3000,
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-  ];
   RxInt showingTooltip = 1.obs;
+  RxList<BonusResponse> bonusList = <BonusResponse>[].obs;
+  RxList<BonusChart> bonusChart = <BonusChart>[].obs;
 
   /// VALIDATION
 
@@ -52,11 +33,32 @@ class BonusController extends BaseController {
     super.onInit();
   }
 
+  getBonusList() {
+    AppInterceptor.showLoader();
+    _bonusService.getBonusList().then((value) {
+      if (value != null) {
+        bonusList.value = value;
+      }
+    });
+  }
+
+  getBonusChart() {
+    _bonusService.getBonusChart().then((value) {
+      if (value != null) {
+        bonusChart.value = value;
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    getBonusList();
+    getBonusChart();
+  }
 
   /// FUNCTIONS
-  onClickCreateBonus() {
+  onClickItemBonus() {
     Get.to(
       () => BonusDetailsScreen(),
       transition: Transition.leftToRight,
@@ -65,13 +67,16 @@ class BonusController extends BaseController {
     );
   }
 
-  onClickItemBonus() {
-    Get.to(
+  void navigateAndRefresh() async {
+    final result = await Get.to(
       () => BonusDetailsScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+    if (result != null) {
+      getBonusList();
+    }
   }
 
   onChangeBonusCarousel(int index, CarouselPageChangedReason reason) {

@@ -67,7 +67,7 @@ class DecisionsScreen extends StatelessWidget {
                       employeeImage: item.imagePath,
                       date: item.creationDate.substring(0, 10),
                       editable: false,
-                      onClick: _decisionsController.onClickDecision,
+                      onClick: () => _decisionsController.onClickDecision(item),
                     );
                   },
                 ),

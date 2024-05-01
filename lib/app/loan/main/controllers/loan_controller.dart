@@ -2,9 +2,11 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/loan/loan-details/screens/loan_details_screen.dart';
-import 'package:request_hr/config/image_urls/image_urls.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../../../../config/image_urls/image_urls.dart';
+import '../models/loan_response.dart';
 import '../services/loan_service.dart';
 
 class LoanController extends BaseController {
@@ -17,32 +19,22 @@ class LoanController extends BaseController {
   RxInt selectedFilter = 0.obs;
   RxInt currentLoanIndex = 0.obs;
   RxInt selectedChart = 0.obs;
-  final List<Map<String, dynamic>> carouselLoanList = [
-    {
-      'title': 'Loan Request',
-      'cost': 2000,
-      'icon': AppImages.doubleCheck,
-      'type': 0,
-      'date': '13-2-2024',
-      'editable': true,
-    },
-    {
-      'title': 'Loan Request',
-      'cost': 2000,
-      'icon': AppImages.progress,
-      'type': 1,
-      'date': '13-2-2024',
-      'editable': true,
-    },
-    {
-      'title': 'Loan Request',
-      'cost': 2000,
-      'icon': AppImages.x,
-      'type': 2,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-  ];
+  Rx<LoanResponse> empLoanResponse = LoanResponse(
+    all: [],
+    pending: [],
+    approved: [],
+    rejected: [],
+    loansPercentage: 0,
+    totalLoans: "0",
+    pendingPercentage: 0,
+    approvedPercentage: 0,
+    rejectedPercentage: 0,
+  ).obs;
+  RxList<Loan> allLoansList = <Loan>[].obs;
+  RxList<Loan> pendingLoansList = <Loan>[].obs;
+  RxList<Loan> approvedLoansList = <Loan>[].obs;
+  RxList<Loan> rejectedLoanList = <Loan>[].obs;
+  RxList<Loan> loanList = <Loan>[].obs;
 
   /// VALIDATION
 
@@ -53,33 +45,95 @@ class LoanController extends BaseController {
     super.onInit();
   }
 
+  getLoanList() {
+    AppInterceptor.showLoader();
+    _loanService.getEmpLoans().then((value) {
+      if (value != null) {
+        empLoanResponse.value = value;
+        allLoansList.value = value.all.map((e) {
+          switch (e.status) {
+            case "LoanInProgress":
+              e.type = 1;
+              e.icon = AppImages.progress;
+              break;
+            case "LoanRejected":
+              e.type = 2;
+              e.icon = AppImages.x;
+              break;
+            case "LoanApproved":
+              e.type = 0;
+              e.icon = AppImages.doubleCheck;
+              break;
+            default:
+              e.type = 0;
+          }
+          return e;
+        }).toList();
+        approvedLoansList.value = value.approved.map((e) {
+          e.icon = AppImages.doubleCheck;
+          e.type = 0;
+          return e;
+        }).toList();
+        pendingLoansList.value = value.pending.map((e) {
+          e.icon = AppImages.progress;
+          e.type = 1;
+          return e;
+        }).toList();
+        rejectedLoanList.value = value.rejected.map((e) {
+          e.icon = AppImages.x;
+          e.type = 2;
+          return e;
+        }).toList();
+        loanList.value = allLoansList;
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    getLoanList();
+  }
 
   /// FUNCTIONS
   onSelectFilter(int index) {
     selectedFilter.value = index;
+    switch (index) {
+      case 0:
+        loanList.value = allLoansList;
+      case 1:
+        loanList.value = pendingLoansList;
+      case 2:
+        loanList.value = approvedLoansList;
+      case 3:
+        loanList.value = rejectedLoanList;
+      default:
+        loanList.value = allLoansList;
+    }
   }
 
   onChangeLoanCarousel(int index, CarouselPageChangedReason reason) {
     currentLoanIndex.value = index;
   }
 
-  onClickLoanItem() {
+  onClickLoanItem(Loan item) {
     Get.to(
-      () => LoanDetailsScreen(),
+      () => LoanDetailsScreen(loanItem: item),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
   }
 
-  onClickCreateLoan() {
-    Get.to(
+  void navigateAndRefresh() async {
+    final result = await Get.to(
       () => LoanDetailsScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+    if (result != null) {
+      getLoanList();
+    }
   }
 }

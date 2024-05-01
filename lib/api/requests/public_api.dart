@@ -36,7 +36,7 @@ class PublicApiServices {
   Future<List<Employee>?> getEmployeesByDepartment(
       {required String id, String lang = "en"}) async {
     Response? response = await AppInterceptor.dio
-        ?.get(EndPoints.GET_EMPLOYEES_BY_DEPARTMENT_URL(id, lang));
+        ?.get(EndPoints.GET_PURCHASE_EMPLOYEES_BY_DEPARTMENT_URL(id, lang));
     if (response != null && response.statusCode == 200) {
       List<Employee> employeeResponseList = (response.data as List<dynamic>)
           .map((json) => Employee.fromJson(json))

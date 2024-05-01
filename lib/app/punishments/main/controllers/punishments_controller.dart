@@ -2,11 +2,13 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/punishments/main/models/punishment_chart.dart';
+import 'package:request_hr/app/punishments/main/models/punishment_response.dart';
 import 'package:request_hr/app/punishments/punishments-details/screens/punishments_details_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
-import '../../../../config/image_urls/image_urls.dart';
+import '../../../../config/interceptor/interceptor.dart';
 import '../services/punishments_service.dart';
 
 class PunishmentsController extends BaseController {
@@ -18,30 +20,9 @@ class PunishmentsController extends BaseController {
   /// VARIABLES
   RxInt currentPunishment = 0.obs;
   RxInt selectedChart = 0.obs;
-  final List<Map<String, dynamic>> carouselPunishmentsList = [
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_punishment': 3000,
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_punishment': 2000,
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_punishment': 3000,
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-  ];
   RxInt showingTooltip = 1.obs;
+  RxList<PunishmentResponse> punishmentList = <PunishmentResponse>[].obs;
+  RxList<PunishmentChart> punishmentChart = <PunishmentChart>[].obs;
 
   /// VALIDATION
 
@@ -53,16 +34,41 @@ class PunishmentsController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    getPunishmentList();
+    //getPunishmentChartList();
+  }
 
   /// FUNCTIONS
-  onClickCreatePunishments() {
-    Get.to(
+  getPunishmentList() {
+    AppInterceptor.showLoader();
+    _punishmentsService.getPunishmentList().then((value) {
+      if (value != null) {
+        punishmentList.value = value;
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
+  getPunishmentChartList() {
+    _punishmentsService.getPunishmentChart().then((value) {
+      if (value != null) {
+        punishmentChart.value = value;
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
+  void navigateAndRefresh() async {
+    final result = await Get.to(
       () => PunishmentsDetailsScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+    if (result != null) {
+      getPunishmentList();
+    }
   }
 
   onClickItemPunishments() {

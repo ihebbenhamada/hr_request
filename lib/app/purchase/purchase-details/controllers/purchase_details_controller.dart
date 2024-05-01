@@ -1,55 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/api/models/public/department.dart';
+import 'package:request_hr/api/models/public/employee.dart';
+import 'package:request_hr/api/requests/public_api.dart';
+import 'package:request_hr/app/purchase/purchase-details/models/product.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/colors/colors.dart';
+import '../../../../config/interceptor/interceptor.dart';
 import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
+import '../models/category.dart';
 import '../services/purchase_details_service.dart';
 
 class PurchaseDetailsController extends BaseController {
   /// SERVICES
   final PurchaseDetailsService _purchaseDetailsService =
       PurchaseDetailsService();
+  final PublicApiServices _publicApiServices = PublicApiServices();
 
   /// CONTROLLERS
 
   /// VARIABLES
   Rx<DateTime> orderDate = DateTime.now().obs;
 
-  final List<DropDownModel> departmentList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Department1', value: '1'),
-    DropDownModel(disabled: false, text: 'Department2', value: '2'),
-    DropDownModel(disabled: false, text: 'Department3', value: '3'),
-    DropDownModel(disabled: false, text: 'Department4', value: '4'),
-  ];
-  final List<DropDownModel> responsibleList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Responsible1', value: '1'),
-    DropDownModel(disabled: false, text: 'Responsible2', value: '2'),
-    DropDownModel(disabled: false, text: 'Responsible3', value: '3'),
-    DropDownModel(disabled: false, text: 'Responsible4', value: '4'),
-  ];
+  final RxList<Department> departmentList = <Department>[].obs;
+  final RxList<Employee> responsibleList = <Employee>[].obs;
+  final RxList<Category> categoryList = <Category>[].obs;
+  final RxList<Product> productNameList = <Product>[].obs;
+
   final List<DropDownModel> purchaseOrderNumberList = [
     DropDownModel(disabled: false, text: 'Choose', value: '0'),
     DropDownModel(disabled: false, text: 'Purchase1', value: '1'),
     DropDownModel(disabled: false, text: 'Purchase2', value: '2'),
     DropDownModel(disabled: false, text: 'Purchase3', value: '3'),
     DropDownModel(disabled: false, text: 'Purchase4', value: '4'),
-  ];
-  final List<DropDownModel> categoryList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Category1', value: '1'),
-    DropDownModel(disabled: false, text: 'Category2', value: '2'),
-    DropDownModel(disabled: false, text: 'Category3', value: '3'),
-    DropDownModel(disabled: false, text: 'Category4', value: '4'),
-  ];
-  final List<DropDownModel> productNameList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'ProductName1', value: '1'),
-    DropDownModel(disabled: false, text: 'ProductName2', value: '2'),
-    DropDownModel(disabled: false, text: 'ProductName3', value: '3'),
-    DropDownModel(disabled: false, text: 'ProductName4', value: '4'),
   ];
   final List<DropDownModel> descriptionList = [
     DropDownModel(disabled: false, text: 'Choose', value: '0'),
@@ -66,11 +51,36 @@ class PurchaseDetailsController extends BaseController {
     DropDownModel(disabled: false, text: 'Description4', value: '4'),
   ];
 
-  late Rx<DropDownModel> selectedDepartment;
-  late Rx<DropDownModel> selectedResponsible;
+  Rx<Department> selectedDepartment = Department(id: 0).obs;
+  Rx<Employee> selectedResponsible = Employee(id: 0).obs;
+  Rx<Category> selectedCategory = Category(
+    id: 0,
+    categoryCode: "",
+    categoryNameAr: "",
+    categoryNameEn: "",
+    isDiscountable: false,
+    isService: false,
+  ).obs;
+  Rx<Product> selectedProductName = Product(
+    id: 0,
+    productCode: "",
+    productName: "",
+    productNameEn: "",
+    codeAndName: false,
+    imagePath: "",
+    fkStMainCategoryId: 0,
+    fkStCategoryId: 0,
+    fkStBrandId: 0,
+    fkStUnitId: 0,
+    fkTaxesId: 0,
+    fkStManufacturingCountryId: 0,
+    fkStManufacturerId: 0,
+    fkStItemLocationId: 0,
+    orderLimit: 20,
+    description: "",
+  ).obs;
+
   late Rx<DropDownModel> selectedPurchaseOrderNumber;
-  late Rx<DropDownModel> selectedCategory;
-  late Rx<DropDownModel> selectedProductName;
   late Rx<DropDownModel> selectedDescription;
   late Rx<DropDownModel> selectedDescription1;
 
@@ -94,16 +104,58 @@ class PurchaseDetailsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    selectedDepartment = departmentList[0].obs;
-    selectedResponsible = responsibleList[0].obs;
+    getDepartments();
+    getCategories();
     selectedPurchaseOrderNumber = purchaseOrderNumberList[0].obs;
-    selectedCategory = categoryList[0].obs;
-    selectedProductName = productNameList[0].obs;
     selectedDescription = descriptionList[0].obs;
     selectedDescription1 = description2List[0].obs;
   }
 
   /// FUNCTIONS
+  getDepartments() {
+    AppInterceptor.showLoader();
+    _publicApiServices.getDepartments().then((listDepartments) {
+      if (listDepartments != null) {
+        departmentList.value = listDepartments;
+        selectedDepartment.value = listDepartments[0];
+        getEmployeesByDepartment(id: listDepartments[0].id.toString());
+      }
+    });
+  }
+
+  getEmployeesByDepartment({required String id}) {
+    _publicApiServices.getEmployeesByDepartment(id: id).then((listEmployees) {
+      if (listEmployees != null) {
+        responsibleList.value = listEmployees;
+        selectedResponsible.value = listEmployees[0];
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
+  getCategories() {
+    AppInterceptor.showLoader();
+    _purchaseDetailsService.getCategories().then((listCategories) {
+      if (listCategories != null) {
+        categoryList.value = listCategories;
+        selectedCategory.value = listCategories[0];
+        getProductsByCategoryId(id: listCategories[0].id.toString());
+      }
+    });
+  }
+
+  getProductsByCategoryId({required String id}) {
+    _purchaseDetailsService
+        .getProductsByCategoryId(id: id)
+        .then((listProducts) {
+      if (listProducts != null) {
+        productNameList.value = listProducts;
+        selectedProductName.value = listProducts[0];
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   void selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       builder: (context, child) {
@@ -112,11 +164,14 @@ class PurchaseDetailsController extends BaseController {
             colorScheme: const ColorScheme.light(
               primary: AppColors.primary, // header background color
               onPrimary: AppColors.white, // header text color
-              onSurface: AppColors.gray6, // body text color
+              onSurface: AppColors.black, // body text color
             ),
+            textTheme: Theme.of(context).textTheme.copyWith(
+                  bodyLarge: TextStyle(fontSize: 14.sp),
+                ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: AppColors.gray6, // button text color
+                foregroundColor: AppColors.black, // button text color
               ),
             ),
           ),
@@ -133,22 +188,30 @@ class PurchaseDetailsController extends BaseController {
     }
   }
 
+  onSelectDepartment(Department department) {
+    selectedDepartment.value = department;
+    AppInterceptor.showLoader();
+    getEmployeesByDepartment(id: department.id.toString());
+  }
+
+  onSelectResponsible(Employee employee) {
+    selectedResponsible.value = employee;
+  }
+
+  onSelectCategory(Category category) {
+    selectedCategory.value = category;
+    AppInterceptor.showLoader();
+    getProductsByCategoryId(id: category.id.toString());
+  }
+
+  onSelectProduct(Product product) {
+    selectedProductName.value = product;
+  }
+
   onSelect(DropDownModel value, type) {
     switch (type) {
-      case 0:
-        selectedDepartment.value = value;
-        break;
-      case 1:
-        selectedResponsible.value = value;
-        break;
       case 2:
         selectedPurchaseOrderNumber.value = value;
-        break;
-      case 3:
-        selectedCategory.value = value;
-        break;
-      case 4:
-        selectedProductName.value = value;
         break;
       case 5:
         selectedDescription.value = value;

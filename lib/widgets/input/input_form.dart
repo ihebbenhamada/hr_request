@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
@@ -26,9 +27,12 @@ class InputForm extends StatelessWidget {
     this.isDynamicText = false,
     this.dynamicText,
     this.dropDown,
+    this.inputFormatter,
+    this.keyboardType,
+    this.enabled = true,
   });
 
-  final Rx<DropDownModel>? selectedDropDownItem;
+  final Rx<DropDownModel?>? selectedDropDownItem;
   final void Function(DropDownModel value)? onSelect;
   final List<DropDownModel>? listDropDown;
   final String title;
@@ -44,8 +48,11 @@ class InputForm extends StatelessWidget {
   final TextEditingController? textEditingController;
   final void Function()? onSelectDate;
   final bool isDynamicText;
+  final bool? enabled;
   final RxString? dynamicText;
   final Type? dropDown;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatter;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +116,8 @@ class InputForm extends StatelessWidget {
                 AppImages.arrowDown,
                 height: 8.h,
               ),
-              onChanged: (DropDownModel? newValue) => onSelect!(newValue!),
+              onChanged: (DropDownModel? newValue) =>
+                  enabled == true ? onSelect!(newValue!) : null,
               items: listDropDown
                   ?.map<DropdownMenuItem<DropDownModel>>((DropDownModel value) {
                 return DropdownMenuItem<DropDownModel>(
@@ -141,7 +149,7 @@ class InputForm extends StatelessWidget {
               );
       case 'date':
         return GestureDetector(
-          onTap: onSelectDate,
+          onTap: enabled == true ? onSelectDate : null,
           behavior: HitTestBehavior.opaque,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,9 +176,10 @@ class InputForm extends StatelessWidget {
             fontSize: 14.sp,
             color: AppColors.blueDark,
           ),
-          keyboardType: TextInputType.multiline,
+          keyboardType: keyboardType ?? TextInputType.multiline,
           maxLines: nbrLines ?? 4,
           cursorColor: AppColors.gray1,
+          inputFormatters: inputFormatter,
           decoration: const InputDecoration(
             isDense: true,
             focusedBorder: InputBorder.none,
@@ -178,10 +187,11 @@ class InputForm extends StatelessWidget {
             enabledBorder: InputBorder.none,
             errorBorder: InputBorder.none,
             focusedErrorBorder: InputBorder.none,
+            contentPadding: EdgeInsets.zero,
           ),
           autocorrect: false,
           enableSuggestions: false,
-          enabled: true,
+          enabled: enabled,
           enableInteractiveSelection: true,
         );
       default:

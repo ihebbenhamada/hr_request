@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/main/controller/dashboard-controller.dart';
+import 'package:request_hr/app/mail/main/model/mail.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/widgets/email-item/email_item.dart';
@@ -82,27 +83,31 @@ class MailScreen extends StatelessWidget {
                           ],
                         ),
                         20.h.verticalSpace,
-                        Expanded(
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.only(bottom: 80.h),
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              Map<String, dynamic> item =
-                                  _mailController.listMails[index];
-                              return EmailItem(
-                                  isSelected: item['is_selected'],
-                                  image: item['image'],
-                                  subject: item['subject'],
-                                  sender: item['sender'],
-                                  description: item['description'],
-                                  date: item['date'],
-                                  onClickItem: _mailController.onItemSelected);
-                            },
-                            separatorBuilder: (context, index) {
-                              return 16.h.verticalSpace;
-                            },
-                            itemCount: _mailController.listMails.length,
+                        GetBuilder<MailController>(
+                          builder: (_) => Expanded(
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              padding: EdgeInsets.only(bottom: 80.h),
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                Mail item = _mailController.mailList[index];
+                                return EmailItem(
+                                  isSelected: item.isSelected,
+                                  image: item.filePath,
+                                  subject: item.subject,
+                                  sender: item.senderName,
+                                  description: item.description,
+                                  date: item.creationDate,
+                                  onClickItem: _mailController.onClickMail,
+                                  onSelectMail: () =>
+                                      _mailController.onSelectMail(index),
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return 16.h.verticalSpace;
+                              },
+                              itemCount: _mailController.mailList.length,
+                            ),
                           ),
                         ),
                       ],
@@ -141,9 +146,15 @@ class MailScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () =>
                                   _mailController.onClickMenuMail(context),
-                              child: Image.asset(
-                                AppImages.menuEmail,
-                                height: 6.h,
+                              child: Container(
+                                height: 20,
+                                color: AppColors.primary,
+                                child: Center(
+                                  child: Image.asset(
+                                    AppImages.menuEmail,
+                                    height: 6.h,
+                                  ),
+                                ),
                               ),
                             ),
                             40.horizontalSpace,

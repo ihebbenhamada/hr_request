@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_categories.dart';
 import 'package:request_hr/app/loan/main/controllers/loan_controller.dart';
+import 'package:request_hr/app/loan/main/models/loan_response.dart';
 import 'package:request_hr/app/loan/widgets/loan_item.dart';
 import 'package:request_hr/app/loan/widgets/loan_statistics_container.dart';
 import 'package:request_hr/config/colors/colors.dart';
@@ -57,7 +58,7 @@ class LoanScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _loanController.onClickCreateLoan,
+                  onTap: _loanController.navigateAndRefresh,
                   child: Image.asset(
                     AppImages.addDecision,
                     height: 34.h,
@@ -73,55 +74,64 @@ class LoanScreen extends StatelessWidget {
                   _loanController.onSelectFilter(index),
             ),
             30.h.verticalSpace,
-            CarouselSlider.builder(
-              itemCount: _loanController.carouselLoanList.length + 1,
-              itemBuilder: (context, index, i) {
-                if (index == _loanController.carouselLoanList.length) {
-                  // Display fake item at the last index
-                  return const SizedBox();
-                } else {
-                  Map<String, dynamic> item =
-                      _loanController.carouselLoanList[index];
-                  // Display real items
-                  return LoanItem(
-                    title: item['title'],
-                    cost: item['cost'],
-                    icon: item['icon'],
-                    date: item['date'],
-                    type: item['type'],
-                    editable: item['editable'],
-                    onClick: _loanController.onClickLoanItem,
-                  );
-                }
-              },
-              options: CarouselOptions(
-                height: 140.h,
-                animateToClosest: true,
-                clipBehavior: Clip.none,
-                viewportFraction: 0.4,
-                initialPage: 0,
-                enableInfiniteScroll: false,
-                reverse: false,
-                autoPlay: false,
-                enlargeCenterPage: false,
-                padEnds: false,
-                pageSnapping: false,
-                onPageChanged: (index, reason) =>
-                    _loanController.onChangeLoanCarousel(index, reason),
-                scrollDirection: Axis.horizontal,
+            Obx(
+              () => CarouselSlider.builder(
+                itemCount: _loanController.loanList.length + 1,
+                itemBuilder: (context, index, i) {
+                  if (index == _loanController.loanList.length) {
+                    // Display fake item at the last index
+                    return const SizedBox();
+                  } else {
+                    Loan item = _loanController.loanList[index];
+                    // Display real items
+                    return LoanItem(
+                      title: item.title,
+                      cost: item.amount,
+                      icon: item.icon ?? AppImages.doubleCheck,
+                      date: item.creationDate.substring(0, 10),
+                      type: item.type ?? 0,
+                      editable: true,
+                      onClick: () => _loanController.onClickLoanItem(item),
+                    );
+                  }
+                },
+                options: CarouselOptions(
+                  height: 140.h,
+                  animateToClosest: true,
+                  clipBehavior: Clip.none,
+                  viewportFraction: 0.4,
+                  initialPage: 0,
+                  enableInfiniteScroll: false,
+                  reverse: false,
+                  autoPlay: false,
+                  enlargeCenterPage: false,
+                  padEnds: false,
+                  pageSnapping: false,
+                  onPageChanged: (index, reason) =>
+                      _loanController.onChangeLoanCarousel(index, reason),
+                  scrollDirection: Axis.horizontal,
+                ),
               ),
             ),
             20.h.verticalSpace,
             Obx(
               () => CustomDotsIndicator(
                 current: _loanController.currentLoanIndex.value,
-                length: _loanController.carouselLoanList.length,
+                length: _loanController.loanList.length,
               ),
             ),
             13.h.verticalSpace,
-            const LoanInfoContainer(),
+            Obx(
+              () => LoanInfoContainer(
+                loanResponse: _loanController.empLoanResponse.value,
+              ),
+            ),
             22.h.verticalSpace,
-            LoanStatisticsContainer(),
+            Obx(
+              () => LoanStatisticsContainer(
+                loanResponse: _loanController.empLoanResponse.value,
+              ),
+            ),
           ],
         ),
       ),

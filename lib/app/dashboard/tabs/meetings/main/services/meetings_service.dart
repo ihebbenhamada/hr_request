@@ -86,7 +86,7 @@ class MeetingsService {
     Response? response = await AppInterceptor.dio?.post(
         EndPoints.APOLOGY_MEETING_URL(id.toString(), reason) + id.toString());
     if (response != null && response.statusCode == 200) {
-      return response.data;
+      return true;
     } else {
       return null;
     }

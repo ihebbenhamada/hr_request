@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
@@ -18,7 +19,7 @@ class NotificationItem extends StatelessWidget {
   final String job;
   final String date;
   final int type;
-  //1:evaluation / 2:meeting / 3:punishment / 4:Bonus / 5:decision / 6:Alert
+  //1:evaluation / 13:meeting / 3:punishment / 4:Bonus / 5:decision / 6:Alert
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class NotificationItem extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    '13Dec - 6:30',
+                    DateFormat("ddMMM - HH:mm").format(DateTime.parse(date)),
                     style: TextStyle(
                       fontSize: 10.sp,
                       color: AppColors.white,
@@ -115,7 +116,7 @@ class NotificationItem extends StatelessWidget {
     switch (type) {
       case 1:
         return Image.asset(image!);
-      case 2:
+      case 13:
         return Image.asset(AppImages.meetings, height: 22.4.h);
       case 3:
         return Image.asset(AppImages.punishmentsDrawer, height: 23.5.h);
@@ -124,28 +125,36 @@ class NotificationItem extends StatelessWidget {
       case 5:
         return Image.asset(AppImages.decisions, height: 25.7.h);
       case 6:
-        return Image.asset(AppImages.alertWhiteDrawer, height: 19.h);
+        return Image.asset(AppImages.ticketMenuDrawer, height: 14.h);
+      case 11:
+        return Image.asset(AppImages.loanDrawer, height: 19.h);
+      case 14:
+        return Image.asset(AppImages.evaluationsDrawer, height: 19.h);
       default:
-        return Image.asset(image!);
+        return Image.asset(AppImages.meetings, height: 22.4.h);
     }
   }
 
   String getTitle(int type) {
     switch (type) {
       case 1:
-        return 'New Evaluations !';
-      case 2:
-        return 'New Meeting';
+        return "";
+      case 13:
+        return "New Meeting !";
       case 3:
-        return 'New Punishment';
+        return "New Punishment !";
       case 4:
-        return 'New Bonus';
+        return "New Bonus !";
       case 5:
-        return 'New Administrator  Decisions';
+        return "New Decision !";
       case 6:
-        return 'New Alert';
+        return "New Ticket !";
+      case 11:
+        return "New Loan !";
+      case 14:
+        return "New Evaluation !";
       default:
-        return 'no type found';
+        return "No title";
     }
   }
 }

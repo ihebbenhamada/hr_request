@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -8,10 +9,16 @@ import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 import 'package:request_hr/widgets/input/input_form.dart';
 
 import '../../../../../../config/colors/colors.dart';
+import '../../main/models/loan_response.dart';
 
 class LoanDetailsScreen extends StatelessWidget {
   final _loanDetailsController = Get.put(LoanDetailsController());
-  LoanDetailsScreen({super.key});
+  LoanDetailsScreen({
+    super.key,
+    this.loanItem,
+  });
+  final Loan? loanItem;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,8 +59,10 @@ class LoanDetailsScreen extends StatelessWidget {
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     title: 'Title',
-                    inputType: 'text',
-                    text: 'Loan Request',
+                    inputType: 'input',
+                    nbrLines: 1,
+                    textEditingController:
+                        _loanDetailsController.titleTextEditingController,
                   ),
                 ],
               ),
@@ -78,8 +87,15 @@ class LoanDetailsScreen extends StatelessWidget {
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     title: 'Total Loans',
-                    inputType: 'text',
-                    text: '2000',
+                    inputType: 'input',
+                    nbrLines: 1,
+                    keyboardType: TextInputType.number,
+                    inputFormatter: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(8),
+                    ],
+                    textEditingController:
+                        _loanDetailsController.totalLoansTextEditingController,
                   ),
                 ],
               ),
@@ -92,12 +108,13 @@ class LoanDetailsScreen extends StatelessWidget {
                 text: 'Ahmed Mohamed Kazem',
               ),
               15.h.verticalSpace,
-              const InputForm(
+              InputForm(
                 width: double.infinity,
                 title: 'Topic',
                 inputType: 'input',
                 nbrLines: 5,
-                text: 'Loan Request Date: 20 - 12 - 2023 Value: 7000',
+                textEditingController:
+                    _loanDetailsController.descriptionTextEditingController,
               ),
               30.h.verticalSpace,
               Row(

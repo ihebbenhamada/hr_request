@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:request_hr/app/evaluations/main/controllers/evaluations_controller.dart';
+import 'package:request_hr/app/evaluations/main/models/evaluation.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
@@ -73,53 +74,53 @@ class EvaluationsScreen extends StatelessWidget {
                     ],
                   ),
                   20.h.verticalSpace,
-                  CarouselSlider.builder(
-                    itemCount:
-                        _evaluationsController.carouselEvaluationList.length +
-                            1,
-                    itemBuilder: (context, index, i) {
-                      if (index ==
-                          _evaluationsController
-                              .carouselEvaluationList.length) {
-                        // Display fake item at the last index
-                        return const SizedBox();
-                      } else {
-                        Map<String, dynamic> item = _evaluationsController
-                            .carouselEvaluationList[index];
-                        // Display real items
-                        return EvaluationItem(
-                          employeeName: item['employee_name'],
-                          employeePosition: item['employee_position'],
-                          employeeImage: item['employee_image'],
-                          date: item['date'],
-                          editable: true,
-                          onClick: _evaluationsController.onClickItemEvaluation,
-                        );
-                      }
-                    },
-                    options: CarouselOptions(
-                      height: 170.h,
-                      animateToClosest: true,
-                      clipBehavior: Clip.none,
-                      viewportFraction: 0.45,
-                      initialPage: 0,
-                      enableInfiniteScroll: false,
-                      reverse: false,
-                      autoPlay: false,
-                      enlargeCenterPage: false,
-                      padEnds: false,
-                      pageSnapping: false,
-                      onPageChanged: (index, reason) => _evaluationsController
-                          .onChangeEvaluationCarousel(index, reason),
-                      scrollDirection: Axis.horizontal,
+                  Obx(
+                    () => CarouselSlider.builder(
+                      itemCount:
+                          _evaluationsController.evaluationList.length + 1,
+                      itemBuilder: (context, index, i) {
+                        if (index ==
+                            _evaluationsController.evaluationList.length) {
+                          // Display fake item at the last index
+                          return const SizedBox();
+                        } else {
+                          Evaluation item =
+                              _evaluationsController.evaluationList[index];
+                          // Display real items
+                          return EvaluationItem(
+                            employeeName: item.evaluatedEmployee ?? "",
+                            employeePosition: item.evaluationFormName ?? "",
+                            employeeImage: item.evaluatedByImagePath ?? "",
+                            date: item.evaluationDate?.substring(0, 10) ?? "",
+                            editable: true,
+                            onClick:
+                                _evaluationsController.onClickItemEvaluation,
+                          );
+                        }
+                      },
+                      options: CarouselOptions(
+                        height: 170.h,
+                        animateToClosest: true,
+                        clipBehavior: Clip.none,
+                        viewportFraction: 0.45,
+                        initialPage: 0,
+                        enableInfiniteScroll: false,
+                        reverse: false,
+                        autoPlay: false,
+                        enlargeCenterPage: false,
+                        padEnds: false,
+                        pageSnapping: false,
+                        onPageChanged: (index, reason) => _evaluationsController
+                            .onChangeEvaluationCarousel(index, reason),
+                        scrollDirection: Axis.horizontal,
+                      ),
                     ),
                   ),
                   20.h.verticalSpace,
                   Obx(
                     () => CustomDotsIndicator(
                       current: _evaluationsController.currentEvaluation.value,
-                      length:
-                          _evaluationsController.carouselEvaluationList.length,
+                      length: _evaluationsController.evaluationList.length,
                     ),
                   ),
                   20.h.verticalSpace,
@@ -263,7 +264,7 @@ class EvaluationsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  'Feb',
+                                                  'Jan',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -274,7 +275,7 @@ class EvaluationsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  'Mar',
+                                                  'Feb',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -285,7 +286,7 @@ class EvaluationsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  'Apr',
+                                                  'Mar',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -296,7 +297,7 @@ class EvaluationsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  'May',
+                                                  'Apr',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -307,7 +308,7 @@ class EvaluationsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  'Jun',
+                                                  'May',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -318,7 +319,73 @@ class EvaluationsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
+                                                  'Jun',
+                                                  style: TextStyle(
+                                                    fontSize: 10.sp,
+                                                    color: AppColors.gray8,
+                                                  ),
+                                                ),
+                                              );
+                                            case 7:
+                                              return SideTitleWidget(
+                                                axisSide: AxisSide.bottom,
+                                                child: Text(
                                                   'July',
+                                                  style: TextStyle(
+                                                    fontSize: 10.sp,
+                                                    color: AppColors.gray8,
+                                                  ),
+                                                ),
+                                              );
+                                            case 8:
+                                              return SideTitleWidget(
+                                                axisSide: AxisSide.bottom,
+                                                child: Text(
+                                                  'Aug',
+                                                  style: TextStyle(
+                                                    fontSize: 10.sp,
+                                                    color: AppColors.gray8,
+                                                  ),
+                                                ),
+                                              );
+                                            case 9:
+                                              return SideTitleWidget(
+                                                axisSide: AxisSide.bottom,
+                                                child: Text(
+                                                  'Sep',
+                                                  style: TextStyle(
+                                                    fontSize: 10.sp,
+                                                    color: AppColors.gray8,
+                                                  ),
+                                                ),
+                                              );
+                                            case 10:
+                                              return SideTitleWidget(
+                                                axisSide: AxisSide.bottom,
+                                                child: Text(
+                                                  'Oct',
+                                                  style: TextStyle(
+                                                    fontSize: 10.sp,
+                                                    color: AppColors.gray8,
+                                                  ),
+                                                ),
+                                              );
+                                            case 11:
+                                              return SideTitleWidget(
+                                                axisSide: AxisSide.bottom,
+                                                child: Text(
+                                                  'Nov',
+                                                  style: TextStyle(
+                                                    fontSize: 10.sp,
+                                                    color: AppColors.gray8,
+                                                  ),
+                                                ),
+                                              );
+                                            case 12:
+                                              return SideTitleWidget(
+                                                axisSide: AxisSide.bottom,
+                                                child: Text(
+                                                  'Dec',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -347,20 +414,8 @@ class EvaluationsScreen extends StatelessWidget {
                                     horizontalInterval: 10,
                                     verticalInterval: 10,
                                   ),
-                                  barGroups: [
-                                    _evaluationsController.generateGroupData(
-                                        1, 30),
-                                    _evaluationsController.generateGroupData(
-                                        2, 40),
-                                    _evaluationsController.generateGroupData(
-                                        3, 35),
-                                    _evaluationsController.generateGroupData(
-                                        4, 35),
-                                    _evaluationsController.generateGroupData(
-                                        5, 35),
-                                    _evaluationsController.generateGroupData(
-                                        6, 35),
-                                  ],
+                                  barGroups:
+                                      _evaluationsController.barGroups.value,
                                   barTouchData: BarTouchData(
                                     touchTooltipData: BarTouchTooltipData(
                                       tooltipBgColor: AppColors.white,
@@ -439,11 +494,13 @@ class EvaluationsScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(11.h),
                                       color: AppColors.primary,
                                     ),
-                                    child: Text(
-                                      'Total:475/700',
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 14.sp,
+                                    child: Obx(
+                                      () => Text(
+                                        'Total: ${_evaluationsController.totalMonthDegreeScale.value}',
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 14.sp,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -474,12 +531,15 @@ class EvaluationsScreen extends StatelessWidget {
                             radius: 48.0,
                             lineWidth: 10.0,
                             animation: true,
-                            percent: 0.25,
-                            center: Text(
-                              '25%',
-                              style: TextStyle(
-                                color: AppColors.primary,
-                                fontSize: 27.sp,
+                            percent: double.parse(
+                                _evaluationsController.percentage.value),
+                            center: Obx(
+                              () => Text(
+                                _evaluationsController.percentage.value,
+                                style: TextStyle(
+                                  color: AppColors.primary,
+                                  fontSize: 27.sp,
+                                ),
                               ),
                             ),
                             circularStrokeCap: CircularStrokeCap.butt,

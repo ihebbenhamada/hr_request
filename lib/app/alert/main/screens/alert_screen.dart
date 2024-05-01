@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/alert/main/controllers/alert_controller.dart';
+import 'package:request_hr/app/alert/main/models/alert_response.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
@@ -62,7 +63,7 @@ class AlertScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: _alertController.onClickCreateAlert,
+                        onTap: _alertController.navigateAndRefresh,
                         child: Image.asset(
                           AppImages.addDecision,
                           height: 34.h,
@@ -72,21 +73,20 @@ class AlertScreen extends StatelessWidget {
                     ],
                   ),
                   20.h.verticalSpace,
-                  CarouselSlider.builder(
-                    itemCount: _alertController.carouselAlertList.length + 1,
+                  Obx(() => CarouselSlider.builder(
+                    itemCount: _alertController.alertList.length + 1,
                     itemBuilder: (context, index, i) {
-                      if (index == _alertController.carouselAlertList.length) {
+                      if (index == _alertController.alertList.length) {
                         // Display fake item at the last index
                         return const SizedBox();
                       } else {
-                        Map<String, dynamic> item =
-                            _alertController.carouselAlertList[index];
+                        AlertResponse item = _alertController.alertList[index];
                         // Display real items
                         return EvaluationItem(
-                          employeeName: item['employee_name'],
-                          employeePosition: item['employee_position'],
-                          employeeImage: item['employee_image'],
-                          date: item['date'],
+                          employeeName: item.assigneeName ?? "",
+                          employeePosition: item.byAssigneeName ?? "",
+                          employeeImage: item.imagePath ?? "",
+                          date: item.creationDate?.substring(0, 10) ?? "",
                           editable: true,
                           onClick: _alertController.onClickItemAlert,
                         );
@@ -108,12 +108,12 @@ class AlertScreen extends StatelessWidget {
                           _alertController.onChangeAlertCarousel(index, reason),
                       scrollDirection: Axis.horizontal,
                     ),
-                  ),
+                  ),),
                   20.h.verticalSpace,
                   Obx(
                     () => CustomDotsIndicator(
                       current: _alertController.currentAlert.value,
-                      length: _alertController.carouselAlertList.length,
+                      length: _alertController.alertList.length,
                     ),
                   ),
                   20.h.verticalSpace,

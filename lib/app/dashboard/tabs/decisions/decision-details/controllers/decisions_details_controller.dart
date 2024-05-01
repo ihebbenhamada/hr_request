@@ -22,6 +22,7 @@ class DecisionsDetailsController extends BaseController {
   @override
   void onInit() {
     initValues();
+
     super.onInit();
   }
 

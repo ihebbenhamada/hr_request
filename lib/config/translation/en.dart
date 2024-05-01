@@ -7,15 +7,8 @@ class En {
         'fill_credentials': 'Please fill in the Credentials',
         'id_number': 'Id Number',
         'password': 'Password',
-        'forget_password': 'Forget Your Password ?',
-        'forget_password_1': 'Forget Your Password',
-        'dont_have_account': 'Don\'t have account ?',
-        'sign_up_now': 'Sign Up Now',
 
         /// SIGNUP PAGE
-        'registration': 'Registration',
-        'easy_steps': 'Easy Steps !!',
-        'fill_fields': 'Just fill this Fields',
         'full_name': 'Full Name',
         'phone_number': 'Phone Number',
         'phone_number1': 'Phone Number :',

@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
               CustomInput(
                 controller: _authController.idTextEditingController,
                 isDarkMode: themeController.isDarkMode.value,
-                hintText: 'Id Number',
+                hintText: 'id_number'.tr,
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly,
@@ -88,7 +88,7 @@ class LoginScreen extends StatelessWidget {
               CustomInput(
                 controller: _authController.passwordTextEditingController,
                 isDarkMode: themeController.isDarkMode.value,
-                hintText: 'Password',
+                hintText: 'password'.tr,
                 obscureText: true,
                 prefixIcon: Padding(
                   padding: const EdgeInsets.only(

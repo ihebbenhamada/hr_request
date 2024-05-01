@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/complaint/main/controllers/complaint_controller.dart';
+import 'package:request_hr/app/complaint/main/models/complaint_response.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
@@ -72,50 +73,57 @@ class ComplaintScreen extends StatelessWidget {
                     ],
                   ),
                   20.h.verticalSpace,
-                  CarouselSlider.builder(
-                    itemCount:
-                        _complaintController.carouselComplaintList.length + 1,
-                    itemBuilder: (context, index, i) {
-                      if (index ==
-                          _complaintController.carouselComplaintList.length) {
-                        // Display fake item at the last index
-                        return const SizedBox();
-                      } else {
-                        Map<String, dynamic> item =
-                            _complaintController.carouselComplaintList[index];
-                        // Display real items
-                        return EvaluationItem(
-                          employeeName: item['employee_name'],
-                          employeePosition: item['employee_position'],
-                          employeeImage: item['employee_image'],
-                          date: item['date'],
-                          editable: true,
-                          onClick: _complaintController.onClickItemComplaint,
-                        );
-                      }
-                    },
-                    options: CarouselOptions(
-                      height: 170.h,
-                      animateToClosest: true,
-                      clipBehavior: Clip.none,
-                      viewportFraction: 0.45,
-                      initialPage: 0,
-                      enableInfiniteScroll: false,
-                      reverse: false,
-                      autoPlay: false,
-                      enlargeCenterPage: false,
-                      padEnds: false,
-                      pageSnapping: false,
-                      onPageChanged: (index, reason) => _complaintController
-                          .onChangeComplaintCarousel(index, reason),
-                      scrollDirection: Axis.horizontal,
+                  Obx(
+                    () => CarouselSlider.builder(
+                      itemCount: _complaintController.complaintResponse.value
+                              .reqComplaintMobile.length +
+                          1,
+                      itemBuilder: (context, index, i) {
+                        if (index ==
+                            _complaintController.complaintResponse.value
+                                .reqComplaintMobile.length) {
+                          // Display fake item at the last index
+                          return const SizedBox();
+                        } else {
+                          ReqComplaintMobile item = _complaintController
+                              .complaintResponse
+                              .value
+                              .reqComplaintMobile[index];
+                          // Display real items
+                          return EvaluationItem(
+                            employeeName: item.senderName,
+                            employeePosition: item.subject,
+                            employeeImage: item.senderImagePath,
+                            date: item.complaintDate,
+                            editable: true,
+                            onClick: _complaintController.onClickItemComplaint,
+                          );
+                        }
+                      },
+                      options: CarouselOptions(
+                        height: 170.h,
+                        animateToClosest: true,
+                        clipBehavior: Clip.none,
+                        viewportFraction: 0.45,
+                        initialPage: 0,
+                        enableInfiniteScroll: false,
+                        reverse: false,
+                        autoPlay: false,
+                        enlargeCenterPage: false,
+                        padEnds: false,
+                        pageSnapping: false,
+                        onPageChanged: (index, reason) => _complaintController
+                            .onChangeComplaintCarousel(index, reason),
+                        scrollDirection: Axis.horizontal,
+                      ),
                     ),
                   ),
                   20.h.verticalSpace,
                   Obx(
                     () => CustomDotsIndicator(
                       current: _complaintController.currentComplaint.value,
-                      length: _complaintController.carouselComplaintList.length,
+                      length: _complaintController
+                          .complaintResponse.value.reqComplaintMobile.length,
                     ),
                   ),
                   20.h.verticalSpace,

@@ -1,13 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:request_hr/app/loan/main/models/loan_response.dart';
 
 import '../../../../../config/colors/colors.dart';
 import '../../../../../config/image_urls/image_urls.dart';
 
 class LoanInfoContainer extends StatelessWidget {
-  const LoanInfoContainer({super.key});
+  const LoanInfoContainer({super.key, required this.loanResponse});
 
+  final LoanResponse loanResponse;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,7 +65,7 @@ class LoanInfoContainer extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.only(left: 25.h, right: 5.h),
                         child: Text(
-                          'Total:475/23000',
+                          'Total:${getTotal(loanResponse.totalLoans)}',
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 14.sp,
@@ -94,12 +98,12 @@ class LoanInfoContainer extends StatelessWidget {
               radius: 48.0,
               lineWidth: 10.0,
               animation: true,
-              percent: 0.25,
+              percent: loanResponse.loansPercentage / 100,
               center: Text(
-                '25%',
+                '${loanResponse.loansPercentage.toStringAsFixed(1)}%',
                 style: TextStyle(
                   color: AppColors.primary,
-                  fontSize: 27.sp,
+                  fontSize: 24.sp,
                 ),
               ),
               circularStrokeCap: CircularStrokeCap.butt,
@@ -110,5 +114,24 @@ class LoanInfoContainer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getTotal(String total) {
+    if (total != "0") {
+      String a = total.substring(0, total.indexOf("/")).replaceAll("٫", ".");
+      String b = total
+          .substring(total.indexOf("/") + 1, total.length)
+          .replaceAll("٫", ".");
+      log(a);
+      log(b);
+      if (double.parse(a) >= 1000) {
+        a = "${(double.parse(a) / 1000).toStringAsFixed(2)}k";
+      }
+      if (double.parse(b) >= 1000) {
+        b = "${(double.parse(b) / 1000).toStringAsFixed(2)}k";
+      }
+      return '$a / $b';
+    }
+    return "0/0";
   }
 }

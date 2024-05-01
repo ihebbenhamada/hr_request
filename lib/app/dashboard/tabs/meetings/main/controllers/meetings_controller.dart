@@ -53,7 +53,7 @@ class MeetingsController extends BaseController {
   void navigateAndRefresh() async {
     final result = await Get.to(
       id: 4,
-      () => MeetingsDetailsScreen(),
+      () => const MeetingsDetailsScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),

@@ -100,7 +100,7 @@ class CategoriesFilter extends StatelessWidget {
                     ),
                     5.horizontalSpace,
                     Text(
-                      'Pending',
+                      'pending'.tr,
                       style: TextStyle(
                         color: AppColors.blueDark,
                         fontSize: 12.sp,
@@ -172,7 +172,7 @@ class CategoriesFilter extends StatelessWidget {
                     ),
                     5.horizontalSpace,
                     Text(
-                      'Cancel',
+                      'cancel'.tr,
                       style: TextStyle(
                         color: AppColors.blueDark,
                         fontSize: 12.sp,

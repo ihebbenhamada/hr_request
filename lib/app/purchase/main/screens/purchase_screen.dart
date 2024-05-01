@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_categories.dart';
 import 'package:request_hr/app/purchase/main/controllers/purchase_controller.dart';
-import 'package:request_hr/app/ticket/widgets/ticket_item.dart';
+import 'package:request_hr/app/purchase/main/models/purchase.dart';
+import 'package:request_hr/app/purchase/widgets/purchase_item.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
@@ -82,16 +83,15 @@ class PurchaseScreen extends StatelessWidget {
                   bottom: Platform.isIOS ? 70.h : 84.h,
                 ),
                 shrinkWrap: true, // padding around the grid
-                itemCount: _purchaseController
-                    .purchaseList.length, // total number of items
+                itemCount: _purchaseController.purchaseList.length,
+                // total number of items
                 itemBuilder: (context, index) {
-                  Map<String, dynamic> item =
-                      _purchaseController.purchaseList[index];
+                  Purchase item = _purchaseController.purchaseList[index];
                   return Center(
-                    child: TicketItem(
-                      title: item['title'],
-                      date: item['date'],
-                      type: item['type'],
+                    child: PurchaseItem(
+                      title: item.serialPrefix,
+                      date: item.orderDate,
+                      status: item.fkStStatusId,
                       onClick: _purchaseController.onClickPurchaseItem,
                     ),
                   );

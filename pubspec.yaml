@@ -33,6 +33,7 @@ dependencies:
   syncfusion_flutter_core: ^24.2.6
   dropdown_search: ^5.0.6
   animated_custom_dropdown: ^3.0.0
+  connectivity_plus: ^6.0.2
 
 dev_dependencies:
   flutter_test:

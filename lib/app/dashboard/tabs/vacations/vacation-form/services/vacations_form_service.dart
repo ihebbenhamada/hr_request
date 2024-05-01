@@ -24,7 +24,6 @@ class VacationsFormService {
       "DateTo": dateTo,
       "Description": description
     };
-
     Response? response = await AppInterceptor.dio
         ?.post(EndPoints.CREATE_VACATION_URL, data: data);
     if (response != null && response.statusCode == 200) {
@@ -39,6 +38,35 @@ class VacationsFormService {
         await AppInterceptor.dio?.get(EndPoints.GET_CREATE_VACATION_URL);
     if (response != null && response.statusCode == 200) {
       return GetCreateVacation.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<ResultResponse?> updateVacation({
+    required int vacationId,
+    required int fKAlternativeEmployee,
+    required int fKAlternativeToPayingAnyDue,
+    required int fKHrVacationTypeId,
+    required int fKReqStatusId,
+    required String dateFrom,
+    required String dateTo,
+    String? description,
+  }) async {
+    Map<String, dynamic> data = {
+      "VacationId": vacationId,
+      "FK_AlternativeEmployee": fKAlternativeEmployee,
+      "FK_AlternativeToPayingAnyDue": fKAlternativeToPayingAnyDue,
+      "FK_HrVacationTypeId": fKHrVacationTypeId,
+      "FK_ReqStatusId": fKReqStatusId,
+      "DateFrom": dateFrom,
+      "DateTo": dateTo,
+      "Description": description
+    };
+    Response? response = await AppInterceptor.dio
+        ?.post(EndPoints.UPDATE_VACATION_URL, data: data);
+    if (response != null && response.statusCode == 200) {
+      return ResultResponse.fromJson(response.data);
     } else {
       return null;
     }

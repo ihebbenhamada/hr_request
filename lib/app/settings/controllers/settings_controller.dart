@@ -1,4 +1,4 @@
-import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/auth/login/screens/login_screen.dart';
@@ -14,6 +14,9 @@ class SettingsController extends BaseController {
 
   /// VARIABLES
   late GetStorage storage;
+  RxBool isArabic = false.obs;
+  RxBool isDarkTheme = false.obs;
+  RxBool isNotificationEnabled = false.obs;
 
   /// VALIDATION
 
@@ -35,6 +38,26 @@ class SettingsController extends BaseController {
   }
 
   /// FUNCTIONS
+  toggleLanguage(bool value) {
+    isArabic.value = value;
+
+    if (value) {
+      storage.write('language', 'ar');
+      Get.updateLocale(const Locale('ar', 'AR'));
+    } else {
+      storage.write('language', 'en');
+      Get.updateLocale(const Locale('en', 'US'));
+    }
+  }
+
+  toggleTheme(bool value) {
+    isDarkTheme.value = value;
+  }
+
+  toggleNotification(bool value) {
+    isNotificationEnabled.value = value;
+  }
+
   logout() {
     storage.remove('user');
     storage.remove('token');

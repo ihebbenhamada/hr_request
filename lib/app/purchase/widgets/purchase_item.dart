@@ -10,11 +10,11 @@ class PurchaseItem extends StatelessWidget {
     required this.title,
     required this.date,
     required this.onClick,
-    required this.type,
+    required this.status,
   });
   final String title;
   final String date;
-  final int type;
+  final int status;
   final void Function() onClick;
   @override
   Widget build(BuildContext context) {
@@ -64,9 +64,9 @@ class PurchaseItem extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: type == 0
+                color: status == 32
                     ? AppColors.primary
-                    : type == 1
+                    : status == 31
                         ? AppColors.gray1
                         : AppColors.redLight,
                 borderRadius: BorderRadius.circular(12),
@@ -83,7 +83,7 @@ class PurchaseItem extends StatelessWidget {
                 date,
                 style: TextStyle(
                   fontSize: 9.sp,
-                  color: type == 1 ? AppColors.blueDark : AppColors.white,
+                  color: status == 31 ? AppColors.blueDark : AppColors.white,
                 ),
               ),
             ),
@@ -98,23 +98,23 @@ class PurchaseItem extends StatelessWidget {
       height: 44.h,
       width: 44.h,
       decoration: ShapeDecoration(
-        color: type == 0
+        color: status == 32
             ? AppColors.primary
-            : type == 1
+            : status == 31
                 ? AppColors.gray1
                 : AppColors.redLight,
         shape: const OvalBorder(),
       ),
       child: Center(
         child: Image.asset(
-          type == 0
+          status == 32
               ? AppImages.doubleCheck
-              : type == 1
+              : status == 31
                   ? AppImages.progress
                   : AppImages.x,
-          height: type == 0
+          height: status == 32
               ? 11.5.h
-              : type == 1
+              : status == 31
                   ? 25.h
                   : 19.h,
         ),

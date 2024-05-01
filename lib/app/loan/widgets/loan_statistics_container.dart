@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:request_hr/app/loan/main/models/loan_response.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../../config/colors/colors.dart';
 
 class LoanStatisticsContainer extends StatelessWidget {
-  LoanStatisticsContainer({super.key});
-  final List<ChartData> chartData = [
-    ChartData(
-      'ben',
-      200,
-      AppColors.redLight,
-    ),
-    ChartData(
-      'hobba',
-      500,
-      AppColors.blue3,
-    ),
-    ChartData(
-      'iheb',
-      900,
-      AppColors.gray12,
-    ),
-  ];
+  const LoanStatisticsContainer({super.key, required this.loanResponse});
+  final LoanResponse loanResponse;
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +40,30 @@ class LoanStatisticsContainer extends StatelessWidget {
                   // Renders radial bar chart
                   RadialBarSeries<ChartData, String>(
                     gap: '15%',
-                    dataSource: chartData,
+                    dataSource: [
+                      ChartData(
+                        'rejected',
+                        loanResponse.rejectedPercentage,
+                        AppColors.redLight,
+                      ),
+                      ChartData(
+                        'approved',
+                        loanResponse.approvedPercentage,
+                        AppColors.blue3,
+                      ),
+                      ChartData(
+                        'pending'.tr,
+                        loanResponse.pendingPercentage,
+                        AppColors.gray12,
+                      ),
+                    ],
                     xValueMapper: (ChartData data, _) => data.xData,
                     yValueMapper: (ChartData data, _) => data.yData,
                     radius: '120%',
                     trackColor: AppColors.gray11,
                     pointColorMapper: (ChartData data, _) => data.color,
                     trackBorderWidth: 1,
-                    maximumValue: 1000,
+                    maximumValue: 100,
                   ),
                 ],
               ),
@@ -127,7 +129,7 @@ class LoanStatisticsContainer extends StatelessWidget {
                       ),
                       8.horizontalSpace,
                       Text(
-                        'Cancel',
+                        'cancel'.tr,
                         style: TextStyle(
                           color: AppColors.gray8,
                           fontSize: 12.sp,

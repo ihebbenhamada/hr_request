@@ -167,23 +167,25 @@ class AlertDetailsScreen extends StatelessWidget {
                     height: 55.h,
                     width: double.infinity,
                     title: 'Alert Title',
-                    inputType: 'text',
-                    text: 'Proficiency bonus',
+                    inputType: 'input',
+                    nbrLines: 1,
+                    textEditingController:
+                        _alertDetailsController.titleTextEditingController,
                   ),
                   13.h.verticalSpace,
-                  const InputForm(
+                  InputForm(
                     width: double.infinity,
                     title: 'Remark',
                     inputType: 'input',
+                    textEditingController:
+                        _alertDetailsController.remarkTextEditingController,
                   ),
                   30.h.verticalSpace,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
+                        onTap: _alertDetailsController.onClickSubmit,
                         child: Container(
                           height: 50.h,
                           width: 50.h,

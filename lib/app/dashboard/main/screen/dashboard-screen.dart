@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -63,6 +64,7 @@ class DashboardScreen extends StatelessWidget {
                         Navigator(
                           key: Get.nestedKey(nestedNavigationDecisionId),
                           initialRoute: AppRoutes.decisions,
+                          reportsRouteUpdateToEngine: true,
                           onGenerateRoute: (routeSettings) {
                             if (routeSettings.name == AppRoutes.decisions) {
                               return GetPageRoute(
@@ -85,28 +87,26 @@ class DashboardScreen extends StatelessWidget {
                           key: Get.nestedKey(nestedNavigationVacationId),
                           initialRoute: AppRoutes.vacations,
                           onGenerateRoute: (routeSettings) {
-                            print(routeSettings.name);
                             if (routeSettings.name == AppRoutes.vacations) {
+                              Get.routing.args = routeSettings.arguments;
                               return GetPageRoute(
+                                settings: routeSettings,
                                 routeName: AppRoutes.vacations,
                                 page: () => VacationsScreen(),
                                 binding: VacationPageBindings(),
                               );
                             } else if (routeSettings.name ==
                                 AppRoutes.vacationsForm) {
+                              Get.routing.args = routeSettings.arguments;
+
+                              log(routeSettings.arguments.toString());
                               return GetPageRoute(
+                                settings: routeSettings,
                                 routeName: AppRoutes.vacationsForm,
                                 page: () => VacationsFormScreen(),
                                 binding: VacationsFormPageBindings(),
                               );
-                            } /*else if(routeSettings.name ==
-                                '${AppRoutes.dashboard}/${AppRoutes.vacationsSteps}'){
-                              return GetPageRoute(
-                                routeName: AppRoutes.vacationsSteps,
-                                page: () => VacationsStepsScreen(),
-                                binding: VacationsStepsPageBindings(),
-                              );
-                            }*/
+                            }
                             return null;
                           },
                         ),

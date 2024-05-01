@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/widgets/desicion-details-container.dart';
+import 'package:request_hr/app/dashboard/tabs/decisions/main/model/get_decisions_response.dart';
 import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 
 import '../../../../../../config/colors/colors.dart';
@@ -10,7 +11,8 @@ import '../controllers/decisions_details_controller.dart';
 
 class DecisionsDetailsScreen extends StatelessWidget {
   final _decisionsDetailsController = Get.put(DecisionsDetailsController());
-  DecisionsDetailsScreen({super.key});
+  DecisionsDetailsScreen({super.key, this.decisionsResponse});
+  final DecisionsResponse? decisionsResponse;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,10 +152,13 @@ class DecisionsDetailsScreen extends StatelessWidget {
               children: [
                 DecisionDetailsInput(
                   icon: AppImages.title,
-                  controller:
-                      _decisionsDetailsController.subjectTextEditingController,
+                  controller: decisionsResponse?.subject == null
+                      ? _decisionsDetailsController.subjectTextEditingController
+                      : null,
                   nbrLines: 1,
                   paddingRight: 50,
+                  enabled: decisionsResponse?.subject != null ? false : true,
+                  initialValue: decisionsResponse?.subject,
                   hint: 'Subject',
                 ),
                 40.h.verticalSpace,
@@ -161,8 +166,12 @@ class DecisionsDetailsScreen extends StatelessWidget {
                   icon: AppImages.description,
                   paddingTop: 20.h,
                   paddingBottom: 20.h,
-                  controller: _decisionsDetailsController
-                      .descriptionTextEditingController,
+                  controller: decisionsResponse?.creationDate == null
+                      ? _decisionsDetailsController
+                          .descriptionTextEditingController
+                      : null,
+                  initialValue: decisionsResponse?.creationDate,
+                  enabled: decisionsResponse?.subject != null ? false : true,
                   nbrLines: 13,
                   hint: 'Description',
                 ),
@@ -170,24 +179,26 @@ class DecisionsDetailsScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: _decisionsDetailsController.onClickDone,
-                      child: Container(
-                        height: 50.h,
-                        width: 50.h,
-                        decoration: const ShapeDecoration(
-                          color: AppColors.primary,
-                          shape: OvalBorder(),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            AppImages.tick,
-                            color: AppColors.white,
-                            height: 30.h,
-                          ),
-                        ),
-                      ),
-                    ),
+                    decisionsResponse == null
+                        ? GestureDetector(
+                            onTap: _decisionsDetailsController.onClickDone,
+                            child: Container(
+                              height: 50.h,
+                              width: 50.h,
+                              decoration: const ShapeDecoration(
+                                color: AppColors.primary,
+                                shape: OvalBorder(),
+                              ),
+                              child: Center(
+                                child: Image.asset(
+                                  AppImages.tick,
+                                  color: AppColors.white,
+                                  height: 30.h,
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
                     23.horizontalSpace,
                     GestureDetector(
                       onTap: _decisionsDetailsController.onClickBack,
@@ -208,7 +219,7 @@ class DecisionsDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                )
               ],
             ),
           ),

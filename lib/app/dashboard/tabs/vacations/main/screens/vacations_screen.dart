@@ -57,8 +57,13 @@ class VacationsScreen extends StatelessWidget {
             Obx(
               () => _vacationsController.vacationsList.isNotEmpty
                   ? CarouselSlider.builder(
-                      itemCount: _vacationsController.vacationsList.length,
+                      itemCount: _vacationsController.vacationsList.length + 1,
                       itemBuilder: (context, index, i) {
+                        if (index ==
+                            _vacationsController.vacationsList.length) {
+                          // Display fake item at the last index
+                          return const SizedBox();
+                        }
                         Vacation item =
                             _vacationsController.vacationsList[index];
                         return VacationItem(
@@ -69,7 +74,8 @@ class VacationsScreen extends StatelessWidget {
                           withAlert: item.withAlert,
                           color: item.color,
                           iconHeight: item.iconHeight,
-                          onClick: _vacationsController.onClickVacationItem,
+                          onClick: () => _vacationsController
+                              .onClickVacationItem(item.vacationId),
                         );
                       },
                       options: CarouselOptions(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/main/controllers/vacations_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
@@ -41,7 +43,12 @@ class VacationsFormController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    getCreateVacations();
+    VacationsController vacationController = Get.find();
+    if (vacationController.selectedVacation != null) {
+      getUpdateVacation(vacationController);
+    } else {
+      getCreateVacations();
+    }
   }
 
   /// FUNCTIONS
@@ -70,6 +77,9 @@ class VacationsFormController extends BaseController {
               onPrimary: AppColors.white, // header text color
               onSurface: AppColors.black, // body text color
             ),
+            textTheme: Theme.of(context).textTheme.copyWith(
+                  bodyLarge: TextStyle(fontSize: 14.sp),
+                ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.black, // button text color
@@ -123,25 +133,80 @@ class VacationsFormController extends BaseController {
     });
   }
 
+  getUpdateVacation(VacationsController vacationController) {
+    selectedType.value = vacationController.selectedVacation!.vacationTypes
+        .where((element) =>
+            element.value ==
+            vacationController.selectedVacation!.fKHrVacationTypeId.toString())
+        .first;
+    vacationTypeList.value = vacationController.selectedVacation!.vacationTypes;
+    dateFrom.value =
+        vacationController.selectedVacation!.dateFrom.substring(0, 10);
+    dateTo.value = vacationController.selectedVacation!.dateTo.substring(0, 10);
+    dueDate.value = DateTime.parse(dateTo.value)
+        .difference(DateTime.parse(dateFrom.value))
+        .inDays
+        .toString();
+    employeesList.value = vacationController.selectedVacation!.employees;
+    selectedAlternativeToPay.value = vacationController
+        .selectedVacation!.employees
+        .where((element) =>
+            element.value ==
+            vacationController.selectedVacation!.fKAlternativeToPayingAnyDue
+                .toString())
+        .first;
+    selectedAlternativeEmployee.value = vacationController
+        .selectedVacation!.employees
+        .where((element) =>
+            element.value ==
+            vacationController.selectedVacation!.fKAlternativeEmployee
+                .toString())
+        .first;
+    remarkTextEditingController.text =
+        vacationController.selectedVacation!.description;
+  }
+
   onClickSubmit() {
     AppInterceptor.showLoader();
-    _vacationsFormService
-        .createVacation(
-      fKAlternativeEmployee: int.parse(selectedAlternativeEmployee.value.value),
-      fKAlternativeToPayingAnyDue:
-          int.parse(selectedAlternativeToPay.value.value),
-      fKHrVacationTypeId: int.parse(selectedType.value.value),
-      fKReqStatusId: 9,
-      dateFrom: dateFrom.value,
-      dateTo: dateTo.value,
-      description: remarkTextEditingController.value.text,
-    )
-        .then((value) {
-      if (value != null) {
-        Get.back(result: 'refresh', id: 2);
-      }
-      AppInterceptor.hideLoader();
-    });
+    VacationsController vacationController = Get.find();
+    if (vacationController.selectedVacation != null) {
+      _vacationsFormService
+          .updateVacation(
+        vacationId: vacationController.selectedVacation!.vacationId,
+        fKAlternativeEmployee:
+            int.parse(selectedAlternativeEmployee.value.value),
+        fKAlternativeToPayingAnyDue:
+            int.parse(selectedAlternativeToPay.value.value),
+        fKHrVacationTypeId: int.parse(selectedType.value.value),
+        fKReqStatusId: 9,
+        dateFrom: dateFrom.value,
+        dateTo: dateTo.value,
+        description: remarkTextEditingController.value.text,
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh', id: 2);
+        }
+      });
+    } else {
+      _vacationsFormService
+          .createVacation(
+        fKAlternativeEmployee:
+            int.parse(selectedAlternativeEmployee.value.value),
+        fKAlternativeToPayingAnyDue:
+            int.parse(selectedAlternativeToPay.value.value),
+        fKHrVacationTypeId: int.parse(selectedType.value.value),
+        fKReqStatusId: 9,
+        dateFrom: dateFrom.value,
+        dateTo: dateTo.value,
+        description: remarkTextEditingController.value.text,
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh', id: 2);
+        }
+      });
+    }
   }
 
   onClickBack() {

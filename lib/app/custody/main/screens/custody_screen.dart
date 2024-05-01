@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/custody/main/controllers/custody_controller.dart';
+import 'package:request_hr/app/custody/main/models/custody.dart';
+import 'package:request_hr/app/custody/widget/custody_item.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_categories.dart';
-import 'package:request_hr/app/ticket/widgets/ticket_item.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
@@ -54,7 +55,7 @@ class CustodyScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _custodyController.onClickCreateCustody,
+                  onTap: _custodyController.navigateAndRefresh,
                   child: Image.asset(
                     AppImages.addDecision,
                     height: 34.h,
@@ -85,14 +86,14 @@ class CustodyScreen extends StatelessWidget {
                 itemCount: _custodyController
                     .custodyList.length, // total number of items
                 itemBuilder: (context, index) {
-                  Map<String, dynamic> item =
-                      _custodyController.custodyList[index];
+                  Custody item = _custodyController.custodyList[index];
                   return Center(
-                    child: TicketItem(
-                      title: item['title'],
-                      date: item['date'],
-                      type: item['type'],
-                      onClick: _custodyController.onClickCustodyItem,
+                    child: CustodyItem(
+                      title: item.custodyName,
+                      date: item.dateCustody.substring(0, 10),
+                      status: item.fkReqStatusId,
+                      onClick: () =>
+                          _custodyController.onClickCustodyItem(item),
                     ),
                   );
                 },

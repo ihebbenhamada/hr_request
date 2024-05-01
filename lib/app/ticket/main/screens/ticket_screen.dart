@@ -10,6 +10,8 @@ import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
 
+import '../models/ticket_response.dart';
+
 class TicketScreen extends StatelessWidget {
   final _ticketController = Get.put(TicketController());
   final ThemeController _themeController = Get.find();
@@ -54,7 +56,7 @@ class TicketScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _ticketController.onClickCreateTicket,
+                  onTap: _ticketController.navigateAndRefresh,
                   child: Image.asset(
                     AppImages.addDecision,
                     height: 34.h,
@@ -81,18 +83,16 @@ class TicketScreen extends StatelessWidget {
                 padding: EdgeInsets.only(
                   bottom: Platform.isIOS ? 70.h : 84.h,
                 ),
-                shrinkWrap: true, // padding around the grid
-                itemCount: _ticketController
-                    .ticketList.length, // total number of items
+                shrinkWrap: true,
+                itemCount: _ticketController.ticketsList.length,
                 itemBuilder: (context, index) {
-                  Map<String, dynamic> item =
-                      _ticketController.ticketList[index];
+                  Ticket item = _ticketController.ticketsList[index];
                   return Center(
                     child: TicketItem(
-                      title: item['title'],
-                      date: item['date'],
-                      type: item['type'],
-                      onClick: _ticketController.onClickTicketItem,
+                      title: "Request ticket",
+                      date: item.creationDate.substring(0, 10),
+                      status: item.status,
+                      onClick: () => _ticketController.onClickTicketItem(item),
                     ),
                   );
                 },

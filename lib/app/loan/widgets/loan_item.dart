@@ -16,7 +16,7 @@ class LoanItem extends StatelessWidget {
     required this.type,
   });
   final String title;
-  final int cost;
+  final double cost;
   final String icon;
   final String date;
   final bool editable;

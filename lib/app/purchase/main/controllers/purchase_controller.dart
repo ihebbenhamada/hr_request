@@ -1,8 +1,10 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/purchase/purchase-details/screens/purchase_details_screen.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../models/purchase.dart';
 import '../services/purchase_service.dart';
 
 class PurchaseController extends BaseController {
@@ -13,69 +15,12 @@ class PurchaseController extends BaseController {
 
   /// VARIABLES
   RxInt selectedFilter = 0.obs;
-  RxList purchaseList = [].obs;
-  final List<Map<String, dynamic>> purchaseData = [
-    {
-      'title': 'Request Purchase',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 0,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 1,
-      'date': '13-2-2024',
-    },
-    {
-      'title': 'Request Purchase',
-      'type': 2,
-      'date': '13-2-2024',
-    },
-  ];
+  RxList<Purchase> purchaseList = <Purchase>[].obs;
+
+  RxList<Purchase> allPurchaseList = <Purchase>[].obs;
+  RxList<Purchase> pendingPurchaseList = <Purchase>[].obs;
+  RxList<Purchase> approvedPurchaseList = <Purchase>[].obs;
+  RxList<Purchase> rejectedPurchaseList = <Purchase>[].obs;
 
   /// VALIDATION
 
@@ -88,30 +33,72 @@ class PurchaseController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    purchaseList.value = purchaseData;
+    getPurchaseList();
   }
 
   /// FUNCTIONS
+  getPurchaseList() {
+    AppInterceptor.showLoader();
+    List<Purchase> list = [
+      Purchase(
+        id: 1,
+        serialPrefix: "sp",
+        serialNumber: 10,
+        orderDate: "2024-04-12",
+        fkStStatusId: 31,
+        status: "pending",
+        description: "description",
+      ),
+      Purchase(
+        id: 1,
+        serialPrefix: "sp",
+        serialNumber: 10,
+        orderDate: "2024-04-12",
+        fkStStatusId: 32,
+        status: "approved",
+        description: "description",
+      ),
+    ];
+    purchaseList.value = list;
+    allPurchaseList.value = list;
+    pendingPurchaseList.value =
+        list.where((element) => element.fkStStatusId == 31).toList();
+    approvedPurchaseList.value =
+        list.where((element) => element.fkStStatusId == 32).toList();
+    rejectedPurchaseList.value =
+        list.where((element) => element.fkStStatusId == 33).toList();
+    _purchaseService.getPurchaseList().then((value) {
+      if (value != null) {
+        purchaseList.value = value;
+        allPurchaseList.value = value;
+        pendingPurchaseList.value =
+            value.where((element) => element.fkStStatusId == 31).toList();
+        approvedPurchaseList.value =
+            value.where((element) => element.fkStStatusId == 32).toList();
+        rejectedPurchaseList.value =
+            value.where((element) => element.fkStStatusId == 33).toList();
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   onSelectFilter(int index) {
     selectedFilter.value = index;
     switch (index) {
       case 0:
-        purchaseList.value = purchaseData;
+        purchaseList.value = allPurchaseList;
         break;
       case 1:
-        purchaseList.value =
-            purchaseData.where((map) => map['type'] == 1).toList();
+        purchaseList.value = pendingPurchaseList;
         break;
       case 2:
-        purchaseList.value =
-            purchaseData.where((map) => map['type'] == 0).toList();
+        purchaseList.value = approvedPurchaseList;
         break;
       case 3:
-        purchaseList.value =
-            purchaseData.where((map) => map['type'] == 2).toList();
+        purchaseList.value = rejectedPurchaseList;
         break;
       default:
-        purchaseList.value = purchaseData;
+        purchaseList.value = allPurchaseList;
         break;
     }
   }

@@ -6,7 +6,7 @@ import '../../config/colors/colors.dart';
 
 class SettingsItem extends StatelessWidget {
   const SettingsItem({
-    Key? key,
+    super.key,
     required this.icon,
     this.isEnabled,
     required this.title,
@@ -14,7 +14,7 @@ class SettingsItem extends StatelessWidget {
     this.onToggleSwitch,
     this.onClickItem,
     this.isDarkMode = false,
-  }) : super(key: key);
+  });
 
   final String icon;
   final bool? isEnabled;

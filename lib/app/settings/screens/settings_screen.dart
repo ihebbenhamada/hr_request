@@ -48,23 +48,31 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             30.h.verticalSpace,
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               textDirection: TextDirection.ltr,
               children: [
-                SettingsItem(
-                  icon: AppImages.languageSetting,
-                  title: 'arabic_language',
-                  description: 'change_language',
-                  isEnabled: true,
-                  isDarkMode: false,
+                Obx(
+                  () => SettingsItem(
+                    icon: AppImages.languageSetting,
+                    title: 'arabic_language',
+                    description: 'change_language',
+                    onToggleSwitch: (value) =>
+                        _settingsController.toggleLanguage(value),
+                    isEnabled: _settingsController.isArabic.value,
+                    isDarkMode: false,
+                  ),
                 ),
-                SettingsItem(
-                  icon: AppImages.theme,
-                  title: 'dark_theme',
-                  description: 'change_theme',
-                  isDarkMode: false,
-                  isEnabled: false,
+                Obx(
+                  () => SettingsItem(
+                    icon: AppImages.theme,
+                    title: 'dark_theme',
+                    description: 'change_theme',
+                    onToggleSwitch: (value) =>
+                        _settingsController.toggleTheme(value),
+                    isDarkMode: false,
+                    isEnabled: _settingsController.isDarkTheme.value,
+                  ),
                 ),
               ],
             ),
@@ -73,12 +81,16 @@ class SettingsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               textDirection: TextDirection.ltr,
               children: [
-                SettingsItem(
-                  icon: AppImages.notification,
-                  title: 'send_notification',
-                  description: 'send_notification_alarm',
-                  isEnabled: true,
-                  isDarkMode: false,
+                Obx(
+                  () => SettingsItem(
+                    icon: AppImages.notification,
+                    title: 'send_notification',
+                    description: 'send_notification_alarm',
+                    onToggleSwitch: (value) =>
+                        _settingsController.toggleNotification(value),
+                    isEnabled: _settingsController.isNotificationEnabled.value,
+                    isDarkMode: false,
+                  ),
                 ),
                 SettingsItem(
                   icon: AppImages.logout,

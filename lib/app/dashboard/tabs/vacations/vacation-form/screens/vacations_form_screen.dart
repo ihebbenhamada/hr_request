@@ -120,27 +120,6 @@ class VacationsFormScreen extends StatelessWidget {
                 text: 'Mohamed Maged Saleh',
               ),
               15.h.verticalSpace,
-              GestureDetector(
-                onTap: _vacationsFormController.onClickCompleteProcedures,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 22),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(21),
-                      color: AppColors.redLight,
-                    ),
-                    child: Text(
-                      'Completing the procedures',
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               30.h.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

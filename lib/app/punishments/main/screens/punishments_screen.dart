@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:request_hr/app/punishments/main/controllers/punishments_controller.dart';
+import 'package:request_hr/app/punishments/main/models/punishment_response.dart';
 import 'package:request_hr/app/punishments/widgets/punishment_item.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
@@ -62,7 +63,7 @@ class PunishmentsScreen extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: _punishmentsController.onClickCreatePunishments,
+                        onTap: _punishmentsController.navigateAndRefresh,
                         child: Image.asset(
                           AppImages.addDecision,
                           height: 34.h,
@@ -73,24 +74,21 @@ class PunishmentsScreen extends StatelessWidget {
                   ),
                   20.h.verticalSpace,
                   CarouselSlider.builder(
-                    itemCount:
-                        _punishmentsController.carouselPunishmentsList.length +
-                            1,
+                    itemCount: _punishmentsController.punishmentList.length + 1,
                     itemBuilder: (context, index, i) {
                       if (index ==
-                          _punishmentsController
-                              .carouselPunishmentsList.length) {
+                          _punishmentsController.punishmentList.length) {
                         // Display fake item at the last index
                         return const SizedBox();
                       } else {
-                        Map<String, dynamic> item = _punishmentsController
-                            .carouselPunishmentsList[index];
+                        PunishmentResponse item =
+                            _punishmentsController.punishmentList[index];
                         // Display real items
                         return PunishmentItem(
-                          employeeName: item['employee_name'],
-                          employeePunishment: item['employee_punishment'],
-                          employeeImage: item['employee_image'],
-                          date: item['date'],
+                          employeeName: item.assigneeName ?? "",
+                          employeePunishment: item.amount ?? 0.0,
+                          employeeImage: item.imagePath ?? "",
+                          date: item.creationDate?.substring(0, 10) ?? "",
                           editable: true,
                           onClick:
                               _punishmentsController.onClickItemPunishments,
@@ -118,8 +116,7 @@ class PunishmentsScreen extends StatelessWidget {
                   Obx(
                     () => CustomDotsIndicator(
                       current: _punishmentsController.currentPunishment.value,
-                      length:
-                          _punishmentsController.carouselPunishmentsList.length,
+                      length: _punishmentsController.punishmentList.length,
                     ),
                   ),
                   20.h.verticalSpace,

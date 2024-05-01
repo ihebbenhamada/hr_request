@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../../../../config/interceptor/interceptor.dart';
 import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
 import '../services/punishments_details_service.dart';
 
@@ -10,6 +12,12 @@ class PunishmentsDetailsController extends BaseController {
       PunishmentsDetailsService();
 
   /// CONTROLLERS
+  final TextEditingController amountTextEditingController =
+      TextEditingController();
+  final TextEditingController titleTextEditingController =
+      TextEditingController();
+  final TextEditingController remarkTextEditingController =
+      TextEditingController();
 
   /// VARIABLES
 
@@ -45,5 +53,29 @@ class PunishmentsDetailsController extends BaseController {
   /// FUNCTIONS
   onSelectEmployee(DropDownModel value) {
     selectedEmployee.value = value;
+  }
+
+  onClickSubmit() {
+    AppInterceptor.showLoader();
+    _punishmentsDetailsService
+        .createPunishment(
+      amount: double.parse(amountTextEditingController.value.text),
+      description: remarkTextEditingController.value.text,
+      id: null,
+      amountType: 1,
+      assignees: [1, 2],
+      departmentsIds: [1, 2],
+      employeeReceive: 2,
+      creationDate: DateTime.now().toString().substring(0, 10),
+      fKHrEmployeeId: 1,
+      subject: titleTextEditingController.value.text,
+      isDeleted: false,
+    )
+        .then((value) {
+      if (value != null) {
+        Get.back(result: 'refresh');
+      }
+      AppInterceptor.hideLoader();
+    });
   }
 }

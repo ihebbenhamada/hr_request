@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../../../../config/interceptor/interceptor.dart';
 import '../services/bonus_details_service.dart';
 
 class BonusDetailsController extends BaseController {
@@ -9,6 +11,12 @@ class BonusDetailsController extends BaseController {
   final BonusDetailsService _bonusDetailsService = BonusDetailsService();
 
   /// CONTROLLERS
+  final TextEditingController amountTextEditingController =
+      TextEditingController();
+  final TextEditingController titleTextEditingController =
+      TextEditingController();
+  final TextEditingController remarkTextEditingController =
+      TextEditingController();
 
   /// VARIABLES
   final List<DropDownModel> employeesList = [
@@ -43,5 +51,26 @@ class BonusDetailsController extends BaseController {
   /// FUNCTIONS
   onSelectEmployee(DropDownModel value) {
     selectedEmployee.value = value;
+  }
+
+  onClickSubmit() {
+    AppInterceptor.showLoader();
+    _bonusDetailsService
+        .createBonus(
+      amount: double.parse(amountTextEditingController.value.text),
+      description: remarkTextEditingController.value.text,
+      id: null,
+      bonusType: 1,
+      creationDate: DateTime.now().toString().substring(0, 10),
+      fKHrEmployeeId: 1,
+      subject: titleTextEditingController.value.text,
+      isDeleted: false,
+    )
+        .then((value) {
+      if (value != null) {
+        Get.back(result: 'refresh');
+      }
+      AppInterceptor.hideLoader();
+    });
   }
 }

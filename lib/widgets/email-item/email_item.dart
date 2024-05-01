@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
+import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 
 class EmailItem extends StatelessWidget {
   const EmailItem({
@@ -13,6 +14,7 @@ class EmailItem extends StatelessWidget {
     required this.description,
     required this.date,
     required this.onClickItem,
+    required this.onSelectMail,
   });
   final bool isSelected;
   final String image;
@@ -21,22 +23,33 @@ class EmailItem extends StatelessWidget {
   final String description;
   final String date;
   final void Function() onClickItem;
+  final void Function() onSelectMail;
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          height: 23.h,
-          width: 23.h,
-          decoration: const ShapeDecoration(
-            shape: OvalBorder(
-              side: BorderSide(
-                color: AppColors.primary,
-                width: 3,
+        GestureDetector(
+          onTap: onSelectMail,
+          child: Container(
+            height: 23.h,
+            width: 23.h,
+            decoration: ShapeDecoration(
+              shape: const OvalBorder(
+                side: BorderSide(
+                  color: AppColors.primary,
+                  width: 2.5,
+                ),
+              ),
+              color: isSelected ? AppColors.primary : AppColors.white,
+            ),
+            child: Center(
+              child: Icon(
+                Icons.check,
+                color: AppColors.white,
+                size: 17.h,
               ),
             ),
-            color: AppColors.white,
           ),
         ),
         7.horizontalSpace,
@@ -69,9 +82,11 @@ class EmailItem extends StatelessWidget {
                         side: BorderSide(color: AppColors.gray3),
                       ),
                     ),
-                    child: Image.asset(
-                      image,
-                      height: 17.h,
+                    child: AvatarCircle(
+                      image: image,
+                      size: 39.h,
+                      iconSize: 0,
+                      isNetworkImage: true,
                     ),
                   ),
                   5.horizontalSpace,

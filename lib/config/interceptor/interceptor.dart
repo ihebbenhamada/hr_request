@@ -103,14 +103,14 @@ class AppInterceptor {
       log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️ error ⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
       log('Exception status code : ${dioException.response?.statusCode}');
       log('Exception status message : ${dioException.response?.statusMessage}');
-      log('Exception type name : ${dioException.type.name}');
+      log('Exception tpe name : ${dioException.type.name}');
       log('Exception message : ${dioException.message}');
       log('Exception error : ${dioException.error.toString()}');
 
       log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
     }
     Fluttertoast.showToast(
-      msg: "${dioException.response?.data}",
+      msg: dioException.type.name,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,

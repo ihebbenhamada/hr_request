@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/loan/loan-details/models/create_loan.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/colors/colors.dart';
@@ -14,15 +17,16 @@ class LoanDetailsController extends BaseController {
 
   /// VARIABLES
   Rx<DateTime> loanDate = DateTime.now().obs;
-  final List<DropDownModel> paymentTypeList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Cash', value: '1'),
-    DropDownModel(disabled: false, text: 'Credit card', value: '2'),
-    DropDownModel(disabled: false, text: 'Visa', value: '3'),
-    DropDownModel(disabled: false, text: 'Rajhi', value: '4'),
-  ];
-
-  late Rx<DropDownModel> selectedPaymentType;
+  Rx<CreateLoan?> createLoan = CreateLoan(paymentTypes: []).obs;
+  RxList<DropDownModel> paymentTypeList = <DropDownModel>[].obs;
+  RxString subject = "".obs;
+  Rx<DropDownModel> selectedPaymentType =
+      DropDownModel(disabled: false, text: "اختر", value: "").obs;
+  TextEditingController titleTextEditingController = TextEditingController();
+  TextEditingController descriptionTextEditingController =
+      TextEditingController();
+  TextEditingController totalLoansTextEditingController =
+      TextEditingController();
 
   /// VALIDATION
 
@@ -33,6 +37,21 @@ class LoanDetailsController extends BaseController {
     super.onInit();
   }
 
+  getCreateLoan() {
+    AppInterceptor.showLoader();
+    _loanDetailsService.getCreateLoan().then((value) {
+      if (value != null) {
+        createLoan.value = value;
+        paymentTypeList.value = value.paymentTypes;
+        selectedPaymentType.value = value.paymentTypes[0];
+        subject.value = value.subject!;
+        AppInterceptor.hideLoader();
+      } else {
+        createLoan.value = null;
+      }
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -40,7 +59,7 @@ class LoanDetailsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    selectedPaymentType = paymentTypeList[0].obs;
+    getCreateLoan();
   }
 
   /// FUNCTIONS
@@ -54,11 +73,14 @@ class LoanDetailsController extends BaseController {
             colorScheme: const ColorScheme.light(
               primary: AppColors.primary, // header background color
               onPrimary: AppColors.white, // header text color
-              onSurface: AppColors.gray6, // body text color
+              onSurface: AppColors.black, // body text color
             ),
+            textTheme: Theme.of(context).textTheme.copyWith(
+                  bodyLarge: TextStyle(fontSize: 14.sp),
+                ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: AppColors.gray6, // button text color
+                foregroundColor: AppColors.black, // button text color
               ),
             ),
           ),
@@ -80,7 +102,33 @@ class LoanDetailsController extends BaseController {
   }
 
   onClickSubmit() {
-    Get.back();
+    AppInterceptor.showLoader();
+    _loanDetailsService
+        .createLoan(
+      paymentType: int.parse(selectedPaymentType.value.value),
+      loanDate: loanDate.value.toString().substring(0, 10),
+      totalAmount: double.parse(totalLoansTextEditingController.value.text),
+      subject: createLoan.value!.subject!,
+      description: descriptionTextEditingController.value.text,
+      creationDate: createLoan.value!.creationDate!,
+      lastModifiedDate: createLoan.value!.lastModifiedDate!,
+      isActive: createLoan.value!.isActive!,
+      isDeleted: createLoan.value!.isDeleted!,
+      isGeneralManager: createLoan.value!.isGeneralManager!,
+      isFinancialDirector: createLoan.value!.isFinancialDirector!,
+      isGeneralDirector: createLoan.value!.isGeneralDirector!,
+      fKGeneralDirectorId: createLoan.value?.fKGeneralDirectorId,
+      generalDirector: createLoan.value?.generalDirector,
+      employeeName: createLoan.value!.employeeName!,
+      fKReqStatusId: createLoan.value!.fKReqStatusId!,
+      paymentTypeName: selectedPaymentType.value.text,
+    )
+        .then((value) {
+      if (value != null) {
+        Get.back(result: 'refresh');
+      }
+      AppInterceptor.hideLoader();
+    });
   }
 
   onClickBack() {
