@@ -9,7 +9,8 @@ import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_categor
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
-import 'package:request_hr/widgets/decision-grid-item/decision_grid_item.dart';
+
+import '../widgets/meeting_grid_item.dart';
 
 class MeetingsScreen extends StatelessWidget {
   final _meetingsController = Get.put(MeetingsController());
@@ -65,15 +66,15 @@ class MeetingsScreen extends StatelessWidget {
                   ),
                   shrinkWrap: true, // padding around the grid
                   itemCount: _meetingsController
-                      .filteredMeetingList.length, // total number of items
+                      .meetingList.length, // total number of items
                   itemBuilder: (context, index) {
                     MeetingResponse item =
-                        _meetingsController.filteredMeetingList[index];
-                    return DecisionGridItem(
+                        _meetingsController.meetingList[index];
+                    return MeetingGridItem(
                       employeeName: item.assigneeByName ?? "",
                       employeePosition: item.meetingTitle ?? "",
                       employeeImage: AppImages.profile,
-                      type: 0,
+                      type: item.fkReqStatusId,
                       date: item.creationDate.toString().substring(0, 10),
                       onClick: () =>
                           _meetingsController.onClickMeetingItem(item),

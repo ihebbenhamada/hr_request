@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 class Disclaimer extends StatelessWidget {
-  const Disclaimer({super.key});
+  const Disclaimer({
+    super.key,
+    required this.vacationsStepsController,
+  });
+
+  final VacationsStepsController vacationsStepsController;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +29,7 @@ class Disclaimer extends StatelessWidget {
               children: [
                 14.h.verticalSpace,
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.39,
@@ -36,7 +44,8 @@ class Disclaimer extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Mohamed Gamal',
+                            vacationsStepsController
+                                .thirdStepData.value.employeeName,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -56,12 +65,27 @@ class Disclaimer extends StatelessWidget {
                               color: AppColors.white,
                             ),
                           ),
-                          Text(
-                            'Senior front end developer',
+                          TextFormField(
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
+                            controller: vacationsStepsController
+                                .jobNameTextEditingController,
+                            cursorColor: AppColors.white,
+                            decoration: const InputDecoration(
+                              isDense: true,
+                              focusedBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                            ),
+                            maxLines: 1,
+                            autocorrect: false,
+                            enableSuggestions: false,
+                            enabled: true,
+                            enableInteractiveSelection: true,
                           ),
                         ],
                       ),
@@ -85,7 +109,8 @@ class Disclaimer extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'It solutions',
+                            vacationsStepsController
+                                .thirdStepData.value.departmentName,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -94,25 +119,33 @@ class Disclaimer extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Last day of work in',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.white,
+                    Obx(
+                      () => Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Last day of work in',
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.white,
+                              ),
                             ),
-                          ),
-                          Text(
-                            '20-10-2024',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.white,
+                            GestureDetector(
+                              onTap: () => vacationsStepsController.selectDate(
+                                  context, 'thirdStep'),
+                              child: Text(
+                                vacationsStepsController
+                                    .lastWorkingDateThirdStep.value
+                                    .substring(0, 10),
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: AppColors.white,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -135,7 +168,8 @@ class Disclaimer extends StatelessWidget {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        keyboardType: TextInputType.number,
+                        controller: vacationsStepsController
+                            .reasonTextEditingController,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(
                           isDense: true,

@@ -17,8 +17,12 @@ class MeetingsController extends BaseController {
   /// VARIABLES
   final storage = GetStorage();
   RxInt selectedFilter = 0.obs;
+
   RxList<MeetingResponse> meetingList = <MeetingResponse>[].obs;
-  RxList<MeetingResponse> filteredMeetingList = <MeetingResponse>[].obs;
+  RxList<MeetingResponse> allMeetingList = <MeetingResponse>[].obs;
+  RxList<MeetingResponse> pendingMeetingList = <MeetingResponse>[].obs;
+  RxList<MeetingResponse> approvedMeetingList = <MeetingResponse>[].obs;
+  RxList<MeetingResponse> rejectedMeetingList = <MeetingResponse>[].obs;
 
   /// VALIDATION
 
@@ -33,8 +37,14 @@ class MeetingsController extends BaseController {
     AppInterceptor.showLoader();
     _meetingsService.getAllMeetings().then((value) {
       if (value != null) {
-        meetingList.value = value.obs;
-        filteredMeetingList.value = value.obs;
+        allMeetingList.value = value;
+        pendingMeetingList.value =
+            value.where((map) => map.fkReqStatusId == 35).toList();
+        approvedMeetingList.value =
+            value.where((map) => map.fkReqStatusId == 36).toList();
+        rejectedMeetingList.value =
+            value.where((map) => map.fkReqStatusId == 37).toList();
+        meetingList.value = allMeetingList;
       }
       AppInterceptor.hideLoader();
     });
@@ -66,25 +76,21 @@ class MeetingsController extends BaseController {
   /// FUNCTIONS
   onSelectFilter(int index) {
     selectedFilter.value = index;
-    filteredMeetingList.refresh();
     switch (index) {
       case 0:
-        filteredMeetingList.value = meetingList;
+        meetingList.value = allMeetingList;
         break;
       case 1:
-        filteredMeetingList.value =
-            meetingList.where((map) => map.isActive == true).toList();
+        meetingList.value = pendingMeetingList;
         break;
       case 2:
-        filteredMeetingList.value =
-            meetingList.where((map) => map.isActive == false).toList();
+        meetingList.value = approvedMeetingList;
         break;
       case 3:
-        filteredMeetingList.value =
-            meetingList.where((map) => map.isActive == true).toList();
+        meetingList.value = rejectedMeetingList;
         break;
       default:
-        filteredMeetingList.value = meetingList;
+        meetingList.value = allMeetingList;
         break;
     }
   }

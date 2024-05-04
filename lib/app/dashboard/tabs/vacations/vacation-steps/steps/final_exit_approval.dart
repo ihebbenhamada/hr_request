@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/model/get_create_first_step.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 class FinalExitApproval extends StatelessWidget {
   const FinalExitApproval({
     super.key,
-    required this.firstStepData,
-    required this.phoneController,
-    required this.mobileController,
-    required this.addressController,
+    required this.vacationsStepsController,
   });
 
-  final Rx<GetCreateFirstStep> firstStepData;
-  final TextEditingController phoneController;
-  final TextEditingController mobileController;
-  final TextEditingController addressController;
+  final VacationsStepsController vacationsStepsController;
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +37,31 @@ class FinalExitApproval extends StatelessWidget {
                     color: AppColors.white,
                   ),
                 ),
-                Text(
-                  firstStepData.value.employeeName ?? "",
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.white,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.38,
+                  child: TextFormField(
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: AppColors.white,
+                    ),
+                    controller: vacationsStepsController
+                        .employeeNameTextEditingController,
+                    keyboardType: TextInputType.number,
+                    cursorColor: AppColors.white,
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      focusedBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      focusedErrorBorder: InputBorder.none,
+                    ),
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    enabled: true,
+                    autofocus: true,
+                    enableInteractiveSelection: true,
                   ),
                 ),
                 5.h.verticalSpace,
@@ -63,13 +78,15 @@ class FinalExitApproval extends StatelessWidget {
                               color: AppColors.white,
                             ),
                           ),
-                          Text(
-                            firstStepData.value.lastWorkingDayDate
-                                    ?.substring(0, 10) ??
-                                '',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.white,
+                          GestureDetector(
+                            onTap: () => vacationsStepsController.selectDate(
+                                context, 'end'),
+                            child: Text(
+                              vacationsStepsController.endWorkingDate.value,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.white,
+                              ),
                             ),
                           ),
                         ],
@@ -85,11 +102,15 @@ class FinalExitApproval extends StatelessWidget {
                               color: AppColors.white,
                             ),
                           ),
-                          Text(
-                            firstStepData.value.creationDate.substring(0, 10),
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.white,
+                          GestureDetector(
+                            onTap: () => vacationsStepsController.selectDate(
+                                context, 'adopted'),
+                            child: Text(
+                              vacationsStepsController.adoptedFromDate.value,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.white,
+                              ),
                             ),
                           ),
                         ],
@@ -150,8 +171,13 @@ class FinalExitApproval extends StatelessWidget {
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
-                            controller: phoneController,
+                            controller: vacationsStepsController
+                                .phoneTextEditingController,
                             keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                            ],
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
                               isDense: true,
@@ -193,8 +219,13 @@ class FinalExitApproval extends StatelessWidget {
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
-                            controller: mobileController,
+                            controller: vacationsStepsController
+                                .mobileTextEditingController,
                             keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                            ],
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
                               isDense: true,
@@ -239,7 +270,8 @@ class FinalExitApproval extends StatelessWidget {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        controller: addressController,
+                        controller: vacationsStepsController
+                            .addressTextEditingController,
                         keyboardType: TextInputType.number,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(

@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
-class TicketExchangeRequest extends StatefulWidget {
-  const TicketExchangeRequest({super.key});
+import '../main/controllers/vacations_steps_controller.dart';
 
-  @override
-  State<TicketExchangeRequest> createState() => _TicketExchangeRequestState();
-}
-
-class _TicketExchangeRequestState extends State<TicketExchangeRequest> {
-  final List<String> paymentTypeList = ['Annual', 'Monthly', 'Weekly', 'daily'];
-  String selectedType = 'Annual';
-  onSelectPaymentType(String value) {
-    setState(() {
-      selectedType = value;
-    });
-  }
+class TicketExchangeRequest extends StatelessWidget {
+  const TicketExchangeRequest({
+    super.key,
+    required this.vacationsStepsController,
+  });
+  final VacationsStepsController vacationsStepsController;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +34,10 @@ class _TicketExchangeRequestState extends State<TicketExchangeRequest> {
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.38,
+                      height: 60.h,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Payment Type',
@@ -49,33 +46,36 @@ class _TicketExchangeRequestState extends State<TicketExchangeRequest> {
                               color: AppColors.white,
                             ),
                           ),
-                          10.h.verticalSpace,
-                          DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              isDense: true,
-                              value: selectedType ?? '',
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14.sp,
+                          Obx(
+                            () => DropdownButtonHideUnderline(
+                              child: DropdownButton<DropDownModel>(
+                                isDense: true,
+                                value: vacationsStepsController
+                                    .selectedPaymentType.value,
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: 14.sp,
+                                ),
+                                isExpanded: true,
+                                padding: EdgeInsets.zero,
+                                icon: Image.asset(
+                                  AppImages.arrowDown,
+                                  height: 8.h,
+                                  color: AppColors.white,
+                                ),
+                                dropdownColor: AppColors.blueDark,
+                                onChanged: (DropDownModel? newValue) =>
+                                    vacationsStepsController
+                                        .onSelectPaymentType(newValue!),
+                                items: vacationsStepsController.paymentTypeList
+                                    .map<DropdownMenuItem<DropDownModel>>(
+                                        (DropDownModel value) {
+                                  return DropdownMenuItem<DropDownModel>(
+                                    value: value,
+                                    child: Text(value.text),
+                                  );
+                                }).toList(),
                               ),
-                              isExpanded: true,
-                              padding: EdgeInsets.zero,
-                              icon: Image.asset(
-                                AppImages.arrowDown,
-                                height: 8.h,
-                                color: AppColors.white,
-                              ),
-                              dropdownColor: AppColors.blueDark,
-                              onChanged: (String? newValue) =>
-                                  onSelectPaymentType(newValue ?? ''),
-                              items: paymentTypeList
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
                             ),
                           ),
                           const Divider(
@@ -86,47 +86,41 @@ class _TicketExchangeRequestState extends State<TicketExchangeRequest> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.38,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Due Date',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.white,
-                            ),
+                    Obx(
+                      () => GestureDetector(
+                        onTap: () => vacationsStepsController.selectDate(
+                            context, 'secondStep'),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.38,
+                          height: 60.h,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Due Date',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              Text(
+                                vacationsStepsController.dueDate.value,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              const Divider(
+                                height: 1,
+                                color: AppColors.white,
+                                thickness: 1,
+                              ),
+                            ],
                           ),
-                          TextFormField(
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.white,
-                            ),
-                            keyboardType: TextInputType.number,
-                            cursorColor: AppColors.white,
-                            decoration: const InputDecoration(
-                              isDense: true,
-                              focusedBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              focusedErrorBorder: InputBorder.none,
-                            ),
-                            initialValue: '20-10-2024',
-                            autocorrect: false,
-                            enableSuggestions: false,
-                            enabled: false,
-                            enableInteractiveSelection: true,
-                          ),
-                          const Divider(
-                            height: 1,
-                            color: AppColors.white,
-                            thickness: 1,
-                          ),
-                        ],
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 20.h.verticalSpace,
@@ -147,7 +141,8 @@ class _TicketExchangeRequestState extends State<TicketExchangeRequest> {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        keyboardType: TextInputType.number,
+                        controller: vacationsStepsController
+                            .descriptionTextEditingController,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(
                           isDense: true,

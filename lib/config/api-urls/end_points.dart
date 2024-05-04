@@ -15,11 +15,26 @@ class EndPoints {
   static String GET_UPDATE_VACATION_URL(String vacationId) =>
       '/ReqVacation/GetUpdate?id=$vacationId';
 
-  /// FIRST STEP VACATION
-  static const String GET_CREATE_FIRST_STEP_URL =
-      '/ReqFinalExitAPI/GetFirstStep?employeeId=';
+  /// FINAL EXIT
+  static const String CREATE_FINAL_EXIT_HANDOVER_URL =
+      '/ReqVacationCommitment/CreateFinalExitHandover';
+  static const String UPDATE_FINAL_EXIT_HANDOVER_URL =
+      '/ReqVacationCommitment/UpdateFinalExitHandover';
+  static const String IS_VACATION_COMMETMENT_REQUESTED_URL =
+      '/ReqVacationCommitment/IsVacationCommetmentRequested?vacationId=# int';
+  static const String IS_FINAL_EXIT_CREATED_ASYNC_URL =
+      '/ReqVacationCommitment/IsFinalExitCreatedAsync?vacationId=# int';
+  static const String GET_COMMITMED_VACATION_URL =
+      '/ReqVacationCommitment/GetCommitedVacation?vacationId=# int';
+  static const String GET_FIRST_STEP_URL = '/ReqFinalExitAPI/GetFirstStep';
   static const String CREATE_FIRST_STEP_URL =
       '/ReqFinalExitAPI/CreateFirstStep';
+  static const String GET_SECOND_STEP_URL = '/ReqFinalExitAPI/GetSecondStep';
+  static const String CREATE_SECOND_STEP_URL =
+      '/ReqFinalExitAPI/CreateSecondStep';
+  static const String GET_THIRD_STEP_URL = '/ReqFinalExitAPI/GetThirdStep';
+  static const String CREATE_THIRD_STEP_URL =
+      '/ReqFinalExitAPI/CreateThirdStep';
 
   /// DECISIONS
   static const String GET_DECISIONS_URL = '/ReqDecisionAPI/GetDecisions';

@@ -1,14 +1,20 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:request_hr/api/models/result_response.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/model/get_create_second_step.dart';
 import 'package:request_hr/config/api-urls/end_points.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
+import '../../../main/models/drop_down.dart';
 import '../model/get_create_first_step.dart';
+import '../model/get_create_third_step.dart';
 
 class VacationsStepsService {
-  Future<GetCreateFirstStep?> getCreateFirstStep(String employeeId) async {
-    Response? response = await AppInterceptor.dio
-        ?.get(EndPoints.GET_CREATE_FIRST_STEP_URL + employeeId);
+  /// FIRST STEP
+  Future<GetCreateFirstStep?> getCreateFirstStep() async {
+    Response? response =
+        await AppInterceptor.dio?.get(EndPoints.GET_FIRST_STEP_URL);
     if (response != null && response.statusCode == 200) {
       return GetCreateFirstStep.fromJson(response.data);
     } else {
@@ -17,23 +23,21 @@ class VacationsStepsService {
   }
 
   Future<ResultResponse?> createFinalExitApproval({
-    int? id,
-    int? fKHrEmployeeId,
-    int? fKReqFinalExitId,
-    String? employeeName,
+    required int? fKHrEmployeeId,
+    required int? fKReqFinalExitId,
+    required String? employeeName,
     required String creationDate,
-    String? quitDate,
-    String? lastWorkingDayDate,
-    bool? hasCommitment,
+    required String? quitDate,
+    required String? lastWorkingDayDate,
+    required bool? hasCommitment,
     required String phone,
     required String mobile,
     required String address,
     required String lastModifiedDate,
-    bool? isActive,
-    bool? isDeleted,
+    required bool? isActive,
+    required bool? isDeleted,
   }) async {
     Map<String, dynamic> data = {
-      "id": id,
       "fK_HrEmployeeId": fKHrEmployeeId,
       "fK_ReqFinalExitId": fKReqFinalExitId,
       "employeeName": employeeName,
@@ -51,6 +55,150 @@ class VacationsStepsService {
 
     Response? response = await AppInterceptor.dio
         ?.post(EndPoints.CREATE_FIRST_STEP_URL, data: data);
+
+    if (response != null && response.statusCode == 200) {
+      log("⛔️✅⛔️✅⛔️✅${response.statusCode.toString()}⛔✅️⛔️✅⛔️✅⛔");
+      return ResultResponse.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  /// SECOND STEP
+  Future<GetCreateSecondStep?> getCreateSecondStep() async {
+    Response? response =
+        await AppInterceptor.dio?.get(EndPoints.GET_SECOND_STEP_URL);
+    if (response != null && response.statusCode == 200) {
+      return GetCreateSecondStep.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<ResultResponse?> createTicketExchange({
+    required int id,
+    required int fKHrEmployeeId,
+    required String dateDue,
+    required double totalDeservedAmount,
+    required double? totalExtaraTicketsValue,
+    required String? ticketPath,
+    required String? description,
+    required bool isFromRequests,
+    required int? requestRefrenceId,
+    required int fKCreatorId,
+    required String creationDate,
+    required String lastModifiedDate,
+    required bool isActive,
+    required bool isDeleted,
+    required String? imagePath,
+    required String? employeeName,
+    required int? fKDefBranchId,
+    required int? fKHrManagementId,
+    required int? fKHrDepartmentId,
+    required String? employeeCode,
+    required List<DropDownModel> hrDepartments,
+    required List<DropDownModel> hrManagements,
+    required List<DropDownModel> defBranches,
+    required List<DropDownModel> kinshipType,
+    required int? paymentTypes,
+    required List<DropDownModel> paymentType,
+    required List<Detail> details,
+  }) async {
+    Map<String, dynamic> data = {
+      "id": id,
+      "fK_HrEmployeeId": fKHrEmployeeId,
+      "dateDue": dateDue,
+      "totalDeservedAmount": totalDeservedAmount,
+      "totalExtaraTicketsValue": totalExtaraTicketsValue,
+      "ticketPath": ticketPath,
+      "description": description,
+      "isFromRequests": isFromRequests,
+      "requestRefrenceId": requestRefrenceId,
+      "fK_CreatorId": fKCreatorId,
+      "creationDate": creationDate,
+      "lastModifiedDate": lastModifiedDate,
+      "isActive": isActive,
+      "isDeleted": isDeleted,
+      "imagePath": imagePath,
+      "employeeName": employeeName,
+      "fK_DefBranchId": fKDefBranchId,
+      "fK_HrManagementId": fKHrManagementId,
+      "fK_HrDepartmentId": fKHrDepartmentId,
+      "employeeCode": employeeCode,
+      "hrDepartments": List<DropDownModel>.from(hrDepartments.map((x) => x)),
+      "hrManagements": List<DropDownModel>.from(hrManagements.map((x) => x)),
+      "defBranches": List<DropDownModel>.from(defBranches.map((x) => x)),
+      "kinshipType": List<DropDownModel>.from(kinshipType.map((x) => x)),
+      "paymentTypes": paymentTypes,
+      "paymentType": List<DropDownModel>.from(paymentType.map((x) => x)),
+      "details": List<Detail>.from(details.map((x) => x.toJson())),
+    };
+
+    Response? response = await AppInterceptor.dio
+        ?.post(EndPoints.CREATE_SECOND_STEP_URL, data: data);
+    if (response != null && response.statusCode == 200) {
+      return ResultResponse.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  /// THIRD STEP
+  Future<GetCreateThirdStep?> getCreateThirdStep() async {
+    Response? response =
+        await AppInterceptor.dio?.get(EndPoints.GET_THIRD_STEP_URL);
+    if (response != null && response.statusCode == 200) {
+      return GetCreateThirdStep.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<ResultResponse?> createDisclaimer({
+    required int id,
+    required int fKHrEmployeeId,
+    required String employeeName,
+    required String departmentName,
+    required String? jobName,
+    required String? reason,
+    required String lastWorkingDayDate,
+    required int? fKReqFinalExitId,
+    required int? fKRequestVacationId,
+    required bool? isFinalHandOver,
+    required String? fileName,
+    required String? handOverCommitmentFilePath,
+    required int fKHrCreatorId,
+    required String creationDate,
+    required String lastModifiedDate,
+    required bool isActive,
+    required bool isDeleted,
+    required String? reviewer,
+    required DefBranchVm? defBranchVm,
+  }) async {
+    Map<String, dynamic> data = {
+      "id": id,
+      "fK_HrEmployeeId": fKHrEmployeeId,
+      "employeeName": employeeName,
+      "departmentName": departmentName,
+      "jobName": jobName,
+      "reason": reason,
+      "lastWorkingDayDate": lastWorkingDayDate,
+      "fK_ReqFinalExitId": fKReqFinalExitId,
+      "fK_RequestVacationId": fKRequestVacationId,
+      "isFinalHandOver": isFinalHandOver,
+      "fileName": fileName,
+      "handOverCommitmentFilePath": handOverCommitmentFilePath,
+      "fK_HrCreatorId": fKHrCreatorId,
+      "creationDate": creationDate,
+      "lastModifiedDate": lastModifiedDate,
+      "isActive": isActive,
+      "isDeleted": isDeleted,
+      "reviewer": reviewer,
+      "defBranchVM": defBranchVm?.toJson(),
+    };
+
+    Response? response = await AppInterceptor.dio
+        ?.post(EndPoints.CREATE_THIRD_STEP_URL, data: data);
     if (response != null && response.statusCode == 200) {
       return ResultResponse.fromJson(response.data);
     } else {

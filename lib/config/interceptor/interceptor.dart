@@ -101,9 +101,13 @@ class AppInterceptor {
   static void _handleError(DioException dioException) {
     if (kDebugMode) {
       log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️ error ⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
+      log('RequestOptions uri path error : ${dioException.requestOptions.uri.path}');
+      log('RequestOptions method error : ${dioException.requestOptions.method}');
+      log('RequestOptions path error : ${dioException.requestOptions.path}');
+      log('RequestOptions data error : ${dioException.requestOptions.data}');
       log('Exception status code : ${dioException.response?.statusCode}');
       log('Exception status message : ${dioException.response?.statusMessage}');
-      log('Exception tpe name : ${dioException.type.name}');
+      log('Exception type name : ${dioException.type.name}');
       log('Exception message : ${dioException.message}');
       log('Exception error : ${dioException.error.toString()}');
 
