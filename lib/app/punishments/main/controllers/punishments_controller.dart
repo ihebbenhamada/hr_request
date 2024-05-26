@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/punishments/main/models/punishment_chart.dart';
 import 'package:request_hr/app/punishments/main/models/punishment_response.dart';
 import 'package:request_hr/app/punishments/punishments-details/screens/punishments_details_screen.dart';
@@ -23,6 +24,8 @@ class PunishmentsController extends BaseController {
   RxInt showingTooltip = 1.obs;
   RxList<PunishmentResponse> punishmentList = <PunishmentResponse>[].obs;
   RxList<PunishmentChart> punishmentChart = <PunishmentChart>[].obs;
+  bool isAdmin = false;
+  GetStorage storage = GetStorage();
 
   /// VALIDATION
 
@@ -35,6 +38,9 @@ class PunishmentsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
+    if (storage.read('isAdmin') != null) {
+      isAdmin = storage.read('isAdmin');
+    }
     getPunishmentList();
     //getPunishmentChartList();
   }

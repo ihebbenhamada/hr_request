@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
@@ -174,10 +173,6 @@ class FinalExitApproval extends StatelessWidget {
                             controller: vacationsStepsController
                                 .phoneTextEditingController,
                             keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(10),
-                            ],
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
                               isDense: true,
@@ -222,10 +217,6 @@ class FinalExitApproval extends StatelessWidget {
                             controller: vacationsStepsController
                                 .mobileTextEditingController,
                             keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(10),
-                            ],
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
                               isDense: true,

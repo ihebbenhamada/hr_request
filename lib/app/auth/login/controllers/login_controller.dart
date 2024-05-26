@@ -85,10 +85,10 @@ class LoginController extends BaseController {
       )
           .then((value) {
         if (value != null) {
-          print(value.userName);
-          print(value.token);
           storage.write('token', value.token);
+          storage.write('isAdmin', value.isAdmin);
           storage.write('user', value.toJson());
+          storage.write('employee', value.employee.toJson());
           Get.offAll(
             () => DashboardScreen(),
             transition: Transition.leftToRight,

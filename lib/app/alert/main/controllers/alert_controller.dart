@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/alert/alert-details/screens/alert_details_screen.dart';
 import 'package:request_hr/app/alert/main/models/alert_chart.dart';
 import 'package:request_hr/app/alert/main/models/alert_response.dart';
@@ -23,6 +24,8 @@ class AlertController extends BaseController {
   RxList<AlertResponse> alertList = <AlertResponse>[].obs;
   RxList<AlertChart> alertChart = <AlertChart>[].obs;
   RxInt showingTooltip = 1.obs;
+  bool isAdmin = false;
+  GetStorage storage = GetStorage();
 
   /// VALIDATION
 
@@ -35,6 +38,9 @@ class AlertController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
+    if (storage.read('isAdmin') != null) {
+      isAdmin = storage.read('isAdmin');
+    }
     getAlertsList();
     getAlertsChart();
   }

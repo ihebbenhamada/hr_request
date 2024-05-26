@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/bonus/bonus-details/screens/bonus_details_screen.dart';
 import 'package:request_hr/app/bonus/main/models/bonus_chart.dart';
 import 'package:request_hr/app/bonus/main/models/bonus_response.dart';
@@ -23,6 +24,8 @@ class BonusController extends BaseController {
   RxInt showingTooltip = 1.obs;
   RxList<BonusResponse> bonusList = <BonusResponse>[].obs;
   RxList<BonusChart> bonusChart = <BonusChart>[].obs;
+  bool isAdmin = false;
+  GetStorage storage = GetStorage();
 
   /// VALIDATION
 
@@ -53,6 +56,9 @@ class BonusController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
+    if (storage.read('isAdmin') != null) {
+      isAdmin = storage.read('isAdmin');
+    }
     getBonusList();
     getBonusChart();
   }

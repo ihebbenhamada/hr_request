@@ -52,26 +52,38 @@ class PunishmentsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Create Punishments',
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 16.sp,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: _punishmentsController.navigateAndRefresh,
-                        child: Image.asset(
-                          AppImages.addDecision,
-                          height: 34.h,
-                          width: 34.h,
-                        ),
-                      )
-                    ],
-                  ),
+                  10.h.verticalSpace,
+                  !_punishmentsController.isAdmin
+                      ? Text(
+                          'Your Punishments',
+                          style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 16.sp,
+                          ),
+                        )
+                      : const SizedBox(),
+                  _punishmentsController.isAdmin
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Create Punishments',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: _punishmentsController.navigateAndRefresh,
+                              child: Image.asset(
+                                AppImages.addDecision,
+                                height: 34.h,
+                                width: 34.h,
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(),
                   20.h.verticalSpace,
                   CarouselSlider.builder(
                     itemCount: _punishmentsController.punishmentList.length + 1,

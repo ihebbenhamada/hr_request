@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
+import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -10,11 +11,17 @@ class Header extends StatelessWidget {
     required this.onClickMessage,
     required this.onClickNotification,
     required this.onClickMenu,
+    required this.image,
+    required this.name,
+    required this.job,
   });
   final void Function() onClickProfile;
   final void Function() onClickMessage;
   final void Function() onClickNotification;
   final void Function() onClickMenu;
+  final String image;
+  final String name;
+  final String job;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,22 +38,16 @@ class Header extends StatelessWidget {
             onTap: onClickProfile,
             child: Row(
               children: [
-                Container(
-                  width: 40.h,
-                  height: 40.h,
-                  decoration: const ShapeDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(AppImages.profile),
-                      fit: BoxFit.fill,
-                    ),
-                    shape: OvalBorder(
-                      side: BorderSide(width: 1, color: Color(0xFF707070)),
-                    ),
-                  ),
+                AvatarCircle(
+                  image: image,
+                  size: 40.h,
+                  iconSize: 0,
+                  stroke: true,
+                  isBorderEnabled: false,
                 ),
                 6.horizontalSpace,
                 Text(
-                  'Mohamed.,\nSenior front end developer',
+                  '$name,\n$job',
                   style: TextStyle(
                     color: AppColors.blueDark,
                     fontSize: 12.sp,

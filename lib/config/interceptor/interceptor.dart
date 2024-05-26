@@ -21,7 +21,7 @@ class AppInterceptor {
       _dio = Dio(
         BaseOptions(
           baseUrl: EndPoints.BASE_URL,
-          connectTimeout: const Duration(seconds: 15),
+          connectTimeout: const Duration(seconds: 30),
           sendTimeout: const Duration(seconds: 50),
           receiveTimeout: const Duration(seconds: 50),
         ),

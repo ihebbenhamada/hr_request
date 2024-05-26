@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 class AvatarCircle extends StatelessWidget {
@@ -15,6 +16,8 @@ class AvatarCircle extends StatelessWidget {
     this.imageColor,
     this.icon,
     this.isNetworkImage = false,
+    this.isBorderEnabled = true,
+    this.stroke = false,
   });
   final String image;
   final String? icon;
@@ -26,6 +29,8 @@ class AvatarCircle extends StatelessWidget {
   final Color? circleColor;
   final Color? imageColor;
   final bool isNetworkImage;
+  final bool isBorderEnabled;
+  final bool stroke;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -34,8 +39,15 @@ class AvatarCircle extends StatelessWidget {
         Container(
           width: imageSize ?? size,
           height: imageSize ?? size,
-          decoration: const ShapeDecoration(
-            shape: OvalBorder(),
+          decoration: ShapeDecoration(
+            shape: OvalBorder(
+              side: stroke
+                  ? const BorderSide(
+                      width: 1,
+                      color: AppColors.gray14,
+                    )
+                  : BorderSide.none,
+            ),
           ),
           clipBehavior: Clip.hardEdge,
           child: Center(
@@ -68,21 +80,25 @@ class AvatarCircle extends StatelessWidget {
                   ),
           ),
         ),
-        Positioned(
-          left: left ?? 9.h,
-          bottom: bottom ?? 0,
-          child: Image.asset(
-            icon ?? AppImages.innTechLogo,
-            height: iconSize,
-            width: iconSize,
-          ),
-        ),
-        Image.asset(
-          AppImages.avatarCircle,
-          height: size,
-          width: size,
-          color: circleColor,
-        ),
+        isBorderEnabled
+            ? Positioned(
+                left: left ?? 9.h,
+                bottom: bottom ?? 0,
+                child: Image.asset(
+                  icon ?? AppImages.innTechLogo,
+                  height: iconSize,
+                  width: iconSize,
+                ),
+              )
+            : const SizedBox(),
+        isBorderEnabled
+            ? Image.asset(
+                AppImages.avatarCircle,
+                height: size,
+                width: size,
+                color: circleColor,
+              )
+            : const SizedBox(),
       ],
     );
   }

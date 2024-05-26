@@ -44,6 +44,7 @@ class EvaluationsScreen extends StatelessWidget {
               ),
             ),
           ),
+          10.h.verticalSpace,
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
@@ -63,14 +64,17 @@ class EvaluationsScreen extends StatelessWidget {
                           fontSize: 16.sp,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: _evaluationsController.onClickCreateEvaluation,
-                        child: Image.asset(
-                          AppImages.addDecision,
-                          height: 34.h,
-                          width: 34.h,
-                        ),
-                      )
+                      _evaluationsController.isAdmin
+                          ? GestureDetector(
+                              onTap: _evaluationsController
+                                  .onClickCreateEvaluation,
+                              child: Image.asset(
+                                AppImages.addDecision,
+                                height: 34.h,
+                                width: 34.h,
+                              ),
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                   20.h.verticalSpace,
@@ -414,8 +418,7 @@ class EvaluationsScreen extends StatelessWidget {
                                     horizontalInterval: 10,
                                     verticalInterval: 10,
                                   ),
-                                  barGroups:
-                                      _evaluationsController.barGroups.value,
+                                  barGroups: _evaluationsController.barGroups,
                                   barTouchData: BarTouchData(
                                     touchTooltipData: BarTouchTooltipData(
                                       tooltipBgColor: AppColors.white,

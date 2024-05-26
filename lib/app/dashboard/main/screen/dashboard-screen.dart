@@ -5,6 +5,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/main/screens/meetings_screen.dart';
@@ -56,6 +57,9 @@ class DashboardScreen extends StatelessWidget {
                     onClickMessage: _dashboardController.onClickMessage,
                     onClickNotification:
                         _dashboardController.onClickNotification,
+                    image: _dashboardController.employee.value.imagePath ?? "",
+                    name: _dashboardController.employee.value.fullNameEn,
+                    job: _dashboardController.employee.value.jobName,
                   ),
                   Expanded(
                     child: IndexedStack(
@@ -166,6 +170,11 @@ class DashboardScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         HeaderDrawer(
+                          image:
+                              _dashboardController.employee.value.imagePath ??
+                                  "",
+                          name: _dashboardController.employee.value.fullNameEn,
+                          job: _dashboardController.employee.value.jobName,
                           closeDrawer: () {
                             scaffoldKey.currentState!.closeDrawer();
                           },
@@ -190,7 +199,10 @@ class DashboardScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '21Dec., 2024',
+                                  DateFormat('ddMMM., yyyy').format(
+                                    DateTime.parse(_dashboardController
+                                        .employee.value.contractDueDate),
+                                  ),
                                   style: TextStyle(
                                     color: AppColors.white,
                                     fontSize: 20.sp,
@@ -216,7 +228,10 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                     5.horizontalSpace,
                                     Text(
-                                      'Start Job: 22-3-2023',
+                                      'Start Job: ${DateFormat('dd-MM-yyyy').format(
+                                        DateTime.parse(_dashboardController
+                                            .employee.value.contractStartDate),
+                                      )}',
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 14.sp,
@@ -244,7 +259,7 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                     5.horizontalSpace,
                                     Text(
-                                      'Job Code: 54545',
+                                      'Job Code: ${_dashboardController.employee.value.code}',
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 14.sp,

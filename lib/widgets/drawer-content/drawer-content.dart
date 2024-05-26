@@ -7,7 +7,6 @@ import 'package:request_hr/widgets/drawer-grid-item/drawer_grid_item.dart';
 import 'package:request_hr/widgets/footer/footer.dart';
 
 import '../../config/colors/colors.dart';
-import '../header-drawer/header_drawer.dart';
 
 class DrawerContent extends GetView<DashboardController> {
   const DrawerContent({
@@ -28,9 +27,9 @@ class DrawerContent extends GetView<DashboardController> {
         ),
         child: Column(
           children: [
-            HeaderDrawer(
+            /*HeaderDrawer(
               closeDrawer: () {},
-            ),
+            ),*/
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: Container(

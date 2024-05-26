@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
+import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 
 class HeaderDrawer extends StatelessWidget {
   const HeaderDrawer({
     super.key,
     required this.closeDrawer,
+    required this.image,
+    required this.job,
+    required this.name,
   });
   final void Function() closeDrawer;
+  final String image;
+  final String job;
+  final String name;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,22 +27,15 @@ class HeaderDrawer extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 54.h,
-                height: 54.h,
-                decoration: const ShapeDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(AppImages.profile),
-                    fit: BoxFit.fill,
-                  ),
-                  shape: OvalBorder(
-                    side: BorderSide(width: 1, color: Color(0xFF707070)),
-                  ),
-                ),
+              AvatarCircle(
+                image: image,
+                size: 54.h,
+                iconSize: 0,
+                isBorderEnabled: false,
               ),
               6.horizontalSpace,
               Text(
-                'Mohamed.,\nSenior front end developer',
+                '$name,\n$job',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 16.sp,

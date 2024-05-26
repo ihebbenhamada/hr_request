@@ -53,26 +53,38 @@ class BonusScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Create Bonus',
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 16.sp,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: _bonusController.navigateAndRefresh,
-                        child: Image.asset(
-                          AppImages.addDecision,
-                          height: 34.h,
-                          width: 34.h,
-                        ),
-                      )
-                    ],
-                  ),
+                  10.h.verticalSpace,
+                  !_bonusController.isAdmin
+                      ? Text(
+                          'Your Bonus',
+                          style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 16.sp,
+                          ),
+                        )
+                      : const SizedBox(),
+                  _bonusController.isAdmin
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Create Bonus',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: _bonusController.navigateAndRefresh,
+                              child: Image.asset(
+                                AppImages.addDecision,
+                                height: 34.h,
+                                width: 34.h,
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(),
                   20.h.verticalSpace,
                   CarouselSlider.builder(
                     itemCount: _bonusController.bonusList.length + 1,

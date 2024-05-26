@@ -32,14 +32,16 @@ class DecisionsScreen extends StatelessWidget {
                     fontSize: 16.sp,
                   ),
                 ),
-                GestureDetector(
-                  onTap: _decisionsController.navigateAndRefresh,
-                  child: Image.asset(
-                    AppImages.addDecision,
-                    height: 34.h,
-                    width: 34.h,
-                  ),
-                )
+                _decisionsController.isAdmin
+                    ? GestureDetector(
+                        onTap: _decisionsController.navigateAndRefresh,
+                        child: Image.asset(
+                          AppImages.addDecision,
+                          height: 34.h,
+                          width: 34.h,
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
             20.h.verticalSpace,

@@ -52,63 +52,78 @@ class AlertScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Create Alert',
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontSize: 16.sp,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: _alertController.navigateAndRefresh,
-                        child: Image.asset(
-                          AppImages.addDecision,
-                          height: 34.h,
-                          width: 34.h,
-                        ),
-                      )
-                    ],
-                  ),
+                  10.h.verticalSpace,
+                  !_alertController.isAdmin
+                      ? Text(
+                          'Your Alerts',
+                          style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 16.sp,
+                          ),
+                        )
+                      : const SizedBox(),
+                  _alertController.isAdmin
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Create Alert',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: _alertController.navigateAndRefresh,
+                              child: Image.asset(
+                                AppImages.addDecision,
+                                height: 34.h,
+                                width: 34.h,
+                              ),
+                            )
+                          ],
+                        )
+                      : const SizedBox(),
                   20.h.verticalSpace,
-                  Obx(() => CarouselSlider.builder(
-                    itemCount: _alertController.alertList.length + 1,
-                    itemBuilder: (context, index, i) {
-                      if (index == _alertController.alertList.length) {
-                        // Display fake item at the last index
-                        return const SizedBox();
-                      } else {
-                        AlertResponse item = _alertController.alertList[index];
-                        // Display real items
-                        return EvaluationItem(
-                          employeeName: item.assigneeName ?? "",
-                          employeePosition: item.byAssigneeName ?? "",
-                          employeeImage: item.imagePath ?? "",
-                          date: item.creationDate?.substring(0, 10) ?? "",
-                          editable: true,
-                          onClick: _alertController.onClickItemAlert,
-                        );
-                      }
-                    },
-                    options: CarouselOptions(
-                      height: 170.h,
-                      animateToClosest: true,
-                      clipBehavior: Clip.none,
-                      viewportFraction: 0.45,
-                      initialPage: 0,
-                      enableInfiniteScroll: false,
-                      reverse: false,
-                      autoPlay: false,
-                      enlargeCenterPage: false,
-                      padEnds: false,
-                      pageSnapping: false,
-                      onPageChanged: (index, reason) =>
-                          _alertController.onChangeAlertCarousel(index, reason),
-                      scrollDirection: Axis.horizontal,
+                  Obx(
+                    () => CarouselSlider.builder(
+                      itemCount: _alertController.alertList.length + 1,
+                      itemBuilder: (context, index, i) {
+                        if (index == _alertController.alertList.length) {
+                          // Display fake item at the last index
+                          return const SizedBox();
+                        } else {
+                          AlertResponse item =
+                              _alertController.alertList[index];
+                          // Display real items
+                          return EvaluationItem(
+                            employeeName: item.assigneeName ?? "",
+                            employeePosition: item.byAssigneeName ?? "",
+                            employeeImage: item.imagePath ?? "",
+                            date: item.creationDate?.substring(0, 10) ?? "",
+                            editable: true,
+                            onClick: _alertController.onClickItemAlert,
+                          );
+                        }
+                      },
+                      options: CarouselOptions(
+                        height: 170.h,
+                        animateToClosest: true,
+                        clipBehavior: Clip.none,
+                        viewportFraction: 0.45,
+                        initialPage: 0,
+                        enableInfiniteScroll: false,
+                        reverse: false,
+                        autoPlay: false,
+                        enlargeCenterPage: false,
+                        padEnds: false,
+                        pageSnapping: false,
+                        onPageChanged: (index, reason) => _alertController
+                            .onChangeAlertCarousel(index, reason),
+                        scrollDirection: Axis.horizontal,
+                      ),
                     ),
-                  ),),
+                  ),
                   20.h.verticalSpace,
                   Obx(
                     () => CustomDotsIndicator(

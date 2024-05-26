@@ -66,7 +66,6 @@ class VacationsController extends BaseController {
   }
 
   getListVacations() {
-    AppInterceptor.showLoader();
     _vacationsService.getEmployeeVacations().then((value) {
       if (value != null) {
         leftDays.value = value.leftDays;

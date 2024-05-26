@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/main/model/get_decisions_response.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
@@ -18,6 +17,8 @@ class DecisionsController extends BaseController {
 
   /// VARIABLES
   RxList<DecisionsResponse> decisionList = <DecisionsResponse>[].obs;
+  GetStorage storage = GetStorage();
+  bool isAdmin = false;
 
   /// VALIDATION
 
@@ -34,7 +35,6 @@ class DecisionsController extends BaseController {
   }
 
   getListDecisions() {
-    AppInterceptor.showLoader();
     _decisionsService.getDecisions().then((value) {
       if (value != null) {
         decisionList.value = value;
@@ -45,12 +45,15 @@ class DecisionsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
+    if (storage.read('isAdmin') != null) {
+      isAdmin = storage.read('isAdmin');
+    }
+
     getListDecisions();
   }
 
   /// FUNCTIONS
   onClickDecision(DecisionsResponse decisionsResponse) {
-    log('from list page :  ${decisionsResponse.subject}');
     Get.to(
       id: 1,
       () => DecisionsDetailsScreen(decisionsResponse: decisionsResponse),

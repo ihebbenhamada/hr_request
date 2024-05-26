@@ -34,7 +34,6 @@ class MeetingsController extends BaseController {
   }
 
   getListMeetings() {
-    AppInterceptor.showLoader();
     _meetingsService.getAllMeetings().then((value) {
       if (value != null) {
         allMeetingList.value = value;
