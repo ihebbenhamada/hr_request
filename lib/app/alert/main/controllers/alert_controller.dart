@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/alert/alert-details/screens/alert_details_screen.dart';
-import 'package:request_hr/app/alert/main/models/alert_chart.dart';
 import 'package:request_hr/app/alert/main/models/alert_response.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
@@ -21,8 +20,7 @@ class AlertController extends BaseController {
   /// VARIABLES
   RxInt currentAlert = 0.obs;
   RxInt selectedChart = 0.obs;
-  RxList<AlertResponse> alertList = <AlertResponse>[].obs;
-  RxList<AlertChart> alertChart = <AlertChart>[].obs;
+  Rx<AlertResponse> alertResponse = AlertResponse(alerts: [], chart: []).obs;
   RxInt showingTooltip = 1.obs;
   bool isAdmin = false;
   GetStorage storage = GetStorage();
@@ -42,7 +40,6 @@ class AlertController extends BaseController {
       isAdmin = storage.read('isAdmin');
     }
     getAlertsList();
-    getAlertsChart();
   }
 
   /// FUNCTIONS
@@ -50,10 +47,9 @@ class AlertController extends BaseController {
     AppInterceptor.showLoader();
     _alertService.getAlertsList().then((value) {
       if (value != null) {
-        alertList.value = value;
-
-        alertList.add(
-          AlertResponse(
+        alertResponse.value = value;
+        alertResponse.value.alerts = [
+          Alert(
             id: 1,
             subject: "aaa",
             creationDate: "2024-04-10",
@@ -67,16 +63,7 @@ class AlertController extends BaseController {
             fKReqAlertId: 1,
             lastModifiedDate: "2024-04-20",
           ),
-        );
-      }
-      AppInterceptor.hideLoader();
-    });
-  }
-
-  getAlertsChart() {
-    _alertService.getAlertsChart().then((value) {
-      if (value != null) {
-        alertChart.value = value;
+        ];
       }
       AppInterceptor.hideLoader();
     });

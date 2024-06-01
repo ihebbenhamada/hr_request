@@ -93,8 +93,7 @@ class EndPoints {
   static const String UPDATE_LOAN_URL = '/ReqLoanAPI/Edit';
 
   /// BONUS
-  static String GET_ALL_BONUS_URL(String empId) =>
-      '/ReqBonusAPI/GetAllBonus?employeeId';
+  static String GET_ALL_BONUS_URL = '/ReqBonusAPI/GetAllBonus';
   static const String GET_BONUS_COUNT_URL = '/ReqBonusAPI/GetBonusCount';
   static const String GET_BONUS_CHART_URL = '/ReqBonusAPI/GetBonusChart';
   static const String CREATE_BONUS_URL = '/ReqBonusAPI/CreateBonus';

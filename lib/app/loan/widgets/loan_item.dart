@@ -127,7 +127,7 @@ class LoanItem extends StatelessWidget {
         color: type == 0
             ? AppColors.primary
             : type == 1
-                ? AppColors.gray1
+                ? AppColors.gray5
                 : AppColors.redLight,
         shape: const OvalBorder(),
       ),

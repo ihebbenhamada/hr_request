@@ -26,6 +26,7 @@ class PunishmentsController extends BaseController {
   RxList<PunishmentChart> punishmentChart = <PunishmentChart>[].obs;
   bool isAdmin = false;
   GetStorage storage = GetStorage();
+  RxList<BarChartGroupData> barGroups = <BarChartGroupData>[].obs;
 
   /// VALIDATION
 
@@ -42,7 +43,6 @@ class PunishmentsController extends BaseController {
       isAdmin = storage.read('isAdmin');
     }
     getPunishmentList();
-    //getPunishmentChartList();
   }
 
   /// FUNCTIONS
@@ -51,8 +51,10 @@ class PunishmentsController extends BaseController {
     _punishmentsService.getPunishmentList().then((value) {
       if (value != null) {
         punishmentList.value = value;
+        getPunishmentChartList();
+      } else {
+        AppInterceptor.hideLoader();
       }
-      AppInterceptor.hideLoader();
     });
   }
 
@@ -60,6 +62,9 @@ class PunishmentsController extends BaseController {
     _punishmentsService.getPunishmentChart().then((value) {
       if (value != null) {
         punishmentChart.value = value;
+        for (var i = 0; i < value.length - 6; i++) {
+          barGroups.add(generateGroupData(i + 1, value[i].count));
+        }
       }
       AppInterceptor.hideLoader();
     });

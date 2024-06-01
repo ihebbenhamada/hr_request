@@ -85,45 +85,56 @@ class PunishmentsScreen extends StatelessWidget {
                         )
                       : const SizedBox(),
                   20.h.verticalSpace,
-                  CarouselSlider.builder(
-                    itemCount: _punishmentsController.punishmentList.length + 1,
-                    itemBuilder: (context, index, i) {
-                      if (index ==
-                          _punishmentsController.punishmentList.length) {
-                        // Display fake item at the last index
-                        return const SizedBox();
-                      } else {
-                        PunishmentResponse item =
-                            _punishmentsController.punishmentList[index];
-                        // Display real items
-                        return PunishmentItem(
-                          employeeName: item.assigneeName ?? "",
-                          employeePunishment: item.amount ?? 0.0,
-                          employeeImage: item.imagePath ?? "",
-                          date: item.creationDate?.substring(0, 10) ?? "",
-                          editable: true,
-                          onClick:
-                              _punishmentsController.onClickItemPunishments,
-                        );
-                      }
-                    },
-                    options: CarouselOptions(
-                      height: 170.h,
-                      animateToClosest: true,
-                      clipBehavior: Clip.none,
-                      viewportFraction: 0.45,
-                      initialPage: 0,
-                      enableInfiniteScroll: false,
-                      reverse: false,
-                      autoPlay: false,
-                      enlargeCenterPage: false,
-                      padEnds: false,
-                      pageSnapping: false,
-                      onPageChanged: (index, reason) => _punishmentsController
-                          .onChangePunishmentsCarousel(index, reason),
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  ),
+                  _punishmentsController.punishmentList.value.isNotEmpty
+                      ? CarouselSlider.builder(
+                          itemCount:
+                              _punishmentsController.punishmentList.length + 1,
+                          itemBuilder: (context, index, i) {
+                            if (index ==
+                                _punishmentsController.punishmentList.length) {
+                              // Display fake item at the last index
+                              return const SizedBox();
+                            } else {
+                              PunishmentResponse item =
+                                  _punishmentsController.punishmentList[index];
+                              // Display real items
+                              return PunishmentItem(
+                                employeeName: item.assigneeName ?? "",
+                                employeePunishment: item.amount ?? 0.0,
+                                employeeImage: item.imagePath ?? "",
+                                date: item.creationDate?.substring(0, 10) ?? "",
+                                editable: true,
+                                onClick: _punishmentsController
+                                    .onClickItemPunishments,
+                              );
+                            }
+                          },
+                          options: CarouselOptions(
+                            height: 170.h,
+                            animateToClosest: true,
+                            clipBehavior: Clip.none,
+                            viewportFraction: 0.45,
+                            initialPage: 0,
+                            enableInfiniteScroll: false,
+                            reverse: false,
+                            autoPlay: false,
+                            enlargeCenterPage: false,
+                            padEnds: false,
+                            pageSnapping: false,
+                            onPageChanged: (index, reason) =>
+                                _punishmentsController
+                                    .onChangePunishmentsCarousel(index, reason),
+                            scrollDirection: Axis.horizontal,
+                          ),
+                        )
+                      : Center(
+                          child: Text(
+                            'No Punishments found',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        ),
                   20.h.verticalSpace,
                   Obx(
                     () => CustomDotsIndicator(
@@ -210,7 +221,7 @@ class PunishmentsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2012',
+                                                  'Jan',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -221,7 +232,7 @@ class PunishmentsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2013',
+                                                  'Feb',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -232,7 +243,7 @@ class PunishmentsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2014',
+                                                  'Mar',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -243,7 +254,7 @@ class PunishmentsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2015',
+                                                  'Apr',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -254,7 +265,7 @@ class PunishmentsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2016',
+                                                  'May',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -265,7 +276,7 @@ class PunishmentsScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2017',
+                                                  'Jun',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -294,20 +305,8 @@ class PunishmentsScreen extends StatelessWidget {
                                     horizontalInterval: 10,
                                     verticalInterval: 10,
                                   ),
-                                  barGroups: [
-                                    _punishmentsController.generateGroupData(
-                                        1, 30),
-                                    _punishmentsController.generateGroupData(
-                                        2, 40),
-                                    _punishmentsController.generateGroupData(
-                                        3, 35),
-                                    _punishmentsController.generateGroupData(
-                                        4, 35),
-                                    _punishmentsController.generateGroupData(
-                                        5, 35),
-                                    _punishmentsController.generateGroupData(
-                                        6, 35),
-                                  ],
+                                  barGroups:
+                                      _punishmentsController.barGroups.value,
                                   barTouchData: BarTouchData(
                                     touchTooltipData: BarTouchTooltipData(
                                       tooltipBgColor: AppColors.white,

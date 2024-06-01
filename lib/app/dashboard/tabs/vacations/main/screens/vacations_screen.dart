@@ -67,7 +67,7 @@ class VacationsScreen extends StatelessWidget {
                         Vacation item =
                             _vacationsController.vacationsList[index];
                         return VacationItem(
-                          title: "${item.description}\nVacation",
+                          title: "${item.vacationTypeNameEn}\nVacation",
                           startDate: item.dateFrom.substring(0, 10),
                           endDate: item.dateTo.substring(0, 10),
                           icon: item.icon,
@@ -95,8 +95,13 @@ class VacationsScreen extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                       ),
                     )
-                  : const Center(
-                      child: Text('No Vacation found'),
+                  : Center(
+                      child: Text(
+                        'No Vacation found',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                        ),
+                      ),
                     ),
             ),
             14.h.verticalSpace,

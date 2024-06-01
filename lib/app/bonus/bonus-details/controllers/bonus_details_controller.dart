@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:request_hr/app/auth/login/models/login_response.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
@@ -26,8 +28,44 @@ class BonusDetailsController extends BaseController {
     DropDownModel(disabled: false, text: 'Mohamed malki', value: '3'),
     DropDownModel(disabled: false, text: 'Mohamed ayed', value: '4'),
   ];
-
+  Rx<Emp> employee = Emp(
+    id: 0,
+    code: "",
+    fullName: "",
+    fullNameEn: "",
+    idNumber: "",
+    fKDefBranchId: 0,
+    fKHrManagementId: 0,
+    fKHrDepartmentId: 0,
+    birthDate: "",
+    fKHrBloodTypeId: 0,
+    gender: 0,
+    placeOfBirth: "",
+    fKNationalityId: 0,
+    fKDefReligionId: 0,
+    fKSocialStatusId: 0,
+    hasAirlineTicket: false,
+    contractDueDate: "",
+    branchName: "",
+    contractStartDate: "",
+    fKGeneralManagerId: 0,
+    fKManagingDirectorId: 0,
+    fKHumanResourcesManagerId: 0,
+    fKDepartmentManagerId: 0,
+    fKDirectorGeneralId: 0,
+    jobName: "",
+    issuerName: "",
+    isActive: true,
+    creationDate: "",
+    isDeleted: false,
+    isDeveloper: false,
+    fKCostcenterId: 0,
+    fKCreatorId: 0,
+    fKModifiedById: 0,
+    lastModifiedDate: "",
+  ).obs;
   late Rx<DropDownModel> selectedEmployee;
+  GetStorage storage = GetStorage();
 
   /// VALIDATION
 
@@ -45,6 +83,7 @@ class BonusDetailsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
+    employee.value = Emp.fromJson(GetStorage().read('employee'));
     selectedEmployee = employeesList[0].obs;
   }
 

@@ -86,47 +86,62 @@ class BonusScreen extends StatelessWidget {
                         )
                       : const SizedBox(),
                   20.h.verticalSpace,
-                  CarouselSlider.builder(
-                    itemCount: _bonusController.bonusList.length + 1,
-                    itemBuilder: (context, index, i) {
-                      if (index == _bonusController.bonusList.length) {
-                        // Display fake item at the last index
-                        return const SizedBox();
-                      } else {
-                        BonusResponse item = _bonusController.bonusList[index];
-                        // Display real items
-                        return BonusItem(
-                          employeeName: item.assigneeName ?? "",
-                          employeeBonus: item.amount ?? 0.0,
-                          employeeImage: item.imagePath ?? "",
-                          date: item.creationDate ?? "",
-                          editable: true,
-                          onClick: _bonusController.onClickItemBonus,
-                        );
-                      }
-                    },
-                    options: CarouselOptions(
-                      height: 170.h,
-                      animateToClosest: true,
-                      clipBehavior: Clip.none,
-                      viewportFraction: 0.45,
-                      initialPage: 0,
-                      enableInfiniteScroll: false,
-                      reverse: false,
-                      autoPlay: false,
-                      enlargeCenterPage: false,
-                      padEnds: false,
-                      pageSnapping: false,
-                      onPageChanged: (index, reason) =>
-                          _bonusController.onChangeBonusCarousel(index, reason),
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  ),
+                  _bonusController.bonusResponse.value.bonuses.isNotEmpty
+                      ? CarouselSlider.builder(
+                          itemCount: _bonusController
+                                  .bonusResponse.value.bonuses.length +
+                              1,
+                          itemBuilder: (context, index, i) {
+                            if (index ==
+                                _bonusController
+                                    .bonusResponse.value.bonuses.length) {
+                              // Display fake item at the last index
+                              return const SizedBox();
+                            } else {
+                              Bonus item = _bonusController
+                                  .bonusResponse.value.bonuses[index];
+                              // Display real items
+                              return BonusItem(
+                                employeeName: item.assigneeName ?? "",
+                                employeeBonus: item.amount ?? 0.0,
+                                employeeImage: item.imagePath ?? "",
+                                date: item.creationDate ?? "",
+                                editable: true,
+                                onClick: _bonusController.onClickItemBonus,
+                              );
+                            }
+                          },
+                          options: CarouselOptions(
+                            height: 170.h,
+                            animateToClosest: true,
+                            clipBehavior: Clip.none,
+                            viewportFraction: 0.45,
+                            initialPage: 0,
+                            enableInfiniteScroll: false,
+                            reverse: false,
+                            autoPlay: false,
+                            enlargeCenterPage: false,
+                            padEnds: false,
+                            pageSnapping: false,
+                            onPageChanged: (index, reason) => _bonusController
+                                .onChangeBonusCarousel(index, reason),
+                            scrollDirection: Axis.horizontal,
+                          ),
+                        )
+                      : Center(
+                          child: Text(
+                            'No Bonus found',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                            ),
+                          ),
+                        ),
                   20.h.verticalSpace,
                   Obx(
                     () => CustomDotsIndicator(
                       current: _bonusController.currentBonus.value,
-                      length: _bonusController.bonusList.length,
+                      length:
+                          _bonusController.bonusResponse.value.bonuses.length,
                     ),
                   ),
                   20.h.verticalSpace,
@@ -208,7 +223,7 @@ class BonusScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2012',
+                                                  'Jan',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -219,7 +234,7 @@ class BonusScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2013',
+                                                  'Feb',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -230,7 +245,7 @@ class BonusScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2014',
+                                                  'Mar',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -241,7 +256,7 @@ class BonusScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2015',
+                                                  'Apr',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -252,7 +267,7 @@ class BonusScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2016',
+                                                  'May',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -263,7 +278,7 @@ class BonusScreen extends StatelessWidget {
                                               return SideTitleWidget(
                                                 axisSide: AxisSide.bottom,
                                                 child: Text(
-                                                  '2017',
+                                                  'Jun',
                                                   style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: AppColors.gray8,
@@ -292,14 +307,7 @@ class BonusScreen extends StatelessWidget {
                                     horizontalInterval: 10,
                                     verticalInterval: 10,
                                   ),
-                                  barGroups: [
-                                    _bonusController.generateGroupData(1, 30),
-                                    _bonusController.generateGroupData(2, 40),
-                                    _bonusController.generateGroupData(3, 35),
-                                    _bonusController.generateGroupData(4, 35),
-                                    _bonusController.generateGroupData(5, 35),
-                                    _bonusController.generateGroupData(6, 35),
-                                  ],
+                                  barGroups: _bonusController.barGroups.value,
                                   barTouchData: BarTouchData(
                                     touchTooltipData: BarTouchTooltipData(
                                       tooltipBgColor: AppColors.white,

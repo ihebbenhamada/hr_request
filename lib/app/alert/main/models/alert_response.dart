@@ -1,6 +1,35 @@
+import 'dart:convert';
 import 'dart:core';
 
+import 'package:request_hr/app/alert/main/models/alert_chart.dart';
+
+AlertResponse alertResponseFromJson(String str) =>
+    AlertResponse.fromJson(json.decode(str));
+
+String alertResponseToJson(AlertResponse data) => json.encode(data.toJson());
+
 class AlertResponse {
+  List<Alert> alerts;
+  List<AlertChart> chart;
+
+  AlertResponse({
+    required this.alerts,
+    required this.chart,
+  });
+
+  factory AlertResponse.fromJson(Map<String, dynamic> json) => AlertResponse(
+        alerts: List<Alert>.from(json["alerts"].map((x) => Alert.fromJson(x))),
+        chart: List<AlertChart>.from(
+            json["chart"].map((x) => AlertChart.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "alerts": List<Alert>.from(alerts.map((x) => x.toJson())),
+        "chart": List<AlertChart>.from(chart.map((x) => x.toJson())),
+      };
+}
+
+class Alert {
   final int id;
   final int? fKHrAssigneeId;
   final int? fKHrAssigneeById;
@@ -14,7 +43,7 @@ class AlertResponse {
   final bool? isActive;
   final bool? isDeleted;
 
-  AlertResponse({
+  Alert({
     required this.id,
     this.fKHrAssigneeById,
     this.fKHrAssigneeId,
@@ -29,8 +58,8 @@ class AlertResponse {
     this.isDeleted,
   });
 
-  factory AlertResponse.fromJson(Map<String, dynamic> json) {
-    return AlertResponse(
+  factory Alert.fromJson(Map<String, dynamic> json) {
+    return Alert(
       id: json['Id'] as int,
       fKHrAssigneeId: json['FK_HrAssigneeId'] as int?,
       fKHrAssigneeById: json['FK_HrAssigneeById'] as int?,

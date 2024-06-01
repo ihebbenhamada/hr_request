@@ -22,6 +22,36 @@ class BonusDetailsScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Container(
+                    height: 40.h,
+                    width: 40.h,
+                    margin: const EdgeInsets.only(left: 25),
+                    decoration: const ShapeDecoration(
+                      shape: OvalBorder(),
+                      color: AppColors.primary,
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        AppImages.back,
+                        height: 20.h,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                10.h.horizontalSpace,
+                Text(
+                  'Create bonus',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 25.0),
               child: SizedBox(
@@ -64,7 +94,8 @@ class BonusDetailsScreen extends StatelessWidget {
                               ),
                               4.horizontalSpace,
                               Text(
-                                'Mohamed Ismail ',
+                                _bonusDetailsController
+                                    .employee.value.fullNameEn,
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14.sp,
@@ -93,7 +124,7 @@ class BonusDetailsScreen extends StatelessWidget {
                               ),
                               4.horizontalSpace,
                               Text(
-                                'project Manager',
+                                _bonusDetailsController.employee.value.jobName,
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14.sp,
@@ -122,7 +153,9 @@ class BonusDetailsScreen extends StatelessWidget {
                               ),
                               4.horizontalSpace,
                               Text(
-                                '19/5/2024',
+                                _bonusDetailsController
+                                    .employee.value.creationDate
+                                    .substring(0, 10),
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14.sp,

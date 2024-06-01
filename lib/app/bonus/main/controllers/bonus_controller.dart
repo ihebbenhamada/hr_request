@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/bonus/bonus-details/screens/bonus_details_screen.dart';
-import 'package:request_hr/app/bonus/main/models/bonus_chart.dart';
 import 'package:request_hr/app/bonus/main/models/bonus_response.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
@@ -22,10 +21,10 @@ class BonusController extends BaseController {
   RxInt currentBonus = 0.obs;
   RxInt selectedChart = 0.obs;
   RxInt showingTooltip = 1.obs;
-  RxList<BonusResponse> bonusList = <BonusResponse>[].obs;
-  RxList<BonusChart> bonusChart = <BonusChart>[].obs;
+  Rx<BonusResponse> bonusResponse = BonusResponse(bonuses: [], chart: []).obs;
   bool isAdmin = false;
   GetStorage storage = GetStorage();
+  RxList<BarChartGroupData> barGroups = <BarChartGroupData>[].obs;
 
   /// VALIDATION
 
@@ -36,34 +35,28 @@ class BonusController extends BaseController {
     super.onInit();
   }
 
-  getBonusList() {
-    AppInterceptor.showLoader();
-    _bonusService.getBonusList().then((value) {
-      if (value != null) {
-        bonusList.value = value;
-      }
-    });
-  }
-
-  getBonusChart() {
-    _bonusService.getBonusChart().then((value) {
-      if (value != null) {
-        bonusChart.value = value;
-      }
-      AppInterceptor.hideLoader();
-    });
-  }
-
   /// INITIALISATION
   void initValues() {
     if (storage.read('isAdmin') != null) {
       isAdmin = storage.read('isAdmin');
     }
     getBonusList();
-    getBonusChart();
   }
 
   /// FUNCTIONS
+  getBonusList() {
+    AppInterceptor.showLoader();
+    _bonusService.getBonus().then((value) {
+      if (value != null) {
+        bonusResponse.value = value;
+        for (var i = 0; i < value.chart.length - 6; i++) {
+          barGroups.add(generateGroupData(i + 1, value.chart[i].count));
+        }
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   onClickItemBonus() {
     Get.to(
       () => BonusDetailsScreen(),

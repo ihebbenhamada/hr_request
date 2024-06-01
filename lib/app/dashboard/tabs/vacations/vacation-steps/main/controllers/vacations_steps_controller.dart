@@ -112,11 +112,7 @@ class VacationsStepsController extends BaseController
       TextEditingController();
 
   /// second step variable
-  final RxList<DropDownModel> paymentTypeList = [
-    DropDownModel(disabled: false, text: 'Cash', value: '1'),
-    DropDownModel(disabled: false, text: 'Bank', value: '2'),
-    DropDownModel(disabled: false, text: 'Mada', value: '3'),
-  ].obs;
+  final RxList<DropDownModel> paymentTypeList = <DropDownModel>[].obs;
 
   late Rx<DropDownModel> selectedPaymentType;
   RxString dueDate = DateTime.now().toString().substring(0, 10).obs;
@@ -162,7 +158,6 @@ class VacationsStepsController extends BaseController
 
   /// INITIALISATION
   void initValues() {
-    selectedPaymentType = paymentTypeList[0].obs;
     initialDate = DateTime.now().obs;
     steps = [
       FinalExitApproval(
@@ -327,11 +322,12 @@ class VacationsStepsController extends BaseController
       isDeleted: firstStepData.value.isDeleted,
     )
         .then((value) {
-      /*animateSecondStep('forward');
-      paginate(activePage.value + 1, true);*/
+      if (value != null) {
+        AppInterceptor.hideLoader();
+        animateSecondStep('forward');
+        paginate(activePage.value + 1, true);
+      }
     });
-    animateSecondStep('forward');
-    paginate(activePage.value + 1, true);
   }
 
   /// SECOND STEP
@@ -340,6 +336,8 @@ class VacationsStepsController extends BaseController
     _vacationsStepsService.getCreateSecondStep().then((value) {
       if (value != null) {
         secondStepData.value = value;
+        paymentTypeList.value = value.paymentType;
+        selectedPaymentType = value.paymentType[0].obs;
       }
       AppInterceptor.hideLoader();
     });
@@ -378,11 +376,12 @@ class VacationsStepsController extends BaseController
       totalExtaraTicketsValue: secondStepData.value.totalExtaraTicketsValue,
     )
         .then((value) {
-      /*animateSecondStep('forward');
-      paginate(activePage.value + 1, true);*/
+      if (value != null) {
+        AppInterceptor.hideLoader();
+        animateSecondStep('forward');
+        paginate(activePage.value + 1, true);
+      }
     });
-    animateThirdStep('forward');
-    paginate(activePage.value + 1, true);
   }
 
   onSelectPaymentType(DropDownModel value) {

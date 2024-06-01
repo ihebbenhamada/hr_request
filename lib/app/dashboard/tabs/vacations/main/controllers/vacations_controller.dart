@@ -73,10 +73,23 @@ class VacationsController extends BaseController {
         vacationPercentage.value = value.vacationsPercentage;
         nextVacation.value = value.nextVacation;
         allVacationsList.value = value.all.map((e) {
-          e.color = AppColors.gray5;
-          e.icon = AppImages.progress;
-          e.iconHeight = 30.0;
+          e.color = e.fKReqStatusId == 10
+              ? AppColors.gray5
+              : e.fKReqStatusId == 11
+                  ? AppColors.primary
+                  : AppColors.redLight;
+          e.icon = e.fKReqStatusId == 10
+              ? AppImages.progress
+              : e.fKReqStatusId == 11
+                  ? AppImages.doubleCheck
+                  : AppImages.x;
+          e.iconHeight = e.fKReqStatusId == 10
+              ? 30.0
+              : e.fKReqStatusId == 11
+                  ? 15
+                  : 23;
           e.withAlert = false;
+
           return e;
         }).toList();
         pendingVacationsList.value = value.pending.map((e) {

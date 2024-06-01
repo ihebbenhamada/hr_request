@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:request_hr/api/models/result_response.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/model/get_create_second_step.dart';
@@ -57,7 +55,6 @@ class VacationsStepsService {
         ?.post(EndPoints.CREATE_FIRST_STEP_URL, data: data);
 
     if (response != null && response.statusCode == 200) {
-      log("⛔️✅⛔️✅⛔️✅${response.statusCode.toString()}⛔✅️⛔️✅⛔️✅⛔");
       return ResultResponse.fromJson(response.data);
     } else {
       return null;

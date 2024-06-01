@@ -23,7 +23,7 @@ class Vacation {
   final bool isDeleted;
   final bool canEdit;
   final String? dueDate;
-  final int fKReqStatusId;
+  int fKReqStatusId;
   final int vacationTypeId;
   final String? vacationTypeCode;
   final String? vacationTypeNameAr;

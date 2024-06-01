@@ -87,21 +87,25 @@ class AlertScreen extends StatelessWidget {
                   20.h.verticalSpace,
                   Obx(
                     () => CarouselSlider.builder(
-                      itemCount: _alertController.alertList.length + 1,
+                      itemCount:
+                          _alertController.alertResponse.value.alerts.length +
+                              1,
                       itemBuilder: (context, index, i) {
-                        if (index == _alertController.alertList.length) {
+                        if (index ==
+                            _alertController
+                                .alertResponse.value.alerts.length) {
                           // Display fake item at the last index
                           return const SizedBox();
                         } else {
-                          AlertResponse item =
-                              _alertController.alertList[index];
+                          Alert item = _alertController
+                              .alertResponse.value.alerts[index];
                           // Display real items
                           return EvaluationItem(
                             employeeName: item.assigneeName ?? "",
                             employeePosition: item.byAssigneeName ?? "",
                             employeeImage: item.imagePath ?? "",
                             date: item.creationDate?.substring(0, 10) ?? "",
-                            editable: true,
+                            editable: false,
                             onClick: _alertController.onClickItemAlert,
                           );
                         }
@@ -128,7 +132,8 @@ class AlertScreen extends StatelessWidget {
                   Obx(
                     () => CustomDotsIndicator(
                       current: _alertController.currentAlert.value,
-                      length: _alertController.alertList.length,
+                      length:
+                          _alertController.alertResponse.value.alerts.length,
                     ),
                   ),
                   20.h.verticalSpace,

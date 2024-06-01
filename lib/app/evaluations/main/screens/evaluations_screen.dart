@@ -418,7 +418,8 @@ class EvaluationsScreen extends StatelessWidget {
                                     horizontalInterval: 10,
                                     verticalInterval: 10,
                                   ),
-                                  barGroups: _evaluationsController.barGroups,
+                                  barGroups:
+                                      _evaluationsController.barGroups.value,
                                   barTouchData: BarTouchData(
                                     touchTooltipData: BarTouchTooltipData(
                                       tooltipBgColor: AppColors.white,

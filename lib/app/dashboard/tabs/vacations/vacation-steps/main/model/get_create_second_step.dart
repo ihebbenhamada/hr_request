@@ -94,17 +94,17 @@ class GetCreateSecondStep {
         fKHrManagementId: json["fK_HrManagementId"],
         fKHrDepartmentId: json["fK_HrDepartmentId"],
         employeeCode: json["employeeCode"],
-        hrDepartments:
-            List<DropDownModel>.from(json["hrDepartments"].map((x) => x)),
-        hrManagements:
-            List<DropDownModel>.from(json["hrManagements"].map((x) => x)),
-        defBranches:
-            List<DropDownModel>.from(json["defBranches"].map((x) => x)),
-        kinshipType:
-            List<DropDownModel>.from(json["kinshipType"].map((x) => x)),
+        hrDepartments: List<DropDownModel>.from(
+            json["hrDepartments"].map((x) => DropDownModel.fromJson(x))),
+        hrManagements: List<DropDownModel>.from(
+            json["hrManagements"].map((x) => DropDownModel.fromJson(x))),
+        defBranches: List<DropDownModel>.from(
+            json["defBranches"].map((x) => DropDownModel.fromJson(x))),
+        kinshipType: List<DropDownModel>.from(
+            json["kinshipType"].map((x) => DropDownModel.fromJson(x))),
         paymentTypes: json["paymentTypes"],
-        paymentType:
-            List<DropDownModel>.from(json["paymentType"].map((x) => x)),
+        paymentType: List<DropDownModel>.from(
+            json["paymentType"].map((x) => DropDownModel.fromJson(x))),
         details:
             List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
       );
