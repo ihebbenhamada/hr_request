@@ -48,7 +48,6 @@ class EvaluationsController extends BaseController {
       isAdmin = storage.read('isAdmin');
     }
     getListEvaluations();
-    getEvaluationChart();
   }
 
   /// FUNCTIONS
@@ -103,14 +102,7 @@ class EvaluationsController extends BaseController {
     AppInterceptor.showLoader();
     _evaluationsService.getEvaluations().then((value) {
       if (value != null) {
-        evaluationList.value = value;
-      }
-    });
-  }
-
-  getEvaluationChart() {
-    _evaluationsService.getEvaluationChart().then((value) {
-      if (value != null) {
+        evaluationList.value = value.listHrEmployeeEvaluations!;
         listEmployeeEvaluationChart.value = value.listEmployeeEvaluationChart ??
             <ListEmployeeEvaluationChart>[];
         listHrEmployeeEvaluations.value =

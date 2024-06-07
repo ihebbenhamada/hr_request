@@ -17,6 +17,7 @@ import 'package:request_hr/app/settings/screens/settings_screen.dart';
 import 'package:request_hr/app/sign-in-out/main/screens/sign_in_out_screen.dart';
 import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 import 'package:request_hr/widgets/search-bottom-sheet/search_bottom_sheet.dart';
 
 import '../../../../config/controllerConfig/base_controller.dart';
@@ -26,6 +27,10 @@ import '../../tabs/vacations/main/models/drop_down.dart';
 
 class DashboardController extends BaseController {
   RxInt pageIndex = 2.obs;
+
+  RxBool isDecisionLoading = true.obs;
+  RxBool isMeetingLoading = true.obs;
+  RxBool isVacationLoading = true.obs;
 
   final GetStorage storage = GetStorage();
   Rx<Emp> employee = Emp(
@@ -468,6 +473,9 @@ class DashboardController extends BaseController {
     selectedCompany = companyList[0].obs;
     selectedDepartment = departmentsList[0].obs;
     employee.value = Emp.fromJson(GetStorage().read('employee'));
+    Future.delayed(const Duration(milliseconds: 500), () {
+      AppInterceptor.showLoader();
+    });
   }
 
   /// FUNCTIONS

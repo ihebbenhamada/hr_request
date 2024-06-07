@@ -62,7 +62,7 @@ class DecisionsDetailsScreen extends StatelessWidget {
                             ),
                             4.horizontalSpace,
                             Text(
-                              'Mohamed Ismail ',
+                              decisionsResponse?.byAssigneeName ?? "",
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 14.sp,
@@ -91,7 +91,7 @@ class DecisionsDetailsScreen extends StatelessWidget {
                             ),
                             4.horizontalSpace,
                             Text(
-                              'project Manager',
+                              decisionsResponse?.assigneeName ?? "",
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 14.sp,
@@ -120,7 +120,9 @@ class DecisionsDetailsScreen extends StatelessWidget {
                             ),
                             4.horizontalSpace,
                             Text(
-                              '19/5/2024',
+                              decisionsResponse?.creationDate
+                                      .substring(0, 10) ??
+                                  "",
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 14.sp,

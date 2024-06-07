@@ -55,7 +55,9 @@ class DecisionGridItem extends StatelessWidget {
               children: [
                 AvatarCircle(
                   size: 66.h,
-                  image: employeeImage,
+                  image: employeeImage.contains("http")
+                      ? employeeImage
+                      : AppImages.profile,
                   iconSize: 14.h,
                   isNetworkImage: employeeImage.contains("http"),
                 ),

@@ -6,6 +6,7 @@ import 'package:request_hr/app/dashboard/tabs/meetings/meetings-details/screens/
 import 'package:request_hr/config/controllerConfig/base_controller.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
+import '../../../../main/controller/dashboard-controller.dart';
 import '../services/meetings_service.dart';
 
 class MeetingsController extends BaseController {
@@ -13,6 +14,7 @@ class MeetingsController extends BaseController {
   final MeetingsService _meetingsService = MeetingsService();
 
   /// CONTROLLERS
+  final DashboardController _dashboardController = Get.find();
 
   /// VARIABLES
   final storage = GetStorage();
@@ -45,7 +47,11 @@ class MeetingsController extends BaseController {
             value.where((map) => map.fkReqStatusId == 37).toList();
         meetingList.value = allMeetingList;
       }
-      AppInterceptor.hideLoader();
+      _dashboardController.isMeetingLoading.value = false;
+      if (_dashboardController.isDecisionLoading.isFalse &&
+          _dashboardController.isVacationLoading.isFalse) {
+        AppInterceptor.hideLoader();
+      }
     });
   }
 
@@ -102,5 +108,11 @@ class MeetingsController extends BaseController {
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+  }
+
+  Future<void> handleRefresh() async {
+    AppInterceptor.showLoader();
+    selectedFilter.value = 0;
+    getListMeetings();
   }
 }

@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
-import '../avatar-circle/avatar_circle.dart';
-
 class SignInOutGridItem extends StatelessWidget {
   const SignInOutGridItem({
     super.key,
@@ -47,12 +45,42 @@ class SignInOutGridItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             9.h.verticalSpace,
-            AvatarCircle(
-              size: 66.h,
-              image: AppImages.signOutDrawer,
-              imageColor: AppColors.primary,
-              imageSize: 28.h,
-              iconSize: 14.h,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 66.h,
+                  height: 66.h,
+                  decoration: const ShapeDecoration(
+                    shape: OvalBorder(
+                      side: BorderSide.none,
+                    ),
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: Center(
+                    child: Image.asset(
+                      AppImages.signOutDrawer,
+                      height: 28.h,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 9.h,
+                  bottom: 0,
+                  child: Image.asset(
+                    AppImages.innTechLogo,
+                    height: 14.h,
+                    width: 14.h,
+                  ),
+                ),
+                Image.asset(
+                  AppImages.avatarCircle,
+                  height: 66.h,
+                  width: 66.h,
+                  color: AppColors.primary,
+                ),
+              ],
             ),
             4.h.verticalSpace,
             Text(
@@ -76,7 +104,7 @@ class SignInOutGridItem extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: Container(
                   height: 24.h,
-                  width: 125,
+                  width: 133,
                   decoration: BoxDecoration(
                     color: type == 0 ? AppColors.blueDark : AppColors.primary,
                     borderRadius: BorderRadius.circular(12),
@@ -91,7 +119,7 @@ class SignInOutGridItem extends StatelessWidget {
                   ), // Customize the color
                   child: Center(
                     child: Text(
-                      '$time / $date',
+                      '$date / $time',
                       style: TextStyle(
                         fontSize: 12.sp,
                         color: AppColors.white,

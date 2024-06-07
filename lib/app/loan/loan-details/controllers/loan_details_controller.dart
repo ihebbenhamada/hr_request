@@ -27,6 +27,8 @@ class LoanDetailsController extends BaseController {
       TextEditingController();
   TextEditingController totalLoansTextEditingController =
       TextEditingController();
+  CreateLoan? loan;
+  bool? isDetails;
 
   /// VALIDATION
 
@@ -59,7 +61,23 @@ class LoanDetailsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    getCreateLoan();
+    if (Get.arguments != null) {
+      loan = Get.arguments?[0]?['loan'];
+      isDetails = Get.arguments?[1]?['isDetail'];
+    }
+
+    if (loan != null) {
+      createLoan.value = loan;
+      paymentTypeList.value = loan!.paymentTypes;
+      selectedPaymentType.value = loan!.paymentTypes
+          .firstWhere((value) => loan!.paymentType.toString() == value.value);
+      subject.value = loan!.subject!;
+      titleTextEditingController.text = loan!.subject!;
+      totalLoansTextEditingController.text = loan!.totalAmount.toString();
+      descriptionTextEditingController.text = loan!.description!;
+    } else {
+      getCreateLoan();
+    }
   }
 
   /// FUNCTIONS
@@ -103,32 +121,62 @@ class LoanDetailsController extends BaseController {
 
   onClickSubmit() {
     AppInterceptor.showLoader();
-    _loanDetailsService
-        .createLoan(
-      paymentType: int.parse(selectedPaymentType.value.value),
-      loanDate: loanDate.value.toString().substring(0, 10),
-      totalAmount: double.parse(totalLoansTextEditingController.value.text),
-      subject: createLoan.value!.subject!,
-      description: descriptionTextEditingController.value.text,
-      creationDate: createLoan.value!.creationDate!,
-      lastModifiedDate: createLoan.value!.lastModifiedDate!,
-      isActive: createLoan.value!.isActive!,
-      isDeleted: createLoan.value!.isDeleted!,
-      isGeneralManager: createLoan.value!.isGeneralManager!,
-      isFinancialDirector: createLoan.value!.isFinancialDirector!,
-      isGeneralDirector: createLoan.value!.isGeneralDirector!,
-      fKGeneralDirectorId: createLoan.value?.fKGeneralDirectorId,
-      generalDirector: createLoan.value?.generalDirector,
-      employeeName: createLoan.value!.employeeName!,
-      fKReqStatusId: createLoan.value!.fKReqStatusId!,
-      paymentTypeName: selectedPaymentType.value.text,
-    )
-        .then((value) {
-      if (value != null) {
-        Get.back(result: 'refresh');
-      }
-      AppInterceptor.hideLoader();
-    });
+    if (loan != null) {
+      _loanDetailsService
+          .updateLoan(
+        id: loan!.id!,
+        paymentType: int.parse(selectedPaymentType.value.value),
+        loanDate: loanDate.value.toString().substring(0, 10),
+        totalAmount: double.parse(totalLoansTextEditingController.value.text),
+        subject: createLoan.value!.subject!,
+        description: descriptionTextEditingController.value.text,
+        creationDate: createLoan.value!.creationDate!,
+        lastModifiedDate: createLoan.value!.lastModifiedDate!,
+        isActive: createLoan.value!.isActive!,
+        isDeleted: createLoan.value!.isDeleted!,
+        isGeneralManager: createLoan.value!.isGeneralManager!,
+        isFinancialDirector: createLoan.value!.isFinancialDirector!,
+        isGeneralDirector: createLoan.value!.isGeneralDirector!,
+        fKGeneralDirectorId: createLoan.value?.fKGeneralDirectorId,
+        generalDirector: createLoan.value?.generalDirector,
+        employeeName: createLoan.value!.employeeName!,
+        fKReqStatusId: createLoan.value!.fKReqStatusId!,
+        paymentTypeName: selectedPaymentType.value.text,
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh');
+        }
+        AppInterceptor.hideLoader();
+      });
+    } else {
+      _loanDetailsService
+          .createLoan(
+        paymentType: int.parse(selectedPaymentType.value.value),
+        loanDate: loanDate.value.toString().substring(0, 10),
+        totalAmount: double.parse(totalLoansTextEditingController.value.text),
+        subject: createLoan.value!.subject!,
+        description: descriptionTextEditingController.value.text,
+        creationDate: createLoan.value!.creationDate!,
+        lastModifiedDate: createLoan.value!.lastModifiedDate!,
+        isActive: createLoan.value!.isActive!,
+        isDeleted: createLoan.value!.isDeleted!,
+        isGeneralManager: createLoan.value!.isGeneralManager!,
+        isFinancialDirector: createLoan.value!.isFinancialDirector!,
+        isGeneralDirector: createLoan.value!.isGeneralDirector!,
+        fKGeneralDirectorId: createLoan.value?.fKGeneralDirectorId,
+        generalDirector: createLoan.value?.generalDirector,
+        employeeName: createLoan.value!.employeeName!,
+        fKReqStatusId: createLoan.value!.fKReqStatusId!,
+        paymentTypeName: selectedPaymentType.value.text,
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh');
+        }
+        AppInterceptor.hideLoader();
+      });
+    }
   }
 
   onClickBack() {

@@ -8,6 +8,7 @@ import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../../../config/image_urls/image_urls.dart';
+import '../../../../main/controller/dashboard-controller.dart';
 import '../models/get_update_response.dart';
 import '../services/vacations_service.dart';
 
@@ -16,6 +17,7 @@ class VacationsController extends BaseController {
   final VacationsService _vacationsService = VacationsService();
 
   /// CONTROLLERS
+  final DashboardController _dashboardController = Get.find();
 
   /// VARIABLES
   RxInt selectedFilter = 0.obs;
@@ -73,19 +75,19 @@ class VacationsController extends BaseController {
         vacationPercentage.value = value.vacationsPercentage;
         nextVacation.value = value.nextVacation;
         allVacationsList.value = value.all.map((e) {
-          e.color = e.fKReqStatusId == 10
+          e.color = e.fKReqStatusId == 9
               ? AppColors.gray5
-              : e.fKReqStatusId == 11
+              : e.fKReqStatusId == 10
                   ? AppColors.primary
                   : AppColors.redLight;
-          e.icon = e.fKReqStatusId == 10
+          e.icon = e.fKReqStatusId == 9
               ? AppImages.progress
-              : e.fKReqStatusId == 11
+              : e.fKReqStatusId == 10
                   ? AppImages.doubleCheck
                   : AppImages.x;
-          e.iconHeight = e.fKReqStatusId == 10
+          e.iconHeight = e.fKReqStatusId == 9
               ? 30.0
-              : e.fKReqStatusId == 11
+              : e.fKReqStatusId == 10
                   ? 15
                   : 23;
           e.withAlert = false;
@@ -115,7 +117,11 @@ class VacationsController extends BaseController {
         }).toList();
         vacationsList.value = allVacationsList;
       }
-      AppInterceptor.hideLoader();
+      _dashboardController.isVacationLoading.value = false;
+      if (_dashboardController.isDecisionLoading.isFalse &&
+          _dashboardController.isMeetingLoading.isFalse) {
+        AppInterceptor.hideLoader();
+      }
     });
   }
 
@@ -176,5 +182,60 @@ class VacationsController extends BaseController {
     if (result != null) {
       getListVacations(); // call your own function here to refresh screen
     }
+  }
+
+  Future<void> handleRefresh() async {
+    AppInterceptor.showLoader();
+    _vacationsService.getEmployeeVacations().then((value) {
+      if (value != null) {
+        leftDays.value = value.leftDays;
+        takenDays.value = value.takenDays;
+        vacationPercentage.value = value.vacationsPercentage;
+        nextVacation.value = value.nextVacation;
+        allVacationsList.value = value.all.map((e) {
+          e.color = e.fKReqStatusId == 9
+              ? AppColors.gray5
+              : e.fKReqStatusId == 10
+                  ? AppColors.primary
+                  : AppColors.redLight;
+          e.icon = e.fKReqStatusId == 9
+              ? AppImages.progress
+              : e.fKReqStatusId == 10
+                  ? AppImages.doubleCheck
+                  : AppImages.x;
+          e.iconHeight = e.fKReqStatusId == 9
+              ? 30.0
+              : e.fKReqStatusId == 10
+                  ? 15
+                  : 23;
+          e.withAlert = false;
+
+          return e;
+        }).toList();
+        pendingVacationsList.value = value.pending.map((e) {
+          e.color = AppColors.gray5;
+          e.icon = AppImages.progress;
+          e.iconHeight = 30.0;
+          e.withAlert = false;
+          return e;
+        }).toList();
+        approvedVacationsList.value = value.approved.map((e) {
+          e.color = AppColors.primary;
+          e.icon = AppImages.doubleCheck;
+          e.iconHeight = 15.0;
+          e.withAlert = true;
+          return e;
+        }).toList();
+        rejectedVacationList.value = value.rejected.map((e) {
+          e.color = AppColors.redLight;
+          e.icon = AppImages.x;
+          e.iconHeight = 23.0;
+          e.withAlert = false;
+          return e;
+        }).toList();
+        vacationsList.value = allVacationsList;
+      }
+      AppInterceptor.hideLoader();
+    });
   }
 }

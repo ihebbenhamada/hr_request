@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -122,8 +120,6 @@ class LoanInfoContainer extends StatelessWidget {
       String b = total
           .substring(total.indexOf("/") + 1, total.length)
           .replaceAll("٫", ".");
-      log(a);
-      log(b);
       if (double.parse(a) >= 1000) {
         a = "${(double.parse(a) / 1000).toStringAsFixed(2)}k";
       }

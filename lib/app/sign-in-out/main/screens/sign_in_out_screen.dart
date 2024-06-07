@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/sign-in-out/main/controllers/sign_in_out_controller.dart';
+import 'package:request_hr/app/sign-in-out/main/model/sign_in_out.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/widgets/sign-in-out-grid-item/sign_in_out_grid_item.dart';
 
@@ -52,7 +53,7 @@ class SignInOutScreen extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: _signInOutController.onClickCreateSignInOut,
+                  onTap: _signInOutController.navigateAndRefresh,
                   child: Image.asset(
                     AppImages.addDecision,
                     height: 34.h,
@@ -62,32 +63,34 @@ class SignInOutScreen extends StatelessWidget {
               ],
             ),
             20.h.verticalSpace,
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // number of items in each row
-                  mainAxisSpacing: 24.h, // spacing between rows
-                  crossAxisSpacing: 20.0.h,
-                  childAspectRatio: 0.9, // spacing between columns
+            Obx(
+              () => Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // number of items in each row
+                    mainAxisSpacing: 24.h, // spacing between rows
+                    crossAxisSpacing: 20.0.h,
+                    childAspectRatio: 0.9, // spacing between columns
+                  ),
+                  padding: EdgeInsets.only(
+                    bottom: Platform.isIOS ? 70.h : 84.h,
+                  ),
+                  shrinkWrap: true, // padding around the grid
+                  itemCount: _signInOutController
+                      .signInOutList.value.length, // total number of items
+                  itemBuilder: (context, index) {
+                    SignInOut item = _signInOutController.signInOutList[index];
+                    return SignInOutGridItem(
+                      employeeName: item.employeeName,
+                      workPlace: item.areaName,
+                      type: int.tryParse(item.attendType ?? "0") ?? 0,
+                      date: item.signDate.substring(0, 10),
+                      time: item.signTime.substring(0, 8),
+                      onClick: () =>
+                          _signInOutController.onClickSignInOutItem(item: item),
+                    );
+                  },
                 ),
-                padding: EdgeInsets.only(
-                  bottom: Platform.isIOS ? 70.h : 84.h,
-                ),
-                shrinkWrap: true, // padding around the grid
-                itemCount: _signInOutController
-                    .signInOutList.length, // total number of items
-                itemBuilder: (context, index) {
-                  Map<String, dynamic> item =
-                      _signInOutController.signInOutList[index];
-                  return SignInOutGridItem(
-                    employeeName: item['employee_name'],
-                    workPlace: item['work_place'],
-                    type: item['type'],
-                    date: item['date'],
-                    time: item['time'],
-                    onClick: _signInOutController.onClickSignInOutItem,
-                  );
-                },
               ),
             ),
           ],

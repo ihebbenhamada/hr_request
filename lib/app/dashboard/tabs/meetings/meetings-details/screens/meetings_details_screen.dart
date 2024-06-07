@@ -324,7 +324,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                                   color: AppColors.white,
                                 ),
                               ),
-                              headerListBuilder: (context, employees) {
+                              headerListBuilder: (context, employees, isTrue) {
                                 String listEmployees = "";
                                 employees.forEach((e) {
                                   listEmployees =

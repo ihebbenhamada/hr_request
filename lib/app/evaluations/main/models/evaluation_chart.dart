@@ -1,18 +1,18 @@
 import 'package:request_hr/app/evaluations/main/models/evaluation.dart';
 
-class EvaluationChart {
+class EvaluationResponse {
   final List<Evaluation>? listHrEmployeeEvaluations;
   final List<ListEmployeeEvaluationChart>? listEmployeeEvaluationChart;
   String? totalMonthDegreeScale;
 
-  EvaluationChart({
+  EvaluationResponse({
     this.listHrEmployeeEvaluations,
     this.listEmployeeEvaluationChart,
     this.totalMonthDegreeScale,
   });
 
-  factory EvaluationChart.fromJson(Map<String, dynamic> json) {
-    return EvaluationChart(
+  factory EvaluationResponse.fromJson(Map<String, dynamic> json) {
+    return EvaluationResponse(
       listHrEmployeeEvaluations:
           (json['listHrEmployeeEvaluations'] as List<dynamic>)
               .map((eval) => Evaluation.fromJson(eval))

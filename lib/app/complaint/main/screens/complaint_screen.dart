@@ -305,7 +305,7 @@ class ComplaintScreen extends StatelessWidget {
                                   ],
                                   barTouchData: BarTouchData(
                                     touchTooltipData: BarTouchTooltipData(
-                                      tooltipBgColor: AppColors.white,
+                                      //tooltipBgColor: AppColors.white,
                                       direction: TooltipDirection.top,
                                       tooltipPadding: EdgeInsets.zero,
                                       tooltipMargin: 0,

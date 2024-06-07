@@ -8,7 +8,7 @@ class CreateLoan {
   int? fKHrEmployeeId;
   int? paymentType;
   String? loanDate;
-  int? totalAmount;
+  double? totalAmount;
   String? subject;
   String? description;
   String? creationDate;
@@ -80,7 +80,7 @@ class CreateLoan {
         fKHrEmployeeId: json["fK_HrEmployeeId"],
         paymentType: json["paymentType"],
         loanDate: json["loanDate"],
-        totalAmount: json["totalAmount"],
+        totalAmount: double.tryParse(json["totalAmount"].toString()),
         subject: json["subject"],
         description: json["description"],
         creationDate: json["creationDate"],

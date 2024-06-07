@@ -11,7 +11,11 @@ import '../../../../../../config/colors/colors.dart';
 
 class SignInOutDetailsScreen extends StatelessWidget {
   final _signInOutDetailsController = Get.put(SignInOutDetailsController());
-  SignInOutDetailsScreen({super.key});
+  SignInOutDetailsScreen({
+    super.key,
+    required this.screenTitle,
+  });
+  final String screenTitle;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +26,35 @@ class SignInOutDetailsScreen extends StatelessWidget {
           child: Column(
             children: [
               (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Get.back(),
+                    child: Container(
+                      height: 40.h,
+                      width: 40.h,
+                      decoration: const ShapeDecoration(
+                        shape: OvalBorder(),
+                        color: AppColors.primary,
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          AppImages.back,
+                          height: 20.h,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  10.h.horizontalSpace,
+                  Text(
+                    screenTitle,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                ],
+              ),
               Center(
                 child: AvatarCircle(
                   image: AppImages.profile,
@@ -38,7 +71,10 @@ class SignInOutDetailsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () => _signInOutDetailsController.onSelectType(0),
+                      onTap: _signInOutDetailsController.signInOutDetails !=
+                              null
+                          ? null
+                          : () => _signInOutDetailsController.onSelectType(0),
                       child: Container(
                         height: 45.h,
                         width: MediaQuery.of(context).size.width * 0.485 - 25.0,
@@ -89,7 +125,10 @@ class SignInOutDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => _signInOutDetailsController.onSelectType(01),
+                      onTap: _signInOutDetailsController.signInOutDetails !=
+                              null
+                          ? null
+                          : () => _signInOutDetailsController.onSelectType(1),
                       child: Container(
                         height: 45.h,
                         width: MediaQuery.of(context).size.width * 0.485 - 25.0,
@@ -152,6 +191,7 @@ class SignInOutDetailsScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                       title: 'Date',
                       inputType: 'date',
+                      enabled: false,
                       text: DateFormat('dd-MM-yyyy')
                           .format(_signInOutDetailsController.signDate.value),
                       onSelectDate: () =>
@@ -159,74 +199,82 @@ class SignInOutDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   10.h.verticalSpace,
-                  InputForm(
-                    height: 55.h,
-                    width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Time',
-                    inputType: 'text',
-                    text: '09:00',
+                  Obx(
+                    () => InputForm(
+                      height: 55.h,
+                      width: MediaQuery.of(context).size.width * 0.485 - 25.0,
+                      title: 'Time',
+                      inputType: 'text',
+                      text: _signInOutDetailsController.time.value,
+                    ),
                   ),
                 ],
               ),
               15.h.verticalSpace,
-              InputForm(
-                height: 55.h,
-                width: double.infinity,
-                title: 'Location',
-                inputType: 'text',
-                text: 'Latitude: 29.9804626, Longitude: 31.159573',
+              Obx(
+                () => InputForm(
+                  height: 55.h,
+                  width: double.infinity,
+                  title: 'Location',
+                  inputType: 'text',
+                  text: _signInOutDetailsController.locationTitle.value,
+                ),
               ),
               15.h.verticalSpace,
-              InputForm(
-                height: 55.h,
-                width: double.infinity,
-                title: 'Area',
-                inputType: 'text',
-                text: 'Amr Abn Elkhtab st., Yanbu .ksa',
+              Obx(
+                () => InputForm(
+                  height: 55.h,
+                  width: double.infinity,
+                  title: 'Area',
+                  inputType: 'text',
+                  text: _signInOutDetailsController.area.value,
+                ),
               ),
               30.h.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: _signInOutDetailsController.onClickSubmit,
-                    child: Container(
-                      height: 50.h,
-                      width: 50.h,
-                      decoration: const ShapeDecoration(
-                        color: AppColors.primary,
-                        shape: OvalBorder(),
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.tick,
-                          color: AppColors.white,
-                          height: 30.h,
+              _signInOutDetailsController.signInOutDetails == null
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: _signInOutDetailsController.onClickSubmit,
+                          child: Container(
+                            height: 50.h,
+                            width: 50.h,
+                            decoration: const ShapeDecoration(
+                              color: AppColors.primary,
+                              shape: OvalBorder(),
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                AppImages.tick,
+                                color: AppColors.white,
+                                height: 30.h,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  23.horizontalSpace,
-                  GestureDetector(
-                    onTap: _signInOutDetailsController.onClickBack,
-                    child: Container(
-                      height: 50.h,
-                      width: 50.h,
-                      decoration: const ShapeDecoration(
-                        color: AppColors.blueDark,
-                        shape: OvalBorder(),
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.x,
-                          color: AppColors.white,
-                          height: 20.h,
+                        23.horizontalSpace,
+                        GestureDetector(
+                          onTap: _signInOutDetailsController.onClickBack,
+                          child: Container(
+                            height: 50.h,
+                            width: 50.h,
+                            decoration: const ShapeDecoration(
+                              color: AppColors.blueDark,
+                              shape: OvalBorder(),
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                AppImages.x,
+                                color: AppColors.white,
+                                height: 20.h,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                      ],
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),

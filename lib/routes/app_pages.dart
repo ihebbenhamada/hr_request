@@ -133,7 +133,9 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.loanDetails,
-      page: () => LoanDetailsScreen(),
+      page: () => LoanDetailsScreen(
+        screenTitle: 'Create Loan',
+      ),
       binding: LoanDetailsPageBindings(),
     ),
     GetPage(
@@ -209,7 +211,9 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.signInOutDetails,
-      page: () => SignInOutDetailsScreen(),
+      page: () => SignInOutDetailsScreen(
+        screenTitle: "",
+      ),
       binding: SignInOutDetailsPageBindings(),
     ),
     GetPage(

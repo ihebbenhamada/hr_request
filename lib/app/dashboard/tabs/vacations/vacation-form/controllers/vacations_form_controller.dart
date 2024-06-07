@@ -13,6 +13,7 @@ import '../services/vacations_form_service.dart';
 class VacationsFormController extends BaseController {
   /// SERVICES
   final VacationsFormService _vacationsFormService = VacationsFormService();
+  VacationsController vacationController = Get.find();
 
   /// CONTROLLERS
 
@@ -43,7 +44,6 @@ class VacationsFormController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    VacationsController vacationController = Get.find();
     if (vacationController.selectedVacation != null) {
       getUpdateVacation(vacationController);
     } else {
@@ -135,10 +135,9 @@ class VacationsFormController extends BaseController {
 
   getUpdateVacation(VacationsController vacationController) {
     selectedType.value = vacationController.selectedVacation!.vacationTypes
-        .where((element) =>
+        .firstWhere((element) =>
             element.value ==
-            vacationController.selectedVacation!.fKHrVacationTypeId.toString())
-        .first;
+            vacationController.selectedVacation!.fKHrVacationTypeId.toString());
     vacationTypeList.value = vacationController.selectedVacation!.vacationTypes;
     dateFrom.value =
         vacationController.selectedVacation!.dateFrom.substring(0, 10);
@@ -147,21 +146,24 @@ class VacationsFormController extends BaseController {
         .difference(DateTime.parse(dateFrom.value))
         .inDays
         .toString();
+
     employeesList.value = vacationController.selectedVacation!.employees;
-    selectedAlternativeToPay.value = vacationController
-        .selectedVacation!.employees
-        .where((element) =>
-            element.value ==
-            vacationController.selectedVacation!.fKAlternativeToPayingAnyDue
-                .toString())
-        .first;
-    selectedAlternativeEmployee.value = vacationController
-        .selectedVacation!.employees
-        .where((element) =>
-            element.value ==
-            vacationController.selectedVacation!.fKAlternativeEmployee
-                .toString())
-        .first;
+    selectedAlternativeToPay.value =
+        vacationController.selectedVacation!.employees.firstWhere(
+      (element) =>
+          element.value ==
+          vacationController.selectedVacation?.fKAlternativeToPayingAnyDue
+              .toString(),
+      orElse: () => vacationController.selectedVacation!.employees[0],
+    );
+    selectedAlternativeEmployee.value =
+        vacationController.selectedVacation!.employees.firstWhere(
+      (element) =>
+          element.value ==
+          vacationController.selectedVacation?.fKAlternativeEmployee.toString(),
+      orElse: () => vacationController.selectedVacation!.employees[0],
+    );
+
     remarkTextEditingController.text =
         vacationController.selectedVacation!.description;
   }

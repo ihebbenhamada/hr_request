@@ -117,17 +117,32 @@ class LoanController extends BaseController {
   }
 
   onClickLoanItem(Loan item) {
-    Get.to(
-      () => LoanDetailsScreen(loanItem: item),
-      transition: Transition.leftToRight,
-      curve: Curves.ease,
-      duration: const Duration(milliseconds: 500),
-    );
+    _loanService.getUpdateLoan(loanId: item.id).then((value) async {
+      if (value != null) {
+        AppInterceptor.hideLoader();
+        Get.to(
+          () => LoanDetailsScreen(loanItem: item, screenTitle: 'Loan Details'),
+          arguments: [
+            {
+              'loan': value,
+            },
+            {
+              'isDetail': true,
+            }
+          ],
+          transition: Transition.leftToRight,
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        );
+      }
+    });
   }
 
   void navigateAndRefresh() async {
     final result = await Get.to(
-      () => LoanDetailsScreen(),
+      () => LoanDetailsScreen(
+        screenTitle: 'Create Loan',
+      ),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
@@ -135,5 +150,33 @@ class LoanController extends BaseController {
     if (result != null) {
       getLoanList();
     }
+  }
+
+  void onClickUpdate({required int id, String? from}) {
+    AppInterceptor.showLoader();
+    _loanService.getUpdateLoan(loanId: id).then((value) async {
+      if (value != null) {
+        AppInterceptor.hideLoader();
+        final result = await Get.to(
+          () => LoanDetailsScreen(
+            screenTitle: 'Update Loan',
+          ),
+          transition: Transition.leftToRight,
+          arguments: [
+            {
+              'loan': value,
+            },
+            {
+              'isDetail': false,
+            }
+          ],
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        );
+        if (result != null) {
+          getLoanList();
+        }
+      }
+    });
   }
 }

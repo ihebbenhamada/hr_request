@@ -16,7 +16,9 @@ class LoanDetailsScreen extends StatelessWidget {
   LoanDetailsScreen({
     super.key,
     this.loanItem,
+    required this.screenTitle,
   });
+  final String screenTitle;
   final Loan? loanItem;
 
   @override
@@ -29,6 +31,35 @@ class LoanDetailsScreen extends StatelessWidget {
           child: Column(
             children: [
               (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Get.back(),
+                    child: Container(
+                      height: 40.h,
+                      width: 40.h,
+                      decoration: const ShapeDecoration(
+                        shape: OvalBorder(),
+                        color: AppColors.primary,
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          AppImages.back,
+                          height: 20.h,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  10.h.horizontalSpace,
+                  Text(
+                    screenTitle,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                ],
+              ),
               Center(
                 child: AvatarCircle(
                   image: AppImages.profile,
@@ -47,6 +78,10 @@ class LoanDetailsScreen extends StatelessWidget {
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     title: 'Payment Type',
+                    enabled: _loanDetailsController.isDetails != null &&
+                            _loanDetailsController.isDetails == true
+                        ? false
+                        : true,
                     inputType: 'select',
                     selectedDropDownItem:
                         _loanDetailsController.selectedPaymentType,
@@ -60,6 +95,10 @@ class LoanDetailsScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     title: 'Title',
                     inputType: 'input',
+                    enabled: _loanDetailsController.isDetails != null &&
+                            _loanDetailsController.isDetails == true
+                        ? false
+                        : true,
                     nbrLines: 1,
                     textEditingController:
                         _loanDetailsController.titleTextEditingController,
@@ -76,6 +115,10 @@ class LoanDetailsScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                       title: 'Loan Date',
                       inputType: 'date',
+                      enabled: _loanDetailsController.isDetails != null &&
+                              _loanDetailsController.isDetails == true
+                          ? false
+                          : true,
                       text: DateFormat('dd-MM-yyyy')
                           .format(_loanDetailsController.loanDate.value),
                       onSelectDate: () =>
@@ -89,6 +132,10 @@ class LoanDetailsScreen extends StatelessWidget {
                     title: 'Total Loans',
                     inputType: 'input',
                     nbrLines: 1,
+                    enabled: _loanDetailsController.isDetails != null &&
+                            _loanDetailsController.isDetails == true
+                        ? false
+                        : true,
                     keyboardType: TextInputType.number,
                     inputFormatter: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
@@ -113,52 +160,59 @@ class LoanDetailsScreen extends StatelessWidget {
                 title: 'Topic',
                 inputType: 'input',
                 nbrLines: 5,
+                enabled: _loanDetailsController.isDetails != null &&
+                        _loanDetailsController.isDetails == true
+                    ? false
+                    : true,
                 textEditingController:
                     _loanDetailsController.descriptionTextEditingController,
               ),
               30.h.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: _loanDetailsController.onClickSubmit,
-                    child: Container(
-                      height: 50.h,
-                      width: 50.h,
-                      decoration: const ShapeDecoration(
-                        color: AppColors.primary,
-                        shape: OvalBorder(),
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.tick,
-                          color: AppColors.white,
-                          height: 30.h,
+              _loanDetailsController.isDetails != null &&
+                      _loanDetailsController.isDetails == false
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: _loanDetailsController.onClickSubmit,
+                          child: Container(
+                            height: 50.h,
+                            width: 50.h,
+                            decoration: const ShapeDecoration(
+                              color: AppColors.primary,
+                              shape: OvalBorder(),
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                AppImages.tick,
+                                color: AppColors.white,
+                                height: 30.h,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  23.horizontalSpace,
-                  GestureDetector(
-                    onTap: _loanDetailsController.onClickBack,
-                    child: Container(
-                      height: 50.h,
-                      width: 50.h,
-                      decoration: const ShapeDecoration(
-                        color: AppColors.blueDark,
-                        shape: OvalBorder(),
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.x,
-                          color: AppColors.white,
-                          height: 20.h,
+                        23.horizontalSpace,
+                        GestureDetector(
+                          onTap: _loanDetailsController.onClickBack,
+                          child: Container(
+                            height: 50.h,
+                            width: 50.h,
+                            decoration: const ShapeDecoration(
+                              color: AppColors.blueDark,
+                              shape: OvalBorder(),
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                AppImages.x,
+                                color: AppColors.white,
+                                height: 20.h,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                      ],
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),

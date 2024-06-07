@@ -89,8 +89,11 @@ class EndPoints {
   /// LOAN
   static const String GET_EMP_LOANS_URL = '/ReqLoanAPI/GetEmployeeLoans';
   static const String GET_CREATE_LOAN_URL = '/ReqLoanAPI/Create';
+  static String GET_UPDATE_LOAN_URL(String loanId) =>
+      '/ReqLoanAPI/Edit?id=$loanId';
   static const String CREATE_LOAN_URL = '/ReqLoanAPI/Create';
   static const String UPDATE_LOAN_URL = '/ReqLoanAPI/Edit';
+  static String GET_LOAN_BY_ID_URL(String id) => '/ReqLoanAPI/Details?id=$id';
 
   /// BONUS
   static String GET_ALL_BONUS_URL = '/ReqBonusAPI/GetAllBonus';
@@ -137,6 +140,8 @@ class EndPoints {
       '/NotificationAPI/GetCounters';
 
   /// SIGN IN & SIGN OUT
+  static const String GET_SIGNIN_SIGNOUT_URL =
+      '/ReqSignInOutAPI/GetListSignInOut';
   static const String GET_CREATE_SIGNIN_SIGNOUT_URL = '/ReqSignInOutAPI/Create';
   static const String CREATE_SIGNIN_SIGNOUT_URL = '/ReqSignInOutAPI/Create';
 
@@ -216,4 +221,6 @@ class EndPoints {
       '/ReqMessagesAPI/GetAllMessageType';
   static const String SEND_MESSAGE_URL = '/ReqMessagesAPI/SendMessage';
   static const String REPLY_MESSAGE_URL = '/ReqMessagesAPI/ReplyMessage';
+
+  /// SIGN IN OUT
 }

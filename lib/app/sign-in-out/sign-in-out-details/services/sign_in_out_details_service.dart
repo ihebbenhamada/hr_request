@@ -15,8 +15,17 @@ class SignInOutDetailsService {
     }
   }
 
-  Future<bool?> createSignInOut() async {
-    Map<String, dynamic> data = {};
+  Future<bool?> createSignInOut({
+    required String attendType,
+    required String location,
+    required String areaName,
+  }) async {
+    Map<String, dynamic> data = {
+      "AttendType": attendType,
+      "Location": location,
+      "AreaName": areaName,
+      "IsDeleted": false
+    };
     Response? response = await AppInterceptor.dio
         ?.post(EndPoints.CREATE_SIGNIN_SIGNOUT_URL, data: data);
     if (response != null && response.statusCode == 200) {

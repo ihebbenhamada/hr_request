@@ -309,7 +309,7 @@ class PunishmentsScreen extends StatelessWidget {
                                       _punishmentsController.barGroups.value,
                                   barTouchData: BarTouchData(
                                     touchTooltipData: BarTouchTooltipData(
-                                      tooltipBgColor: AppColors.white,
+                                      //tooltipBgColor: AppColors.white,
                                       direction: TooltipDirection.top,
                                       tooltipPadding: EdgeInsets.zero,
                                       tooltipMargin: 0,

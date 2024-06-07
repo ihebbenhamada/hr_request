@@ -77,8 +77,8 @@ class LoanDetailsService {
     required bool isGeneralManager,
     required bool isFinancialDirector,
     required bool isGeneralDirector,
-    required int fKGeneralDirectorId,
-    required String generalDirector,
+    int? fKGeneralDirectorId,
+    String? generalDirector,
     required String employeeName,
     required int fKReqStatusId,
     required String paymentTypeName,
@@ -105,7 +105,7 @@ class LoanDetailsService {
     };
 
     Response? response =
-        await AppInterceptor.dio?.post(EndPoints.CREATE_LOAN_URL, data: data);
+        await AppInterceptor.dio?.post(EndPoints.UPDATE_LOAN_URL, data: data);
     if (response != null && response.statusCode == 200) {
       return true;
     } else {

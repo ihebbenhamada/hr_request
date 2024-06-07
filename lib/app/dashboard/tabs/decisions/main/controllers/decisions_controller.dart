@@ -2,6 +2,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:request_hr/app/dashboard/main/controller/dashboard-controller.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/main/model/get_decisions_response.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
@@ -14,6 +15,7 @@ class DecisionsController extends BaseController {
   final DecisionsService _decisionsService = DecisionsService();
 
   /// CONTROLLERS
+  final DashboardController _dashboardController = Get.find();
 
   /// VARIABLES
   RxList<DecisionsResponse> decisionList = <DecisionsResponse>[].obs;
@@ -35,6 +37,20 @@ class DecisionsController extends BaseController {
   }
 
   getListDecisions() {
+    _decisionsService.getDecisions().then((value) {
+      if (value != null) {
+        decisionList.value = value;
+      }
+      _dashboardController.isDecisionLoading.value = false;
+      if (_dashboardController.isMeetingLoading.isFalse &&
+          _dashboardController.isVacationLoading.isFalse) {
+        AppInterceptor.hideLoader();
+      }
+    });
+  }
+
+  Future<void> handleRefresh() async {
+    AppInterceptor.showLoader();
     _decisionsService.getDecisions().then((value) {
       if (value != null) {
         decisionList.value = value;

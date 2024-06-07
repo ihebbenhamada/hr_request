@@ -73,7 +73,7 @@ class AvatarCircle extends StatelessWidget {
                     },
                   )
                 : Image.asset(
-                    AppImages.profile,
+                    image,
                     width: imageSize ?? size,
                     height: imageSize ?? size,
                     color: imageColor,

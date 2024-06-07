@@ -14,6 +14,7 @@ class LoanItem extends StatelessWidget {
     required this.onClick,
     required this.editable,
     required this.type,
+    required this.onClickEdit,
   });
   final String title;
   final double cost;
@@ -22,6 +23,7 @@ class LoanItem extends StatelessWidget {
   final bool editable;
   final int type;
   final void Function() onClick;
+  final void Function()? onClickEdit;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -107,10 +109,13 @@ class LoanItem extends StatelessWidget {
             top: 9.h,
             right: 9.h,
             child: editable
-                ? Image.asset(
-                    AppImages.edit,
-                    height: 22.5.h,
-                    width: 22.5.h,
+                ? GestureDetector(
+                    onTap: onClickEdit,
+                    child: Image.asset(
+                      AppImages.edit,
+                      height: 22.5.h,
+                      width: 22.5.h,
+                    ),
                   )
                 : const SizedBox(),
           ),

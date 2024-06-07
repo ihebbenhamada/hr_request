@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -57,7 +56,8 @@ class DashboardScreen extends StatelessWidget {
                     onClickMessage: _dashboardController.onClickMessage,
                     onClickNotification:
                         _dashboardController.onClickNotification,
-                    image: _dashboardController.employee.value.imagePath ?? "",
+                    image: _dashboardController.employee.value.imagePath ??
+                        AppImages.profile,
                     name: _dashboardController.employee.value.fullNameEn,
                     job: _dashboardController.employee.value.jobName,
                   ),
@@ -102,8 +102,6 @@ class DashboardScreen extends StatelessWidget {
                             } else if (routeSettings.name ==
                                 AppRoutes.vacationsForm) {
                               Get.routing.args = routeSettings.arguments;
-
-                              log(routeSettings.arguments.toString());
                               return GetPageRoute(
                                 settings: routeSettings,
                                 routeName: AppRoutes.vacationsForm,
@@ -172,7 +170,7 @@ class DashboardScreen extends StatelessWidget {
                         HeaderDrawer(
                           image:
                               _dashboardController.employee.value.imagePath ??
-                                  "",
+                                  AppImages.profile,
                           name: _dashboardController.employee.value.fullNameEn,
                           job: _dashboardController.employee.value.jobName,
                           closeDrawer: () {
