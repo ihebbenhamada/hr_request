@@ -473,7 +473,7 @@ class DashboardController extends BaseController {
     selectedCompany = companyList[0].obs;
     selectedDepartment = departmentsList[0].obs;
     employee.value = Emp.fromJson(GetStorage().read('employee'));
-    Future.delayed(const Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       AppInterceptor.showLoader();
     });
   }

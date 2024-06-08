@@ -62,7 +62,7 @@ class PunishmentsController extends BaseController {
     _punishmentsService.getPunishmentChart().then((value) {
       if (value != null) {
         punishmentChart.value = value;
-        for (var i = 0; i < value.length - 6; i++) {
+        for (var i = 0; i < value.length; i++) {
           barGroups.add(generateGroupData(i + 1, value[i].count));
         }
       }
@@ -112,5 +112,10 @@ class PunishmentsController extends BaseController {
 
   onSelectChart(int index) {
     selectedChart.value = index;
+  }
+
+  Future<void> handleRefresh() async {
+    barGroups.clear();
+    getPunishmentList();
   }
 }

@@ -85,28 +85,34 @@ class MailScreen extends StatelessWidget {
                         20.h.verticalSpace,
                         GetBuilder<MailController>(
                           builder: (_) => Expanded(
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.only(bottom: 80.h),
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) {
-                                Mail item = _mailController.mailList[index];
-                                return EmailItem(
-                                  isSelected: item.isSelected,
-                                  image: item.filePath,
-                                  subject: item.subject,
-                                  sender: item.senderName,
-                                  description: item.description,
-                                  date: item.creationDate,
-                                  onClickItem: _mailController.onClickMail,
-                                  onSelectMail: () =>
-                                      _mailController.onSelectMail(index),
-                                );
-                              },
-                              separatorBuilder: (context, index) {
-                                return 16.h.verticalSpace;
-                              },
-                              itemCount: _mailController.mailList.length,
+                            child: RefreshIndicator(
+                              onRefresh: _mailController.handleRefresh,
+                              color: AppColors.white,
+                              backgroundColor: AppColors.primary,
+                              child: ListView.separated(
+                                shrinkWrap: true,
+                                padding: EdgeInsets.only(bottom: 80.h),
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  Mail item = _mailController.mailList[index];
+                                  return EmailItem(
+                                    isSelected: item.isSelected,
+                                    image: item.filePath,
+                                    subject: item.subject,
+                                    sender: item.senderName,
+                                    description: item.description,
+                                    date: item.creationDate,
+                                    onClickItem: () => _mailController
+                                        .onClickMail(mail: item, from: "list"),
+                                    onSelectMail: () =>
+                                        _mailController.onSelectMail(index),
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return 16.h.verticalSpace;
+                                },
+                                itemCount: _mailController.mailList.length,
+                              ),
                             ),
                           ),
                         ),
@@ -158,17 +164,23 @@ class MailScreen extends StatelessWidget {
                               ),
                             ),
                             40.horizontalSpace,
-                            Image.asset(
-                              AppImages.refreshEmail,
-                              height: 24.h,
+                            GestureDetector(
+                              onTap: _mailController.handleRefresh,
+                              child: Image.asset(
+                                AppImages.refreshEmail,
+                                height: 24.h,
+                              ),
                             ),
                           ],
                         ),
                         Row(
                           children: [
-                            Image.asset(
-                              AppImages.replayEmail,
-                              height: 24.h,
+                            GestureDetector(
+                              onTap: _mailController.replayEmail,
+                              child: Image.asset(
+                                AppImages.replayEmail,
+                                height: 24.h,
+                              ),
                             ),
                             40.horizontalSpace,
                             GestureDetector(

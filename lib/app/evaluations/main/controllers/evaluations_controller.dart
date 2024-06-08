@@ -129,4 +129,8 @@ class EvaluationsController extends BaseController {
       percentage.value = (a / b).toString();
     }
   }
+
+  Future<void> handleRefresh() async {
+    getListEvaluations();
+  }
 }

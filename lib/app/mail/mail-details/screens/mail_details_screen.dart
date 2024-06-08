@@ -52,6 +52,7 @@ class MailDetailsScreen extends StatelessWidget {
                 color: AppColors.white.withOpacity(0.1),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -68,7 +69,7 @@ class MailDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'Dina Gamal',
+                              _mailDetailsController.mail.value.senderName,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
@@ -90,7 +91,7 @@ class MailDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'Sales Manager',
+                              _mailDetailsController.mail.value.subject,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
@@ -103,7 +104,7 @@ class MailDetailsScreen extends StatelessWidget {
                   ),
                   5.h.verticalSpace,
                   Text(
-                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book',
+                    _mailDetailsController.mail.value.description,
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: AppColors.white,
@@ -144,31 +145,34 @@ class MailDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       5.horizontalSpace,
-                      Container(
-                        width: 104,
-                        padding: EdgeInsets.symmetric(vertical: 7.h),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: AppColors.primary,
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                AppImages.attachEmail,
-                                height: 16.h,
-                                color: AppColors.white,
-                              ),
-                              11.horizontalSpace,
-                              Text(
-                                'Download',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
+                      GestureDetector(
+                        onTap: _mailDetailsController.downloadFile,
+                        child: Container(
+                          width: 104,
+                          padding: EdgeInsets.symmetric(vertical: 7.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: AppColors.primary,
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  AppImages.attachEmail,
+                                  height: 16.h,
                                   color: AppColors.white,
                                 ),
-                              ),
-                            ],
+                                11.horizontalSpace,
+                                Text(
+                                  'Download',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -178,7 +182,8 @@ class MailDetailsScreen extends StatelessWidget {
               ),
             ),
             Obx(
-              () => _mailDetailsController.isReplay.value
+              () => _mailDetailsController.isReplay.value ||
+                      _mailDetailsController.from.value == 'replay'
                   ? Column(
                       children: [
                         19.h.verticalSpace,
@@ -359,6 +364,7 @@ class MailDetailsScreen extends StatelessWidget {
                 onClick: _mailDetailsController.onClickBack,
                 isPrimary: false,
               ),
+              30.h.verticalSpace,
             ],
           ),
         ),

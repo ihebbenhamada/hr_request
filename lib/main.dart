@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/config/network/dependency_injection.dart';
@@ -12,6 +13,12 @@ Future<void> main() async {
   /// INITIALIZE STORAGE
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(
+      debug:
+          true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl:
+          true // option: set to false to disable working with http links (default: false)
+      );
   configureGlobalLoader();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

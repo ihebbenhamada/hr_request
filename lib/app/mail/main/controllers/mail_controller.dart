@@ -178,9 +178,10 @@ class MailController extends BaseController {
     );
   }
 
-  onClickMail() {
+  onClickMail({required Mail mail, required String from}) {
     Get.to(
       () => MailDetailsScreen(),
+      arguments: [mail, from],
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
@@ -232,6 +233,14 @@ class MailController extends BaseController {
       isDismissible: true,
       enableDrag: true,
     );
+  }
+
+  replayEmail() {
+    int lengthSelected = mailList.where((map) => map.isSelected == true).length;
+    if (lengthSelected == 1) {
+      Mail mail = mailList.where((map) => map.isSelected == true).first;
+      onClickMail(mail: mail, from: "replay");
+    }
   }
 
   onClickMenuMail(BuildContext context) {
@@ -292,5 +301,9 @@ class MailController extends BaseController {
         dateTo.value = pickedDate;
       }
     }
+  }
+
+  Future<void> handleRefresh() async {
+    getMails();
   }
 }

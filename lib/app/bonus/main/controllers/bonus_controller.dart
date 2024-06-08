@@ -49,7 +49,7 @@ class BonusController extends BaseController {
     _bonusService.getBonus().then((value) {
       if (value != null) {
         bonusResponse.value = value;
-        for (var i = 0; i < value.chart.length - 6; i++) {
+        for (var i = 0; i < value.chart.length; i++) {
           barGroups.add(generateGroupData(i + 1, value.chart[i].count));
         }
       }
@@ -99,5 +99,10 @@ class BonusController extends BaseController {
 
   onSelectChart(int index) {
     selectedChart.value = index;
+  }
+
+  Future<void> handleRefresh() async {
+    barGroups.clear();
+    getBonusList();
   }
 }

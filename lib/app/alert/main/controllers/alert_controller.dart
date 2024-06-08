@@ -24,6 +24,7 @@ class AlertController extends BaseController {
   RxInt showingTooltip = 1.obs;
   bool isAdmin = false;
   GetStorage storage = GetStorage();
+  RxList<BarChartGroupData> barGroups = <BarChartGroupData>[].obs;
 
   /// VALIDATION
 
@@ -48,22 +49,9 @@ class AlertController extends BaseController {
     _alertService.getAlertsList().then((value) {
       if (value != null) {
         alertResponse.value = value;
-        alertResponse.value.alerts = [
-          Alert(
-            id: 1,
-            subject: "aaa",
-            creationDate: "2024-04-10",
-            isDeleted: false,
-            imagePath: "",
-            isActive: true,
-            assigneeName: "iheb",
-            byAssigneeName: "hobba",
-            fKHrAssigneeById: 1,
-            fKHrAssigneeId: 1,
-            fKReqAlertId: 1,
-            lastModifiedDate: "2024-04-20",
-          ),
-        ];
+        for (var i = 0; i < value.chart.length; i++) {
+          barGroups.add(generateGroupData(i + 1, value.chart[i].count));
+        }
       }
       AppInterceptor.hideLoader();
     });
@@ -111,5 +99,10 @@ class AlertController extends BaseController {
 
   onSelectChart(int index) {
     selectedChart.value = index;
+  }
+
+  Future<void> handleRefresh() async {
+    barGroups.clear();
+    getAlertsList();
   }
 }

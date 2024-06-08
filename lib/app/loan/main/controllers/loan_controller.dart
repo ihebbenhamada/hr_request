@@ -152,6 +152,12 @@ class LoanController extends BaseController {
     }
   }
 
+  Future<void> handleRefresh() async {
+    AppInterceptor.showLoader();
+    selectedFilter.value = 0;
+    getLoanList();
+  }
+
   void onClickUpdate({required int id, String? from}) {
     AppInterceptor.showLoader();
     _loanService.getUpdateLoan(loanId: id).then((value) async {
