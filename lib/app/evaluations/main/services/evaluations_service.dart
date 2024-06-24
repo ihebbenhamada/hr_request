@@ -19,11 +19,15 @@ class EvaluationsService {
   }*/
 
   Future<EvaluationResponse?> getEvaluations() async {
-    Response? response = await AppInterceptor.dio
-        ?.get(EndPoints.GET_EVALUATED_EMPLOYEE_EVALUATIONS_URL);
-    if (response != null && response.statusCode == 200) {
-      return EvaluationResponse.fromJson(response.data);
-    } else {
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.get(EndPoints.GET_EVALUATED_EMPLOYEE_EVALUATIONS_URL);
+      if (response != null && response.statusCode == 200) {
+        return EvaluationResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

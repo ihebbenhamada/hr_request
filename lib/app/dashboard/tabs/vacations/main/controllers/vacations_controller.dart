@@ -73,7 +73,9 @@ class VacationsController extends BaseController {
         leftDays.value = value.leftDays;
         takenDays.value = value.takenDays;
         vacationPercentage.value = value.vacationsPercentage;
-        nextVacation.value = value.nextVacation;
+        nextVacation.value = value.nextVacation.toLowerCase().contains("no")
+            ? "No vacations"
+            : value.nextVacation;
         allVacationsList.value = value.all.map((e) {
           e.color = e.fKReqStatusId == 9
               ? AppColors.gray5

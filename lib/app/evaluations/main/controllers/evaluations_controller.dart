@@ -78,12 +78,12 @@ class EvaluationsController extends BaseController {
     List<BarChartGroupData> list = <BarChartGroupData>[];
     for (int i = 0; i < listChart.length; i++) {
       list.add(BarChartGroupData(
-        x: listChart[i].month ?? 0,
+        x: listChart[i].month,
         showingTooltipIndicators:
-            showingTooltip.value == (listChart[i].month ?? 0) ? [0] : [],
+            showingTooltip.value == (listChart[i].month) ? [0] : [],
         barRods: [
           BarChartRodData(
-            toY: (listChart[i].monthDegreeScalePercentage ?? 0).toDouble(),
+            toY: (listChart[i].monthDegreeScalePercentage).toDouble(),
             color: AppColors.blue2,
             width: 15,
             borderRadius: BorderRadius.circular(8),

@@ -20,7 +20,6 @@ import 'package:request_hr/app/loan/main/screens/loan_screen.dart';
 import 'package:request_hr/app/mail/create-mail/screens/create_mail_screen.dart';
 import 'package:request_hr/app/mail/mail-details/screens/mail_details_screen.dart';
 import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
-import 'package:request_hr/app/mail/replay-mail/screens/replay_mail_screen.dart';
 import 'package:request_hr/app/notification/screens/notifications_screen.dart';
 import 'package:request_hr/app/punishments/main/screens/punishments_screen.dart';
 import 'package:request_hr/app/punishments/punishments-details/screens/punishments_details_screen.dart';
@@ -100,11 +99,6 @@ class AppPages {
       name: AppRoutes.mailDetails,
       page: () => MailDetailsScreen(),
       binding: MailDetailsPageBindings(),
-    ),
-    GetPage(
-      name: AppRoutes.replyMail,
-      page: () => ReplayMailScreen(),
-      binding: ReplayMailPageBindings(),
     ),
     GetPage(
       name: AppRoutes.vacationsSteps,

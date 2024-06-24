@@ -7,25 +7,32 @@ import '../../loan-details/models/create_loan.dart';
 
 class LoanService {
   Future<LoanResponse?> getEmpLoans() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_EMP_LOANS_URL);
-    if (response != null && response.statusCode == 200) {
-      LoanResponse empLoanResponse = LoanResponse.fromJson(response.data);
-
-      return empLoanResponse;
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_EMP_LOANS_URL);
+      if (response != null && response.statusCode == 200) {
+        LoanResponse empLoanResponse = LoanResponse.fromJson(response.data);
+        return empLoanResponse;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }
 
   Future<CreateLoan?> getUpdateLoan({required int loanId}) async {
-    Response? response = await AppInterceptor.dio
-        ?.get(EndPoints.GET_UPDATE_LOAN_URL(loanId.toString()));
-    if (response != null && response.statusCode == 200) {
-      CreateLoan empLoanResponse = CreateLoan.fromJson(response.data);
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.get(EndPoints.GET_UPDATE_LOAN_URL(loanId.toString()));
+      if (response != null && response.statusCode == 200) {
+        CreateLoan empLoanResponse = CreateLoan.fromJson(response.data);
 
-      return empLoanResponse;
-    } else {
+        return empLoanResponse;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

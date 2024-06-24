@@ -34,11 +34,17 @@ class HeaderDrawer extends StatelessWidget {
                 isBorderEnabled: false,
               ),
               6.horizontalSpace,
-              Text(
-                '$name,\n$job',
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: 16.sp,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: Text(
+                  '$name,\n$job',
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontSize: 16.sp,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
                 ),
               )
             ],

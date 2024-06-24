@@ -23,11 +23,15 @@ class MeetingsDetailsService {
       "meetingPoints": meetingPoints,
       "assignees ": assignees
     };
-    Response? response = await AppInterceptor.dio
-        ?.post(EndPoints.CREATE_MEETING_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return response.data;
-    } else {
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_MEETING_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return response.data;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

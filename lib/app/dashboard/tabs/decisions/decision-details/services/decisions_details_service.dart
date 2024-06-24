@@ -15,11 +15,15 @@ class DecisionsDetailsService {
       "subject": subject,
       "description": description
     };
-    Response? response = await AppInterceptor.dio
-        ?.post(EndPoints.CREATE_DECISIONS_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return true;
-    } else {
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_DECISIONS_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

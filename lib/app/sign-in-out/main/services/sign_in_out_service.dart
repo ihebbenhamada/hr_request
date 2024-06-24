@@ -6,14 +6,18 @@ import '../../../../config/interceptor/interceptor.dart';
 
 class SignInOutService {
   Future<List<SignInOut>?> getSignInOutList() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_SIGNIN_SIGNOUT_URL);
-    if (response != null && response.statusCode == 200) {
-      List<SignInOut> signInOutList = (response.data as List<dynamic>)
-          .map((json) => SignInOut.fromJson(json))
-          .toList();
-      return signInOutList;
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_SIGNIN_SIGNOUT_URL);
+      if (response != null && response.statusCode == 200) {
+        List<SignInOut> signInOutList = (response.data as List<dynamic>)
+            .map((json) => SignInOut.fromJson(json))
+            .toList();
+        return signInOutList;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

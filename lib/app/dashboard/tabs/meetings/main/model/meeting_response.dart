@@ -17,10 +17,10 @@ class MeetingResponse {
   final int? submitType;
   final bool? isActive;
   final bool? isDeleted;
-  final List<int>? hdnAttachmentIds;
+  List<int?>? hdnAttachmentIds = [];
   final int? fKHrDepartmentId;
-  final List<int>? assignees;
-  final List<int>? departmentsIds;
+  List<int?>? assignees = [];
+  List<int?>? departmentsIds = [];
   final List<MeetingPoint>? meetingPoints;
 
   MeetingResponse({

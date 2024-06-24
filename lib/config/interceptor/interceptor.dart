@@ -4,12 +4,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../api-urls/end_points.dart';
-import '../colors/colors.dart';
 
 class AppInterceptor {
   static Dio? _dio;
@@ -113,15 +110,6 @@ class AppInterceptor {
 
       log('⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️⛔️');
     }
-    Fluttertoast.showToast(
-      msg: dioException.type.name,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: AppColors.redLight,
-      textColor: AppColors.white,
-      fontSize: 16.0.sp,
-    );
   }
 
   static void _reestablishDefaultConfig() {

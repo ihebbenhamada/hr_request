@@ -25,7 +25,6 @@ import 'package:request_hr/app/loan/main/controllers/loan_controller.dart';
 import 'package:request_hr/app/mail/create-mail/controllers/create_mail_controller.dart';
 import 'package:request_hr/app/mail/mail-details/controllers/mail_details_controller.dart';
 import 'package:request_hr/app/mail/main/controllers/mail_controller.dart';
-import 'package:request_hr/app/mail/replay-mail/controllers/replay_mail_controller.dart';
 import 'package:request_hr/app/notification/controllers/notifications_controller.dart';
 import 'package:request_hr/app/punishments/main/controllers/punishments_controller.dart';
 import 'package:request_hr/app/punishments/punishments-details/controllers/punishments_details_controller.dart';
@@ -49,7 +48,6 @@ class Binding extends Bindings {
     Get.lazyPut(() => MailController());
     Get.lazyPut(() => CreateMailController());
     Get.lazyPut(() => MailDetailsController());
-    Get.lazyPut(() => ReplayMailController());
     Get.lazyPut(() => MeetingsController());
     Get.lazyPut(() => MeetingsDetailsController());
     Get.lazyPut(() => VacationsController());

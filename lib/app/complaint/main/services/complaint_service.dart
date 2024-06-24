@@ -6,11 +6,15 @@ import '../models/complaint_response.dart';
 
 class ComplaintService {
   Future<ComplaintResponse?> getComplaints() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_COMPLAINTS_HOME_PAGE_URL);
-    if (response != null && response.statusCode == 200) {
-      return ComplaintResponse.fromJson(response.data);
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_COMPLAINTS_HOME_PAGE_URL);
+      if (response != null && response.statusCode == 200) {
+        return ComplaintResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

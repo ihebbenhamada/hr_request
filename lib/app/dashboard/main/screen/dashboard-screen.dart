@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:request_hr/app/bonus/bonus-details/screens/bonus_details_screen.dart';
+import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/main/screens/meetings_screen.dart';
@@ -140,8 +142,29 @@ class DashboardScreen extends StatelessWidget {
                                 AppRoutes.meetingsDetails) {
                               return GetPageRoute(
                                 routeName: AppRoutes.meetingsDetails,
-                                page: () => MeetingsDetailsScreen(),
+                                page: () => const MeetingsDetailsScreen(),
                                 binding: MeetingsDetailsPageBindings(),
+                              );
+                            }
+                            return null;
+                          },
+                        ),
+                        Navigator(
+                          key: Get.nestedKey(nestedNavigationBonusId),
+                          initialRoute: AppRoutes.bonus,
+                          onGenerateRoute: (routeSettings) {
+                            if (routeSettings.name == AppRoutes.bonus) {
+                              return GetPageRoute(
+                                routeName: AppRoutes.bonus,
+                                page: () => BonusScreen(),
+                                binding: BonusPageBindings(),
+                              );
+                            } else if (routeSettings.name ==
+                                AppRoutes.bonusDetails) {
+                              return GetPageRoute(
+                                routeName: AppRoutes.bonusDetails,
+                                page: () => BonusDetailsScreen(),
+                                binding: BonusDetailsPageBindings(),
                               );
                             }
                             return null;
@@ -197,10 +220,16 @@ class DashboardScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  DateFormat('ddMMM., yyyy').format(
-                                    DateTime.parse(_dashboardController
-                                        .employee.value.contractDueDate),
-                                  ),
+                                  _dashboardController
+                                              .employee.value.contractDueDate !=
+                                          null
+                                      ? DateFormat('dd-MM-yyyy').format(
+                                          DateTime.parse(
+                                            _dashboardController.employee.value
+                                                .contractDueDate!,
+                                          ),
+                                        )
+                                      : "--/--/---",
                                   style: TextStyle(
                                     color: AppColors.white,
                                     fontSize: 20.sp,
@@ -226,10 +255,12 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                     5.horizontalSpace,
                                     Text(
-                                      'Start Job: ${DateFormat('dd-MM-yyyy').format(
-                                        DateTime.parse(_dashboardController
-                                            .employee.value.contractStartDate),
-                                      )}',
+                                      'Start Job: ${_dashboardController.employee.value.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
+                                          DateTime.parse(
+                                            _dashboardController.employee.value
+                                                .contractStartDate!,
+                                          ),
+                                        ) : "--/--/---"}',
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 14.sp,
@@ -307,26 +338,34 @@ class DashboardScreen extends StatelessWidget {
                 index: _dashboardController.pageIndex.value,
                 height: Platform.isIOS ? 50.h : 64.h,
                 items: <Widget>[
-                  Image.asset(AppImages.decisions,
-                      height: 29.h,
-                      width: 29.h,
-                      color: _dashboardController.decisionsIconColor.value),
-                  Image.asset(AppImages.vacations,
-                      height: 29.h,
-                      width: 29.h,
-                      color: _dashboardController.vacationsIconColor.value),
-                  Image.asset(AppImages.innTechLogo,
-                      height: 29.h,
-                      width: 29.h,
-                      color: _dashboardController.innTechIconColor.value),
-                  Image.asset(AppImages.meetings,
-                      height: 29,
-                      width: 29,
-                      color: _dashboardController.meetingIconColor.value),
                   Image.asset(
-                    AppImages.searchMail,
+                    AppImages.decisions,
                     height: 29.h,
                     width: 29.h,
+                    color: _dashboardController.decisionsIconColor.value,
+                  ),
+                  Image.asset(
+                    AppImages.vacations,
+                    height: 29.h,
+                    width: 29.h,
+                    color: _dashboardController.vacationsIconColor.value,
+                  ),
+                  Image.asset(
+                    AppImages.innTechLogo,
+                    height: 29.h,
+                    width: 29.h,
+                    color: _dashboardController.innTechIconColor.value,
+                  ),
+                  Image.asset(
+                    AppImages.meetings,
+                    height: 29,
+                    width: 29,
+                    color: _dashboardController.meetingIconColor.value,
+                  ),
+                  Image.asset(
+                    AppImages.bonusDrawer,
+                    height: 25.h,
+                    width: 25.h,
                     color: _dashboardController.searchIconColor.value,
                   ),
                 ],

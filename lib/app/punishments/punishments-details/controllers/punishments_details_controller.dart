@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../../../../api/models/public/department.dart';
+import '../../../../api/models/public/employee.dart';
+import '../../../../api/requests/public_api.dart';
 import '../../../../config/interceptor/interceptor.dart';
 import '../../../auth/login/models/login_response.dart';
 import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
@@ -12,6 +15,7 @@ class PunishmentsDetailsController extends BaseController {
   /// SERVICES
   final PunishmentsDetailsService _punishmentsDetailsService =
       PunishmentsDetailsService();
+  final PublicApiServices _publicApiServices = PublicApiServices();
 
   /// CONTROLLERS
   final TextEditingController amountTextEditingController =
@@ -22,7 +26,10 @@ class PunishmentsDetailsController extends BaseController {
       TextEditingController();
 
   /// VARIABLES
-
+  RxList<Department> departmentList = <Department>[].obs;
+  RxList<Employee> employeeList = <Employee>[].obs;
+  Rx<Department> selectedDepartment = Department(id: 0).obs;
+  RxList<Employee> selectedEmployees = <Employee>[].obs;
   final List<DropDownModel> employeesList = [
     DropDownModel(disabled: false, text: 'Choose', value: '0'),
     DropDownModel(disabled: false, text: 'Mohamed Ahmed', value: '1'),
@@ -85,8 +92,8 @@ class PunishmentsDetailsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
+    getDepartments();
     employee.value = Emp.fromJson(GetStorage().read('employee'));
-
     selectedEmployee = employeesList[0].obs;
   }
 
@@ -117,5 +124,33 @@ class PunishmentsDetailsController extends BaseController {
       }
       AppInterceptor.hideLoader();
     });
+  }
+
+  getDepartments() {
+    AppInterceptor.showLoader();
+    _publicApiServices.getDepartments().then((listDepartments) {
+      if (listDepartments != null) {
+        departmentList.value = listDepartments;
+        selectedDepartment.value = listDepartments[0];
+        getEmployeesByDepartment(id: listDepartments[0].id.toString());
+      }
+    });
+  }
+
+  getEmployeesByDepartment({required String id}) {
+    _publicApiServices.getEmployeesByDepartment(id: id).then((listEmployees) {
+      if (listEmployees != null) {
+        employeeList.value = listEmployees;
+        selectedEmployees.value = [listEmployees[0]];
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
+  Future<List<Employee>> searchEmployee(String value) async {
+    return employeeList
+        .where((employee) =>
+            employee.fullName!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
   }
 }

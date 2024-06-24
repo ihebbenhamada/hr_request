@@ -14,11 +14,15 @@ class LoginService {
       "Password": password,
       "FK_DefBranchId": 4,
     };
-    Response? response =
-        await AppInterceptor.dio?.post(EndPoints.LOGIN_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return LoginResponse.fromJson(response.data);
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.post(EndPoints.LOGIN_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return LoginResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

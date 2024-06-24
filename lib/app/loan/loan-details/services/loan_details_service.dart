@@ -6,12 +6,16 @@ import '../models/create_loan.dart';
 
 class LoanDetailsService {
   Future<CreateLoan?> getCreateLoan() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_CREATE_LOAN_URL);
-    if (response != null && response.statusCode == 200) {
-      CreateLoan getCreateLoanResponse = CreateLoan.fromJson(response.data);
-      return getCreateLoanResponse;
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_CREATE_LOAN_URL);
+      if (response != null && response.statusCode == 200) {
+        CreateLoan getCreateLoanResponse = CreateLoan.fromJson(response.data);
+        return getCreateLoanResponse;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }
@@ -54,11 +58,15 @@ class LoanDetailsService {
       "FK_ReqStatusId": fKReqStatusId,
       "PaymentTypeName": paymentTypeName
     };
-    Response? response =
-        await AppInterceptor.dio?.post(EndPoints.CREATE_LOAN_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return true;
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.post(EndPoints.CREATE_LOAN_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }
@@ -103,12 +111,15 @@ class LoanDetailsService {
       "FK_ReqStatusId": fKReqStatusId,
       "PaymentTypeName": paymentTypeName
     };
-
-    Response? response =
-        await AppInterceptor.dio?.post(EndPoints.UPDATE_LOAN_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return true;
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.post(EndPoints.UPDATE_LOAN_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

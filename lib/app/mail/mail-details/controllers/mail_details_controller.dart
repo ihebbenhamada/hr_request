@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
@@ -83,36 +84,14 @@ class MailDetailsController extends BaseController {
   }
 
   Future<void> openFile(String filePath) async {
-    final result = await OpenFile.open(filePath);
+    final result = await OpenFile.open(filePath, type: 'pdf');
     log("type=${result.type}  message=${result.message}");
   }
 
   void downloadFile() async {
     final downloadDirectory = await _getDownloadDirectory();
-    log(downloadDirectory ?? 'fsiled');
-    final taskId = await FlutterDownloader.enqueue(
-      fileName: 'document',
-      url:
-          'https://file-examples.com/storage/fe4e1227086659fa1a24064/2017/10/file-example_PDF_500_kB.pdf',
-      savedDir: downloadDirectory ?? '/storage/emulated/0/Download',
-      saveInPublicStorage: true,
-      showNotification:
-          true, // show download progress in status bar (for Android)
-      openFileFromNotification: true,
-      // click on notification to open downloaded file (for Android)
-    );
     String filePath = '';
-    if (downloadDirectory == null) {
-      filePath = '/storage/emulated/0/Download/document';
-    } else {
-      filePath = '$downloadDirectory/document';
-    }
-
-    if (taskId != null) {
-      openFile(filePath);
-    }
-    // Check storage permission
-    /*DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     Permission permissionToRequest;
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -124,19 +103,22 @@ class MailDetailsController extends BaseController {
         permissionToRequest = Permission.photos;
       }
       if (await permissionToRequest.request().isGranted) {
-        // Get the external storage directory
-        Directory? directory = await getExternalStorageDirectory();
-        String path = '${directory?.path}/hobba.pdf';
-
-        // Download the file
-        Dio dio = Dio();
-        try {
-          await dio.download(
+        final taskId = await FlutterDownloader.enqueue(
+          fileName: 'document.pdf',
+          url:
               'https://file-examples.com/storage/fe4e1227086659fa1a24064/2017/10/file-example_PDF_500_kB.pdf',
-              path);
-          print('File downloaded to $path');
-        } catch (e) {
-          print('Error downloading file: $e');
+          savedDir: downloadDirectory ?? '/storage/emulated/0/Download',
+          saveInPublicStorage: true,
+          showNotification: true,
+          openFileFromNotification: true,
+        );
+        if (downloadDirectory == null) {
+          filePath = '/storage/emulated/0/Download/document';
+        } else {
+          filePath = '$downloadDirectory/document.pdf';
+        }
+        if (taskId != null) {
+          openFile(filePath);
         }
       } else {
         print('Storage permission denied');
@@ -144,7 +126,24 @@ class MailDetailsController extends BaseController {
     } else if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       permissionToRequest = Permission.photos;
-    }*/
+      final taskId = await FlutterDownloader.enqueue(
+        fileName: 'document.pdf',
+        url:
+            'https://file-examples.com/storage/fe4e1227086659fa1a24064/2017/10/file-example_PDF_500_kB.pdf',
+        savedDir: downloadDirectory ?? '/storage/emulated/0/Download',
+        saveInPublicStorage: true,
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+      if (downloadDirectory == null) {
+        filePath = '/storage/emulated/0/Download/document';
+      } else {
+        filePath = '$downloadDirectory/document.pdf';
+      }
+      if (taskId != null) {
+        openFile(filePath);
+      }
+    }
   }
 
   /// FUNCTIONS

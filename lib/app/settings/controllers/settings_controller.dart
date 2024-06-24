@@ -59,8 +59,7 @@ class SettingsController extends BaseController {
   }
 
   logout() {
-    storage.remove('user');
-    storage.remove('token');
+    storage.erase();
     Get.offAll(
       () => LoginScreen(),
       transition: Transition.rightToLeft,

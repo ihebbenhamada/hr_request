@@ -6,16 +6,20 @@ import '../model/get_decisions_response.dart';
 
 class DecisionsService {
   Future<List<DecisionsResponse>?> getDecisions() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_DECISIONS_URL);
-    if (response != null && response.statusCode == 200) {
-      List<DecisionsResponse> decisionResponseList =
-          (response.data as List<dynamic>)
-              .map((json) => DecisionsResponse.fromJson(json))
-              .toList();
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_DECISIONS_URL);
+      if (response != null && response.statusCode == 200) {
+        List<DecisionsResponse> decisionResponseList =
+            (response.data as List<dynamic>)
+                .map((json) => DecisionsResponse.fromJson(json))
+                .toList();
 
-      return decisionResponseList;
-    } else {
+        return decisionResponseList;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

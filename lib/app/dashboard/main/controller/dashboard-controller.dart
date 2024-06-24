@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/auth/login/models/login_response.dart';
-import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
 import 'package:request_hr/app/complaint/main/screens/complaint_screen.dart';
 import 'package:request_hr/app/custody/main/screens/custody_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
@@ -18,7 +17,6 @@ import 'package:request_hr/app/sign-in-out/main/screens/sign_in_out_screen.dart'
 import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
-import 'package:request_hr/widgets/search-bottom-sheet/search_bottom_sheet.dart';
 
 import '../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/image_urls/image_urls.dart';
@@ -238,28 +236,12 @@ class DashboardController extends BaseController {
         decisionsIconColor.value = AppColors.white;
         break;
       case 4:
+        pageIndex.value = index;
         searchIconColor.value = AppColors.primary;
         vacationsIconColor.value = AppColors.white;
         innTechIconColor.value = AppColors.white;
         decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
-        pageIndex.value = pageIndex.value;
-        Get.bottomSheet(
-          SearchBottomSheet(
-            dateFrom: dateFrom,
-            dateTo: dateTo,
-            selectDate: (context, value) => selectDate(context, value),
-            companyList: companyList,
-            selectedCompany: selectedCompany,
-            departmentsList: departmentsList,
-            selectedDepartment: selectedDepartment,
-            onSelectCompany: (value) => onSelectCompany(value),
-            onSelectDepartment: (value) => onSelectDepartment(value),
-          ),
-          barrierColor: AppColors.primary.withOpacity(0.54),
-          isDismissible: false,
-          enableDrag: false,
-        );
         break;
       default:
         break;
@@ -317,7 +299,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 5:
@@ -328,18 +310,17 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 6:
         // Navigate to Bonus
         Get.back();
-        pageIndex.value = 2;
-        Get.to(() => BonusScreen());
-        innTechIconColor.value = AppColors.primary;
-        searchIconColor.value = AppColors.white;
+        pageIndex.value = 4;
+        searchIconColor.value = AppColors.primary;
+        innTechIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 7:
@@ -350,7 +331,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 8:
@@ -361,7 +342,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 9:
@@ -372,7 +353,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 10:
@@ -393,7 +374,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 12:
@@ -404,7 +385,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 13:
@@ -415,7 +396,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 14:
@@ -426,7 +407,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 15:
@@ -437,7 +418,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
       case 16:
@@ -448,7 +429,7 @@ class DashboardController extends BaseController {
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
-        searchIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
         meetingIconColor.value = AppColors.white;
         break;
 

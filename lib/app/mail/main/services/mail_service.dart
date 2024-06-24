@@ -6,14 +6,18 @@ import '../../../../config/interceptor/interceptor.dart';
 
 class MailService {
   Future<List<Mail>?> getMailList() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_ALL_MESSAGES_URL(null));
-    if (response != null && response.statusCode == 200) {
-      List<Mail> mailResponseList = (response.data as List<dynamic>)
-          .map((json) => Mail.fromJson(json))
-          .toList();
-      return mailResponseList;
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_ALL_MESSAGES_URL(null));
+      if (response != null && response.statusCode == 200) {
+        List<Mail> mailResponseList = (response.data as List<dynamic>)
+            .map((json) => Mail.fromJson(json))
+            .toList();
+        return mailResponseList;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

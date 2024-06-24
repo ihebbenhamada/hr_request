@@ -235,11 +235,14 @@ class MailController extends BaseController {
     );
   }
 
-  replayEmail() {
+  replayEmail({bool? isMenu}) {
     int lengthSelected = mailList.where((map) => map.isSelected == true).length;
     if (lengthSelected == 1) {
       Mail mail = mailList.where((map) => map.isSelected == true).first;
       onClickMail(mail: mail, from: "replay");
+    }
+    if (isMenu != null) {
+      Get.back();
     }
   }
 
@@ -250,7 +253,7 @@ class MailController extends BaseController {
         onClickDeselectAll: onDeselectAll,
         onClickInverse: onDeselectAll,
         onClickDelete: onDeleteMails,
-        onClickReplay: onSelectAll,
+        onClickReplay: replayEmail,
       ),
       barrierColor: AppColors.primary.withOpacity(0.54),
       isDismissible: true,

@@ -59,6 +59,8 @@ class EndPoints {
 
   static String APOLOGY_MEETING_URL(String id, String reason) =>
       '/ReqMeetingsAPI/Apology?id=$id&reason=$reason';
+  static String GET_MEETING_BY_ID_URL(String id) =>
+      '/ReqMeetingsAPI/GetMeetingById?id=$id';
 
   /// PUBLIC
   static const String GET_DEPARTMENTS_URL =
@@ -221,6 +223,4 @@ class EndPoints {
       '/ReqMessagesAPI/GetAllMessageType';
   static const String SEND_MESSAGE_URL = '/ReqMessagesAPI/SendMessage';
   static const String REPLY_MESSAGE_URL = '/ReqMessagesAPI/ReplyMessage';
-
-  /// SIGN IN OUT
 }

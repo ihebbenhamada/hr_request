@@ -32,11 +32,15 @@ class PunishmentsDetailsService {
       "Assignees": assignees,
       "DepartmentsIds": departmentsIds
     };
-    Response? response = await AppInterceptor.dio
-        ?.post(EndPoints.CREATE_PUNISHMENTS_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return true;
-    } else {
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_PUNISHMENTS_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

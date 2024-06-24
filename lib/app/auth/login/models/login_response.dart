@@ -20,6 +20,7 @@ class LoginResponse {
   String refreshTokenExpiration;
   User user;
   Emp employee;
+  List<UserRole> userRoles;
 
   LoginResponse({
     required this.resultMessage,
@@ -32,6 +33,7 @@ class LoginResponse {
     required this.refreshTokenExpiration,
     required this.user,
     required this.employee,
+    required this.userRoles,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
@@ -45,6 +47,9 @@ class LoginResponse {
         refreshTokenExpiration: json["refreshTokenExpiration"],
         user: User.fromJson(json["user"]),
         employee: Emp.fromJson(json["employee"]),
+        userRoles: (json["userRoles"] as List<dynamic>)
+            .map((json) => UserRole.fromJson(json))
+            .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -58,6 +63,7 @@ class LoginResponse {
         "refreshTokenExpiration": refreshTokenExpiration,
         "user": user.toJson(),
         "employee": employee.toJson(),
+        "userRoles": userRoles.map((map) => map.toJson()),
       };
 }
 
@@ -83,14 +89,14 @@ class Emp {
   int? fKHrTicketTypeId;
   int? ticketCount;
   String? dateEntitlement;
-  String contractDueDate;
+  String? contractDueDate;
   String branchName;
-  String contractStartDate;
+  String? contractStartDate;
   int fKGeneralManagerId;
-  int fKManagingDirectorId;
-  int fKHumanResourcesManagerId;
-  int fKDepartmentManagerId;
-  int fKDirectorGeneralId;
+  int? fKManagingDirectorId;
+  int? fKHumanResourcesManagerId;
+  int? fKDepartmentManagerId;
+  int? fKDirectorGeneralId;
   int? fKHrJobTypeId;
   String jobName;
   String? nationalityName;
@@ -194,14 +200,14 @@ class Emp {
         fKHrTicketTypeId: json["fK_HrTicketTypeId"] as int?,
         ticketCount: json["ticketCount"] as int?,
         dateEntitlement: json["dateEntitlement"] as String?,
-        contractDueDate: json["contractDueDate"],
+        contractDueDate: json["contractDueDate"] as String?,
         branchName: json["branchName"],
-        contractStartDate: json["contractStartDate"],
+        contractStartDate: json["contractStartDate"] as String?,
         fKGeneralManagerId: json["fK_GeneralManagerId"],
-        fKManagingDirectorId: json["fK_ManagingDirectorId"],
-        fKHumanResourcesManagerId: json["fK_HumanResourcesManagerId"],
-        fKDepartmentManagerId: json["fK_DepartmentManagerId"],
-        fKDirectorGeneralId: json["fK_DirectorGeneralId"],
+        fKManagingDirectorId: json["fK_ManagingDirectorId"] as int?,
+        fKHumanResourcesManagerId: json["fK_HumanResourcesManagerId"] as int?,
+        fKDepartmentManagerId: json["fK_DepartmentManagerId"] as int?,
+        fKDirectorGeneralId: json["fK_DirectorGeneralId"] as int?,
         fKHrJobTypeId: json["fK_HrJobTypeId"] as int?,
         jobName: json["jobName"],
         nationalityName: json["nationalityName"] as String?,
@@ -358,5 +364,21 @@ class User {
         "isDeleted": isDeleted,
         "fK_DefBranchId": fKDefBranchId,
         "employeeCode": employeeCode,
+      };
+}
+
+class UserRole {
+  String? roleName;
+
+  UserRole({
+    this.roleName,
+  });
+
+  factory UserRole.fromJson(Map<String, dynamic> json) => UserRole(
+        roleName: json["roleName"] as String?,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "roleName": roleName,
       };
 }

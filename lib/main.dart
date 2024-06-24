@@ -14,11 +14,9 @@ Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(
-      debug:
-          true, // optional: set to false to disable printing logs to console (default: true)
-      ignoreSsl:
-          true // option: set to false to disable working with http links (default: false)
-      );
+    debug: true,
+    ignoreSsl: true,
+  );
   configureGlobalLoader();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -30,7 +28,7 @@ Future<void> main() async {
 
   /// INITIALIZE FIREBASE
 
-  dynamic user = await GetStorage().read('user');
+  dynamic token = await GetStorage().read('token');
   dynamic language = await GetStorage().read('language');
 
   if (language == null) {
@@ -43,7 +41,7 @@ Future<void> main() async {
   /// MAIN FUNCTION
   runApp(
     RequestApp(
-      isLoggedIn: user != null ? true : false,
+      isLoggedIn: token != null ? true : false,
       language: language,
     ),
   );

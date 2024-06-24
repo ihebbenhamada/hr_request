@@ -32,11 +32,16 @@ class AlertDetailsService {
       "LastModifiedDate": lastModifiedDate,
       "HrDepartments": hrDepartments
     };
-    Response? response =
-        await AppInterceptor.dio?.post(EndPoints.CREATE_ALERTS_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return true;
-    } else {
+
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_ALERTS_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }
@@ -71,11 +76,16 @@ class AlertDetailsService {
       "LastModifiedDate": lastModifiedDate,
       "HrDepartments": hrDepartments
     };
-    Response? response =
-        await AppInterceptor.dio?.post(EndPoints.CREATE_ALERTS_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return true;
-    } else {
+
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_ALERTS_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

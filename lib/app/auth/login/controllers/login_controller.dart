@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -86,7 +87,11 @@ class LoginController extends BaseController {
           .then((value) {
         if (value != null) {
           storage.write('token', value.token);
-          storage.write('isAdmin', value.isAdmin);
+          if (value.userRoles[0].roleName == "Employee") {
+            storage.write('isAdmin', false);
+          } else {
+            storage.write('isAdmin', true);
+          }
           storage.write('user', value.toJson());
           storage.write('employee', value.employee.toJson());
           Get.offAll(
@@ -96,7 +101,15 @@ class LoginController extends BaseController {
             duration: const Duration(milliseconds: 500),
           );
         } else {
-          print('error');
+          Fluttertoast.showToast(
+            msg: "Check username or password!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: AppColors.redLight,
+            textColor: AppColors.white,
+            fontSize: 16.0.sp,
+          );
         }
         AppInterceptor.hideLoader();
       });

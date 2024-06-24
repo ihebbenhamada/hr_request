@@ -128,10 +128,16 @@ class VacationsScreen extends StatelessWidget {
               ),
               22.h.verticalSpace,
               CarouselSlider.builder(
-                itemCount: _vacationsController.officialVacationList.length,
+                itemCount: _vacationsController.officialVacationList.length + 1,
                 itemBuilder: (context, index, i) {
+                  if (index ==
+                      _vacationsController.officialVacationList.length) {
+                    // Display fake item at the last index
+                    return const SizedBox();
+                  }
                   Map<String, dynamic> item =
                       _vacationsController.officialVacationList[index];
+
                   return OfficialVacationItem(
                     title: item['title'],
                     date: item['date'],

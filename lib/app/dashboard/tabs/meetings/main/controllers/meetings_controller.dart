@@ -101,13 +101,19 @@ class MeetingsController extends BaseController {
   }
 
   onClickMeetingItem(MeetingResponse meetingItem) {
-    Get.to(
-      id: 4,
-      () => MeetingsDetailsScreen(meetingItem: meetingItem),
-      transition: Transition.leftToRight,
-      curve: Curves.ease,
-      duration: const Duration(milliseconds: 500),
-    );
+    AppInterceptor.showLoader();
+    _meetingsService.getMeetingById(id: meetingItem.id).then((value) {
+      AppInterceptor.hideLoader();
+      if (value != null) {
+        Get.to(
+          id: 4,
+          () => MeetingsDetailsScreen(meetingItem: value),
+          transition: Transition.leftToRight,
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        );
+      }
+    });
   }
 
   Future<void> handleRefresh() async {
