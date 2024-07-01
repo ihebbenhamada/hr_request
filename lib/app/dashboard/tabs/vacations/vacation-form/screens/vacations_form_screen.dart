@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:request_hr/config/theme/theme_controller.dart';
 import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 import 'package:request_hr/widgets/input/input_form.dart';
 
+import '../../main/models/drop_down.dart';
 import '../controllers/vacations_form_controller.dart';
 
 class VacationsFormScreen extends StatelessWidget {
@@ -20,6 +22,7 @@ class VacationsFormScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
         child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               Center(
@@ -87,7 +90,71 @@ class VacationsFormScreen extends StatelessWidget {
                 ],
               ),
               15.h.verticalSpace,
-              InputForm(
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 11),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(12.h),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x29000000),
+                      blurRadius: 3,
+                      offset: Offset(0, 3),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    5.h.verticalSpace,
+                    Text(
+                      "Alternative Employee",
+                      style: TextStyle(
+                        color: AppColors.gray6,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    CustomDropdown<DropDownModel>.searchRequest(
+                      items: _vacationsFormController.employeesList,
+                      hintText: "Select employee",
+                      closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
+                      listItemBuilder:
+                          (context, employee, isSelected, onItemSelect) {
+                        return Text(
+                          employee.text ?? "",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                          ),
+                        );
+                      },
+                      headerBuilder: (context, employee, isTrue) {
+                        return Text(employee.text ?? "");
+                      },
+                      overlayHeight: MediaQuery.of(context).size.height * 0.4,
+                      decoration: CustomDropdownDecoration(
+                        hintStyle: TextStyle(
+                          fontSize: 14.sp,
+                        ),
+                        closedSuffixIcon: Image.asset(
+                          AppImages.arrowDown,
+                          height: 8.h,
+                          color: AppColors.blueDark,
+                        ),
+                      ),
+                      onChanged: (DropDownModel? employee) {
+                        _vacationsFormController
+                            .selectedAlternativeEmployee.value = employee!;
+                      },
+                      initialItem: _vacationsFormController
+                          .selectedAlternativeEmployee.value,
+                      futureRequest: (value) =>
+                          _vacationsFormController.searchEmployee(value),
+                    ),
+                  ],
+                ),
+              ),
+              /* InputForm(
                 height: 55.h,
                 width: double.infinity,
                 title: 'Alternative Employee',
@@ -97,9 +164,73 @@ class VacationsFormScreen extends StatelessWidget {
                 onSelect: (value) =>
                     _vacationsFormController.onSelectAlternativeEmployee(value),
                 listDropDown: _vacationsFormController.employeesList,
-              ),
+              ),*/
               15.h.verticalSpace,
-              InputForm(
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 11),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(12.h),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x29000000),
+                      blurRadius: 3,
+                      offset: Offset(0, 3),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    5.h.verticalSpace,
+                    Text(
+                      "Alternative To Paying Any Due",
+                      style: TextStyle(
+                        color: AppColors.gray6,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    CustomDropdown<DropDownModel>.searchRequest(
+                      items: _vacationsFormController.employeesList,
+                      hintText: "Select employee",
+                      closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
+                      listItemBuilder:
+                          (context, employee, isSelected, onItemSelect) {
+                        return Text(
+                          employee.text ?? '0',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                          ),
+                        );
+                      },
+                      headerBuilder: (context, employee, isTrue) {
+                        return Text(employee.text ?? '0');
+                      },
+                      overlayHeight: MediaQuery.of(context).size.height * 0.3,
+                      decoration: CustomDropdownDecoration(
+                        hintStyle: TextStyle(
+                          fontSize: 14.sp,
+                        ),
+                        closedSuffixIcon: Image.asset(
+                          AppImages.arrowDown,
+                          height: 8.h,
+                          color: AppColors.blueDark,
+                        ),
+                      ),
+                      onChanged: (DropDownModel? employee) {
+                        _vacationsFormController
+                            .selectedAlternativeToPay.value = employee!;
+                      },
+                      initialItem: _vacationsFormController
+                          .selectedAlternativeToPay.value,
+                      futureRequest: (value) =>
+                          _vacationsFormController.searchEmployee(value),
+                    ),
+                  ],
+                ),
+              ),
+              /*InputForm(
                 height: 55.h,
                 width: double.infinity,
                 title: 'Alternative To Paying Any Due',
@@ -109,7 +240,7 @@ class VacationsFormScreen extends StatelessWidget {
                 onSelect: (value) =>
                     _vacationsFormController.onSelectAlternativeToPay(value),
                 listDropDown: _vacationsFormController.employeesList,
-              ),
+              ),*/
               15.h.verticalSpace,
               InputForm(
                 textEditingController:

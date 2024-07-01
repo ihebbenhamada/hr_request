@@ -105,6 +105,7 @@ class InputForm extends StatelessWidget {
           () => DropdownButtonHideUnderline(
             child: DropdownButton<DropDownModel>(
               isDense: true,
+              dropdownColor: AppColors.white,
               value: selectedDropDownItem!.value,
               style: TextStyle(
                 color: AppColors.blueDark,
@@ -123,7 +124,7 @@ class InputForm extends StatelessWidget {
                 return DropdownMenuItem<DropDownModel>(
                   alignment: Alignment.centerLeft,
                   value: value,
-                  child: Text(value.text),
+                  child: Text(value.text ?? ''),
                 );
               }).toList(),
             ),

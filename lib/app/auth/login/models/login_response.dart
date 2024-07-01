@@ -47,9 +47,9 @@ class LoginResponse {
         refreshTokenExpiration: json["refreshTokenExpiration"],
         user: User.fromJson(json["user"]),
         employee: Emp.fromJson(json["employee"]),
-        userRoles: (json["userRoles"] as List<dynamic>)
-            .map((json) => UserRole.fromJson(json))
-            .toList(),
+        userRoles: List<UserRole>.from(
+          json["userRoles"].map((x) => UserRole.fromJson(x)),
+        ),
       );
 
   Map<String, dynamic> toJson() => {
@@ -369,7 +369,6 @@ class User {
 
 class UserRole {
   String? roleName;
-
   UserRole({
     this.roleName,
   });

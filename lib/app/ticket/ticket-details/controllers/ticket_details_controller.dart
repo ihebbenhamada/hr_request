@@ -284,7 +284,7 @@ class TicketDetailsController extends BaseController {
         .createTicket(
       fKHrEmployeeId: getCreateTicketResponse.value.fKHrEmployeeId,
       dueDate: dueDate.value.toString().substring(0, 10),
-      paymentType: selectedPaymentType.value.text,
+      paymentType: selectedPaymentType.value.text ?? '0',
       employeeTicket: hasEmployeeTicket.value,
       employeeNote: employeeNoteTextEditingController.value.text,
       employeeName: employeeNameTextEditingController.value.text,

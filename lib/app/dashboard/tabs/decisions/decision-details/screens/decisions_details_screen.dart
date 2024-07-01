@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/widgets/desicion-details-container.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/main/model/get_decisions_response.dart';
-import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 
 import '../../../../../../config/colors/colors.dart';
 import '../../../../../../config/image_urls/image_urls.dart';
+import '../../../../../../widgets/avatar-circle/avatar_circle.dart';
 import '../controllers/decisions_details_controller.dart';
 
 class DecisionsDetailsScreen extends StatelessWidget {
@@ -20,133 +20,139 @@ class DecisionsDetailsScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 25.0),
-            child: SizedBox(
-              height: 111.h,
-              width: double.infinity,
-              child: Stack(
-                alignment: Alignment.centerLeft,
-                children: [
-                  Container(
-                    width: 360.w,
-                    height: 80.h,
-                    padding: const EdgeInsets.only(left: 25),
-                    decoration: const BoxDecoration(
-                      color: AppColors.primary,
-                      image: DecorationImage(
-                        image: AssetImage(AppImages.poster),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+          decisionsResponse != null
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 25.0),
+                  child: SizedBox(
+                    height: 111.h,
+                    width: double.infinity,
+                    child: Stack(
+                      alignment: Alignment.centerLeft,
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              height: 20.h,
-                              width: 20.h,
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(20.h),
-                                border: Border.all(color: AppColors.blue1),
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  AppImages.employee,
-                                  height: 12.5.h,
-                                  width: 12,
-                                ),
-                              ),
+                        Container(
+                          width: 360.w,
+                          height: 80.h,
+                          padding: const EdgeInsets.only(left: 25),
+                          decoration: const BoxDecoration(
+                            color: AppColors.primary,
+                            image: DecorationImage(
+                              image: AssetImage(AppImages.poster),
+                              fit: BoxFit.cover,
                             ),
-                            4.horizontalSpace,
-                            Text(
-                              decisionsResponse?.byAssigneeName ?? "",
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14.sp,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 20.h,
+                                    width: 20.h,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(20.h),
+                                      border:
+                                          Border.all(color: AppColors.blue1),
+                                    ),
+                                    child: Center(
+                                      child: Image.asset(
+                                        AppImages.employee,
+                                        height: 12.5.h,
+                                        width: 12,
+                                      ),
+                                    ),
+                                  ),
+                                  4.horizontalSpace,
+                                  Text(
+                                    decisionsResponse?.byAssigneeName ?? "",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+                              5.h.verticalSpace,
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 20.h,
+                                    width: 20.h,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(20.h),
+                                      border:
+                                          Border.all(color: AppColors.blue1),
+                                    ),
+                                    child: Center(
+                                      child: Image.asset(
+                                        AppImages.position,
+                                        height: 10.7.h,
+                                        width: 13.3,
+                                      ),
+                                    ),
+                                  ),
+                                  4.horizontalSpace,
+                                  Text(
+                                    decisionsResponse?.assigneeName ?? "",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              5.h.verticalSpace,
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 20.h,
+                                    width: 20.h,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(20.h),
+                                      border:
+                                          Border.all(color: AppColors.blue1),
+                                    ),
+                                    child: Center(
+                                      child: Image.asset(
+                                        AppImages.cal,
+                                        height: 8.h,
+                                        width: 8.h,
+                                      ),
+                                    ),
+                                  ),
+                                  4.horizontalSpace,
+                                  Text(
+                                    decisionsResponse?.creationDate
+                                            .substring(0, 10) ??
+                                        "",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        5.h.verticalSpace,
-                        Row(
-                          children: [
-                            Container(
-                              height: 20.h,
-                              width: 20.h,
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(20.h),
-                                border: Border.all(color: AppColors.blue1),
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  AppImages.position,
-                                  height: 10.7.h,
-                                  width: 13.3,
-                                ),
-                              ),
-                            ),
-                            4.horizontalSpace,
-                            Text(
-                              decisionsResponse?.assigneeName ?? "",
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                          ],
-                        ),
-                        5.h.verticalSpace,
-                        Row(
-                          children: [
-                            Container(
-                              height: 20.h,
-                              width: 20.h,
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(20.h),
-                                border: Border.all(color: AppColors.blue1),
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  AppImages.cal,
-                                  height: 8.h,
-                                  width: 8.h,
-                                ),
-                              ),
-                            ),
-                            4.horizontalSpace,
-                            Text(
-                              decisionsResponse?.creationDate
-                                      .substring(0, 10) ??
-                                  "",
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                          ],
+                        Positioned(
+                          right: 0,
+                          child: AvatarCircle(
+                            image: decisionsResponse?.imagePath,
+                            isNetworkImage: true,
+                            size: 112.h,
+                            iconSize: 22.h,
+                            imageSize: 95.h,
+                            left: 14,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  Positioned(
-                    right: 0,
-                    child: AvatarCircle(
-                      image: AppImages.avatar3,
-                      size: 112.h,
-                      iconSize: 22.h,
-                      imageSize: 95.h,
-                      left: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                )
+              : const SizedBox(),
           60.h.verticalSpace,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),

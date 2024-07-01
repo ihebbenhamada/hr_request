@@ -28,7 +28,6 @@ Future<void> main() async {
 
   /// INITIALIZE FIREBASE
 
-  dynamic token = await GetStorage().read('token');
   dynamic language = await GetStorage().read('language');
 
   if (language == null) {
@@ -41,7 +40,6 @@ Future<void> main() async {
   /// MAIN FUNCTION
   runApp(
     RequestApp(
-      isLoggedIn: token != null ? true : false,
       language: language,
     ),
   );

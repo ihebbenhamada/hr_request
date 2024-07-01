@@ -17,8 +17,8 @@ class OfficialVacationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 179,
       height: 70.h,
+      margin: const EdgeInsets.only(right: 15),
       decoration: BoxDecoration(
         color: AppColors.primary,
         borderRadius: BorderRadius.circular(12.h),

@@ -27,7 +27,7 @@ class VacationsScreen extends StatelessWidget {
       child: Container(
         color: AppColors.gray2,
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(left: 25.0, right: 25.0, bottom: 60.h),
+          padding: EdgeInsets.only(left: 25.0, right: 25.0, bottom: 100.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -110,12 +110,14 @@ class VacationsScreen extends StatelessWidget {
                       ),
               ),
               14.h.verticalSpace,
-              Obx(
-                () => CustomDotsIndicator(
-                  length: _vacationsController.vacationsList.length,
-                  current: _vacationsController.currentVacationIndex.value,
-                ),
-              ),
+              Obx(() => SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: CustomDotsIndicator(
+                      length: _vacationsController.vacationsList.length,
+                      current: _vacationsController.currentVacationIndex.value,
+                    ),
+                  )),
               13.h.verticalSpace,
               VacationInfoContainer(
                 vacationPercentage: _vacationsController.vacationPercentage,
@@ -147,7 +149,7 @@ class VacationsScreen extends StatelessWidget {
                   height: 70.h,
                   clipBehavior: Clip.none,
                   animateToClosest: true,
-                  viewportFraction: 0.55,
+                  viewportFraction: 0.6,
                   initialPage: 0,
                   enableInfiniteScroll: false,
                   reverse: false,
@@ -160,7 +162,7 @@ class VacationsScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                 ),
               ),
-              7.h.verticalSpace,
+              10.h.verticalSpace,
               Obx(
                 () => CustomDotsIndicator(
                   length: _vacationsController.officialVacationList.length,

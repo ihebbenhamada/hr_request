@@ -125,7 +125,7 @@ class LoanDetailsController extends BaseController {
       _loanDetailsService
           .updateLoan(
         id: loan!.id!,
-        paymentType: int.parse(selectedPaymentType.value.value),
+        paymentType: int.parse(selectedPaymentType.value.value ?? "0"),
         loanDate: loanDate.value.toString().substring(0, 10),
         totalAmount: double.parse(totalLoansTextEditingController.value.text),
         subject: createLoan.value!.subject!,
@@ -141,7 +141,7 @@ class LoanDetailsController extends BaseController {
         generalDirector: createLoan.value?.generalDirector,
         employeeName: createLoan.value!.employeeName!,
         fKReqStatusId: createLoan.value!.fKReqStatusId!,
-        paymentTypeName: selectedPaymentType.value.text,
+        paymentTypeName: selectedPaymentType.value.text ?? "",
       )
           .then((value) {
         if (value != null) {
@@ -152,7 +152,7 @@ class LoanDetailsController extends BaseController {
     } else {
       _loanDetailsService
           .createLoan(
-        paymentType: int.parse(selectedPaymentType.value.value),
+        paymentType: int.parse(selectedPaymentType.value.value ?? "0"),
         loanDate: loanDate.value.toString().substring(0, 10),
         totalAmount: double.parse(totalLoansTextEditingController.value.text),
         subject: createLoan.value!.subject!,
@@ -168,7 +168,7 @@ class LoanDetailsController extends BaseController {
         generalDirector: createLoan.value?.generalDirector,
         employeeName: createLoan.value!.employeeName!,
         fKReqStatusId: createLoan.value!.fKReqStatusId!,
-        paymentTypeName: selectedPaymentType.value.text,
+        paymentTypeName: selectedPaymentType.value.text ?? "",
       )
           .then((value) {
         if (value != null) {

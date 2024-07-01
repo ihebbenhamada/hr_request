@@ -35,11 +35,16 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
     if (widget.meetingItem != null) {
       _meetingsDetailsController.meetingDate.value =
           widget.meetingItem!.meetingDate!.substring(0, 10);
-      /* _meetingsDetailsController.meetingPointList.value =
+
+      _meetingsDetailsController.meetingTitleTextEditingController.text =
+          widget.meetingItem?.meetingTitle ?? "";
+      _meetingsDetailsController.meetingSubjectTextEditingController.text =
+          widget.meetingItem?.subject ?? "";
+
+      _meetingsDetailsController.meetingPointList.value =
           widget.meetingItem!.meetingPoints!;
-      _meetingsDetailsController.meetingDate.value =
-          widget.meetingItem!.meetingDate!;*/
     }
+
     super.initState();
   }
 
@@ -55,131 +60,142 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 25.0),
-              child: SizedBox(
-                height: 111.h,
-                width: double.infinity,
-                child: Stack(
-                  alignment: Alignment.centerLeft,
-                  children: [
-                    Container(
-                      width: 360.w,
-                      height: 80.h,
-                      padding: const EdgeInsets.only(left: 25),
-                      decoration: const BoxDecoration(
-                        color: AppColors.primary,
-                        image: DecorationImage(
-                          image: AssetImage(AppImages.poster),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+            widget.meetingItem != null
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 25.0),
+                    child: SizedBox(
+                      height: 111.h,
+                      width: double.infinity,
+                      child: Stack(
+                        alignment: Alignment.centerLeft,
                         children: [
-                          Row(
-                            children: [
-                              Container(
-                                height: 20.h,
-                                width: 20.h,
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(20.h),
-                                  border: Border.all(color: AppColors.blue1),
-                                ),
-                                child: Center(
-                                  child: Image.asset(
-                                    AppImages.employee,
-                                    height: 12.5.h,
-                                    width: 12,
-                                  ),
-                                ),
+                          Container(
+                            width: 360.w,
+                            height: 80.h,
+                            padding: const EdgeInsets.only(left: 25),
+                            decoration: const BoxDecoration(
+                              color: AppColors.primary,
+                              image: DecorationImage(
+                                image: AssetImage(AppImages.poster),
+                                fit: BoxFit.cover,
                               ),
-                              4.horizontalSpace,
-                              Text(
-                                'Mohamed Ismail ',
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 14.sp,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      height: 20.h,
+                                      width: 20.h,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(20.h),
+                                        border:
+                                            Border.all(color: AppColors.blue1),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          AppImages.employee,
+                                          height: 12.5.h,
+                                          width: 12,
+                                        ),
+                                      ),
+                                    ),
+                                    4.horizontalSpace,
+                                    Text(
+                                      widget.meetingItem?.assigneeByName ?? "",
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                5.h.verticalSpace,
+                                Row(
+                                  children: [
+                                    Container(
+                                      height: 20.h,
+                                      width: 20.h,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(20.h),
+                                        border:
+                                            Border.all(color: AppColors.blue1),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          AppImages.position,
+                                          height: 10.7.h,
+                                          width: 13.3,
+                                        ),
+                                      ),
+                                    ),
+                                    4.horizontalSpace,
+                                    Text(
+                                      widget.meetingItem?.assigneeName ?? "",
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                5.h.verticalSpace,
+                                Row(
+                                  children: [
+                                    Container(
+                                      height: 20.h,
+                                      width: 20.h,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(20.h),
+                                        border:
+                                            Border.all(color: AppColors.blue1),
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          AppImages.cal,
+                                          height: 8.h,
+                                          width: 8.h,
+                                        ),
+                                      ),
+                                    ),
+                                    4.horizontalSpace,
+                                    Text(
+                                      widget.meetingItem?.creationDate
+                                              ?.substring(0, 10) ??
+                                          "",
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          5.h.verticalSpace,
-                          Row(
-                            children: [
-                              Container(
-                                height: 20.h,
-                                width: 20.h,
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(20.h),
-                                  border: Border.all(color: AppColors.blue1),
-                                ),
-                                child: Center(
-                                  child: Image.asset(
-                                    AppImages.position,
-                                    height: 10.7.h,
-                                    width: 13.3,
-                                  ),
-                                ),
-                              ),
-                              4.horizontalSpace,
-                              Text(
-                                'project Manager',
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                          5.h.verticalSpace,
-                          Row(
-                            children: [
-                              Container(
-                                height: 20.h,
-                                width: 20.h,
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(20.h),
-                                  border: Border.all(color: AppColors.blue1),
-                                ),
-                                child: Center(
-                                  child: Image.asset(
-                                    AppImages.cal,
-                                    height: 8.h,
-                                    width: 8.h,
-                                  ),
-                                ),
-                              ),
-                              4.horizontalSpace,
-                              Text(
-                                '19/5/2024',
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                            ],
+                          Positioned(
+                            right: 0,
+                            child: AvatarCircle(
+                              image: null,
+                              isNetworkImage: true,
+                              size: 112.h,
+                              iconSize: 22.h,
+                              imageSize: 95.h,
+                              left: 14,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    Positioned(
-                      right: 0,
-                      child: AvatarCircle(
-                        image: AppImages.avatar3,
-                        size: 112.h,
-                        iconSize: 22.h,
-                        imageSize: 95.h,
-                        left: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : const SizedBox(),
             40.h.verticalSpace,
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -237,6 +253,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                               () => DropdownButtonHideUnderline(
                                 child: DropdownButton<Department>(
                                   isDense: true,
+                                  dropdownColor: AppColors.white,
                                   value: _meetingsDetailsController
                                       .selectedDepartment.value,
                                   style: TextStyle(
@@ -282,7 +299,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                     alignment: Alignment.bottomRight,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 11),
+                        padding: const EdgeInsets.symmetric(horizontal: 11),
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(12.h),
@@ -315,6 +332,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                                   onItemSelect) {
                                 return Text(employee.fullName ?? "");
                               },
+                              enabled: widget.meetingItem == null,
                               decoration: CustomDropdownDecoration(
                                 hintStyle: TextStyle(
                                   fontSize: 14.sp,
@@ -376,6 +394,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                     height: 55.h,
                     title: 'Meeting Title',
                     inputType: 'input',
+                    enabled: widget.meetingItem == null,
                     nbrLines: 1,
                     textEditingController: _meetingsDetailsController
                         .meetingTitleTextEditingController,
@@ -385,6 +404,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                     width: double.infinity,
                     title: 'Meeting Subject',
                     inputType: 'input',
+                    enabled: widget.meetingItem == null,
                     textEditingController: _meetingsDetailsController
                         .meetingSubjectTextEditingController,
                   ),
@@ -433,48 +453,51 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                     ),
                   ),
                   19.h.verticalSpace,
-                  Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 17.0.h),
-                        child: InputForm(
-                          width: double.infinity,
-                          title: 'Add Meeting Points',
-                          inputType: 'input',
-                          nbrLines: 2,
-                          textEditingController: _meetingsDetailsController
-                              .meetingPointTextEditingController,
-                        ),
-                      ),
-                      Positioned(
-                        right: 31,
-                        bottom: 0.h,
-                        child: InkWell(
-                          onTap: () =>
-                              _meetingsDetailsController.addMeetingPoint(),
-                          child: Container(
-                            height: 34.h,
-                            width: 34.h,
-                            decoration: const ShapeDecoration(
-                              color: AppColors.white,
-                              shape: OvalBorder(
-                                side: BorderSide(
-                                  color: AppColors.gray2,
-                                  width: 3,
+                  widget.meetingItem == null
+                      ? Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 17.0.h),
+                              child: InputForm(
+                                width: double.infinity,
+                                title: 'Add Meeting Points',
+                                inputType: 'input',
+                                nbrLines: 2,
+                                textEditingController:
+                                    _meetingsDetailsController
+                                        .meetingPointTextEditingController,
+                              ),
+                            ),
+                            Positioned(
+                              right: 31,
+                              bottom: 0.h,
+                              child: InkWell(
+                                onTap: () => _meetingsDetailsController
+                                    .addMeetingPoint(),
+                                child: Container(
+                                  height: 34.h,
+                                  width: 34.h,
+                                  decoration: const ShapeDecoration(
+                                    color: AppColors.white,
+                                    shape: OvalBorder(
+                                      side: BorderSide(
+                                        color: AppColors.gray2,
+                                        width: 3,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Image.asset(
+                                      AppImages.add,
+                                      height: 12.h,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                            child: Center(
-                              child: Image.asset(
-                                AppImages.add,
-                                height: 12.h,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                          ],
+                        )
+                      : const SizedBox(),
                   10.h.verticalSpace,
                   Obx(
                     () => ListView.separated(
@@ -485,7 +508,10 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                       itemBuilder: (context, index) {
                         MeetingPoint item =
                             _meetingsDetailsController.meetingPointList[index];
-                        return MeetingPointItem(name: item.pointText);
+                        return MeetingPointItem(
+                            name: widget.meetingItem == null
+                                ? item.pointText
+                                : '${index + 1}- ${item.pointText}');
                       },
                       separatorBuilder: (context, index) {
                         return 13.h.verticalSpace;
@@ -495,45 +521,47 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                     ),
                   ),
                   25.h.verticalSpace,
-                  GestureDetector(
-                    onTap: _meetingsDetailsController.uploadAttachment,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                        width: 162,
-                        padding: EdgeInsets.symmetric(vertical: 10.h),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
-                          color: AppColors.primary,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color(0x29000000),
-                              blurRadius: 3,
-                              offset: Offset(0, 3),
-                              spreadRadius: 0,
-                            )
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            11.horizontalSpace,
-                            Image.asset(
-                              AppImages.upload,
-                              height: 17.h,
-                            ),
-                            10.horizontalSpace,
-                            Text(
-                              'Upload Attachment',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: AppColors.white,
+                  widget.meetingItem == null
+                      ? GestureDetector(
+                          onTap: _meetingsDetailsController.uploadAttachment,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              width: 162,
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(22),
+                                color: AppColors.primary,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0x29000000),
+                                    blurRadius: 3,
+                                    offset: Offset(0, 3),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  11.horizontalSpace,
+                                  Image.asset(
+                                    AppImages.upload,
+                                    height: 17.h,
+                                  ),
+                                  10.horizontalSpace,
+                                  Text(
+                                    'Upload Attachment',
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      color: AppColors.white,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                          ),
+                        )
+                      : const SizedBox(),
                   20.h.verticalSpace,
                   _meetingsDetailsController.files.isNotEmpty
                       ? SizedBox(
@@ -563,24 +591,26 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: _meetingsDetailsController.onClickDone,
-                        child: Container(
-                          height: 50.h,
-                          width: 50.h,
-                          decoration: const ShapeDecoration(
-                            color: AppColors.primary,
-                            shape: OvalBorder(),
-                          ),
-                          child: Center(
-                            child: Image.asset(
-                              AppImages.tick,
-                              color: AppColors.white,
-                              height: 30.h,
-                            ),
-                          ),
-                        ),
-                      ),
+                      widget.meetingItem == null
+                          ? GestureDetector(
+                              onTap: _meetingsDetailsController.onClickDone,
+                              child: Container(
+                                height: 50.h,
+                                width: 50.h,
+                                decoration: const ShapeDecoration(
+                                  color: AppColors.primary,
+                                  shape: OvalBorder(),
+                                ),
+                                child: Center(
+                                  child: Image.asset(
+                                    AppImages.tick,
+                                    color: AppColors.white,
+                                    height: 30.h,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
                       23.horizontalSpace,
                       GestureDetector(
                         onTap: () {

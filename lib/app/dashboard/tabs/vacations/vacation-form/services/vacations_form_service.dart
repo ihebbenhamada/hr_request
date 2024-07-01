@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:request_hr/api/models/result_response.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/get_create_vacation_response.dart';
@@ -24,21 +26,33 @@ class VacationsFormService {
       "DateTo": dateTo,
       "Description": description
     };
-    Response? response = await AppInterceptor.dio
-        ?.post(EndPoints.CREATE_VACATION_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return ResultResponse.fromJson(response.data);
-    } else {
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_VACATION_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return ResultResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      log(e.error.toString());
+
+      log(e.response.toString());
+      log(e.requestOptions.headers.toString());
       return null;
     }
   }
 
   Future<GetCreateVacation?> getCreateVacations() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_CREATE_VACATION_URL);
-    if (response != null && response.statusCode == 200) {
-      return GetCreateVacation.fromJson(response.data);
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_CREATE_VACATION_URL);
+      if (response != null && response.statusCode == 200) {
+        return GetCreateVacation.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }
@@ -63,11 +77,15 @@ class VacationsFormService {
       "DateTo": dateTo,
       "Description": description
     };
-    Response? response = await AppInterceptor.dio
-        ?.post(EndPoints.UPDATE_VACATION_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return ResultResponse.fromJson(response.data);
-    } else {
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.UPDATE_VACATION_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return ResultResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
       return null;
     }
   }

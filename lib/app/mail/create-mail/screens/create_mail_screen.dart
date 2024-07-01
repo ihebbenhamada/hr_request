@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,8 @@ import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 import 'package:request_hr/widgets/custom-button/custom-button.dart';
 
+import '../../../../api/models/public/department.dart';
+import '../../../../api/models/public/employee.dart';
 import '../../../../config/image_urls/image_urls.dart';
 import '../controllers/create_mail_controller.dart';
 
@@ -21,6 +24,7 @@ class CreateMailScreen extends StatelessWidget {
           left: 25.0,
           right: 25,
           top: MediaQuery.of(context).viewPadding.top + 20.h,
+          bottom: 230.h,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,6 +39,185 @@ class CreateMailScreen extends StatelessWidget {
                 left: 13,
                 icon: AppImages.innTechDark,
               ),
+            ),
+            19.h.verticalSpace,
+            Container(
+              height: 55.h,
+              width: double.infinity,
+              padding: const EdgeInsets.only(
+                left: 11,
+                right: 11,
+                bottom: 0,
+                top: 0,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.white.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12.h),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Depart",
+                    style: TextStyle(
+                      color: AppColors.white.withOpacity(0.56),
+                      fontSize: 14.sp,
+                    ),
+                  ),
+                  3.verticalSpace,
+                  Obx(
+                    () => DropdownButtonHideUnderline(
+                      child: DropdownButton<Department>(
+                        isDense: true,
+                        value: _createMailController.selectedDepartment.value,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 14.sp,
+                        ),
+                        isExpanded: true,
+                        alignment: Alignment.bottomCenter,
+                        dropdownColor: AppColors.primary,
+                        icon: Image.asset(
+                          AppImages.arrowDown,
+                          height: 8.h,
+                          color: AppColors.white,
+                        ),
+                        onChanged: (Department? newValue) =>
+                            _createMailController.onSelectDepartment(newValue!),
+                        items: _createMailController.departmentList
+                            .map<DropdownMenuItem<Department>>(
+                                (Department value) {
+                          return DropdownMenuItem<Department>(
+                            alignment: Alignment.centerLeft,
+                            value: value,
+                            child: Text(
+                              value.departmentNameEn ?? "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            19.h.verticalSpace,
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.only(left: 11, right: 11, bottom: 18),
+                  decoration: BoxDecoration(
+                    color: AppColors.white.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12.h),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      5.h.verticalSpace,
+                      Text(
+                        "Send to",
+                        style: TextStyle(
+                          color: AppColors.white.withOpacity(0.56),
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                      GetBuilder<CreateMailController>(
+                        builder: (_) =>
+                            CustomDropdown<Employee>.multiSelectSearchRequest(
+                          items: _createMailController.employeeList,
+                          hintText: "Select employees",
+                          closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
+                          visibility: (value) =>
+                              _createMailController.changeTextColor(value),
+                          listItemBuilder:
+                              (context, employee, isSelected, onItemSelect) {
+                            return Text(
+                              employee.fullName ?? "",
+                              style: TextStyle(
+                                color: isSelected
+                                    ? AppColors.white
+                                    : AppColors.blueDark,
+                              ),
+                            );
+                          },
+                          overlayHeight:
+                              MediaQuery.of(context).size.height * 0.6,
+                          decoration: CustomDropdownDecoration(
+                            closedFillColor: AppColors.white.withOpacity(0),
+                            headerStyle: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.blueDark,
+                            ),
+                            listItemDecoration: const ListItemDecoration(
+                              selectedColor: AppColors.primary,
+                            ),
+                            hintStyle: TextStyle(
+                              fontSize: 14.sp,
+                              color: AppColors.white.withOpacity(0.56),
+                            ),
+                            closedSuffixIcon: Image.asset(
+                              AppImages.arrowDown,
+                              height: 8.h,
+                              color: AppColors.white,
+                            ),
+                          ),
+                          headerListBuilder: (context, employees, isTrue) {
+                            String listEmployees = "";
+                            employees.forEach((e) {
+                              listEmployees = '$listEmployees${e.fullName!}، ';
+                            });
+                            return Text(
+                              listEmployees,
+                              style: TextStyle(
+                                color: _createMailController.isSearchOpened
+                                    ? AppColors.blueDark
+                                    : AppColors.white,
+                              ),
+                            );
+                          },
+                          onListChanged: (List<Employee> list) =>
+                              _createMailController.onChangeListEmployee(list),
+                          futureRequest: (value) =>
+                              _createMailController.searchEmployee(value),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Obx(
+                  () => Container(
+                    height: 26.h,
+                    padding: EdgeInsets.only(right: 8.0, bottom: 6.h),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: _createMailController.imageList.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 20.h,
+                          width: 20.h,
+                          decoration: const ShapeDecoration(
+                            shape: OvalBorder(
+                              side: BorderSide(color: AppColors.gray3),
+                            ),
+                          ),
+                          child: Center(
+                            child: Image.asset(AppImages.profile),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
             19.h.verticalSpace,
             Container(
@@ -202,6 +385,7 @@ class CreateMailScreen extends StatelessWidget {
                 onClick: _createMailController.onClickBack,
                 isPrimary: false,
               ),
+              18.h.verticalSpace,
             ],
           ),
         ),

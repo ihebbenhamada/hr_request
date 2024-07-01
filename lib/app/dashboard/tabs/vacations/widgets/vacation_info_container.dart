@@ -72,10 +72,11 @@ class VacationInfoContainer extends StatelessWidget {
                   children: [
                     Obx(
                       () => Container(
-                        width: 108,
-                        height: 21.h,
+                        width: 118,
+                        height: 25.h,
+                        padding: const EdgeInsets.only(left: 10),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11.h),
+                          borderRadius: BorderRadius.circular(25.h),
                           border: Border.all(color: AppColors.primary),
                           color: AppColors.blueLight2,
                         ),
@@ -91,10 +92,10 @@ class VacationInfoContainer extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      width: 21.h,
-                      height: 21.h,
+                      width: 25.h,
+                      height: 25.h,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(21.h),
+                        borderRadius: BorderRadius.circular(25.h),
                         border: Border.all(color: AppColors.primary),
                         color: AppColors.white,
                       ),
@@ -113,10 +114,11 @@ class VacationInfoContainer extends StatelessWidget {
                   children: [
                     Obx(
                       () => Container(
-                        width: 108,
-                        height: 21.h,
+                        width: 118,
+                        height: 25.h,
+                        padding: const EdgeInsets.only(left: 10),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11.h),
+                          borderRadius: BorderRadius.circular(25.h),
                           color: AppColors.primary,
                         ),
                         child: Center(
@@ -131,8 +133,8 @@ class VacationInfoContainer extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      width: 21.h,
-                      height: 21.h,
+                      width: 25.h,
+                      height: 25.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(21.h),
                         border: Border.all(color: AppColors.primary),

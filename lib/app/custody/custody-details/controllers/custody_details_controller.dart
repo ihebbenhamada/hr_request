@@ -61,12 +61,14 @@ class CustodyDetailsController extends BaseController {
     if (Get.arguments != null) {
       Custody custody = Get.arguments;
       id.value = custody.custodyId;
+
       selectedPaymentType.value = paymentTypeList
-          .where((element) => int.parse(element.value) == custody.paymentType)
+          .where((element) =>
+              int.parse(element.value ?? "0") == custody.paymentType)
           .first;
       selectedCustodyType.value = custodyTypeList
           .where((element) =>
-              int.parse(element.value) == custody.fkCbCustodyTypeId)
+              int.parse(element.value ?? '0') == custody.fkCbCustodyTypeId)
           .first;
       custodyDate.value = DateTime.parse(custody.dateCustody);
       totalCustodyTextEditingController.text = custody.totalAmount.toString();
@@ -127,10 +129,10 @@ class CustodyDetailsController extends BaseController {
       _custodyDetailsService
           .updateCustody(
         id: id.value,
-        paymentType: int.parse(selectedPaymentType.value.value),
+        paymentType: int.parse(selectedPaymentType.value.value ?? '0'),
         dateCustody: custodyDate.toString(),
         totalAmount: int.parse(totalCustodyTextEditingController.value.text),
-        fKCbCustodyTypeId: int.parse(selectedCustodyType.value.value),
+        fKCbCustodyTypeId: int.parse(selectedCustodyType.value.value ?? '0'),
         custodyName: nameCustodyTextEditingController.value.text,
         subject: titleCustodyTextEditingController.value.text,
         description: topicCustodyTextEditingController.value.text,
@@ -144,10 +146,10 @@ class CustodyDetailsController extends BaseController {
     } else {
       _custodyDetailsService
           .createCustody(
-        paymentType: int.parse(selectedPaymentType.value.value),
+        paymentType: int.parse(selectedPaymentType.value.value ?? '0'),
         dateCustody: custodyDate.toString(),
         totalAmount: int.parse(totalCustodyTextEditingController.value.text),
-        fKCbCustodyTypeId: int.parse(selectedCustodyType.value.value),
+        fKCbCustodyTypeId: int.parse(selectedCustodyType.value.value ?? '0'),
         custodyName: nameCustodyTextEditingController.value.text,
         subject: titleCustodyTextEditingController.value.text,
         description: topicCustodyTextEditingController.value.text,

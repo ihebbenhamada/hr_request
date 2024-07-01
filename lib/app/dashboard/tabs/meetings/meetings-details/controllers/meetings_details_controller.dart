@@ -86,8 +86,11 @@ class MeetingsDetailsController extends BaseController {
   /// FUNCTIONS
   addMeetingPoint() {
     if (meetingPointTextEditingController.value.text.isNotEmpty) {
-      meetingPointList.add(MeetingPoint(
-          pointText: (meetingPointTextEditingController.value.text)));
+      meetingPointList.add(
+        MeetingPoint(
+          pointText: (meetingPointTextEditingController.value.text),
+        ),
+      );
 
       meetingPointTextEditingController.clear();
     }
@@ -151,8 +154,8 @@ class MeetingsDetailsController extends BaseController {
       meetingTitle: meetingTitleTextEditingController.value.text,
       fkHrDepartmentId: selectedDepartment.value.id,
       fkAssigneeById: 0,
-      submitType: "save",
-      meetingPoints: meetingPointList,
+      submitType: "send",
+      meetingPoints: meetingPointList.value,
       assignees: assigneesList,
     )
         .then((value) {

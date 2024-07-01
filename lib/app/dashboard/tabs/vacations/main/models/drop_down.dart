@@ -1,12 +1,12 @@
 class DropDownModel {
-  final bool disabled;
-  final String text;
-  final String value;
+  final bool? disabled;
+  final String? text;
+  final String? value;
 
   DropDownModel({
-    required this.disabled,
-    required this.text,
-    required this.value,
+    this.disabled,
+    this.text,
+    this.value,
   });
 
   factory DropDownModel.fromJson(Map<String, dynamic> json) {

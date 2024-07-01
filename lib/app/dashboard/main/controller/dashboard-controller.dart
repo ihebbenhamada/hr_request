@@ -202,9 +202,14 @@ class DashboardController extends BaseController {
   late Rx<DropDownModel> selectedDepartment;
 
   onItemSelected(int index) {
+    if (index != pageIndex.value) {
+      Get.nestedKey(pageIndex.value + 1)
+          ?.currentState
+          ?.popUntil((route) => route.isFirst);
+    }
+    pageIndex.value = index;
     switch (index) {
       case 0:
-        pageIndex.value = index;
         decisionsIconColor.value = AppColors.primary;
         vacationsIconColor.value = AppColors.white;
         innTechIconColor.value = AppColors.white;
@@ -212,7 +217,6 @@ class DashboardController extends BaseController {
         searchIconColor.value = AppColors.white;
         break;
       case 1:
-        pageIndex.value = index;
         vacationsIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         innTechIconColor.value = AppColors.white;
@@ -220,7 +224,6 @@ class DashboardController extends BaseController {
         decisionsIconColor.value = AppColors.white;
         break;
       case 2:
-        pageIndex.value = index;
         innTechIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
@@ -228,7 +231,6 @@ class DashboardController extends BaseController {
         meetingIconColor.value = AppColors.white;
         break;
       case 3:
-        pageIndex.value = index;
         meetingIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         vacationsIconColor.value = AppColors.white;
@@ -236,7 +238,6 @@ class DashboardController extends BaseController {
         decisionsIconColor.value = AppColors.white;
         break;
       case 4:
-        pageIndex.value = index;
         searchIconColor.value = AppColors.primary;
         vacationsIconColor.value = AppColors.white;
         innTechIconColor.value = AppColors.white;
@@ -453,7 +454,10 @@ class DashboardController extends BaseController {
     meetingIconColor.value = AppColors.white;
     selectedCompany = companyList[0].obs;
     selectedDepartment = departmentsList[0].obs;
-    employee.value = Emp.fromJson(GetStorage().read('employee'));
+    if (GetStorage().read('employee') != null) {
+      employee.value = Emp.fromJson(GetStorage().read('employee'));
+    }
+
     Future.delayed(const Duration(milliseconds: 100), () {
       AppInterceptor.showLoader();
     });

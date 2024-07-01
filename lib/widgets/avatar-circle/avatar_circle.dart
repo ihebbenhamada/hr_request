@@ -6,7 +6,7 @@ import 'package:request_hr/config/image_urls/image_urls.dart';
 class AvatarCircle extends StatelessWidget {
   const AvatarCircle({
     super.key,
-    required this.image,
+    this.image,
     required this.size,
     required this.iconSize,
     this.imageSize,
@@ -19,7 +19,7 @@ class AvatarCircle extends StatelessWidget {
     this.isBorderEnabled = true,
     this.stroke = false,
   });
-  final String image;
+  final String? image;
   final String? icon;
   final double size;
   final double iconSize;
@@ -51,9 +51,9 @@ class AvatarCircle extends StatelessWidget {
           ),
           clipBehavior: Clip.hardEdge,
           child: Center(
-            child: isNetworkImage
+            child: isNetworkImage && image != null
                 ? Image.network(
-                    image,
+                    image!,
                     width: imageSize ?? size,
                     height: imageSize ?? size,
                     color: imageColor,
@@ -73,7 +73,7 @@ class AvatarCircle extends StatelessWidget {
                     },
                   )
                 : Image.asset(
-                    image,
+                    image ?? AppImages.profile,
                     width: imageSize ?? size,
                     height: imageSize ?? size,
                     color: imageColor,

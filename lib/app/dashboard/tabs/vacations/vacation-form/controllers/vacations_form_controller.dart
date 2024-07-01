@@ -176,10 +176,10 @@ class VacationsFormController extends BaseController {
           .updateVacation(
         vacationId: vacationController.selectedVacation!.vacationId,
         fKAlternativeEmployee:
-            int.parse(selectedAlternativeEmployee.value.value),
+            int.parse(selectedAlternativeEmployee.value.value ?? '0'),
         fKAlternativeToPayingAnyDue:
-            int.parse(selectedAlternativeToPay.value.value),
-        fKHrVacationTypeId: int.parse(selectedType.value.value),
+            int.parse(selectedAlternativeToPay.value.value ?? '0'),
+        fKHrVacationTypeId: int.parse(selectedType.value.value ?? '0'),
         fKReqStatusId: 9,
         dateFrom: dateFrom.value,
         dateTo: dateTo.value,
@@ -194,10 +194,10 @@ class VacationsFormController extends BaseController {
       _vacationsFormService
           .createVacation(
         fKAlternativeEmployee:
-            int.parse(selectedAlternativeEmployee.value.value),
+            int.parse(selectedAlternativeEmployee.value.value ?? '0'),
         fKAlternativeToPayingAnyDue:
-            int.parse(selectedAlternativeToPay.value.value),
-        fKHrVacationTypeId: int.parse(selectedType.value.value),
+            int.parse(selectedAlternativeToPay.value.value ?? '0'),
+        fKHrVacationTypeId: int.parse(selectedType.value.value ?? '0'),
         fKReqStatusId: 9,
         dateFrom: dateFrom.value,
         dateTo: dateTo.value,
@@ -222,5 +222,12 @@ class VacationsFormController extends BaseController {
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+  }
+
+  Future<List<DropDownModel>> searchEmployee(String value) async {
+    return employeesList
+        .where((employee) =>
+            employee.text!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
   }
 }

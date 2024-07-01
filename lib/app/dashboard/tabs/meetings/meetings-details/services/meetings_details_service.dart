@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+import 'package:request_hr/api/models/public/meeting_point.dart';
 import 'package:request_hr/config/api-urls/end_points.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
@@ -10,7 +13,7 @@ class MeetingsDetailsService {
     required int fkHrDepartmentId,
     required int fkAssigneeById,
     required String submitType,
-    required List<dynamic> meetingPoints,
+    required List<MeetingPoint> meetingPoints,
     required List<int> assignees,
   }) async {
     Map<String, dynamic> data = {
@@ -20,7 +23,7 @@ class MeetingsDetailsService {
       "fk_HrDepartmentId": fkHrDepartmentId,
       "fk_AssigneeById": fkAssigneeById,
       "submitType": submitType,
-      "meetingPoints": meetingPoints,
+      "meetingPoints": meetingPoints.map((map) => map.toJson()).toList(),
       "assignees ": assignees
     };
     try {
@@ -32,6 +35,9 @@ class MeetingsDetailsService {
         return null;
       }
     } on DioException catch (e) {
+      log("e.error.toString()");
+      log(e.error.toString());
+      log(e.response?.data.toString() ?? "");
       return null;
     }
   }

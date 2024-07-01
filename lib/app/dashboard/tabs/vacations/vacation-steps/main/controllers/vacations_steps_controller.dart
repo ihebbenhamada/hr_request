@@ -370,7 +370,7 @@ class VacationsStepsController extends BaseController
       fKDefBranchId: secondStepData.value.fKDefBranchId,
       fKHrDepartmentId: secondStepData.value.fKHrDepartmentId,
       fKHrManagementId: secondStepData.value.fKHrManagementId,
-      paymentTypes: int.parse(selectedPaymentType.value.value),
+      paymentTypes: int.parse(selectedPaymentType.value.value ?? '0'),
       requestRefrenceId: secondStepData.value.requestRefrenceId,
       ticketPath: secondStepData.value.ticketPath,
       totalExtaraTicketsValue: secondStepData.value.totalExtaraTicketsValue,

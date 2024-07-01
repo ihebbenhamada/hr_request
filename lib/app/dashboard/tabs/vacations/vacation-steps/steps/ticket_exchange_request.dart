@@ -72,7 +72,7 @@ class TicketExchangeRequest extends StatelessWidget {
                                         (DropDownModel value) {
                                   return DropdownMenuItem<DropDownModel>(
                                     value: value,
-                                    child: Text(value.text),
+                                    child: Text(value.text ?? '0'),
                                   );
                                 }).toList(),
                               ),

@@ -15,10 +15,8 @@ import 'config/theme/theme_controller.dart';
 class RequestApp extends StatelessWidget {
   RequestApp({
     super.key,
-    required this.isLoggedIn,
     required this.language,
   });
-  final bool isLoggedIn;
   final String? language;
   final ThemeController themeController = Get.put(ThemeController());
   final GetStorage storage = GetStorage();
@@ -43,7 +41,8 @@ class RequestApp extends StatelessWidget {
               : const Locale('en', 'US'),
           initialBinding: Binding(),
           smartManagement: SmartManagement.keepFactory,
-          home: isLoggedIn ? DashboardScreen() : LoginScreen(),
+          home:
+              storage.read("token") != null ? DashboardScreen() : LoginScreen(),
           builder: EasyLoading.init(),
         );
       },

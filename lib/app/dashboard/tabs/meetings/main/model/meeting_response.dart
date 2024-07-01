@@ -19,8 +19,8 @@ class MeetingResponse {
   final bool? isDeleted;
   List<int?>? hdnAttachmentIds = [];
   final int? fKHrDepartmentId;
-  List<int?>? assignees = [];
-  List<int?>? departmentsIds = [];
+  List<dynamic>? assignees = [];
+  List<dynamic>? departmentsIds = [];
   final List<MeetingPoint>? meetingPoints;
 
   MeetingResponse({
@@ -63,9 +63,13 @@ class MeetingResponse {
       isDeleted: json['isDeleted'] as bool?,
       hdnAttachmentIds: json['hdnAttachmentIds'] as List<int>?,
       fKHrDepartmentId: json['fK_HrDepartmentId'] as int?,
-      assignees: json['assignees'] as List<int>?,
-      departmentsIds: json['departmentsIds'] as List<int>?,
-      meetingPoints: json['meetingPoints'] as List<MeetingPoint>?,
+      assignees: json['assignees'] as List<dynamic>?,
+      departmentsIds: json['departmentsIds'] as List<dynamic>?,
+      meetingPoints: json["meetingPoints"] != null
+          ? List<MeetingPoint>.from(
+              json["meetingPoints"].map((x) => MeetingPoint.fromJson(x)),
+            )
+          : null,
     );
   }
 
