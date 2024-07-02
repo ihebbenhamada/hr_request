@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,8 @@ import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 import 'package:request_hr/widgets/input/input_form.dart';
 
 import '../../../../../../config/colors/colors.dart';
+import '../../../../api/models/public/department.dart';
+import '../../../../api/models/public/employee.dart';
 
 class AlertDetailsScreen extends StatelessWidget {
   final _alertDetailsController = Get.put(AlertDetailsController());
@@ -21,6 +24,36 @@ class AlertDetailsScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Container(
+                    height: 40.h,
+                    width: 40.h,
+                    margin: const EdgeInsets.only(left: 25),
+                    decoration: const ShapeDecoration(
+                      shape: OvalBorder(),
+                      color: AppColors.primary,
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        AppImages.back,
+                        height: 20.h,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                10.h.horizontalSpace,
+                Text(
+                  'Create alert',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 25.0),
               child: SizedBox(
@@ -63,7 +96,8 @@ class AlertDetailsScreen extends StatelessWidget {
                               ),
                               4.horizontalSpace,
                               Text(
-                                'Mohamed Ismail ',
+                                _alertDetailsController
+                                    .employee.value.fullNameEn,
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14.sp,
@@ -92,7 +126,7 @@ class AlertDetailsScreen extends StatelessWidget {
                               ),
                               4.horizontalSpace,
                               Text(
-                                'project Manager',
+                                _alertDetailsController.employee.value.jobName,
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14.sp,
@@ -121,7 +155,9 @@ class AlertDetailsScreen extends StatelessWidget {
                               ),
                               4.horizontalSpace,
                               Text(
-                                '19/5/2024',
+                                _alertDetailsController
+                                    .employee.value.creationDate
+                                    .substring(0, 10),
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14.sp,
@@ -135,7 +171,7 @@ class AlertDetailsScreen extends StatelessWidget {
                     Positioned(
                       right: 0,
                       child: AvatarCircle(
-                        image: AppImages.avatar3,
+                        image: AppImages.profile,
                         size: 112.h,
                         iconSize: 22.h,
                         imageSize: 95.h,
@@ -151,16 +187,137 @@ class AlertDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Column(
                 children: [
-                  InputForm(
+                  Container(
                     height: 55.h,
                     width: double.infinity,
-                    title: 'Choose Employee',
-                    inputType: 'select',
-                    selectedDropDownItem:
-                        _alertDetailsController.selectedEmployee,
-                    onSelect: (value) =>
-                        _alertDetailsController.onSelectEmployee(value),
-                    listDropDown: _alertDetailsController.employeesList,
+                    padding: const EdgeInsets.only(
+                      left: 11,
+                      right: 11,
+                      bottom: 0,
+                      top: 0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12.h),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x29000000),
+                          blurRadius: 3,
+                          offset: Offset(0, 3),
+                          spreadRadius: 0,
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Depart",
+                          style: TextStyle(
+                            color: AppColors.gray6,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        3.verticalSpace,
+                        Obx(
+                          () => DropdownButtonHideUnderline(
+                            child: DropdownButton<Department>(
+                              isDense: true,
+                              dropdownColor: AppColors.white,
+                              value: _alertDetailsController
+                                  .selectedDepartment.value,
+                              style: TextStyle(
+                                color: AppColors.blueDark,
+                                fontSize: 14.sp,
+                              ),
+                              isExpanded: true,
+                              alignment: Alignment.bottomCenter,
+                              icon: Image.asset(
+                                AppImages.arrowDown,
+                                height: 8.h,
+                              ),
+                              onChanged: (Department? newValue) =>
+                                  _alertDetailsController
+                                      .onSelectDepartment(newValue!),
+                              items: _alertDetailsController.departmentList
+                                  .map<DropdownMenuItem<Department>>(
+                                      (Department value) {
+                                return DropdownMenuItem<Department>(
+                                  alignment: Alignment.centerLeft,
+                                  value: value,
+                                  child: Text(
+                                    value.departmentNameEn ?? "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  13.h.verticalSpace,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 11),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12.h),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x29000000),
+                          blurRadius: 3,
+                          offset: Offset(0, 3),
+                          spreadRadius: 0,
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        5.h.verticalSpace,
+                        Text(
+                          "Choose Employee",
+                          style: TextStyle(
+                            color: AppColors.gray6,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        CustomDropdown<Employee>.searchRequest(
+                          items: _alertDetailsController.employeesList,
+                          hintText: "Select employee",
+                          closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
+                          listItemBuilder:
+                              (context, employee, isSelected, onItemSelect) {
+                            return Text(employee.fullName ?? "");
+                          },
+                          headerBuilder: (context, emp, isTrue) {
+                            return Text(emp.fullName ?? "");
+                          },
+                          decoration: CustomDropdownDecoration(
+                            hintStyle: TextStyle(
+                              fontSize: 14.sp,
+                            ),
+                            closedSuffixIcon: const Icon(
+                              Icons.arrow_drop_down,
+                              color: AppColors.blueDark,
+                            ),
+                          ),
+                          futureRequest: (value) =>
+                              _alertDetailsController.searchEmployee(value),
+                          onChanged: (Employee? employee) {
+                            _alertDetailsController.selectedEmployee.value =
+                                employee!;
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   13.h.verticalSpace,
                   InputForm(

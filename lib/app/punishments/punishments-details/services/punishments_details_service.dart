@@ -5,7 +5,6 @@ import '../../../../config/interceptor/interceptor.dart';
 
 class PunishmentsDetailsService {
   Future<bool?> createPunishment({
-    required int? id,
     required int fKHrEmployeeId,
     required String subject,
     required String description,
@@ -13,12 +12,12 @@ class PunishmentsDetailsService {
     required int amountType,
     required String creationDate,
     required bool isDeleted,
+    required bool isActive,
     required int employeeReceive,
     required List<int> assignees,
     required List<int> departmentsIds,
   }) async {
     Map<String, dynamic> data = {
-      "Id": id,
       "FK_HrEmployeeId": fKHrEmployeeId,
       "Subject": subject,
       "Description": description,
@@ -26,8 +25,8 @@ class PunishmentsDetailsService {
       "AmountType": amountType,
       "CreationDate": creationDate,
       "LastModifiedDate": "2024-04-20",
-      "IsActive": true,
-      "IsDeleted": false,
+      "IsActive": isActive,
+      "IsDeleted": isDeleted,
       "EmoloyeeRecive": employeeReceive,
       "Assignees": assignees,
       "DepartmentsIds": departmentsIds

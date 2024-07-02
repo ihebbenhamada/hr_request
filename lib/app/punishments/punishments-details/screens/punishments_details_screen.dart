@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,8 @@ import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 import 'package:request_hr/widgets/input/input_form.dart';
 
 import '../../../../../../config/colors/colors.dart';
+import '../../../../api/models/public/department.dart';
+import '../../../../api/models/public/employee.dart';
 
 class PunishmentsDetailsScreen extends StatelessWidget {
   final _punishmentsDetailsController = Get.put(PunishmentsDetailsController());
@@ -186,35 +189,153 @@ class PunishmentsDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InputForm(
-                        height: 55.h,
-                        width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                        title: 'Choose Employee',
-                        inputType: 'select',
-                        selectedDropDownItem:
-                            _punishmentsDetailsController.selectedEmployee,
-                        onSelect: (value) => _punishmentsDetailsController
-                            .onSelectEmployee(value),
-                        listDropDown:
-                            _punishmentsDetailsController.employeesList,
-                      ),
-                      InputForm(
-                        height: 55.h,
-                        width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                        title: 'Punishment Amount',
-                        inputType: 'input',
-                        nbrLines: 1,
-                        textEditingController: _punishmentsDetailsController
-                            .amountTextEditingController,
-                        keyboardType: TextInputType.number,
-                        inputFormatter: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(8),
-                        ],
-                      ),
+                  Container(
+                    height: 55.h,
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(
+                      left: 11,
+                      right: 11,
+                      bottom: 0,
+                      top: 0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12.h),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x29000000),
+                          blurRadius: 3,
+                          offset: Offset(0, 3),
+                          spreadRadius: 0,
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Depart",
+                          style: TextStyle(
+                            color: AppColors.gray6,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        3.verticalSpace,
+                        Obx(
+                          () => DropdownButtonHideUnderline(
+                            child: DropdownButton<Department>(
+                              isDense: true,
+                              dropdownColor: AppColors.white,
+                              value: _punishmentsDetailsController
+                                  .selectedDepartment.value,
+                              style: TextStyle(
+                                color: AppColors.blueDark,
+                                fontSize: 14.sp,
+                              ),
+                              isExpanded: true,
+                              alignment: Alignment.bottomCenter,
+                              icon: Image.asset(
+                                AppImages.arrowDown,
+                                height: 8.h,
+                              ),
+                              onChanged: (Department? newValue) =>
+                                  _punishmentsDetailsController
+                                      .onSelectDepartment(newValue!),
+                              items: _punishmentsDetailsController
+                                  .departmentList
+                                  .map<DropdownMenuItem<Department>>(
+                                      (Department value) {
+                                return DropdownMenuItem<Department>(
+                                  alignment: Alignment.centerLeft,
+                                  value: value,
+                                  child: Text(
+                                    value.departmentNameEn ?? "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  13.h.verticalSpace,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 11),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12.h),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x29000000),
+                          blurRadius: 3,
+                          offset: Offset(0, 3),
+                          spreadRadius: 0,
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        5.h.verticalSpace,
+                        Text(
+                          "Choose Employee",
+                          style: TextStyle(
+                            color: AppColors.gray6,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        CustomDropdown<Employee>.searchRequest(
+                          items: _punishmentsDetailsController.employeesList,
+                          hintText: "Select employee",
+                          closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
+                          listItemBuilder:
+                              (context, employee, isSelected, onItemSelect) {
+                            return Text(employee.fullName ?? "");
+                          },
+                          headerBuilder: (context, emp, isTrue) {
+                            return Text(emp.fullName ?? "");
+                          },
+                          decoration: CustomDropdownDecoration(
+                            hintStyle: TextStyle(
+                              fontSize: 14.sp,
+                            ),
+                            closedSuffixIcon: const Icon(
+                              Icons.arrow_drop_down,
+                              color: AppColors.white,
+                            ),
+                          ),
+                          futureRequest: (value) =>
+                              _punishmentsDetailsController
+                                  .searchEmployee(value),
+                          onChanged: (Employee? employee) {
+                            _punishmentsDetailsController
+                                .selectedEmployee.value = employee!;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  13.h.verticalSpace,
+                  InputForm(
+                    height: 55.h,
+                    width: double.infinity,
+                    title: 'Punishment Amount',
+                    inputType: 'input',
+                    nbrLines: 1,
+                    textEditingController: _punishmentsDetailsController
+                        .amountTextEditingController,
+                    keyboardType: TextInputType.number,
+                    inputFormatter: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(8),
                     ],
                   ),
                   13.h.verticalSpace,

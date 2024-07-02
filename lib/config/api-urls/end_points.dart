@@ -64,13 +64,13 @@ class EndPoints {
 
   /// PUBLIC
   static const String GET_DEPARTMENTS_URL =
-      '/PurchaseOrderAPI/GetAllDepartmentForDDList?lang=';
+      '/ReqBonusAPI/GetAllDepartments?lang=';
 
   static const String GET_EMPLOYEES_URL =
       '/ReqMeetingsAPI/GetEmployeeDetails?lang=';
 
   static String GET_EMPLOYEES_BY_DEPARTMENT_URL(String id, String lang) =>
-      '/PurchaseOrderAPI/GetEmployeeByDepartmentForDDL?id=$id&lang=$lang';
+      '/ReqBonusAPI/GetEmployeesByDepartment?departmnetId=$id&lang=$lang';
 
   /// EVALUATION
   static const String GET_EVALUATIONS_URL = '/HrEmployeeEvaluationAPI/Index';

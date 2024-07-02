@@ -250,6 +250,9 @@ class DashboardController extends BaseController {
   }
 
   onTapDrawer(int index) {
+    Get.nestedKey(pageIndex.value + 1)
+        ?.currentState
+        ?.popUntil((route) => route.isFirst);
     switch (index) {
       case 0:
         // Navigate to Dashboard

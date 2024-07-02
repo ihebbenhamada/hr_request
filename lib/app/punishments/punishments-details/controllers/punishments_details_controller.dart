@@ -8,7 +8,6 @@ import '../../../../api/models/public/employee.dart';
 import '../../../../api/requests/public_api.dart';
 import '../../../../config/interceptor/interceptor.dart';
 import '../../../auth/login/models/login_response.dart';
-import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
 import '../services/punishments_details_service.dart';
 
 class PunishmentsDetailsController extends BaseController {
@@ -27,18 +26,10 @@ class PunishmentsDetailsController extends BaseController {
 
   /// VARIABLES
   RxList<Department> departmentList = <Department>[].obs;
-  RxList<Employee> employeeList = <Employee>[].obs;
+  RxList<Employee> employeesList = <Employee>[].obs;
   Rx<Department> selectedDepartment = Department(id: 0).obs;
-  RxList<Employee> selectedEmployees = <Employee>[].obs;
-  final List<DropDownModel> employeesList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Mohamed Ahmed', value: '1'),
-    DropDownModel(disabled: false, text: 'Iheb Ben Hamada', value: '2'),
-    DropDownModel(disabled: false, text: 'Mohamed malki', value: '3'),
-    DropDownModel(disabled: false, text: 'Mohamed ayed', value: '4'),
-  ];
+  Rx<Employee> selectedEmployee = Employee(id: 0).obs;
 
-  late Rx<DropDownModel> selectedEmployee;
   Rx<Emp> employee = Emp(
     id: 0,
     code: "",
@@ -94,36 +85,13 @@ class PunishmentsDetailsController extends BaseController {
   void initValues() {
     getDepartments();
     employee.value = Emp.fromJson(GetStorage().read('employee'));
-    selectedEmployee = employeesList[0].obs;
   }
 
   /// FUNCTIONS
-  onSelectEmployee(DropDownModel value) {
-    selectedEmployee.value = value;
-  }
-
-  onClickSubmit() {
+  onSelectDepartment(Department value) {
     AppInterceptor.showLoader();
-    _punishmentsDetailsService
-        .createPunishment(
-      amount: double.parse(amountTextEditingController.value.text),
-      description: remarkTextEditingController.value.text,
-      id: null,
-      amountType: 1,
-      assignees: [1, 2],
-      departmentsIds: [1, 2],
-      employeeReceive: 2,
-      creationDate: DateTime.now().toString().substring(0, 10),
-      fKHrEmployeeId: 1,
-      subject: titleTextEditingController.value.text,
-      isDeleted: false,
-    )
-        .then((value) {
-      if (value != null) {
-        Get.back(result: 'refresh');
-      }
-      AppInterceptor.hideLoader();
-    });
+    selectedDepartment.value = value;
+    getEmployeesByDepartment(id: value.id.toString());
   }
 
   getDepartments() {
@@ -140,15 +108,43 @@ class PunishmentsDetailsController extends BaseController {
   getEmployeesByDepartment({required String id}) {
     _publicApiServices.getEmployeesByDepartment(id: id).then((listEmployees) {
       if (listEmployees != null) {
-        employeeList.value = listEmployees;
-        selectedEmployees.value = [listEmployees[0]];
+        employeesList.value = listEmployees;
+        selectedEmployee.value = listEmployees[0];
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
+  onSelectEmployee(Employee value) {
+    selectedEmployee.value = value;
+  }
+
+  onClickSubmit() {
+    AppInterceptor.showLoader();
+    _punishmentsDetailsService
+        .createPunishment(
+      amount: double.parse(amountTextEditingController.value.text),
+      description: remarkTextEditingController.value.text,
+      amountType: 1,
+      assignees: [selectedEmployee.value.id],
+      departmentsIds: [selectedDepartment.value.id],
+      employeeReceive: selectedEmployee.value.id,
+      creationDate: DateTime.now().toString().substring(0, 10),
+      fKHrEmployeeId: employee.value.id,
+      subject: titleTextEditingController.value.text,
+      isDeleted: false,
+      isActive: true,
+    )
+        .then((value) {
+      if (value != null) {
+        Get.back(result: 'refresh');
       }
       AppInterceptor.hideLoader();
     });
   }
 
   Future<List<Employee>> searchEmployee(String value) async {
-    return employeeList
+    return employeesList
         .where((employee) =>
             employee.fullName!.toLowerCase().contains(value.toLowerCase()))
         .toList();

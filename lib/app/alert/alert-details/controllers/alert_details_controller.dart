@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../../../../api/models/public/department.dart';
+import '../../../../api/models/public/employee.dart';
+import '../../../../api/requests/public_api.dart';
 import '../../../../config/interceptor/interceptor.dart';
-import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
+import '../../../auth/login/models/login_response.dart';
 import '../services/alert_details_service.dart';
 
 class AlertDetailsController extends BaseController {
   /// SERVICES
   final AlertDetailsService _alertDetailsService = AlertDetailsService();
+  final PublicApiServices _publicApiServices = PublicApiServices();
 
   /// CONTROLLERS
   final TextEditingController titleTextEditingController =
@@ -17,15 +22,47 @@ class AlertDetailsController extends BaseController {
       TextEditingController();
 
   /// VARIABLES
-  final List<DropDownModel> employeesList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Mohamed Ahmed', value: '1'),
-    DropDownModel(disabled: false, text: 'Iheb Ben Hamada', value: '2'),
-    DropDownModel(disabled: false, text: 'Mohamed malki', value: '3'),
-    DropDownModel(disabled: false, text: 'Mohamed ayed', value: '4'),
-  ];
-
-  late Rx<DropDownModel> selectedEmployee;
+  RxList<Department> departmentList = <Department>[].obs;
+  RxList<Employee> employeesList = <Employee>[].obs;
+  Rx<Department> selectedDepartment = Department(id: 0).obs;
+  Rx<Employee> selectedEmployee = Employee(id: 0).obs;
+  Rx<Emp> employee = Emp(
+    id: 0,
+    code: "",
+    fullName: "",
+    fullNameEn: "",
+    idNumber: "",
+    fKDefBranchId: 0,
+    fKHrManagementId: 0,
+    fKHrDepartmentId: 0,
+    birthDate: "",
+    fKHrBloodTypeId: 0,
+    gender: 0,
+    placeOfBirth: "",
+    fKNationalityId: 0,
+    fKDefReligionId: 0,
+    fKSocialStatusId: 0,
+    hasAirlineTicket: false,
+    contractDueDate: "",
+    branchName: "",
+    contractStartDate: "",
+    fKGeneralManagerId: 0,
+    fKManagingDirectorId: 0,
+    fKHumanResourcesManagerId: 0,
+    fKDepartmentManagerId: 0,
+    fKDirectorGeneralId: 0,
+    jobName: "",
+    issuerName: "",
+    isActive: true,
+    creationDate: "",
+    isDeleted: false,
+    isDeveloper: false,
+    fKCostcenterId: 0,
+    fKCreatorId: 0,
+    fKModifiedById: 0,
+    lastModifiedDate: "",
+  ).obs;
+  GetStorage storage = GetStorage();
 
   /// VALIDATION
 
@@ -43,7 +80,8 @@ class AlertDetailsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    selectedEmployee = employeesList[0].obs;
+    employee.value = Emp.fromJson(GetStorage().read('employee'));
+    getDepartments();
   }
 
   /// FUNCTIONS
@@ -51,20 +89,23 @@ class AlertDetailsController extends BaseController {
     AppInterceptor.showLoader();
     _alertDetailsService
         .createAlert(
-      fKAssigneeId: 1,
-      fKHrDepartmentId: 4,
-      departmentsIds: [1, 2],
-      assignees: [1, 2],
+      fKAssigneeId: selectedEmployee.value.id,
+      fKHrDepartmentId: selectedDepartment.value.id,
+      departmentsIds: [selectedDepartment.value.id],
+      assignees: [selectedEmployee.value.id],
       hrDepartments: [
-        {"Value": "1", "Text": "text"}
+        {
+          "Value": selectedDepartment.value.id.toString(),
+          "Text": selectedDepartment.value.departmentNameEn
+        }
       ],
-      isActive: true,
       lastModifiedDate: "2024-04-04",
       description: remarkTextEditingController.value.text,
       creationDate: DateTime.now().toString().substring(0, 10),
-      fKHrEmployeeId: 4010,
+      fKHrEmployeeId: employee.value.id,
       subject: titleTextEditingController.value.text,
       isDeleted: false,
+      isActive: true,
     )
         .then((value) {
       if (value != null) {
@@ -74,7 +115,37 @@ class AlertDetailsController extends BaseController {
     });
   }
 
-  onSelectEmployee(DropDownModel value) {
-    selectedEmployee.value = value;
+  onSelectDepartment(Department value) {
+    AppInterceptor.showLoader();
+    selectedDepartment.value = value;
+    getEmployeesByDepartment(id: value.id.toString());
+  }
+
+  getDepartments() {
+    AppInterceptor.showLoader();
+    _publicApiServices.getDepartments().then((listDepartments) {
+      if (listDepartments != null) {
+        departmentList.value = listDepartments;
+        selectedDepartment.value = listDepartments[0];
+        getEmployeesByDepartment(id: listDepartments[0].id.toString());
+      }
+    });
+  }
+
+  getEmployeesByDepartment({required String id}) {
+    _publicApiServices.getEmployeesByDepartment(id: id).then((listEmployees) {
+      if (listEmployees != null) {
+        employeesList.value = listEmployees;
+        selectedEmployee.value = listEmployees[0];
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
+  Future<List<Employee>> searchEmployee(String value) async {
+    return employeesList
+        .where((employee) =>
+            employee.fullName!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
   }
 }

@@ -6,7 +6,6 @@ import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
-import '../../../../config/image_urls/image_urls.dart';
 import '../../complaint-details/screens/complaint_details_screen.dart';
 import '../models/complaint_response.dart';
 import '../services/complaint_service.dart';
@@ -20,29 +19,6 @@ class ComplaintController extends BaseController {
   /// VARIABLES
   RxInt currentComplaint = 0.obs;
   RxInt selectedChart = 0.obs;
-  final List<Map<String, dynamic>> carouselComplaintList = [
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-    {
-      'employee_name': 'Mohamed Ahmed ismail',
-      'employee_position': 'project Manager',
-      'employee_image': AppImages.profile,
-      'date': '13-2-2024',
-      'editable': false,
-    },
-  ];
   final Rx<ComplaintResponse> complaintResponse = ComplaintResponse(
     totalCount: 0,
     reqComplaintMobile: [],
@@ -73,18 +49,6 @@ class ComplaintController extends BaseController {
     _complaintService.getComplaints().then((value) {
       if (value != null) {
         complaintResponse.value = value;
-        complaintResponse.value.reqComplaintMobile.add(
-          ReqComplaintMobile(
-            id: 1,
-            fkHrEmployeeId: 1,
-            senderName: "Hobba",
-            senderImagePath: "https://placebear.com/g/200/200",
-            subject: "complaint subject",
-            description: "complaint desc",
-            fkReqStatusId: 1,
-            complaintDate: "2024-04-20",
-          ),
-        );
       }
       AppInterceptor.hideLoader();
     });

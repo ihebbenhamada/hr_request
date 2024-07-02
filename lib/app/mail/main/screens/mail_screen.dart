@@ -97,11 +97,12 @@ class MailScreen extends StatelessWidget {
                                   Mail item = _mailController.mailList[index];
                                   return EmailItem(
                                     isSelected: item.isSelected,
-                                    image: item.filePath,
-                                    subject: item.subject,
-                                    sender: item.senderName,
-                                    description: item.description,
-                                    date: item.creationDate,
+                                    image: item.filePath ?? "",
+                                    subject: item.subject ?? "",
+                                    sender: item.senderName ?? "",
+                                    description: item.description ?? "",
+                                    date: item.creationDate?.substring(0, 10) ??
+                                        "",
                                     onClickItem: () => _mailController
                                         .onClickMail(mail: item, from: "list"),
                                     onSelectMail: () =>

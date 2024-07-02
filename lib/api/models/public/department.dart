@@ -6,6 +6,7 @@ class Department {
   final String? departmentNameAr;
   final String? departmentNameEn;
   final int? fKManagerId;
+
   final String? description;
   final int? fKCreatorId;
   final int? fKModifiedById;

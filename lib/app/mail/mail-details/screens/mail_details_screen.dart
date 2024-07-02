@@ -69,7 +69,8 @@ class MailDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _mailDetailsController.mail.value.senderName,
+                              _mailDetailsController.mail.value.senderName ??
+                                  "",
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
@@ -91,7 +92,7 @@ class MailDetailsScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _mailDetailsController.mail.value.subject,
+                              _mailDetailsController.mail.value.subject ?? "",
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
@@ -104,7 +105,7 @@ class MailDetailsScreen extends StatelessWidget {
                   ),
                   5.h.verticalSpace,
                   Text(
-                    _mailDetailsController.mail.value.description,
+                    _mailDetailsController.mail.value.description ?? "",
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: AppColors.white,

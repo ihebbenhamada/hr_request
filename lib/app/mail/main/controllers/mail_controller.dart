@@ -128,40 +128,6 @@ class MailController extends BaseController {
     _mailService.getMailList().then((value) {
       if (value != null) {
         mailList = value;
-        mailList.add(
-          Mail(
-            id: 1,
-            fKHrEmployeeId: 1,
-            senderName: "hobba",
-            subject: "subject",
-            description: "description",
-            reply: "reply",
-            filePath: "https://placebear.com/g/200/200",
-            fKReqStatusId: 1,
-            creationDate: "2024-04-15",
-            lastModifiedDate: "lastModifiedDate",
-            isDeleted: false,
-            isActive: true,
-            isSelected: false,
-          ),
-        );
-        mailList.add(
-          Mail(
-            id: 2,
-            fKHrEmployeeId: 1,
-            senderName: "hobba",
-            subject: "subject",
-            description: "description",
-            reply: "reply",
-            filePath: "https://placebear.com/g/200/200",
-            fKReqStatusId: 1,
-            creationDate: "2024-04-15",
-            lastModifiedDate: "lastModifiedDate",
-            isDeleted: false,
-            isActive: true,
-            isSelected: false,
-          ),
-        );
         update();
       }
 
@@ -169,13 +135,16 @@ class MailController extends BaseController {
     });
   }
 
-  onClickCreateEmail() {
-    Get.to(
+  onClickCreateEmail() async {
+    final result = await Get.to(
       () => CreateMailScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+    if (result != null) {
+      getMails();
+    }
   }
 
   onClickMail({required Mail mail, required String from}) {

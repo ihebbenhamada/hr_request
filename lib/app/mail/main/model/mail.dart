@@ -1,18 +1,18 @@
 class Mail {
-  final int id;
-  final int fKHrEmployeeId;
-  final String senderName;
-  final String subject;
-  final String description;
-  final String reply;
-  final String filePath;
-  final int fKReqStatusId;
+  final int? id;
+  final int? fKHrEmployeeId;
+  final String? senderName;
+  final String? subject;
+  final String? description;
+  final String? reply;
+  final String? filePath;
+  final int? fKReqStatusId;
   final int? fKCreatorId;
   final int? parentId;
-  final String creationDate;
-  final String lastModifiedDate;
-  final bool isActive;
-  final bool isDeleted;
+  final String? creationDate;
+  final String? lastModifiedDate;
+  final bool? isActive;
+  final bool? isDeleted;
   bool isSelected;
 
   Mail({
@@ -35,40 +35,40 @@ class Mail {
 
   factory Mail.fromJson(Map<String, dynamic> json) {
     return Mail(
-      id: json['Id'] as int,
-      fKHrEmployeeId: json['FK_HrEmployeeId'] as int,
-      senderName: json['SenderName'] as String,
-      subject: json['Subject'] as String,
-      description: json['Description'] as String,
-      reply: json['Reply'] as String,
-      filePath: json['FilePath'] as String,
-      fKReqStatusId: json['FK_ReqStatusId'] as int,
-      fKCreatorId: json['FK_CreatorId'] as int?,
-      parentId: json['ParentId'] as int?,
-      creationDate: json['CreationDate'] as String,
-      lastModifiedDate: json['LastModifiedDate'] as String,
-      isActive: json['IsActive'] as bool,
-      isDeleted: json['IsDeleted'] as bool,
+      id: json['id'] as int?,
+      fKHrEmployeeId: json['fK_HrEmployeeId'] as int?,
+      senderName: json['senderName'] as String?,
+      subject: json['subject'] as String?,
+      description: json['description'] as String?,
+      reply: json['reply'] as String?,
+      filePath: json['filePath'] as String?,
+      fKReqStatusId: json['fK_ReqStatusId'] as int?,
+      fKCreatorId: json['fK_CreatorId'] as int?,
+      parentId: json['parentId'] as int?,
+      creationDate: json['creationDate'] as String?,
+      lastModifiedDate: json['lastModifiedDate'] as String?,
+      isActive: json['isActive'] as bool?,
+      isDeleted: json['isDeleted'] as bool?,
       isSelected: false,
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['FK_HrEmployeeId'] = fKHrEmployeeId;
-    data['SenderName'] = senderName;
-    data['Subject'] = subject;
-    data['Description'] = description;
-    data['Reply'] = reply;
-    data['FilePath'] = filePath;
-    data['FK_ReqStatusId'] = fKReqStatusId;
-    data['FK_CreatorId'] = fKCreatorId;
-    data['ParentId'] = parentId;
-    data['CreationDate'] = creationDate;
-    data['LastModifiedDate'] = lastModifiedDate;
-    data['IsActive'] = isActive;
-    data['IsDeleted'] = isDeleted;
+    data['id'] = id;
+    data['fK_HrEmployeeId'] = fKHrEmployeeId;
+    data['senderName'] = senderName;
+    data['subject'] = subject;
+    data['description'] = description;
+    data['reply'] = reply;
+    data['filePath'] = filePath;
+    data['fK_ReqStatusId'] = fKReqStatusId;
+    data['fK_CreatorId'] = fKCreatorId;
+    data['parentId'] = parentId;
+    data['creationDate'] = creationDate;
+    data['lastModifiedDate'] = lastModifiedDate;
+    data['isActive'] = isActive;
+    data['isDeleted'] = isDeleted;
     return data;
   }
 }

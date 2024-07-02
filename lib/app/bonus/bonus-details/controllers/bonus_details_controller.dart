@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:request_hr/api/models/public/employee.dart';
 import 'package:request_hr/app/auth/login/models/login_response.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../../../../api/models/public/department.dart';
+import '../../../../api/requests/public_api.dart';
 import '../../../../config/interceptor/interceptor.dart';
 import '../services/bonus_details_service.dart';
 
 class BonusDetailsController extends BaseController {
   /// SERVICES
   final BonusDetailsService _bonusDetailsService = BonusDetailsService();
+  final PublicApiServices _publicApiServices = PublicApiServices();
 
   /// CONTROLLERS
   final TextEditingController amountTextEditingController =
@@ -21,13 +24,6 @@ class BonusDetailsController extends BaseController {
       TextEditingController();
 
   /// VARIABLES
-  final List<DropDownModel> employeesList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Mohamed Ahmed', value: '1'),
-    DropDownModel(disabled: false, text: 'Iheb Ben Hamada', value: '2'),
-    DropDownModel(disabled: false, text: 'Mohamed malki', value: '3'),
-    DropDownModel(disabled: false, text: 'Mohamed ayed', value: '4'),
-  ];
   Rx<Emp> employee = Emp(
     id: 0,
     code: "",
@@ -64,8 +60,12 @@ class BonusDetailsController extends BaseController {
     fKModifiedById: 0,
     lastModifiedDate: "",
   ).obs;
-  late Rx<DropDownModel> selectedEmployee;
   GetStorage storage = GetStorage();
+
+  RxList<Department> departmentList = <Department>[].obs;
+  RxList<Employee> employeesList = <Employee>[].obs;
+  Rx<Department> selectedDepartment = Department(id: 0).obs;
+  Rx<Employee> selectedEmployee = Employee(id: 0).obs;
 
   /// VALIDATION
 
@@ -76,6 +76,33 @@ class BonusDetailsController extends BaseController {
     super.onInit();
   }
 
+  onSelectDepartment(Department value) {
+    AppInterceptor.showLoader();
+    selectedDepartment.value = value;
+    getEmployeesByDepartment(id: value.id.toString());
+  }
+
+  getDepartments() {
+    AppInterceptor.showLoader();
+    _publicApiServices.getDepartments().then((listDepartments) {
+      if (listDepartments != null) {
+        departmentList.value = listDepartments;
+        selectedDepartment.value = listDepartments[0];
+        getEmployeesByDepartment(id: listDepartments[0].id.toString());
+      }
+    });
+  }
+
+  getEmployeesByDepartment({required String id}) {
+    _publicApiServices.getEmployeesByDepartment(id: id).then((listEmployees) {
+      if (listEmployees != null) {
+        employeesList.value = listEmployees;
+        selectedEmployee.value = listEmployees[0];
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -84,12 +111,19 @@ class BonusDetailsController extends BaseController {
   /// INITIALISATION
   void initValues() {
     employee.value = Emp.fromJson(GetStorage().read('employee'));
-    selectedEmployee = employeesList[0].obs;
+    getDepartments();
   }
 
   /// FUNCTIONS
-  onSelectEmployee(DropDownModel value) {
+  onSelectEmployee(Employee value) {
     selectedEmployee.value = value;
+  }
+
+  Future<List<Employee>> searchEmployee(String value) async {
+    return employeesList
+        .where((employee) =>
+            employee.fullName!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
   }
 
   onClickSubmit() {
@@ -98,11 +132,21 @@ class BonusDetailsController extends BaseController {
         .createBonus(
       amount: double.parse(amountTextEditingController.value.text),
       description: remarkTextEditingController.value.text,
-      id: null,
       bonusType: 1,
       creationDate: DateTime.now().toString().substring(0, 10),
-      fKHrEmployeeId: 1,
+      fKHrEmployeeId: employee.value.id,
       subject: titleTextEditingController.value.text,
+      assignees: [selectedEmployee.value.id],
+      departmentsIds: [selectedDepartment.value.id],
+      fKAssigneeId: selectedEmployee.value.id,
+      fKHrDepartmentId: selectedDepartment.value.id,
+      hrDepartments: [
+        {
+          "Value": selectedDepartment.value.id.toString(),
+          "Text": selectedDepartment.value.departmentNameEn
+        }
+      ],
+      isActive: true,
       isDeleted: false,
     )
         .then((value) {

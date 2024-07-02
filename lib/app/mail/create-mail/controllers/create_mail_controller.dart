@@ -52,25 +52,40 @@ class CreateMailController extends BaseController {
 
   /// FUNCTIONS
   onClickSend() {
+    AppInterceptor.showLoader();
     _createMailService
         .sendMessage(
-      id: 1,
       fkParentId: 1,
       fkHrEmployeeId: 1,
-      subject: "subject",
-      description: "description",
-      reply: "reply",
-      assignees: [1],
+      subject: subjectMessageTextEditingController.text,
+      description: bodyMessageTextEditingController.text,
+      reply: null,
+      assignees: assigneesList,
       departmentIds: [],
       filePath: "",
       fKReqStatusId: 1,
-      assigneeName: "assigneeName",
-      byAssigneeName: "byAssigneeName",
-      jobName: "jobName",
+      assigneeName: "",
+      byAssigneeName: "",
+      jobName: "",
       fKCreatorId: 1,
+      parentId: null,
+      assigneeByImagePath: '',
+      assigneeImagePath: '',
+      creationDate: DateTime.now().toString().substring(0, 10),
+      lastModifiedDate: DateTime.now().toString().substring(0, 10),
+      isActive: true,
+      isDeleted: false,
+      receiver: 1,
+      receivers: '',
+      file: null,
+      assigneesList: [],
+      departments: [],
     )
         .then((value) {
-      if (value != null) {}
+      if (value != null) {
+        Get.back(result: 'refresh');
+      }
+      AppInterceptor.hideLoader();
     });
   }
 

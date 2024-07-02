@@ -65,6 +65,7 @@ class AlertController extends BaseController {
       duration: const Duration(milliseconds: 500),
     );
     if (result != null) {
+      barGroups.clear();
       getAlertsList();
     }
   }

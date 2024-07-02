@@ -7,12 +7,11 @@ import '../../../../config/interceptor/interceptor.dart';
 
 class CreateMailService {
   Future<bool?> sendMessage({
-    required int id,
     required int fkParentId,
     required int fkHrEmployeeId,
     required String subject,
     required String description,
-    required String reply,
+    required String? reply,
     required List<int> assignees,
     required List<int> departmentIds,
     required String filePath,
@@ -21,34 +20,45 @@ class CreateMailService {
     required String byAssigneeName,
     required String jobName,
     required int fKCreatorId,
+    required int? parentId,
+    required String assigneeByImagePath,
+    required String assigneeImagePath,
+    required String creationDate,
+    required String lastModifiedDate,
+    required bool isActive,
+    required bool isDeleted,
+    required int receiver,
+    required String receivers,
+    required List<dynamic>? file,
+    required List<dynamic> assigneesList,
+    required List<dynamic> departments,
   }) async {
     Map<String, dynamic> data = {
-      "Id": 1,
-      "FK_ParentId": 1,
-      "FK_HrEmployeeId": 1,
-      "Subject": "qqqqq",
-      "Description": "aaaa",
-      "Reply": "aaaa",
-      "Assignees": [1],
-      "DepartmentsIds": [1],
-      "FilePath": "hahhah",
-      "FK_ReqStatusId": 1,
-      "AssigneeName": "aaaa",
-      "ByAssigneeName": "aaaa",
-      "JobName": "aaaa",
-      "FK_CreatorId": 1,
-      "ParentId": 1,
-      "AssigneeByImagePath": "aaaaa",
-      "AssigneeImagePath": "aaaaa",
-      "CreationDate": "2024-04-20",
-      "LastModifiedDate": "2024-04-20",
-      "IsActive": true,
-      "IsDeleted": false,
-      "Receiver": 2,
-      "Receivers": "aaaa",
-      "file": null,
-      "assigneesList": [
-        {
+      "FK_ParentId": fkParentId,
+      "FK_HrEmployeeId": fkHrEmployeeId,
+      "Subject": subject,
+      "Description": description,
+      "Reply": reply,
+      "Assignees": assignees,
+      "DepartmentsIds": departmentIds,
+      "FilePath": filePath,
+      "FK_ReqStatusId": fKReqStatusId,
+      "AssigneeName": assigneeName,
+      "ByAssigneeName": byAssigneeName,
+      "JobName": jobName,
+      "FK_CreatorId": fKCreatorId,
+      "ParentId": parentId,
+      "AssigneeByImagePath": assigneeByImagePath,
+      "AssigneeImagePath": assigneeImagePath,
+      "CreationDate": creationDate,
+      "LastModifiedDate": lastModifiedDate,
+      "IsActive": isActive,
+      "IsDeleted": isDeleted,
+      "Receiver": receiver,
+      "Receivers": receivers,
+      "file": file,
+      "assigneesList": assigneesList
+      /*{
           "Id": 1,
           "FK_AssigneeId": 1,
           "FK_AssigneeById": 1,
@@ -57,11 +67,11 @@ class CreateMailService {
           "LastModifiedDate": "2024-04-20",
           "IsActive": true,
           "IsDeleted": false
-        }
-      ],
-      "Departments": [
-        {"Value": "1", "Text": "aaaaa"}
-      ],
+        }*/
+      ,
+      "Departments": departments,
+      /* {"Value": "1", "Text": "aaaaa"}*/
+
       "listReqMessageVMs": [
         {
           "Id": 1,
