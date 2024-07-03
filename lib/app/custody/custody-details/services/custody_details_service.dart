@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import '../../../../config/api-urls/end_points.dart';
@@ -33,7 +35,7 @@ class CustodyDetailsService {
   }) async {
     Map<String, dynamic> data = {
       "PaymentType ": paymentType,
-      "DateCustody": dateCustody,
+      "DateCustody": dateCustody.substring(0, 10),
       "TotalAmount": totalAmount,
       "FK_CbCustodyTypeId": fKCbCustodyTypeId,
       "CustodyName": custodyName,
@@ -49,6 +51,7 @@ class CustodyDetailsService {
         return null;
       }
     } on DioException catch (e) {
+      log(e.response.toString());
       return null;
     }
   }

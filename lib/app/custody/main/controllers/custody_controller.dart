@@ -42,32 +42,7 @@ class CustodyController extends BaseController {
     AppInterceptor.showLoader();
     _custodyService.getCustodyList().then((value) {
       if (value != null) {
-        List<Custody> list = [
-          Custody(
-            custodyId: 1,
-            fkHrEmployeeId: 1,
-            paymentType: 1,
-            dateCustody: "2024-05-12",
-            totalAmount: 2000,
-            fkCbCustodyTypeId: 1,
-            custodyName: "Iheb",
-            subject: "subject",
-            description: "description",
-            fkReqStatusId: 31,
-          ),
-          Custody(
-            custodyId: 2,
-            fkHrEmployeeId: 1,
-            paymentType: 4,
-            dateCustody: "2024-05-20",
-            totalAmount: 5000,
-            fkCbCustodyTypeId: 2,
-            custodyName: "rabeb",
-            subject: "subbbbbbb",
-            description: "dessssss",
-            fkReqStatusId: 32,
-          ),
-        ];
+        List<Custody> list = value;
         allCustodyList.value = list;
         pendingCustodyList.value =
             list.where((map) => map.fkReqStatusId == 31).toList();

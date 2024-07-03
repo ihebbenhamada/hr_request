@@ -28,6 +28,7 @@ class ComplaintController extends BaseController {
     ),
   ).obs;
   RxInt showingTooltip = 1.obs;
+  RxList<BarChartGroupData> barGroups = <BarChartGroupData>[].obs;
 
   /// VALIDATION
 
@@ -49,18 +50,26 @@ class ComplaintController extends BaseController {
     _complaintService.getComplaints().then((value) {
       if (value != null) {
         complaintResponse.value = value;
+        for (var i = 0; i < value.reqComplaintChart.count.length; i++) {
+          barGroups
+              .add(generateGroupData(i + 1, value.reqComplaintChart.count[i]));
+        }
       }
       AppInterceptor.hideLoader();
     });
   }
 
-  onClickCreateComplaint() {
-    Get.to(
+  onClickCreateComplaint() async {
+    final result = await Get.to(
       () => ComplaintDetailsScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );
+    if (result != null) {
+      barGroups.clear();
+      getComplaints();
+    }
   }
 
   onClickItemComplaint() {
@@ -93,5 +102,10 @@ class ComplaintController extends BaseController {
 
   onSelectChart(int index) {
     selectedChart.value = index;
+  }
+
+  Future<void> handleRefresh() async {
+    barGroups.clear();
+    getComplaints();
   }
 }

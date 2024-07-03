@@ -176,7 +176,7 @@ class EndPoints {
           String id, String lang) =>
       '/PurchaseOrderAPI/GetAllStItemByProductIdForDDl?id=$id&lang=$lang';
   static const String GET_ALL_PURCHASE_CATEGORIES_URL =
-      '/PurchaseOrderAPI/GetAllCategories?lang=string';
+      '/PurchaseOrderAPI/GetAllCategories?lang=';
   static const String GET_ALL_ST_STATUS_URL =
       '/PurchaseOrderAPI/GetAllStStatus';
   static const String CREATE_PURCHASE_URL = '/PurchaseOrderAPI/Create';

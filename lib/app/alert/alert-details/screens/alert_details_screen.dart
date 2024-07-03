@@ -301,14 +301,14 @@ class AlertDetailsScreen extends StatelessWidget {
                             return Text(emp.fullName ?? "");
                           },
                           decoration: CustomDropdownDecoration(
-                            hintStyle: TextStyle(
-                              fontSize: 14.sp,
-                            ),
-                            closedSuffixIcon: const Icon(
-                              Icons.arrow_drop_down,
-                              color: AppColors.blueDark,
-                            ),
-                          ),
+                              hintStyle: TextStyle(
+                                fontSize: 14.sp,
+                              ),
+                              closedSuffixIcon: Image.asset(
+                                AppImages.arrowDown,
+                                height: 8.h,
+                                color: AppColors.blueDark,
+                              )),
                           futureRequest: (value) =>
                               _alertDetailsController.searchEmployee(value),
                           onChanged: (Employee? employee) {

@@ -39,34 +39,6 @@ class PurchaseController extends BaseController {
   /// FUNCTIONS
   getPurchaseList() {
     AppInterceptor.showLoader();
-    List<Purchase> list = [
-      Purchase(
-        id: 1,
-        serialPrefix: "sp",
-        serialNumber: 10,
-        orderDate: "2024-04-12",
-        fkStStatusId: 31,
-        status: "pending",
-        description: "description",
-      ),
-      Purchase(
-        id: 1,
-        serialPrefix: "sp",
-        serialNumber: 10,
-        orderDate: "2024-04-12",
-        fkStStatusId: 32,
-        status: "approved",
-        description: "description",
-      ),
-    ];
-    purchaseList.value = list;
-    allPurchaseList.value = list;
-    pendingPurchaseList.value =
-        list.where((element) => element.fkStStatusId == 31).toList();
-    approvedPurchaseList.value =
-        list.where((element) => element.fkStStatusId == 32).toList();
-    rejectedPurchaseList.value =
-        list.where((element) => element.fkStStatusId == 33).toList();
     _purchaseService.getPurchaseList().then((value) {
       if (value != null) {
         purchaseList.value = value;
