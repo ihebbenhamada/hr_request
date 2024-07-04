@@ -50,7 +50,7 @@ class LoanController extends BaseController {
     _loanService.getEmpLoans().then((value) {
       if (value != null) {
         empLoanResponse.value = value;
-        allLoansList.value = value.all.map((e) {
+        allLoansList.value = value.all!.map((e) {
           switch (e.status) {
             case "LoanInProgress":
               e.type = 1;
@@ -69,17 +69,17 @@ class LoanController extends BaseController {
           }
           return e;
         }).toList();
-        approvedLoansList.value = value.approved.map((e) {
+        approvedLoansList.value = value.approved!.map((e) {
           e.icon = AppImages.doubleCheck;
           e.type = 0;
           return e;
         }).toList();
-        pendingLoansList.value = value.pending.map((e) {
+        pendingLoansList.value = value.pending!.map((e) {
           e.icon = AppImages.progress;
           e.type = 1;
           return e;
         }).toList();
-        rejectedLoanList.value = value.rejected.map((e) {
+        rejectedLoanList.value = value.rejected!.map((e) {
           e.icon = AppImages.x;
           e.type = 2;
           return e;

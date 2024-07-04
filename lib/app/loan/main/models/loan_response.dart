@@ -1,10 +1,10 @@
 class LoanResponse {
-  final List<Loan> all;
-  final List<Loan> pending;
-  final List<Loan> approved;
-  final List<Loan> rejected;
+  final List<Loan>? all;
+  final List<Loan>? pending;
+  final List<Loan>? approved;
+  final List<Loan>? rejected;
   final double loansPercentage;
-  final String totalLoans;
+  final String? totalLoans;
   final double pendingPercentage;
   final double approvedPercentage;
   final double rejectedPercentage;
@@ -35,10 +35,13 @@ class LoanResponse {
       );
 
   Map<String, dynamic> toJson() => {
-        "all": List<Loan>.from(all.map((x) => x.toJson())),
-        "pending": List<Loan>.from(pending.map((x) => x.toJson())),
-        "approved": List<Loan>.from(approved.map((x) => x)),
-        "rejected": List<Loan>.from(rejected.map((x) => x.toJson())),
+        "all": List<Loan>.from(all != null ? all!.map((x) => x.toJson()) : []),
+        "pending": List<Loan>.from(
+            pending != null ? pending!.map((x) => x.toJson()) : []),
+        "approved":
+            List<Loan>.from(approved != null ? approved!.map((x) => x) : []),
+        "rejected": List<Loan>.from(
+            rejected != null ? rejected!.map((x) => x.toJson()) : []),
         "loansPercentage": loansPercentage,
         "totalLoans": totalLoans,
         "pendingPercentage": pendingPercentage,

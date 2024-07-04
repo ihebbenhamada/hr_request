@@ -63,7 +63,7 @@ class LoanInfoContainer extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.only(left: 25.h, right: 5.h),
                         child: Text(
-                          'Total:${getTotal(loanResponse.totalLoans)}',
+                          'Total:${getTotal(loanResponse.totalLoans ?? '0')}',
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 14.sp,

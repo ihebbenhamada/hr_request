@@ -256,7 +256,7 @@ class EvaluationsStepsScreen extends StatelessWidget {
                   ),
                   18.h.verticalSpace,
                   CustomButton(
-                    text: 'Back'.tr,
+                    text: 'back'.tr,
                     onClick: _evaluationsStepsController.onClickBack,
                     isPrimary: false,
                   ),

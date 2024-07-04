@@ -57,7 +57,7 @@ class SuccessVacationScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(
-                      text: 'Continue'.tr,
+                      text: 'continue'.tr,
                       onClick: _successVacationController.onClickContinue,
                     ),
                   ],

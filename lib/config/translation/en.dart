@@ -1,7 +1,6 @@
 class En {
   Map<String, String> get en => {
         /// LOGIN PAGE
-        'reservation': 'reservation',
         'sign_in': 'Sign In',
         'login': 'Login',
         'fill_credentials': 'Please fill in the Credentials',

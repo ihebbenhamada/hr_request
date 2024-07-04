@@ -60,12 +60,12 @@ class DeleteScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(
-                      text: 'Continue'.tr,
+                      text: 'continue'.tr,
                       onClick: _deleteController.onClickDelete,
                     ),
                     30.h.verticalSpace,
                     CustomButton(
-                      text: 'Back'.tr,
+                      text: 'back'.tr,
                       onClick: _deleteController.onClickDelete,
                       isPrimary: false,
                     ),

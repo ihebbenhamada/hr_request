@@ -87,7 +87,7 @@ class LoanStatisticsContainer extends StatelessWidget {
                       ),
                       8.horizontalSpace,
                       Text(
-                        'PENDING',
+                        'pending'.tr.toUpperCase(),
                         style: TextStyle(
                           color: AppColors.gray8,
                           fontSize: 12.sp,

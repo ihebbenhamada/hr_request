@@ -63,7 +63,7 @@ class LoginResponse {
         "refreshTokenExpiration": refreshTokenExpiration,
         "user": user.toJson(),
         "employee": employee.toJson(),
-        "userRoles": userRoles.map((map) => map.toJson()),
+        "userRoles": userRoles.map((map) => map.toJson()).toList(),
       };
 }
 
