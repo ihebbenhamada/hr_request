@@ -11,7 +11,7 @@ class DropDownModel {
 
   factory DropDownModel.fromJson(Map<String, dynamic> json) {
     return DropDownModel(
-      disabled: json['disabled'] as bool,
+      disabled: json['disabled'] as bool?,
       text: json['text'] as String,
       value: json['value'] as String,
     );

@@ -53,7 +53,7 @@ class EvaluationForm {
   dynamic details;
   List<Evaluation> evaluationMainItems;
   List<RecommendationItem> recommendationItems;
-  List<dynamic> hrEmployeeEvaluationDetails;
+  List<dynamic>? hrEmployeeEvaluationDetails;
   dynamic defBranchVm;
   String resultMessage;
   bool resultStatus;
@@ -179,8 +179,10 @@ class EvaluationForm {
         recommendationItems: List<RecommendationItem>.from(
             json["recommendationItems"]
                 .map((x) => RecommendationItem.fromJson(x))),
-        hrEmployeeEvaluationDetails: List<dynamic>.from(
-            json["hrEmployeeEvaluationDetails"].map((x) => x)),
+        hrEmployeeEvaluationDetails: json["hrEmployeeEvaluationDetails"] != null
+            ? List<dynamic>.from(
+                json["hrEmployeeEvaluationDetails"].map((x) => x))
+            : null,
         defBranchVm: json["defBranchVM"],
         resultMessage: json["resultMessage"],
         resultStatus: json["resultStatus"],
@@ -242,8 +244,9 @@ class EvaluationForm {
             List<dynamic>.from(evaluationMainItems.map((x) => x.toJson())),
         "recommendationItems":
             List<dynamic>.from(recommendationItems.map((x) => x.toJson())),
-        "hrEmployeeEvaluationDetails":
-            List<dynamic>.from(hrEmployeeEvaluationDetails.map((x) => x)),
+        "hrEmployeeEvaluationDetails": hrEmployeeEvaluationDetails != null
+            ? List<dynamic>.from(hrEmployeeEvaluationDetails!.map((x) => x))
+            : null,
         "defBranchVM": defBranchVm,
         "resultMessage": resultMessage,
         "resultStatus": resultStatus,
@@ -258,12 +261,12 @@ class Evaluation {
   int fKDefBranchId;
   bool isGenerale;
   int fKCreatorId;
-  DateTime creationDate;
-  DateTime lastModifiedDate;
+  String creationDate;
+  String lastModifiedDate;
   bool isActive;
   bool isDeleted;
-  List<EvaluationItem>? evaluationItems;
-  int? degree;
+  List<EvaluationItem> evaluationItems;
+  double? degree;
 
   Evaluation({
     required this.id,
@@ -277,7 +280,7 @@ class Evaluation {
     required this.lastModifiedDate,
     required this.isActive,
     required this.isDeleted,
-    this.evaluationItems,
+    required this.evaluationItems,
     this.degree,
   });
 
@@ -294,8 +297,8 @@ class Evaluation {
         fKDefBranchId: json["fK_DefBranchId"],
         isGenerale: json["isGenerale"],
         fKCreatorId: json["fK_CreatorId"],
-        creationDate: DateTime.parse(json["creationDate"]),
-        lastModifiedDate: DateTime.parse(json["lastModifiedDate"]),
+        creationDate: json["creationDate"],
+        lastModifiedDate: json["lastModifiedDate"],
         isActive: json["isActive"],
         isDeleted: json["isDeleted"],
         evaluationItems: json["evaluationItems"] == null
@@ -313,8 +316,8 @@ class Evaluation {
         "fK_DefBranchId": fKDefBranchId,
         "isGenerale": isGenerale,
         "fK_CreatorId": fKCreatorId,
-        "creationDate": creationDate.toIso8601String(),
-        "lastModifiedDate": lastModifiedDate.toIso8601String(),
+        "creationDate": creationDate,
+        "lastModifiedDate": lastModifiedDate,
         "isActive": isActive,
         "isDeleted": isDeleted,
         "evaluationItems": evaluationItems == null
@@ -332,16 +335,19 @@ class EvaluationItem {
   int fKHrEvaluationTypeId;
   int fKHrEvaluationFormItemId;
   bool isAnswerCheckBox;
-  bool isAnswerTextArea;
-  bool description;
+  bool? isAnswerTextArea;
+  bool? description;
   int sort;
   bool isGenerale;
   int fKDefBranchId;
   int fKCreatorId;
-  DateTime creationDate;
-  DateTime lastModifiedDate;
+  String creationDate;
+  String lastModifiedDate;
   bool isActive;
   bool isDeleted;
+  bool checked;
+  String? recommendationText;
+  int? fKHrEvaluationScaleId;
 
   EvaluationItem({
     required this.id,
@@ -361,6 +367,9 @@ class EvaluationItem {
     required this.lastModifiedDate,
     required this.isActive,
     required this.isDeleted,
+    required this.checked,
+    required this.fKHrEvaluationScaleId,
+    required this.recommendationText,
   });
 
   factory EvaluationItem.fromRawJson(String str) =>
@@ -382,10 +391,13 @@ class EvaluationItem {
         isGenerale: json["isGenerale"],
         fKDefBranchId: json["fK_DefBranchId"],
         fKCreatorId: json["fK_CreatorId"],
-        creationDate: DateTime.parse(json["creationDate"]),
-        lastModifiedDate: DateTime.parse(json["lastModifiedDate"]),
+        creationDate: json["creationDate"],
+        lastModifiedDate: json["lastModifiedDate"],
         isActive: json["isActive"],
         isDeleted: json["isDeleted"],
+        checked: json["checked"],
+        recommendationText: json["recommendationText"],
+        fKHrEvaluationScaleId: json["fK_HrEvaluationScaleId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -402,56 +414,56 @@ class EvaluationItem {
         "isGenerale": isGenerale,
         "fK_DefBranchId": fKDefBranchId,
         "fK_CreatorId": fKCreatorId,
-        "creationDate": creationDate.toIso8601String(),
-        "lastModifiedDate": lastModifiedDate.toIso8601String(),
+        "creationDate": creationDate,
+        "lastModifiedDate": lastModifiedDate,
         "isActive": isActive,
         "isDeleted": isDeleted,
       };
 }
 
 class RecommendationItem {
-  int id;
-  String evaluationItemAr;
-  String evaluationItemEn;
-  int fKHrEvaluationMainItemId;
-  int fKHrEvaluationTypeId;
-  int fKHrEvaluationFormItemId;
-  bool isAnswerCheckBox;
-  bool isAnswerTextArea;
-  String description;
-  int sort;
-  bool isGenerale;
-  int fKDefBranchId;
-  int fKCreatorId;
-  DateTime creationDate;
-  DateTime lastModifiedDate;
-  bool isActive;
-  bool isDeleted;
-  bool checked;
-  String recommendationText;
-  String fKHrEvaluationScaleId;
+  int? id;
+  String? evaluationItemAr;
+  String? evaluationItemEn;
+  int? fKHrEvaluationMainItemId;
+  int? fKHrEvaluationTypeId;
+  int? fKHrEvaluationFormItemId;
+  bool? isAnswerCheckBox;
+  bool? isAnswerTextArea;
+  String? description;
+  int? sort;
+  bool? isGenerale;
+  int? fKDefBranchId;
+  int? fKCreatorId;
+  String? creationDate;
+  String? lastModifiedDate;
+  bool? isActive;
+  bool? isDeleted;
+  bool? checked;
+  String? recommendationText;
+  String? fKHrEvaluationScaleId;
 
   RecommendationItem({
-    required this.id,
-    required this.evaluationItemAr,
-    required this.evaluationItemEn,
-    required this.fKHrEvaluationMainItemId,
-    required this.fKHrEvaluationTypeId,
-    required this.fKHrEvaluationFormItemId,
-    required this.isAnswerCheckBox,
-    required this.isAnswerTextArea,
-    required this.description,
-    required this.sort,
-    required this.isGenerale,
-    required this.fKDefBranchId,
-    required this.fKCreatorId,
-    required this.creationDate,
-    required this.lastModifiedDate,
-    required this.isActive,
-    required this.isDeleted,
-    required this.checked,
-    required this.recommendationText,
-    required this.fKHrEvaluationScaleId,
+    this.id,
+    this.evaluationItemAr,
+    this.evaluationItemEn,
+    this.fKHrEvaluationMainItemId,
+    this.fKHrEvaluationTypeId,
+    this.fKHrEvaluationFormItemId,
+    this.isAnswerCheckBox,
+    this.isAnswerTextArea,
+    this.description,
+    this.sort,
+    this.isGenerale,
+    this.fKDefBranchId,
+    this.fKCreatorId,
+    this.creationDate,
+    this.lastModifiedDate,
+    this.isActive,
+    this.isDeleted,
+    this.checked,
+    this.recommendationText,
+    this.fKHrEvaluationScaleId,
   });
 
   factory RecommendationItem.fromRawJson(String str) =>
@@ -474,8 +486,8 @@ class RecommendationItem {
         isGenerale: json["isGenerale"],
         fKDefBranchId: json["fK_DefBranchId"],
         fKCreatorId: json["fK_CreatorId"],
-        creationDate: DateTime.parse(json["creationDate"]),
-        lastModifiedDate: DateTime.parse(json["lastModifiedDate"]),
+        creationDate: json["creationDate"],
+        lastModifiedDate: json["lastModifiedDate"],
         isActive: json["isActive"],
         isDeleted: json["isDeleted"],
         checked: json["checked"],
@@ -497,8 +509,8 @@ class RecommendationItem {
         "isGenerale": isGenerale,
         "fK_DefBranchId": fKDefBranchId,
         "fK_CreatorId": fKCreatorId,
-        "creationDate": creationDate.toIso8601String(),
-        "lastModifiedDate": lastModifiedDate.toIso8601String(),
+        "creationDate": creationDate,
+        "lastModifiedDate": lastModifiedDate,
         "isActive": isActive,
         "isDeleted": isDeleted,
         "checked": checked,

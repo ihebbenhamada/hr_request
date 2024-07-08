@@ -17,14 +17,49 @@ class FormA extends StatelessWidget {
     required this.discusesJobDutiesValue,
     required this.helpManagingWorkValue,
     required this.understandManagerExpectationValue,
+    required this.workPlaceFactoryTitle,
+    required this.relationShipCollageTitle,
+    required this.managementDepartmentTitle,
+    required this.directManagementTitle,
+    required this.workPlaceDesc1,
+    required this.workPlaceDesc2,
+    required this.relationShipDesc1,
+    required this.relationShipDesc2,
+    required this.relationShipDesc3,
+    required this.managementDepartmentDesc,
+    required this.directManagementDesc,
+    required this.totalScale,
   });
+
+  final RxDouble totalScale;
+
+  ///area1
+  final RxString workPlaceFactoryTitle;
+  final RxString workPlaceDesc1;
+  final RxString workPlaceDesc2;
   final RxDouble jobDescSliderValue;
   final RxDouble importantRoleValue;
+
+  ///area2
+  final RxString relationShipCollageTitle;
+  final RxString relationShipDesc1;
+  final RxString relationShipDesc2;
+  final RxString relationShipDesc3;
   final RxDouble managementEncourageValue;
   final RxDouble memberQualifiedValue;
   final RxDouble discusesJobDutiesValue;
+
+  ///area3
+  final RxString managementDepartmentTitle;
+  final RxString managementDepartmentDesc;
   final RxDouble helpManagingWorkValue;
+
+  ///area4
+  final RxString directManagementTitle;
+  final RxString directManagementDesc;
   final RxDouble understandManagerExpectationValue;
+
+  ///
   final void Function(dynamic, int) onChangeSlider;
   @override
   Widget build(BuildContext context) {
@@ -72,7 +107,7 @@ class FormA extends StatelessWidget {
                       ),
                       10.horizontalSpace,
                       Text(
-                        'work place factory or company',
+                        workPlaceFactoryTitle.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -88,7 +123,7 @@ class FormA extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'My job description is related to my duties	',
+                        workPlaceDesc1.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -119,6 +154,7 @@ class FormA extends StatelessWidget {
                               () => SfSlider(
                                 min: 0.0,
                                 max: 100.0,
+                                stepSize: 25,
                                 value: jobDescSliderValue.value,
                                 interval: 25,
                                 showTicks: false,
@@ -139,7 +175,7 @@ class FormA extends StatelessWidget {
                       ),
                       13.h.verticalSpace,
                       Text(
-                        'I fell that I play Important role in achiving the mission of company',
+                        workPlaceDesc2.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -172,6 +208,7 @@ class FormA extends StatelessWidget {
                                 max: 100.0,
                                 value: importantRoleValue.value,
                                 interval: 25,
+                                stepSize: 25,
                                 showTicks: false,
                                 showLabels: true,
                                 enableTooltip: false,
@@ -237,7 +274,7 @@ class FormA extends StatelessWidget {
                       ),
                       10.horizontalSpace,
                       Text(
-                        'Relationship with collage',
+                        relationShipCollageTitle.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -253,7 +290,7 @@ class FormA extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'My management encourage team work',
+                        relationShipDesc1.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -286,6 +323,7 @@ class FormA extends StatelessWidget {
                                 max: 100.0,
                                 value: managementEncourageValue.value,
                                 interval: 25,
+                                stepSize: 25,
                                 showTicks: false,
                                 showLabels: true,
                                 enableTooltip: false,
@@ -304,7 +342,7 @@ class FormA extends StatelessWidget {
                       ),
                       13.h.verticalSpace,
                       Text(
-                        'The company factory member qualified to do the work',
+                        relationShipDesc2.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -338,6 +376,7 @@ class FormA extends StatelessWidget {
                                 value: memberQualifiedValue.value,
                                 interval: 25,
                                 showTicks: false,
+                                stepSize: 25,
                                 showLabels: true,
                                 enableTooltip: false,
                                 activeColor: AppColors.blueDark,
@@ -355,7 +394,7 @@ class FormA extends StatelessWidget {
                       ),
                       13.h.verticalSpace,
                       Text(
-                        'I discuses the job duties with my collage',
+                        relationShipDesc3.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -390,6 +429,7 @@ class FormA extends StatelessWidget {
                                 interval: 25,
                                 showTicks: false,
                                 showLabels: true,
+                                stepSize: 25,
                                 enableTooltip: false,
                                 activeColor: AppColors.blueDark,
                                 inactiveColor: AppColors.white,
@@ -453,7 +493,7 @@ class FormA extends StatelessWidget {
                       ),
                       10.horizontalSpace,
                       Text(
-                        'Management/Department',
+                        managementDepartmentTitle.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -469,7 +509,7 @@ class FormA extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'I have authorities which help me in managing the work',
+                        managementDepartmentDesc.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -502,6 +542,7 @@ class FormA extends StatelessWidget {
                                 max: 100.0,
                                 value: helpManagingWorkValue.value,
                                 interval: 25,
+                                stepSize: 25,
                                 showTicks: false,
                                 showLabels: true,
                                 enableTooltip: false,
@@ -567,7 +608,7 @@ class FormA extends StatelessWidget {
                       ),
                       10.horizontalSpace,
                       Text(
-                        'Direct Management/Department manager	',
+                        directManagementTitle.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -583,7 +624,7 @@ class FormA extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'I can understand my manager expectation',
+                        directManagementDesc.value,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -616,6 +657,7 @@ class FormA extends StatelessWidget {
                                 max: 100.0,
                                 value: understandManagerExpectationValue.value,
                                 interval: 25,
+                                stepSize: 25,
                                 showTicks: false,
                                 showLabels: true,
                                 enableTooltip: false,
@@ -650,11 +692,13 @@ class FormA extends StatelessWidget {
                 color: AppColors.blueDark,
               ),
               child: Center(
-                child: Text(
-                  'Total:475/700',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.white,
+                child: Obx(
+                  () => Text(
+                    'Total:${totalScale.value.round()}/700',
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
               ),

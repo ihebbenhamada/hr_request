@@ -22,16 +22,23 @@ class LoanResponse {
   });
 
   factory LoanResponse.fromJson(Map<String, dynamic> json) => LoanResponse(
-        all: List<Loan>.from(json["all"].map((x) => Loan.fromJson(x))),
-        pending: List<Loan>.from(json["pending"].map((x) => Loan.fromJson(x))),
-        approved: List<Loan>.from(json["approved"].map((x) => x)),
-        rejected:
-            List<Loan>.from(json["rejected"].map((x) => Loan.fromJson(x))),
+        all: json["all"] != null
+            ? List<Loan>.from(json["all"].map((x) => Loan.fromJson(x)))
+            : null,
+        pending: json["pending"] != null
+            ? List<Loan>.from(json["pending"].map((x) => Loan.fromJson(x)))
+            : null,
+        approved: json["approved"] != null
+            ? List<Loan>.from(json["approved"].map((x) => x))
+            : null,
+        rejected: json["rejected"] != null
+            ? List<Loan>.from(json["rejected"].map((x) => Loan.fromJson(x)))
+            : null,
         loansPercentage: json["loansPercentage"]?.toDouble(),
         totalLoans: json["totalLoans"],
-        pendingPercentage: json["pendingPercentage"],
+        pendingPercentage: double.parse(json["pendingPercentage"].toString()),
         approvedPercentage: double.parse(json["approvedPercentage"].toString()),
-        rejectedPercentage: json["rejectedPercentage"],
+        rejectedPercentage: double.parse(json["rejectedPercentage"].toString()),
       );
 
   Map<String, dynamic> toJson() => {

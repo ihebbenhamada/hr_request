@@ -50,40 +50,50 @@ class LoanController extends BaseController {
     _loanService.getEmpLoans().then((value) {
       if (value != null) {
         empLoanResponse.value = value;
-        allLoansList.value = value.all!.map((e) {
-          switch (e.status) {
-            case "LoanInProgress":
-              e.type = 1;
-              e.icon = AppImages.progress;
-              break;
-            case "LoanRejected":
-              e.type = 2;
-              e.icon = AppImages.x;
-              break;
-            case "LoanApproved":
-              e.type = 0;
-              e.icon = AppImages.doubleCheck;
-              break;
-            default:
-              e.type = 0;
-          }
-          return e;
-        }).toList();
-        approvedLoansList.value = value.approved!.map((e) {
-          e.icon = AppImages.doubleCheck;
-          e.type = 0;
-          return e;
-        }).toList();
-        pendingLoansList.value = value.pending!.map((e) {
-          e.icon = AppImages.progress;
-          e.type = 1;
-          return e;
-        }).toList();
-        rejectedLoanList.value = value.rejected!.map((e) {
-          e.icon = AppImages.x;
-          e.type = 2;
-          return e;
-        }).toList();
+        allLoansList.value = value.all != null
+            ? value.all!.map((e) {
+                switch (e.status) {
+                  case "LoanInProgress":
+                    e.type = 1;
+                    e.icon = AppImages.progress;
+                    break;
+                  case "LoanRejected":
+                    e.type = 2;
+                    e.icon = AppImages.x;
+                    break;
+                  case "LoanApproved":
+                    e.type = 0;
+                    e.icon = AppImages.doubleCheck;
+                    break;
+                  default:
+                    e.type = 0;
+                }
+                return e;
+              }).toList()
+            : [];
+        approvedLoansList.value = value.approved != null
+            ? value.approved!.map((e) {
+                e.icon = AppImages.doubleCheck;
+                e.type = 0;
+                return e;
+              }).toList()
+            : [];
+        pendingLoansList.value = value.pending != null
+            ? value.pending!.map((e) {
+                e.icon = AppImages.progress;
+                e.type = 1;
+                return e;
+              }).toList()
+            : [];
+
+        rejectedLoanList.value = value.rejected != null
+            ? value.rejected!.map((e) {
+                e.icon = AppImages.x;
+                e.type = 2;
+                return e;
+              }).toList()
+            : [];
+
         loanList.value = allLoansList;
       }
       AppInterceptor.hideLoader();
@@ -143,6 +153,14 @@ class LoanController extends BaseController {
       () => LoanDetailsScreen(
         screenTitle: 'Create Loan',
       ),
+      arguments: [
+        {
+          'loan': null,
+        },
+        {
+          'isDetail': false,
+        }
+      ],
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),

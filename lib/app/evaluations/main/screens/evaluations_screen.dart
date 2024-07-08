@@ -91,55 +91,66 @@ class EvaluationsScreen extends StatelessWidget {
                             ),
                             20.h.verticalSpace,
                             Obx(
-                              () => CarouselSlider.builder(
-                                itemCount: _evaluationsController
-                                        .evaluationList.length +
-                                    1,
-                                itemBuilder: (context, index, i) {
-                                  if (index ==
-                                      _evaluationsController
-                                          .evaluationList.length) {
-                                    // Display fake item at the last index
-                                    return const SizedBox();
-                                  } else {
-                                    Evaluation item = _evaluationsController
-                                        .evaluationList[index];
-                                    // Display real items
-                                    return EvaluationItem(
-                                      employeeName:
-                                          item.evaluatedEmployee ?? "",
-                                      employeePosition:
-                                          item.evaluationFormName ?? "",
-                                      employeeImage:
-                                          item.evaluatedByImagePath ?? "",
-                                      date: item.evaluationDate
-                                              ?.substring(0, 10) ??
-                                          "",
-                                      editable: true,
-                                      onClick: _evaluationsController
-                                          .onClickItemEvaluation,
-                                    );
-                                  }
-                                },
-                                options: CarouselOptions(
-                                  height: 170.h,
-                                  animateToClosest: true,
-                                  clipBehavior: Clip.none,
-                                  viewportFraction: 0.45,
-                                  initialPage: 0,
-                                  enableInfiniteScroll: false,
-                                  reverse: false,
-                                  autoPlay: false,
-                                  enlargeCenterPage: false,
-                                  padEnds: false,
-                                  pageSnapping: false,
-                                  onPageChanged: (index, reason) =>
-                                      _evaluationsController
-                                          .onChangeEvaluationCarousel(
-                                              index, reason),
-                                  scrollDirection: Axis.horizontal,
-                                ),
-                              ),
+                              () => _evaluationsController
+                                      .listHrEmployeeEvaluations.isNotEmpty
+                                  ? CarouselSlider.builder(
+                                      itemCount: _evaluationsController
+                                              .evaluationList.length +
+                                          1,
+                                      itemBuilder: (context, index, i) {
+                                        if (index ==
+                                            _evaluationsController
+                                                .evaluationList.length) {
+                                          // Display fake item at the last index
+                                          return const SizedBox();
+                                        } else {
+                                          Evaluation item =
+                                              _evaluationsController
+                                                  .evaluationList[index];
+                                          // Display real items
+                                          return EvaluationItem(
+                                            employeeName:
+                                                item.evaluatedEmployee ?? "",
+                                            employeePosition:
+                                                item.evaluationFormName ?? "",
+                                            employeeImage:
+                                                item.evaluatedByImagePath ?? "",
+                                            date: item.evaluationDate
+                                                    ?.substring(0, 10) ??
+                                                "",
+                                            editable: true,
+                                            onClick: _evaluationsController
+                                                .onClickItemEvaluation,
+                                          );
+                                        }
+                                      },
+                                      options: CarouselOptions(
+                                        height: 170.h,
+                                        animateToClosest: true,
+                                        clipBehavior: Clip.none,
+                                        viewportFraction: 0.45,
+                                        initialPage: 0,
+                                        enableInfiniteScroll: false,
+                                        reverse: false,
+                                        autoPlay: false,
+                                        enlargeCenterPage: false,
+                                        padEnds: false,
+                                        pageSnapping: false,
+                                        onPageChanged: (index, reason) =>
+                                            _evaluationsController
+                                                .onChangeEvaluationCarousel(
+                                                    index, reason),
+                                        scrollDirection: Axis.horizontal,
+                                      ),
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        'No Evaluation found',
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                    ),
                             ),
                             20.h.verticalSpace,
                             Obx(

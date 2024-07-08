@@ -78,10 +78,12 @@ class EndPoints {
   static const String GET_EVALUATED_EMPLOYEE_EVALUATIONS_URL =
       '/HrEmployeeEvaluationAPI/GetEvaluatedEmployeeEvaluations';
 
-  static String GET_CREATE_EVALUATION_URL(String fileId, String empId) =>
-      '/HrEmployeeEvaluationAPI/Create?fileId=$fileId&empId=$empId';
+  static String GET_CREATE_EVALUATION_URL(String fileId) =>
+      '/HrEmployeeEvaluationAPI/Create?fileId=$fileId';
 
   static const String CREATE_EVALUATION_URL = '/HrEmployeeEvaluationAPI/Create';
+  static const String GET_EVALUATION_FORM_TYPE_URL =
+      '/HrEvaluationFormAPI/GetAllEvaluationFormForDDList';
 
   static String GET_UPDATE_EVALUATION_URL(
           String fileId, String empId, String empEvalId) =>

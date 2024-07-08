@@ -1,13 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/main/controller/dashboard-controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/screens/success_vacation_screen.dart';
-import 'package:request_hr/app/evaluations/evaluations-steps/steps/employee.dart';
-import 'package:request_hr/app/evaluations/evaluations-steps/steps/form_a.dart';
-import 'package:request_hr/app/evaluations/evaluations-steps/steps/recommendation.dart';
+import 'package:request_hr/app/evaluations/main/models/evaluation_form.dart';
 import 'package:request_hr/config/controllerConfig/base_controller.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../../config/colors/colors.dart';
+import '../../../../dashboard/tabs/vacations/main/models/drop_down.dart';
+import '../../steps/employee.dart';
+import '../../steps/form_a.dart';
+import '../../steps/form_type.dart';
+import '../../steps/recommendation.dart';
 import '../services/evaluations_steps_service.dart';
 
 class EvaluationsStepsController extends BaseController
@@ -22,31 +29,62 @@ class EvaluationsStepsController extends BaseController
       Get.find<DashboardController>();
 
   /// VARIABLES
-  RxDouble animatedSecondStepBarWidth = 0.0.obs;
-  RxDouble animatedThirdStepBarWidth = 0.0.obs;
-  RxInt activePage = 0.obs;
-  Rx<Color> secondStepTextColor = AppColors.blueDark.obs;
-  Rx<Color> thirdStepTextColor = AppColors.blueDark.obs;
+  final RxDouble animatedFirstStepBarWidth = 0.0.obs;
+  final RxDouble animatedSecondStepBarWidth = 0.0.obs;
+  final RxDouble animatedThirdStepBarWidth = 0.0.obs;
 
-  RxDouble jobDescSliderValue = 25.0.obs;
-  RxDouble importantRoleValue = 50.0.obs;
-  RxDouble managementEncourageValue = 50.0.obs;
-  RxDouble memberQualifiedValue = 50.0.obs;
-  RxDouble discusesJobDutiesValue = 50.0.obs;
-  RxDouble helpManagingWorkValue = 50.0.obs;
-  RxDouble understandManagerExpectationValue = 50.0.obs;
+  final RxInt activePage = 0.obs;
+  final Rx<Color> firstStepTextColor = AppColors.blueDark.obs;
+  final Rx<Color> secondStepTextColor = AppColors.blueDark.obs;
+  final Rx<Color> thirdStepTextColor = AppColors.blueDark.obs;
 
+  ///area1
+  final RxString workPlaceFactoryTitle = ''.obs;
+  final RxString workPlaceDesc1 = ''.obs;
+  final RxString workPlaceDesc2 = ''.obs;
+  final RxDouble jobDescSliderValue = 0.0.obs;
+  final RxDouble importantRoleValue = 0.0.obs;
+
+  ///area2
+  final RxString relationShipCollageTitle = ''.obs;
+  final RxString relationShipDesc1 = ''.obs;
+  final RxString relationShipDesc2 = ''.obs;
+  final RxString relationShipDesc3 = ''.obs;
+  final RxDouble managementEncourageValue = 0.0.obs;
+  final RxDouble memberQualifiedValue = 0.0.obs;
+  final RxDouble discusesJobDutiesValue = 0.0.obs;
+
+  ///area3
+  final RxString managementDepartmentTitle = ''.obs;
+  final RxString managementDepartmentDesc = ''.obs;
+  final RxDouble helpManagingWorkValue = 0.0.obs;
+
+  ///area4
+  final RxString directManagementTitle = ''.obs;
+  final RxString directManagementDesc = ''.obs;
+  final RxDouble understandManagerExpectationValue = 0.0.obs;
+
+  final RxDouble totalScale = 0.0.obs;
+
+  List<RecommendationItem> recItemsList = [];
   //////////
+
   late AnimationController _animationFirstStepContainer;
   late Animation<double> firstStepContainerAnimation;
 
   late AnimationController _animationSecondStepContainer;
   late Animation<double> secondStepContainerAnimation;
 
-  late List<Widget> steps;
+  late AnimationController _animationThirdStepContainer;
+  late Animation<double> thirdStepContainerAnimation;
+
+  RxList<Widget> steps = <Widget>[].obs;
 
   final List<String> paymentTypeList = ['Annual', 'Monthly', 'Weekly', 'daily'];
-  RxString selectedType = 'Annual'.obs;
+  final RxString selectedType = 'Annual'.obs;
+  final Rx<DropDownModel> selectedEvalForm = DropDownModel(
+    value: "0",
+  ).obs;
 
   /// VALIDATION
 
@@ -55,7 +93,43 @@ class EvaluationsStepsController extends BaseController
   void onInit() {
     initValues();
     super.onInit();
-    steps = [
+  }
+
+  @override
+  void dispose() {
+    _animationFirstStepContainer.dispose();
+    _animationSecondStepContainer.dispose();
+    _animationThirdStepContainer.dispose();
+    super.dispose();
+  }
+
+  /// INITIALISATION
+  void initValues() {
+    _animationFirstStepContainer = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _animationSecondStepContainer = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _animationThirdStepContainer = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+
+    firstStepContainerAnimation =
+        Tween(begin: 0.0, end: 1.0).animate(_animationFirstStepContainer);
+    secondStepContainerAnimation =
+        Tween(begin: 0.0, end: 1.0).animate(_animationSecondStepContainer);
+    thirdStepContainerAnimation =
+        Tween(begin: 0.0, end: 1.0).animate(_animationThirdStepContainer);
+    steps.value = [
+      FormType(
+        evaluationsStepsService: _evaluationsStepsService,
+        onSelect: (DropDownModel selectedEval) =>
+            onSelectEvalForm(selectedEval),
+      ),
       FormA(
         jobDescSliderValue: jobDescSliderValue,
         onChangeSlider: (value, type) => onChangeSlider(value, type),
@@ -65,56 +139,137 @@ class EvaluationsStepsController extends BaseController
         discusesJobDutiesValue: discusesJobDutiesValue,
         helpManagingWorkValue: helpManagingWorkValue,
         understandManagerExpectationValue: understandManagerExpectationValue,
+        workPlaceFactoryTitle: workPlaceFactoryTitle,
+        relationShipCollageTitle: relationShipCollageTitle,
+        managementDepartmentTitle: managementDepartmentTitle,
+        directManagementTitle: directManagementTitle,
+        workPlaceDesc1: workPlaceDesc1,
+        workPlaceDesc2: workPlaceDesc2,
+        relationShipDesc1: relationShipDesc1,
+        relationShipDesc2: relationShipDesc2,
+        relationShipDesc3: relationShipDesc3,
+        managementDepartmentDesc: managementDepartmentDesc,
+        directManagementDesc: directManagementDesc,
+        totalScale: totalScale,
       ),
-      const Recommendation(),
+      Recommendation(
+        recItemsList: recItemsList,
+        onCheckBox: onCheckBox,
+      ),
       const Employee(),
     ];
-
-    _animationFirstStepContainer = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-    _animationSecondStepContainer = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-
-    firstStepContainerAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_animationFirstStepContainer);
-    secondStepContainerAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_animationSecondStepContainer);
   }
-
-  @override
-  void dispose() {
-    _animationFirstStepContainer.dispose();
-    _animationSecondStepContainer.dispose();
-    super.dispose();
-  }
-
-  /// INITIALISATION
-  void initValues() {}
 
   /// FUNCTIONS
   onClickNext() {
     if (activePage < steps.length - 1) {
-      paginate(activePage.value + 1, true);
       if (activePage.value == 0) {
+        if (selectedEvalForm.value.value != "0") {
+          AppInterceptor.showLoader();
+          _evaluationsStepsService
+              .getFormData(selectedEvalForm.value.value ?? '')
+              .then((value) {
+            if (value != null) {
+              ///area1
+              workPlaceFactoryTitle.value = value.evaluationMainItems[0].nameEn;
+              workPlaceDesc1.value = value
+                  .evaluationMainItems[0].evaluationItems[0].evaluationItemEn;
+              workPlaceDesc2.value = value
+                  .evaluationMainItems[0].evaluationItems[1].evaluationItemEn;
+
+              ///area2
+              relationShipCollageTitle.value =
+                  value.evaluationMainItems[1].nameEn;
+              relationShipDesc1.value = value
+                  .evaluationMainItems[1].evaluationItems[0].evaluationItemEn;
+              relationShipDesc2.value = value
+                  .evaluationMainItems[1].evaluationItems[1].evaluationItemEn;
+              relationShipDesc3.value = value
+                  .evaluationMainItems[1].evaluationItems[2].evaluationItemEn;
+
+              ///area3
+              managementDepartmentTitle.value =
+                  value.evaluationMainItems[2].nameEn;
+              managementDepartmentDesc.value = value
+                  .evaluationMainItems[2].evaluationItems[0].evaluationItemEn;
+
+              ///area4
+              directManagementTitle.value = value.evaluationMainItems[3].nameEn;
+              directManagementDesc.value = value
+                  .evaluationMainItems[3].evaluationItems[0].evaluationItemEn;
+              log(value.recommendationItems.length.toString());
+              recItemsList = value.recommendationItems;
+              steps.value = [
+                FormType(
+                  evaluationsStepsService: _evaluationsStepsService,
+                  onSelect: (DropDownModel selectedEval) =>
+                      onSelectEvalForm(selectedEval),
+                ),
+                FormA(
+                  jobDescSliderValue: jobDescSliderValue,
+                  onChangeSlider: (value, type) => onChangeSlider(value, type),
+                  importantRoleValue: importantRoleValue,
+                  managementEncourageValue: managementEncourageValue,
+                  memberQualifiedValue: memberQualifiedValue,
+                  discusesJobDutiesValue: discusesJobDutiesValue,
+                  helpManagingWorkValue: helpManagingWorkValue,
+                  understandManagerExpectationValue:
+                      understandManagerExpectationValue,
+                  workPlaceFactoryTitle: workPlaceFactoryTitle,
+                  relationShipCollageTitle: relationShipCollageTitle,
+                  managementDepartmentTitle: managementDepartmentTitle,
+                  directManagementTitle: directManagementTitle,
+                  workPlaceDesc1: workPlaceDesc1,
+                  workPlaceDesc2: workPlaceDesc2,
+                  relationShipDesc1: relationShipDesc1,
+                  relationShipDesc2: relationShipDesc2,
+                  relationShipDesc3: relationShipDesc3,
+                  managementDepartmentDesc: managementDepartmentDesc,
+                  directManagementDesc: directManagementDesc,
+                  totalScale: totalScale,
+                ),
+                Recommendation(
+                  recItemsList: value.recommendationItems,
+                  onCheckBox: onCheckBox,
+                ),
+                const Employee(),
+              ];
+              update();
+
+              paginate(activePage.value + 1, true);
+              animateFirstStep('forward');
+            }
+            AppInterceptor.hideLoader();
+          });
+        }
+        return;
+      }
+      if (activePage.value == 1) {
+        paginate(activePage.value + 1, true);
         animateSecondStep('forward');
         return;
       }
-      animateThirdStep('forward');
+      if (activePage.value == 2) {
+        paginate(activePage.value + 1, true);
+        animateThirdStep('forward');
+        return;
+      }
     }
   }
 
   onClickBack() {
     if (activePage.value > 0) {
       paginate(activePage.value - 1, false);
-      if (activePage.value == 2) {
+      if (activePage.value == 3) {
         animateThirdStep('back');
         return;
       }
-      animateSecondStep('back');
+      if (activePage.value == 2) {
+        animateSecondStep('back');
+        return;
+      }
+      selectedEvalForm.value = DropDownModel(value: '0');
+      animateFirstStep('back');
     } else {
       Get.back();
     }
@@ -136,10 +291,12 @@ class EvaluationsStepsController extends BaseController
       curve: Curves.easeIn,
     );
     Future.delayed(Duration(milliseconds: isForward ? 600 : 200), () {
-      secondStepTextColor.value =
+      firstStepTextColor.value =
           index != 0 ? AppColors.white : AppColors.blueDark;
+      secondStepTextColor.value =
+          index != 1 && index != 0 ? AppColors.white : AppColors.blueDark;
       thirdStepTextColor.value =
-          index != 2 ? AppColors.blueDark : AppColors.white;
+          index != 3 ? AppColors.blueDark : AppColors.white;
     });
   }
 
@@ -151,14 +308,29 @@ class EvaluationsStepsController extends BaseController
     selectedType.value = value;
   }
 
-  animateSecondStep(String direction) {
+  animateFirstStep(String direction) {
     if (direction == 'forward') {
-      animatedSecondStepBarWidth.value = 86.0;
+      animatedFirstStepBarWidth.value = (Get.mediaQuery.size.width - 170.w) / 4;
       Future.delayed(const Duration(milliseconds: 400), () {
         _animationFirstStepContainer.forward();
       });
     } else {
       _animationFirstStepContainer.reverse();
+      Future.delayed(const Duration(milliseconds: 400), () {
+        animatedFirstStepBarWidth.value = 0.0;
+      });
+    }
+  }
+
+  animateSecondStep(String direction) {
+    if (direction == 'forward') {
+      animatedSecondStepBarWidth.value =
+          (Get.mediaQuery.size.width - 170.w) / 4;
+      Future.delayed(const Duration(milliseconds: 400), () {
+        _animationSecondStepContainer.forward();
+      });
+    } else {
+      _animationSecondStepContainer.reverse();
       Future.delayed(const Duration(milliseconds: 400), () {
         animatedSecondStepBarWidth.value = 0.0;
       });
@@ -167,12 +339,12 @@ class EvaluationsStepsController extends BaseController
 
   animateThirdStep(String direction) {
     if (direction == 'forward') {
-      animatedThirdStepBarWidth.value = 86.0;
+      animatedThirdStepBarWidth.value = (Get.mediaQuery.size.width - 170.w) / 4;
       Future.delayed(const Duration(milliseconds: 400), () {
-        _animationSecondStepContainer.forward();
+        _animationThirdStepContainer.forward();
       });
     } else {
-      _animationSecondStepContainer.reverse();
+      _animationThirdStepContainer.reverse();
       Future.delayed(const Duration(milliseconds: 400), () {
         animatedThirdStepBarWidth.value = 0.0;
       });
@@ -206,5 +378,21 @@ class EvaluationsStepsController extends BaseController
         importantRoleValue.value = value;
         break;
     }
+    totalScale.value = jobDescSliderValue.value +
+        importantRoleValue.value +
+        managementEncourageValue.value +
+        memberQualifiedValue.value +
+        discusesJobDutiesValue.value +
+        helpManagingWorkValue.value +
+        understandManagerExpectationValue.value;
+  }
+
+  onSelectEvalForm(DropDownModel value) {
+    selectedEvalForm.value = value;
+  }
+
+  onCheckBox(int id, bool value) {
+    recItemsList.firstWhere((test) => test.id == id).checked = value;
+    update();
   }
 }

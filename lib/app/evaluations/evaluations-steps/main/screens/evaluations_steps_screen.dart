@@ -22,7 +22,7 @@ class EvaluationsStepsScreen extends StatelessWidget {
         padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
         color: AppColors.primary,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          padding: EdgeInsets.symmetric(horizontal: 25.0.w),
           child: Column(
             children: [
               Center(
@@ -39,8 +39,8 @@ class EvaluationsStepsScreen extends StatelessWidget {
               30.h.verticalSpace,
               Obx(
                 () => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //circle
                     Container(
@@ -64,7 +64,8 @@ class EvaluationsStepsScreen extends StatelessWidget {
                     Stack(
                       children: [
                         Container(
-                          width: 86,
+                          width:
+                              (MediaQuery.of(context).size.width - 170.w) / 4,
                           height: 5.h,
                           decoration: const BoxDecoration(
                             color: AppColors.white,
@@ -74,7 +75,7 @@ class EvaluationsStepsScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 400),
                           height: 5.h,
                           width: _evaluationsStepsController
-                              .animatedSecondStepBarWidth.value,
+                              .animatedFirstStepBarWidth.value,
                           decoration: const BoxDecoration(
                             color: AppColors.blueDark,
                           ),
@@ -101,7 +102,7 @@ class EvaluationsStepsScreen extends StatelessWidget {
                                 '2',
                                 style: TextStyle(
                                   color: _evaluationsStepsController
-                                      .secondStepTextColor.value,
+                                      .firstStepTextColor.value,
                                   fontSize: 18.sp,
                                 ),
                               ),
@@ -114,7 +115,8 @@ class EvaluationsStepsScreen extends StatelessWidget {
                     Stack(
                       children: [
                         Container(
-                          width: 86,
+                          width:
+                              (MediaQuery.of(context).size.width - 170.w) / 4,
                           height: 5.h,
                           decoration: const BoxDecoration(
                             color: AppColors.white,
@@ -124,7 +126,7 @@ class EvaluationsStepsScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 400),
                           height: 5.h,
                           width: _evaluationsStepsController
-                              .animatedThirdStepBarWidth.value,
+                              .animatedSecondStepBarWidth.value,
                           decoration: const BoxDecoration(
                             color: AppColors.blueDark,
                           ),
@@ -151,6 +153,57 @@ class EvaluationsStepsScreen extends StatelessWidget {
                                 '3',
                                 style: TextStyle(
                                   color: _evaluationsStepsController
+                                      .secondStepTextColor.value,
+                                  fontSize: 18.sp,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    //bar
+                    Stack(
+                      children: [
+                        Container(
+                          width:
+                              (MediaQuery.of(context).size.width - 170.w) / 4,
+                          height: 5.h,
+                          decoration: const BoxDecoration(
+                            color: AppColors.white,
+                          ),
+                        ),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 400),
+                          height: 5.h,
+                          width: _evaluationsStepsController
+                              .animatedThirdStepBarWidth.value,
+                          decoration: const BoxDecoration(
+                            color: AppColors.blueDark,
+                          ),
+                        ),
+                      ],
+                    ),
+                    //circle
+                    AnimatedBuilder(
+                      animation: _evaluationsStepsController
+                          .thirdStepContainerAnimation,
+                      builder: (context, child) {
+                        return SizedBox(
+                          height: 40.h,
+                          width: 40.h,
+                          child: LiquidCircularProgressIndicator(
+                            backgroundColor: AppColors.white,
+                            valueColor: const AlwaysStoppedAnimation(
+                              AppColors.blueDark,
+                            ),
+                            value: _evaluationsStepsController
+                                .thirdStepContainerAnimation.value,
+                            center: Center(
+                              child: Text(
+                                '4',
+                                style: TextStyle(
+                                  color: _evaluationsStepsController
                                       .thirdStepTextColor.value,
                                   fontSize: 18.sp,
                                 ),
@@ -164,81 +217,98 @@ class EvaluationsStepsScreen extends StatelessWidget {
                 ),
               ),
               5.h.verticalSpace,
-              Padding(
-                padding: const EdgeInsets.only(right: 17.0, left: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          'First Step',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 14.sp,
-                          ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        'Form type',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 14.sp,
                         ),
-                        Text(
-                          'Form A',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 12.sp,
-                          ),
+                      ),
+                      Text(
+                        '',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 12.sp,
                         ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          'Second Step',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 14.sp,
-                          ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'First Step',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 14.sp,
                         ),
-                        Text(
-                          'Recommendation',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 12.sp,
-                          ),
+                      ),
+                      Text(
+                        'Form A',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 12.sp,
                         ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          'Third Step',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 14.sp,
-                          ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Second Step',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 14.sp,
                         ),
-                        Text(
-                          'Employee',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 12.sp,
-                          ),
+                      ),
+                      Text(
+                        'Recommendation',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 12.sp,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Third Step',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                      Text(
+                        'Employee',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               30.h.verticalSpace,
-              Expanded(
-                child: PageView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: _evaluationsStepsController.pageController,
-                  itemCount: _evaluationsStepsController.steps.length,
-                  onPageChanged: (index) =>
-                      _evaluationsStepsController.onPageChanged(index),
-                  itemBuilder: (BuildContext context, int index) {
-                    return _evaluationsStepsController.steps[index];
-                  },
+              Obx(
+                () => Expanded(
+                  child: PageView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: _evaluationsStepsController.pageController,
+                    itemCount: _evaluationsStepsController.steps.value.length,
+                    onPageChanged: (index) =>
+                        _evaluationsStepsController.onPageChanged(index),
+                    itemBuilder: (BuildContext context, int index) {
+                      return _evaluationsStepsController.steps.value[index];
+                    },
+                  ),
                 ),
               ),
               Column(
@@ -246,10 +316,10 @@ class EvaluationsStepsScreen extends StatelessWidget {
                   10.h.verticalSpace,
                   Obx(
                     () => CustomButton(
-                      text: _evaluationsStepsController.activePage.value == 2
+                      text: _evaluationsStepsController.activePage.value == 3
                           ? 'Finish'
                           : 'Next'.tr,
-                      onClick: _evaluationsStepsController.activePage.value == 2
+                      onClick: _evaluationsStepsController.activePage.value == 3
                           ? _evaluationsStepsController.onClickFinish
                           : _evaluationsStepsController.onClickNext,
                     ),
