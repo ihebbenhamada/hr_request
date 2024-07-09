@@ -173,7 +173,7 @@ class PunishmentsDetailsScreen extends StatelessWidget {
                     Positioned(
                       right: 0,
                       child: AvatarCircle(
-                        image: AppImages.avatar3,
+                        image: AppImages.profile,
                         size: 112.h,
                         iconSize: 22.h,
                         imageSize: 95.h,

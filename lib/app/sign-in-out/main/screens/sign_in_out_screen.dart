@@ -70,14 +70,13 @@ class SignInOutScreen extends StatelessWidget {
                     crossAxisCount: 2, // number of items in each row
                     mainAxisSpacing: 24.h, // spacing between rows
                     crossAxisSpacing: 20.0.h,
-                    childAspectRatio: 0.9, // spacing between columns
+                    childAspectRatio: 0.8, // spacing between columns
                   ),
                   padding: EdgeInsets.only(
                     bottom: Platform.isIOS ? 70.h : 84.h,
                   ),
-                  shrinkWrap: true, // padding around the grid
-                  itemCount: _signInOutController
-                      .signInOutList.value.length, // total number of items
+                  shrinkWrap: true,
+                  itemCount: _signInOutController.signInOutList.value.length,
                   itemBuilder: (context, index) {
                     SignInOut item = _signInOutController.signInOutList[index];
                     return SignInOutGridItem(

@@ -1,8 +1,9 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:request_hr/api/models/public/meeting_point.dart';
 import 'package:request_hr/config/api-urls/end_points.dart';
+import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
 class MeetingsDetailsService {
@@ -35,9 +36,15 @@ class MeetingsDetailsService {
         return null;
       }
     } on DioException catch (e) {
-      log("e.error.toString()");
-      log(e.error.toString());
-      log(e.response?.data.toString() ?? "");
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
       return null;
     }
   }

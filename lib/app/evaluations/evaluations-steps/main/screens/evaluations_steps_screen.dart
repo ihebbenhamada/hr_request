@@ -224,14 +224,14 @@ class EvaluationsStepsScreen extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'Form type',
+                        'Employee',
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 14.sp,
                         ),
                       ),
                       Text(
-                        '',
+                        'Form type',
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 12.sp,

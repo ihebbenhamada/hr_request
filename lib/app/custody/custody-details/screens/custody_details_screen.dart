@@ -22,6 +22,35 @@ class CustodyDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Container(
+                    height: 40.h,
+                    width: 40.h,
+                    decoration: const ShapeDecoration(
+                      shape: OvalBorder(),
+                      color: AppColors.primary,
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        AppImages.back,
+                        height: 20.h,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                10.h.horizontalSpace,
+                Text(
+                  'Create custody',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
+            ),
             Center(
               child: AvatarCircle(
                 image: AppImages.profile,

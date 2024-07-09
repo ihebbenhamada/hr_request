@@ -223,7 +223,7 @@ class DashboardScreen extends StatelessWidget {
                                   _dashboardController
                                               .employee.value.contractDueDate !=
                                           null
-                                      ? DateFormat('dd-MM-yyyy').format(
+                                      ? DateFormat('ddMMM., yyyy').format(
                                           DateTime.parse(
                                             _dashboardController.employee.value
                                                 .contractDueDate!,
@@ -301,33 +301,38 @@ class DashboardScreen extends StatelessWidget {
                           ),
                         ),
                         10.h.verticalSpace,
-                        GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 8.h,
-                            crossAxisSpacing: 10,
-                            childAspectRatio: 1.3,
+                        Expanded(
+                          child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 8.h,
+                              crossAxisSpacing: 10,
+                              childAspectRatio: 1.2,
+                            ),
+                            padding: const EdgeInsets.only(
+                              left: 10.0,
+                              right: 10,
+                            ),
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            shrinkWrap: true, // padding around the grid
+                            itemCount: _dashboardController
+                                .drawerItems.length, // total number of items
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> item =
+                                  _dashboardController.drawerItems[index];
+                              return DrawerGridItem(
+                                title: item['title'],
+                                icon: item['icon'],
+                                iconWidth: item['icon_width'],
+                                iconHeight: item['icon_height'],
+                                onTap: () =>
+                                    _dashboardController.onTapDrawer(index),
+                              );
+                            },
                           ),
-                          padding: const EdgeInsets.only(left: 10.0, right: 10),
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true, // padding around the grid
-                          itemCount: _dashboardController
-                              .drawerItems.length, // total number of items
-                          itemBuilder: (context, index) {
-                            Map<String, dynamic> item =
-                                _dashboardController.drawerItems[index];
-                            return DrawerGridItem(
-                              title: item['title'],
-                              icon: item['icon'],
-                              iconWidth: item['icon_width'],
-                              iconHeight: item['icon_height'],
-                              onTap: () =>
-                                  _dashboardController.onTapDrawer(index),
-                            );
-                          },
                         ),
-                        const Expanded(child: Footer()),
+                        const Footer(),
                       ],
                     ),
                   ),

@@ -71,7 +71,7 @@ class NotificationsScreen extends StatelessWidget {
                 padding: EdgeInsets.only(
                   left: 25,
                   right: 25,
-                  top: 20.h,
+                  top: 30.h,
                   bottom: 50.h,
                 ),
                 scrollDirection: Axis.vertical,

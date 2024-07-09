@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:request_hr/app/purchase/main/models/purchase.dart';
 
 import '../../../../config/api-urls/end_points.dart';
+import '../../../../config/colors/colors.dart';
 import '../../../../config/interceptor/interceptor.dart';
 
 class PurchaseService {
@@ -18,6 +21,15 @@ class PurchaseService {
         return null;
       }
     } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
       return null;
     }
   }

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 class EvaluationForm {
-  int id;
+  int? id;
   int? evaluationId;
-  int fKEvaluationFormId;
+  int? fKEvaluationFormId;
   int? fKEvaluatedById;
   String? evaluatedByName;
   String? evaluatedByNameEn;
@@ -11,16 +11,16 @@ class EvaluationForm {
   String? formName;
   String? formNameEn;
   int? fKManagingDirectorId;
-  int fKEvaluatedEmployeeId;
+  int? fKEvaluatedEmployeeId;
   String? evaluatedEmployeeName;
   String? evaluatedEmployeeNameEn;
-  String evaluationDate;
-  int fKCreatorId;
-  int fKReqStatusId;
-  String creationDate;
-  String lastModifiedDate;
-  bool isActive;
-  bool isDeleted;
+  String? evaluationDate;
+  int? fKCreatorId;
+  int? fKReqStatusId;
+  String? creationDate;
+  String? lastModifiedDate;
+  bool? isActive;
+  bool? isDeleted;
   double? totalDegreeScale;
   bool? isEmployeeApprove;
   String? employeeApproveDate;
@@ -45,76 +45,76 @@ class EvaluationForm {
   String? generalManagerNotes;
   String? generalManagerSigniture;
   String? generalManagerName;
-  int jobType;
-  List<dynamic> employees;
-  List<dynamic> files;
-  List<dynamic> formItems;
-  List<Evaluation> evaluationScale;
-  dynamic details;
-  List<Evaluation> evaluationMainItems;
-  List<RecommendationItem> recommendationItems;
+  int? jobType;
+  List<dynamic>? employees;
+  List<dynamic>? files;
+  List<dynamic>? formItems;
+  List<Evaluation>? evaluationScale;
+  dynamic? details;
+  List<Evaluation>? evaluationMainItems;
+  List<RecommendationItem>? recommendationItems;
   List<dynamic>? hrEmployeeEvaluationDetails;
   dynamic defBranchVm;
-  String resultMessage;
-  bool resultStatus;
+  String? resultMessage;
+  bool? resultStatus;
 
   EvaluationForm({
-    required this.id,
-    required this.evaluationId,
-    required this.fKEvaluationFormId,
-    required this.fKEvaluatedById,
-    required this.evaluatedByName,
-    required this.evaluatedByNameEn,
-    required this.submitType,
-    required this.formName,
-    required this.formNameEn,
-    required this.fKManagingDirectorId,
-    required this.fKEvaluatedEmployeeId,
-    required this.evaluatedEmployeeName,
-    required this.evaluatedEmployeeNameEn,
-    required this.evaluationDate,
-    required this.fKCreatorId,
-    required this.fKReqStatusId,
-    required this.creationDate,
-    required this.lastModifiedDate,
-    required this.isActive,
-    required this.isDeleted,
-    required this.totalDegreeScale,
-    required this.isEmployeeApprove,
-    required this.employeeApproveDate,
-    required this.employeeNotes,
-    required this.employeeSigniture,
-    required this.employeeName,
-    required this.hasDepartmetDirector,
-    required this.isDepartmetDirectorApprove,
-    required this.departmetApproveDate,
-    required this.departmetDirectorNotes,
-    required this.departmetDirectorSigniture,
-    required this.departmetDirectorName,
-    required this.hasManagingDirector,
-    required this.isManagingDirectorApprove,
-    required this.approveDate,
-    required this.managingDirectorNotes,
-    required this.managingDirectorSigniture,
-    required this.managingDirectorName,
-    required this.hasGeneralManager,
-    required this.isGeneralManagerApprove,
-    required this.generalManagerApproveDate,
-    required this.generalManagerNotes,
-    required this.generalManagerSigniture,
-    required this.generalManagerName,
-    required this.jobType,
-    required this.employees,
-    required this.files,
-    required this.formItems,
-    required this.evaluationScale,
-    required this.details,
-    required this.evaluationMainItems,
-    required this.recommendationItems,
-    required this.hrEmployeeEvaluationDetails,
-    required this.defBranchVm,
-    required this.resultMessage,
-    required this.resultStatus,
+    this.id,
+    this.evaluationId,
+    this.fKEvaluationFormId,
+    this.fKEvaluatedById,
+    this.evaluatedByName,
+    this.evaluatedByNameEn,
+    this.submitType,
+    this.formName,
+    this.formNameEn,
+    this.fKManagingDirectorId,
+    this.fKEvaluatedEmployeeId,
+    this.evaluatedEmployeeName,
+    this.evaluatedEmployeeNameEn,
+    this.evaluationDate,
+    this.fKCreatorId,
+    this.fKReqStatusId,
+    this.creationDate,
+    this.lastModifiedDate,
+    this.isActive,
+    this.isDeleted,
+    this.totalDegreeScale,
+    this.isEmployeeApprove,
+    this.employeeApproveDate,
+    this.employeeNotes,
+    this.employeeSigniture,
+    this.employeeName,
+    this.hasDepartmetDirector,
+    this.isDepartmetDirectorApprove,
+    this.departmetApproveDate,
+    this.departmetDirectorNotes,
+    this.departmetDirectorSigniture,
+    this.departmetDirectorName,
+    this.hasManagingDirector,
+    this.isManagingDirectorApprove,
+    this.approveDate,
+    this.managingDirectorNotes,
+    this.managingDirectorSigniture,
+    this.managingDirectorName,
+    this.hasGeneralManager,
+    this.isGeneralManagerApprove,
+    this.generalManagerApproveDate,
+    this.generalManagerNotes,
+    this.generalManagerSigniture,
+    this.generalManagerName,
+    this.jobType,
+    this.employees,
+    this.files,
+    this.formItems,
+    this.evaluationScale,
+    this.details,
+    this.evaluationMainItems,
+    this.recommendationItems,
+    this.hrEmployeeEvaluationDetails,
+    this.defBranchVm,
+    this.resultMessage,
+    this.resultStatus,
   });
 
   factory EvaluationForm.fromRawJson(String str) =>
@@ -234,16 +234,23 @@ class EvaluationForm {
         "generalManagerSigniture": generalManagerSigniture,
         "generalManagerName": generalManagerName,
         "jobType": jobType,
-        "employees": List<dynamic>.from(employees.map((x) => x)),
-        "files": List<dynamic>.from(files.map((x) => x)),
-        "formItems": List<dynamic>.from(formItems.map((x) => x)),
-        "evaluationScale":
-            List<dynamic>.from(evaluationScale.map((x) => x.toJson())),
+        "employees": employees != null
+            ? List<dynamic>.from(employees!.map((x) => x))
+            : [],
+        "files": files != null ? List<dynamic>.from(files!.map((x) => x)) : [],
+        "formItems": formItems != null
+            ? List<dynamic>.from(formItems!.map((x) => x))
+            : [],
+        "evaluationScale": evaluationScale != null
+            ? List<dynamic>.from(evaluationScale!.map((x) => x.toJson()))
+            : [],
         "details": details,
-        "evaluationMainItems":
-            List<dynamic>.from(evaluationMainItems.map((x) => x.toJson())),
-        "recommendationItems":
-            List<dynamic>.from(recommendationItems.map((x) => x.toJson())),
+        "evaluationMainItems": evaluationMainItems != null
+            ? List<dynamic>.from(evaluationMainItems!.map((x) => x.toJson()))
+            : [],
+        "recommendationItems": recommendationItems != null
+            ? List<dynamic>.from(recommendationItems!.map((x) => x.toJson()))
+            : [],
         "hrEmployeeEvaluationDetails": hrEmployeeEvaluationDetails != null
             ? List<dynamic>.from(hrEmployeeEvaluationDetails!.map((x) => x))
             : null,

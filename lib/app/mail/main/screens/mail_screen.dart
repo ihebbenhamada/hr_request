@@ -58,6 +58,7 @@ class MailScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(
                       right: 25.0,
                       left: 25.0,
+                      bottom: 25,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

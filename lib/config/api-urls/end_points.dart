@@ -161,7 +161,7 @@ class EndPoints {
 
   /// PURCHASE ORDER
   static const String GET_ALL_PURCHASE_ORDER_URL =
-      '/PurchaseOrderAPI/GetPurchaseOrders?status=';
+      '/PurchaseOrderAPI/GetPurchaseOrders';
   static const String GET_CREATE_PURCHASE_URL =
       '/PurchaseOrderAPI/GetForCreate';
   static const String GET_PURCHASE_DEPARTMENTS_URL =

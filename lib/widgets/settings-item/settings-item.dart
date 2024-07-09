@@ -8,26 +8,26 @@ class SettingsItem extends StatelessWidget {
   const SettingsItem({
     super.key,
     required this.icon,
-    this.isEnabled,
+    required this.isEnabled,
     required this.title,
     required this.description,
-    this.onToggleSwitch,
-    this.onClickItem,
+    required this.onToggleSwitch,
     this.isDarkMode = false,
+    this.isSwitchVisible = false,
   });
 
   final String icon;
-  final bool? isEnabled;
+  final bool isSwitchVisible;
+  final bool isEnabled;
   final bool isDarkMode;
   final String title;
   final String description;
-  final void Function(bool value)? onToggleSwitch;
-  final void Function()? onClickItem;
+  final void Function() onToggleSwitch;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onClickItem,
+      onTap: onToggleSwitch,
       child: Container(
         height: (MediaQuery.of(context).size.width - 80) / 2,
         width: (MediaQuery.of(context).size.width - 80) / 2,
@@ -58,16 +58,16 @@ class SettingsItem extends StatelessWidget {
                   width: 28,
                   color: isDarkMode ? AppColors.white : AppColors.primary,
                 ),
-                isEnabled != null
+                isSwitchVisible != null && !isSwitchVisible
                     ? SizedBox(
                         height: 16,
                         width: 33,
                         child: Transform.scale(
                           scale: 0.7,
                           child: CupertinoSwitch(
-                            value: isEnabled!,
+                            value: isEnabled,
                             activeColor: AppColors.primary,
-                            onChanged: (value) => onToggleSwitch!(value),
+                            onChanged: (value) => onToggleSwitch,
                           ),
                         ),
                       )

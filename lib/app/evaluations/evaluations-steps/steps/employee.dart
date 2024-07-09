@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
-class Employee extends StatelessWidget {
-  const Employee({super.key});
+class EmployeePart extends StatelessWidget {
+  const EmployeePart({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -94,8 +94,10 @@ class LoginController extends BaseController {
           }
           storage.write('user', value.toJson());
           storage.write('employee', value.employee.toJson());
+
           Get.offAll(
             () => DashboardScreen(),
+            arguments: value.employee,
             transition: Transition.leftToRight,
             curve: Curves.ease,
             duration: const Duration(milliseconds: 500),
@@ -111,7 +113,6 @@ class LoginController extends BaseController {
             fontSize: 16.0.sp,
           );
         }
-        AppInterceptor.hideLoader();
       });
     } else {
       Fluttertoast.showToast(

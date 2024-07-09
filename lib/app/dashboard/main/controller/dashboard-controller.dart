@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/auth/login/models/login_response.dart';
@@ -16,12 +15,10 @@ import 'package:request_hr/app/settings/screens/settings_screen.dart';
 import 'package:request_hr/app/sign-in-out/main/screens/sign_in_out_screen.dart';
 import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
-import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/image_urls/image_urls.dart';
 import '../../../alert/main/screens/alert_screen.dart';
-import '../../tabs/vacations/main/models/drop_down.dart';
 
 class DashboardController extends BaseController {
   RxInt pageIndex = 2.obs;
@@ -40,7 +37,7 @@ class DashboardController extends BaseController {
     fKDefBranchId: 0,
     fKHrManagementId: 0,
     fKHrDepartmentId: 0,
-    birthDate: "",
+    birthDate: DateTime.now().toString().substring(0, 10),
     fKHrBloodTypeId: 0,
     gender: 0,
     placeOfBirth: "",
@@ -48,9 +45,9 @@ class DashboardController extends BaseController {
     fKDefReligionId: 0,
     fKSocialStatusId: 0,
     hasAirlineTicket: false,
-    contractDueDate: "",
+    contractDueDate: DateTime.now().toString().substring(0, 10),
     branchName: "",
-    contractStartDate: "",
+    contractStartDate: DateTime.now().toString().substring(0, 10),
     fKGeneralManagerId: 0,
     fKManagingDirectorId: 0,
     fKHumanResourcesManagerId: 0,
@@ -59,13 +56,13 @@ class DashboardController extends BaseController {
     jobName: "",
     issuerName: "",
     isActive: true,
-    creationDate: "",
+    creationDate: DateTime.now().toString().substring(0, 10),
     isDeleted: false,
     isDeveloper: false,
     fKCostcenterId: 0,
     fKCreatorId: 0,
     fKModifiedById: 0,
-    lastModifiedDate: "",
+    lastModifiedDate: DateTime.now().toString().substring(0, 10),
   ).obs;
 
   Rx<Color> decisionsIconColor = AppColors.white.obs;
@@ -73,12 +70,7 @@ class DashboardController extends BaseController {
   Rx<Color> innTechIconColor = AppColors.white.obs;
   Rx<Color> meetingIconColor = AppColors.white.obs;
   Rx<Color> searchIconColor = AppColors.white.obs;
-  Rx<DateTime> dateFrom = DateTime.now().obs;
-  Rx<DateTime> dateTo = DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day + 1,
-  ).obs;
+
   final List<Map<String, dynamic>> drawerItems = [
     {
       'title': 'Dashboard',
@@ -183,23 +175,6 @@ class DashboardController extends BaseController {
       'icon_height': 27.0,
     },
   ];
-
-  final List<DropDownModel> companyList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Annual', value: '1'),
-    DropDownModel(disabled: false, text: 'Monthly', value: '2'),
-    DropDownModel(disabled: false, text: 'Weekly', value: '3'),
-    DropDownModel(disabled: false, text: 'daily', value: '4'),
-  ];
-  final List<DropDownModel> departmentsList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Annual', value: '1'),
-    DropDownModel(disabled: false, text: 'Monthly', value: '2'),
-    DropDownModel(disabled: false, text: 'Weekly', value: '3'),
-    DropDownModel(disabled: false, text: 'daily', value: '4'),
-  ];
-  late Rx<DropDownModel> selectedCompany;
-  late Rx<DropDownModel> selectedDepartment;
 
   onItemSelected(int index) {
     if (index != pageIndex.value) {
@@ -455,15 +430,9 @@ class DashboardController extends BaseController {
     vacationsIconColor.value = AppColors.white;
     searchIconColor.value = AppColors.white;
     meetingIconColor.value = AppColors.white;
-    selectedCompany = companyList[0].obs;
-    selectedDepartment = departmentsList[0].obs;
-    if (GetStorage().read('employee') != null) {
-      employee.value = Emp.fromJson(GetStorage().read('employee'));
+    if (Get.arguments != null) {
+      employee.value = Get.arguments;
     }
-
-    Future.delayed(const Duration(milliseconds: 100), () {
-      AppInterceptor.showLoader();
-    });
   }
 
   /// FUNCTIONS
@@ -490,52 +459,4 @@ class DashboardController extends BaseController {
   }
 
   onClickProfile() {}
-  onSelectCompany(DropDownModel value) {
-    selectedCompany.value = value;
-  }
-
-  onSelectDepartment(DropDownModel value) {
-    selectedDepartment.value = value;
-  }
-
-  void selectDate(
-    BuildContext context,
-    String selectedDate,
-  ) async {
-    final DateTime? pickedDate = await showDatePicker(
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: AppColors.primary, // header background color
-              onPrimary: AppColors.white, // header text color
-              onSurface: AppColors.black, // body text color
-            ),
-            textTheme: Theme.of(context).textTheme.copyWith(
-                  bodyLarge: TextStyle(fontSize: 14.sp),
-                ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: AppColors.black, // button text color
-              ),
-            ),
-          ),
-          child: child!,
-        );
-      },
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2030),
-    );
-    if (selectedDate == 'from') {
-      if (pickedDate != null && pickedDate != dateFrom.value) {
-        dateFrom.value = pickedDate;
-      }
-    } else {
-      if (pickedDate != null && pickedDate != dateTo.value) {
-        dateTo.value = pickedDate;
-      }
-    }
-  }
 }

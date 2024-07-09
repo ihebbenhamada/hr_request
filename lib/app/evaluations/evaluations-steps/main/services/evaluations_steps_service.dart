@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
+import 'package:request_hr/config/colors/colors.dart';
 
 import '../../../../../config/api-urls/end_points.dart';
 import '../../../../../config/interceptor/interceptor.dart';
@@ -20,6 +25,15 @@ class EvaluationsStepsService {
         return null;
       }
     } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
       return null;
     }
   }
@@ -34,6 +48,107 @@ class EvaluationsStepsService {
         return null;
       }
     } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+      return null;
+    }
+  }
+
+  Future<bool?> createEvaluation({
+    required int fKEvaluationFormId,
+    required int fKEvaluatedById,
+    required String evaluatedByName,
+    required String evaluatedByNameEn,
+    required String submitType,
+    required String formName,
+    required String formNameEn,
+    required int fKEvaluatedEmployeeId,
+    required String evaluatedEmployeeName,
+    required String evaluatedEmployeeNameEn,
+    required String evaluationDate,
+    required int fKCreatorId,
+    required int fKReqStatusId,
+    required String creationDate,
+    required String lastModifiedDate,
+    required bool isActive,
+    required bool isDeleted,
+    required bool isEmployeeApprove,
+    required String employeeApproveDate,
+    required String employeeNotes,
+    required String employeeSigniture,
+    required String employeeName,
+    required int fKHrEvaluationFormItemId,
+    required int fKHrEvaluationScaleId,
+    required double degreeScale,
+    required String recommendationText,
+    required int fKDetailCreatorId,
+    required String detailCreationDate,
+    required String detailLastModifiedDate,
+    required bool detailIsDeleted,
+  }) async {
+    Map<String, dynamic> data = {
+      "FK_EvaluationFormId": fKEvaluationFormId,
+      "FK_EvaluatedById": fKEvaluatedById,
+      "EvaluatedByName": evaluatedByName,
+      "EvaluatedByNameEn": evaluatedByNameEn,
+      "SubmitType": submitType,
+      "FormName": formName,
+      "FormNameEn": formNameEn,
+      "FK_EvaluatedEmployeeId": fKEvaluatedEmployeeId,
+      "EvaluatedEmployeeName": evaluatedEmployeeName,
+      "EvaluatedEmployeeNameEn": evaluatedEmployeeNameEn,
+      "EvaluationDate": evaluationDate,
+      "FK_CreatorId": fKCreatorId,
+      "FK_ReqStatusId": fKReqStatusId,
+      "CreationDate": creationDate,
+      "LastModifiedDate": lastModifiedDate,
+      "IsActive": isActive,
+      "IsDeleted": isDeleted,
+      "IsEmployeeApprove": isEmployeeApprove,
+      "EmployeeApproveDate": employeeApproveDate,
+      "EmployeeNotes": employeeNotes,
+      "EmployeeSigniture": employeeSigniture,
+      "EmployeeName": employeeName,
+      "details": [
+        {
+          "FK_HrEvaluationFormItemId": fKHrEvaluationFormItemId,
+          "FK_HrEvaluationScaleId": fKHrEvaluationScaleId,
+          "DegreeScale": degreeScale,
+          "RecommendationText": recommendationText,
+          "FK_CreatorId": fKDetailCreatorId,
+          "CreationDate": detailCreationDate,
+          "LastModifiedDate": detailLastModifiedDate,
+          "IsDeleted": detailIsDeleted
+        },
+      ]
+    };
+
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_EVALUATION_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return true;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+      log(e.response.toString());
       return null;
     }
   }

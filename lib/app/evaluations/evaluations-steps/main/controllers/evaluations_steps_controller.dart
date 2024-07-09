@@ -10,6 +10,8 @@ import 'package:request_hr/config/controllerConfig/base_controller.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../../config/colors/colors.dart';
+import '../../../../../api/models/public/department.dart';
+import '../../../../../api/models/public/employee.dart';
 import '../../../../dashboard/tabs/vacations/main/models/drop_down.dart';
 import '../../steps/employee.dart';
 import '../../steps/form_a.dart';
@@ -80,11 +82,14 @@ class EvaluationsStepsController extends BaseController
 
   RxList<Widget> steps = <Widget>[].obs;
 
-  final List<String> paymentTypeList = ['Annual', 'Monthly', 'Weekly', 'daily'];
   final RxString selectedType = 'Annual'.obs;
+  final Rx<EvaluationForm> evaluationFormData = EvaluationForm().obs;
   final Rx<DropDownModel> selectedEvalForm = DropDownModel(
     value: "0",
   ).obs;
+
+  Rx<Department> selectedDepartment = Department(id: 0).obs;
+  Rx<Employee> selectedEmployee = Employee(id: 0).obs;
 
   /// VALIDATION
 
@@ -129,6 +134,8 @@ class EvaluationsStepsController extends BaseController
         evaluationsStepsService: _evaluationsStepsService,
         onSelect: (DropDownModel selectedEval) =>
             onSelectEvalForm(selectedEval),
+        onSelectDep: onSelectDep,
+        onSelectEmp: onSelectEmp,
       ),
       FormA(
         jobDescSliderValue: jobDescSliderValue,
@@ -156,7 +163,7 @@ class EvaluationsStepsController extends BaseController
         recItemsList: recItemsList,
         onCheckBox: onCheckBox,
       ),
-      const Employee(),
+      const EmployeePart(),
     ];
   }
 
@@ -164,46 +171,53 @@ class EvaluationsStepsController extends BaseController
   onClickNext() {
     if (activePage < steps.length - 1) {
       if (activePage.value == 0) {
-        if (selectedEvalForm.value.value != "0") {
+        if (selectedEvalForm.value.value != "0" &&
+            selectedEmployee.value.id != 0) {
           AppInterceptor.showLoader();
           _evaluationsStepsService
               .getFormData(selectedEvalForm.value.value ?? '')
               .then((value) {
             if (value != null) {
+              evaluationFormData.value = value;
+
               ///area1
-              workPlaceFactoryTitle.value = value.evaluationMainItems[0].nameEn;
+              workPlaceFactoryTitle.value =
+                  value.evaluationMainItems![0].nameEn;
               workPlaceDesc1.value = value
-                  .evaluationMainItems[0].evaluationItems[0].evaluationItemEn;
+                  .evaluationMainItems![0].evaluationItems[0].evaluationItemEn;
               workPlaceDesc2.value = value
-                  .evaluationMainItems[0].evaluationItems[1].evaluationItemEn;
+                  .evaluationMainItems![0].evaluationItems[1].evaluationItemEn;
 
               ///area2
               relationShipCollageTitle.value =
-                  value.evaluationMainItems[1].nameEn;
+                  value.evaluationMainItems![1].nameEn;
               relationShipDesc1.value = value
-                  .evaluationMainItems[1].evaluationItems[0].evaluationItemEn;
+                  .evaluationMainItems![1].evaluationItems[0].evaluationItemEn;
               relationShipDesc2.value = value
-                  .evaluationMainItems[1].evaluationItems[1].evaluationItemEn;
+                  .evaluationMainItems![1].evaluationItems[1].evaluationItemEn;
               relationShipDesc3.value = value
-                  .evaluationMainItems[1].evaluationItems[2].evaluationItemEn;
+                  .evaluationMainItems![1].evaluationItems[2].evaluationItemEn;
 
               ///area3
               managementDepartmentTitle.value =
-                  value.evaluationMainItems[2].nameEn;
+                  value.evaluationMainItems![2].nameEn;
               managementDepartmentDesc.value = value
-                  .evaluationMainItems[2].evaluationItems[0].evaluationItemEn;
+                  .evaluationMainItems![2].evaluationItems[0].evaluationItemEn;
 
               ///area4
-              directManagementTitle.value = value.evaluationMainItems[3].nameEn;
+              directManagementTitle.value =
+                  value.evaluationMainItems![3].nameEn;
               directManagementDesc.value = value
-                  .evaluationMainItems[3].evaluationItems[0].evaluationItemEn;
-              log(value.recommendationItems.length.toString());
-              recItemsList = value.recommendationItems;
+                  .evaluationMainItems![3].evaluationItems[0].evaluationItemEn;
+              log(value.recommendationItems!.length.toString());
+              recItemsList = value.recommendationItems!;
               steps.value = [
                 FormType(
                   evaluationsStepsService: _evaluationsStepsService,
                   onSelect: (DropDownModel selectedEval) =>
                       onSelectEvalForm(selectedEval),
+                  onSelectDep: onSelectDep,
+                  onSelectEmp: onSelectEmp,
                 ),
                 FormA(
                   jobDescSliderValue: jobDescSliderValue,
@@ -229,10 +243,10 @@ class EvaluationsStepsController extends BaseController
                   totalScale: totalScale,
                 ),
                 Recommendation(
-                  recItemsList: value.recommendationItems,
+                  recItemsList: value.recommendationItems!,
                   onCheckBox: onCheckBox,
                 ),
-                const Employee(),
+                const EmployeePart(),
               ];
               update();
 
@@ -276,12 +290,53 @@ class EvaluationsStepsController extends BaseController
   }
 
   onClickFinish() {
-    Get.to(
-      () => SuccessVacationScreen(),
-      transition: Transition.leftToRight,
-      curve: Curves.ease,
-      duration: const Duration(milliseconds: 500),
-    );
+    _evaluationsStepsService
+        .createEvaluation(
+      fKEvaluationFormId: int.parse(selectedEvalForm.value.value ?? '0'),
+      fKEvaluatedById: selectedEmployee.value.id,
+      evaluatedByName: selectedEmployee.value.fullName ?? '',
+      evaluatedByNameEn: selectedEmployee.value.fullNameEn ?? "",
+      submitType: 'btnSend',
+      formName: selectedEvalForm.value.text ?? '',
+      formNameEn: selectedEvalForm.value.text ?? '',
+      fKEvaluatedEmployeeId: selectedEmployee.value.id,
+      evaluatedEmployeeName: selectedEmployee.value.fullName ?? '',
+      evaluatedEmployeeNameEn: selectedEmployee.value.fullNameEn ?? '',
+      evaluationDate: DateTime.now().toString().substring(0, 10),
+      fKCreatorId: evaluationFormData.value.fKCreatorId ?? 0,
+      fKReqStatusId: evaluationFormData.value.fKReqStatusId ?? 0,
+      creationDate: evaluationFormData.value.creationDate ??
+          DateTime.now().toString().substring(0, 10),
+      lastModifiedDate: evaluationFormData.value.lastModifiedDate ??
+          DateTime.now().toString().substring(0, 10),
+      isActive: evaluationFormData.value.isActive ?? true,
+      isDeleted: evaluationFormData.value.isDeleted ?? false,
+      isEmployeeApprove: evaluationFormData.value.isEmployeeApprove ?? false,
+      employeeApproveDate: evaluationFormData.value.employeeApproveDate ??
+          DateTime.now().toString().substring(0, 10),
+      employeeNotes: evaluationFormData.value.employeeNotes ?? '',
+      employeeSigniture: evaluationFormData.value.employeeSigniture ?? '',
+      employeeName: evaluationFormData.value.employeeName ?? '',
+      fKHrEvaluationFormItemId:
+          int.parse(selectedEvalForm.value.value.toString()),
+      fKHrEvaluationScaleId: 1,
+      degreeScale: totalScale.value,
+      recommendationText: '',
+      fKDetailCreatorId: 1,
+      detailCreationDate: DateTime.now().toString().substring(0, 10),
+      detailLastModifiedDate: DateTime.now().toString().substring(0, 10),
+      detailIsDeleted: false,
+    )
+        .then((value) {
+      if (value != null) {
+        Get.to(
+          () => SuccessVacationScreen(),
+          transition: Transition.leftToRight,
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        );
+      }
+    });
   }
 
   paginate(int index, bool isForward) {
@@ -302,10 +357,6 @@ class EvaluationsStepsController extends BaseController
 
   onPageChanged(int index) {
     activePage.value = index;
-  }
-
-  onSelectPaymentType(String value) {
-    selectedType.value = value;
   }
 
   animateFirstStep(String direction) {
@@ -394,5 +445,13 @@ class EvaluationsStepsController extends BaseController
   onCheckBox(int id, bool value) {
     recItemsList.firstWhere((test) => test.id == id).checked = value;
     update();
+  }
+
+  onSelectDep(Department value) {
+    selectedDepartment.value = value;
+  }
+
+  onSelectEmp(Employee value) {
+    selectedEmployee.value = value;
   }
 }

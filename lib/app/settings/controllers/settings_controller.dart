@@ -35,13 +35,24 @@ class SettingsController extends BaseController {
   /// INITIALISATION
   void initValues() {
     storage = GetStorage();
+    initSwitches();
   }
 
   /// FUNCTIONS
-  toggleLanguage(bool value) {
-    isArabic.value = value;
+  initSwitches() {
+    if (storage.read('language') == 'ar') {
+      isArabic.value = true;
+    } else {
+      isArabic.value = false;
+    }
+    isNotificationEnabled.value =
+        storage.read('isNotificationEnabled') ?? false;
+    isDarkTheme.value = storage.read('isDarkTheme') ?? false;
+  }
 
-    if (value) {
+  toggleLanguage() {
+    isArabic.value = !isArabic.value;
+    if (isArabic.isTrue) {
       storage.write('language', 'ar');
       Get.updateLocale(const Locale('ar', 'AR'));
     } else {
@@ -50,12 +61,14 @@ class SettingsController extends BaseController {
     }
   }
 
-  toggleTheme(bool value) {
-    isDarkTheme.value = value;
+  toggleTheme() {
+    isDarkTheme.value = !isDarkTheme.value;
+    storage.write('isDarkTheme', isDarkTheme.value);
   }
 
-  toggleNotification(bool value) {
-    isNotificationEnabled.value = value;
+  toggleNotification() {
+    isNotificationEnabled.value = !isNotificationEnabled.value;
+    storage.write('isNotificationEnabled', isNotificationEnabled.value);
   }
 
   logout() {

@@ -29,90 +29,102 @@ class LoginScreen extends StatelessWidget {
             opacity: 0.1,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 40.0,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              113.h.verticalSpace,
-              Center(
-                child: Image.asset(
-                  AppImages.loginIcon,
-                  height: 125.h,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40.0,
                 ),
-              ),
-              108.h.verticalSpace,
-              Text(
-                'sign_in'.tr.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.white,
-                ),
-              ),
-              10.h.verticalSpace,
-              Text(
-                'fill_credentials'.tr,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.gray1,
-                ),
-              ),
-              40.h.verticalSpace,
-              CustomInput(
-                controller: _authController.idTextEditingController,
-                isDarkMode: themeController.isDarkMode.value,
-                hintText: 'id_number'.tr,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
-                ],
-                onChanged: (value) {},
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 22.0,
-                    right: 15.0,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      113.h.verticalSpace,
+                      Center(
+                        child: Image.asset(
+                          AppImages.loginIcon,
+                          height: 125.h,
+                        ),
+                      ),
+                      108.h.verticalSpace,
+                      Text(
+                        'sign_in'.tr.toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.white,
+                        ),
+                      ),
+                      10.h.verticalSpace,
+                      Text(
+                        'fill_credentials'.tr,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.gray1,
+                        ),
+                      ),
+                      40.h.verticalSpace,
+                      CustomInput(
+                        controller: _authController.idTextEditingController,
+                        isDarkMode: themeController.isDarkMode.value,
+                        hintText: 'id_number'.tr,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(10),
+                        ],
+                        onChanged: (value) {},
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 22.0,
+                            right: 15.0,
+                          ),
+                          child: Image.asset(
+                            AppImages.phone,
+                            height: 20.h,
+                            width: 20.h,
+                          ),
+                        ),
+                      ),
+                      34.h.verticalSpace,
+                      CustomInput(
+                        controller:
+                            _authController.passwordTextEditingController,
+                        isDarkMode: themeController.isDarkMode.value,
+                        hintText: 'password'.tr,
+                        obscureText: true,
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 22.0,
+                            right: 15.0,
+                          ),
+                          child: Image.asset(
+                            AppImages.lock,
+                            height: 20.h,
+                            width: 20.h,
+                          ),
+                        ),
+                      ),
+                      35.h.verticalSpace,
+                      CustomButton(
+                        text: 'login'.tr,
+                        onClick: _authController.handleClickSignIn,
+                      ),
+                      19.h.verticalSpace,
+                    ],
                   ),
-                  child: Image.asset(
-                    AppImages.phone,
-                    height: 20.h,
-                    width: 20.h,
-                  ),
                 ),
               ),
-              34.h.verticalSpace,
-              CustomInput(
-                controller: _authController.passwordTextEditingController,
-                isDarkMode: themeController.isDarkMode.value,
-                hintText: 'password'.tr,
-                obscureText: true,
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 22.0,
-                    right: 15.0,
-                  ),
-                  child: Image.asset(
-                    AppImages.lock,
-                    height: 20.h,
-                    width: 20.h,
-                  ),
-                ),
-              ),
-              35.h.verticalSpace,
-              CustomButton(
-                text: 'login'.tr,
-                onClick: _authController.handleClickSignIn,
-              ),
-              const Expanded(
-                child: Footer(),
-              ),
-              19.h.verticalSpace,
-            ],
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              child: Footer(),
+            ),
+            10.h.verticalSpace,
+          ],
         ),
       ),
     );
