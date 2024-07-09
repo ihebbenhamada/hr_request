@@ -56,11 +56,7 @@ flutter_launcher_icons:
   min_sdk_android: 21
   remove_alpha_ios: true
   background_color_ios: "#e0e0e0"
-  web:
-    generate: true
-    image_path: "assets/images/logo.png"
-    background_color: "#ffffff"
-    theme_color: "#ffffff"
+
 flutter:
 
   uses-material-design: true
