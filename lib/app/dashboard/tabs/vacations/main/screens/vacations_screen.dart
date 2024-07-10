@@ -35,7 +35,7 @@ class VacationsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Create\nNew Vacation',
+                    '${'create'.tr}\n${'new_vacation'.tr}',
                     style: TextStyle(
                       color: AppColors.primary,
                       fontSize: 16.sp,
@@ -72,7 +72,9 @@ class VacationsScreen extends StatelessWidget {
                           Vacation item =
                               _vacationsController.vacationsList[index];
                           return VacationItem(
-                            title: "${item.vacationTypeNameEn}\nVacation",
+                            title: Get.locale?.languageCode == 'en'
+                                ? "${item.vacationTypeNameEn}\n${'vacation'.tr}"
+                                : "${'vacation'.tr}\n${item.vacationTypeNameAr}",
                             startDate: item.dateFrom.substring(0, 10),
                             endDate: item.dateTo.substring(0, 10),
                             icon: item.icon,
@@ -102,7 +104,7 @@ class VacationsScreen extends StatelessWidget {
                       )
                     : Center(
                         child: Text(
-                          'No Vacation found',
+                          'no_vacation_found'.tr,
                           style: TextStyle(
                             fontSize: 14.sp,
                           ),

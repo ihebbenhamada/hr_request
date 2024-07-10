@@ -97,18 +97,10 @@ class VacationsFormController extends BaseController {
     if (selectedDate == 'from') {
       if (pickedDate != null && pickedDate.toString() != dateFrom.value) {
         dateFrom.value = pickedDate.toString().substring(0, 10);
-        dueDate.value = DateTime.parse(dateTo.value)
-            .difference(DateTime.parse(dateFrom.value))
-            .inDays
-            .toString();
       }
     } else {
       if (pickedDate != null && pickedDate.toString() != dateTo.value) {
         dateTo.value = pickedDate.toString().substring(0, 10);
-        dueDate.value = DateTime.parse(dateTo.value)
-            .difference(DateTime.parse(dateFrom.value))
-            .inDays
-            .toString();
       }
     }
   }
@@ -121,10 +113,7 @@ class VacationsFormController extends BaseController {
         vacationTypeList.value = value.vacationTypes;
         dateFrom.value = value.dateFrom.substring(0, 10);
         dateTo.value = value.dateTo.substring(0, 10);
-        dueDate.value = DateTime.parse(dateTo.value)
-            .difference(DateTime.parse(dateFrom.value))
-            .inDays
-            .toString();
+        dueDate.value = value.dueDate ?? '--/--/--';
         employeesList.value = value.employees;
         selectedAlternativeToPay.value = value.employees[0];
         selectedAlternativeEmployee.value = value.employees[0];
@@ -142,10 +131,9 @@ class VacationsFormController extends BaseController {
     dateFrom.value =
         vacationController.selectedVacation!.dateFrom.substring(0, 10);
     dateTo.value = vacationController.selectedVacation!.dateTo.substring(0, 10);
-    dueDate.value = DateTime.parse(dateTo.value)
-        .difference(DateTime.parse(dateFrom.value))
-        .inDays
-        .toString();
+    dueDate.value =
+        vacationController.selectedVacation?.dueDate.substring(0, 10) ??
+            '--/--/--';
 
     employeesList.value = vacationController.selectedVacation!.employees;
     selectedAlternativeToPay.value =

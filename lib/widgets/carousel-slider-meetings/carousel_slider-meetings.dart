@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 import '../../config/colors/colors.dart';
@@ -42,7 +43,9 @@ class CarouselSliderMeetingsItem extends StatelessWidget {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 10.0),
+              padding: EdgeInsets.only(
+                  left: Get.locale?.languageCode == 'en' ? 10.0 : 0,
+                  right: Get.locale?.languageCode == 'ar' ? 10.0 : 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -58,16 +61,16 @@ class CarouselSliderMeetingsItem extends StatelessWidget {
                       children: [
                         12.h.verticalSpace,
                         Text(
-                          title,
+                          title.tr,
                           style: TextStyle(
                             color: AppColors.primary,
                             fontSize: 14.sp,
                           ),
                         ),
-                        9.h.verticalSpace,
+                        8.h.verticalSpace,
                         Flexible(
                           child: Text(
-                            description.toString(),
+                            description.tr.toString(),
                             softWrap: true,
                             overflow: TextOverflow.visible,
                             maxLines: 3,
@@ -85,7 +88,8 @@ class CarouselSliderMeetingsItem extends StatelessWidget {
             ),
           ),
           Positioned(
-            right: -16.5.h,
+            right: Get.locale?.languageCode == 'en' ? -16.5.h : null,
+            left: Get.locale?.languageCode == 'ar' ? -16.5.h : null,
             child: Container(
               height: 33.h,
               width: 33.h,
@@ -115,7 +119,8 @@ class CarouselSliderMeetingsItem extends StatelessWidget {
             ),
           ),
           Positioned(
-            right: 22,
+            right: Get.locale?.languageCode == 'en' ? 22 : null,
+            left: Get.locale?.languageCode == 'ar' ? 22 : null,
             bottom: 0.h,
             child: Container(
               height: 20.h,
@@ -138,9 +143,10 @@ class CarouselSliderMeetingsItem extends StatelessWidget {
                 child: Text(
                   date,
                   style: TextStyle(
-                      fontSize: 13.sp,
-                      color: AppColors.white,
-                      fontWeight: FontWeight.w500),
+                    fontSize: 13.sp,
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),

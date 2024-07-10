@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 class DrawerGridItem extends StatelessWidget {
@@ -40,7 +41,7 @@ class DrawerGridItem extends StatelessWidget {
           ),
           2.h.verticalSpace,
           Text(
-            title,
+            title.tr,
             style: TextStyle(
               color: AppColors.white,
               fontSize: 14.sp,

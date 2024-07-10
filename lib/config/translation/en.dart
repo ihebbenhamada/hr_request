@@ -1,5 +1,14 @@
 class En {
   Map<String, String> get en => {
+        ///PUBLIC
+        'cancel': 'إلغاء',
+        'continue': 'Continue',
+        'pending': 'Pending',
+        'all': 'All',
+        'approved': 'موافق',
+        'create': 'Create',
+        'total': 'Total',
+
         /// LOGIN PAGE
         'sign_in': 'Sign In',
         'login': 'Login',
@@ -7,104 +16,135 @@ class En {
         'id_number': 'Id Number',
         'password': 'Password',
 
-        /// SIGNUP PAGE
-        'full_name': 'Full Name',
-        'phone_number': 'Phone Number',
-        'phone_number1': 'Phone Number :',
-        'continue': 'Continue',
-        'have_account': 'I Have Account !!',
-
-        /// VERIFICATION PAGE
-        'verify_account': 'Verify Account',
-        'enter_verification_code':
-            'Please, enter the verification code we sent to your mobile **',
-        'seconds': 's',
-        'resend_code': 'Resend Code',
-        'wrong_code': 'Wrong Code',
-        'confirm': 'Confirm',
-
-        /// PASSWORD PAGE
-        'enter_password': 'Enter Your Password',
-        'repeat_password': 'Repeat your Password',
-        'password_strength': 'Password Strength',
-        'strong_password': 'Strong Password',
-        'medium_password': 'Medium Password',
-        'weak_password': 'Weak Password',
-
-        /// SUCCESS PAGE
-        'congratulations': 'Congratulations !!',
-        'success_account_added': 'Your Account added Successfully !!',
-        'success_password_changed': 'Your Password Changed Successfully !!',
-        'success_appointment_added': 'Your Appointment added Successfully !!',
-        'mrn': 'MRN :',
-        'name': 'Name :',
-
-        /// HOME SCREEN
-        'welcome': 'Welcome',
-        'book_now': 'Book Now !',
-        'book_now2': 'Book Now !!',
-        'my_mrn': 'My Mrn',
-        'file_number': 'File Number',
-        'my_appointment': 'My Appointment',
-        'appointment_number': 'Appointment Number',
-        'pending': 'Pending',
-        'pending_appointment': 'Pending Appointment',
-        'cancel': 'Cancel',
-        'cancel_appointment': 'Cancel Appointment',
-        'top_5_doctors': 'Top 5 Doctors',
-        'today': 'Today',
-        'week': 'Week',
-        'month': 'Month',
-
-        /// NOTIFICATION PAGE
-        'new_doctor_added': 'New Doctor Added to Our Family !!',
-        'appointment_done': 'Your Appointment Done Successfully',
-        'appointment_cancelled': 'Your Appointment Cancelled',
-
-        /// SETTINGS PAGE
+        ///SETTINGS SCREEN
         'arabic_language': 'Arabic Language',
-        'english_language': 'English Language',
         'change_language': 'Change Language',
         'dark_theme': 'Dark Theme',
-        'light_theme': 'Light Theme',
-        'change_theme': 'Change Theme',
+        'change_theme': 'Change theme',
         'send_notification': 'Send Notification',
         'send_notification_alarm': 'Send Notification alarm',
         'sign_out': 'Sign Out',
         'sign_out_from_app': 'Sign Out From App',
 
-        /// PROFILE PAGE
-        'change_your_password': 'Change Your Password',
-        'change_phone_number': 'Change Phone Number',
-
-        /// CHANGE PASSWORD PAGE
-        'enter_old_password': 'Enter Your Old Password',
-        'new_password': 'New Password',
-        'change_password': 'Change Password',
-        'back': 'Back',
-
-        /// DRAWER
-        'home': 'Home',
-        'account': 'Account',
+        ///DASHBOARD SCREEN
+        'start_job': 'Start Job',
+        'job_code': 'Job Code',
+        'dashboard': 'Dashboard',
+        'decisions': 'Decisions',
+        'vacations': 'Vacations',
+        'final_exit': 'Final Exit',
+        'evaluations': 'Evaluations',
+        'loan': 'Loan',
+        'bonus': 'Bonus',
+        'punishments': 'Punishments',
+        'alerts': 'Alerts',
+        'messages': 'Messages',
+        'meetings': 'Meetings',
+        'complaint': 'Complaint',
+        'ticket': 'Ticket',
+        'sign_in_out': 'Sign in & out',
+        'custody': 'Custody',
+        'purchase': 'Purchase',
         'settings': 'Settings',
-        'make_appointment': 'Make Appointment',
 
-        /// MAKE APPOINTMENT SCREEN
-        'Make_your_appointment': 'Make Your Appointment',
-        'with_easy_steps': 'With Easy Steps',
-        'step1': 'Step 1',
-        'step2': 'Step 2',
-        'step3': 'Step 3',
-        'choose_clinic_doctor': '1- CHOOSE CLINIC & DOCTOR',
-        'choose_clinic_doctor_step': 'CHOOSE CLINIC & DOCTOR',
-        'choose_date_time': '2- Choose Date & Time',
-        'choose_date_time_step': 'Choose Date & Time',
-        'complete_information': '3- Complete Information',
-        'complete_information_step': 'Complete Information',
-        'start_your_appointment': 'Start Your Appointment',
-        'next': 'Next',
-        'serial': 'Serial',
-        'patient_name': 'Patient Name',
-        'doctor_name': 'Doctor Name',
+        ///HOME SCREEN
+        'find_your': 'Find your',
+        'general_information': 'General Information',
+        'basic_salary': 'Basic Salary',
+        'allowances': 'Allowances',
+        'total_extra': 'Total extra',
+        'total_loan': 'Total loan',
+        'punishments1': 'Punishments',
+        'net_salary': 'Net salary',
+        'amount': 'Amount',
+        'incoming_meeting': 'Incoming Meeting',
+        'subject_meeting': 'Meeting subject',
+        'lorem_epsum':
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the',
+        'and': 'and',
+        'contract': 'Contract',
+        'start': 'Start',
+        'end': 'End',
+        '30_year': '30 days on year',
+        'left': 'Left',
+        'indemnity': 'Indemnity',
+        'date_entitlement': 'Date entitlement',
+        'has_tickets': 'Has airline tickets?',
+        'yes': 'Yes',
+        'total_meetings': 'Total of Meetings',
+
+        ///DECISION SCREEN
+        'administrator_decisions': 'Administrator Decisions',
+        'subject': 'Subject',
+        'description': 'Description',
+
+        ///VACATION
+        'new_vacation': 'New Vacation',
+        'vacation': 'Vacation',
+        'no_vacation_found': 'No Vacation found',
+        'remaining_vacation':
+            'Leave taken by the employee, the remaining leave, and the percentage',
+        'taken': 'Taken',
+        'official_vacations': 'Official vacations',
+        '20_year': '20 days on year',
+        'official_leaves':
+            'The official leaves that the employee will take without deducting them from his annual leave',
+        'next_vacation': 'Next Vacation',
+
+        'national_day': 'National day',
+        'national_day_date': '23 september',
+        'founding_day': 'Founding day',
+        'founding_day_date': '22 February',
+        'eid_al_adha': 'Eid al-Adha',
+        'eid_al_adha_date': '9-12 Dhul-Hijjah',
+        'eid_al_fitr': 'Eid al-Fitr',
+        'eid_al_fitr_date': '1-3 Shawwal',
+
+        'vacation_type': 'Vacation Type',
+        'due_date': 'Due Date',
+        'date_from': 'Date From',
+        'date_to': 'Date To',
+        'alternative_employee': 'Alternative Employee',
+        'select_employee': 'Select employee',
+        'alternative_paying_due': 'Alternative To Paying Any Due',
+        'remark': 'Remark',
+
+        /// MEETING SCREEN
+        'new_meeting': 'New Meeting',
+        'date': 'Date',
+        'depart': 'Department',
+        'invitation_to': 'Invitation To',
+        'select_employees': 'Select employees',
+        'meeting_title': 'Meeting Title',
+        'meeting_subject': 'Meeting Subject',
+        'meeting_points': 'Meeting Points',
+        'add_meeting_points': 'Add Meeting Points',
+        'upload_attachment': 'Upload Attachment',
+
+        /// BONUS SCREEN
+        'your_bonus': 'Your Bonus',
+        'no_bonus_found': 'No Bonus found',
+        'your_bonus_chart': 'Your Bonus Chart',
+        'jan': 'Jan',
+        'feb': 'Feb',
+        'mar': 'Mar',
+        'apr': 'Apr',
+        'may': 'May',
+        'jun': 'Jun',
+        'jul': 'Jul',
+        'aug': 'Aug',
+        'sep': 'Sep',
+        'oct': 'Oct',
+        'nov': 'Nov',
+        'dec': 'Dec',
+        'no_month': 'no month',
+        'bonus_year': 'Your Bonus  this Year',
+        'rewards_year': 'Congratulations. The rewards I received this year',
+
+        ///NOTIFICATION SCREEN
+        'notifications': 'Notifications',
+
+        ///MAIL SCREEN
+        'create_mail': 'Create Mail',
       };
 }

@@ -9,6 +9,7 @@ import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
+import '../../../dashboard/main/controller/dashboard-controller.dart';
 import '../services/bonus_service.dart';
 
 class BonusController extends BaseController {
@@ -16,6 +17,7 @@ class BonusController extends BaseController {
   final BonusService _bonusService = BonusService();
 
   /// CONTROLLERS
+  final DashboardController _dashboardController = Get.find();
 
   /// VARIABLES
   RxInt currentBonus = 0.obs;
@@ -45,7 +47,6 @@ class BonusController extends BaseController {
 
   /// FUNCTIONS
   getBonusList() {
-    AppInterceptor.showLoader();
     _bonusService.getBonus().then((value) {
       if (value != null) {
         bonusResponse.value = value;
@@ -53,7 +54,12 @@ class BonusController extends BaseController {
           barGroups.add(generateGroupData(i + 1, value.chart[i].count));
         }
       }
-      AppInterceptor.hideLoader();
+      _dashboardController.isBonusLoading.value = false;
+      if (_dashboardController.isDecisionLoading.isFalse &&
+          _dashboardController.isMeetingLoading.isFalse &&
+          _dashboardController.isVacationLoading.isFalse) {
+        AppInterceptor.hideLoader();
+      }
     });
   }
 

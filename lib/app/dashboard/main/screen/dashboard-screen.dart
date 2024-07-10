@@ -60,7 +60,9 @@ class DashboardScreen extends StatelessWidget {
                         _dashboardController.onClickNotification,
                     image: _dashboardController.employee.value.imagePath ??
                         AppImages.profile,
-                    name: _dashboardController.employee.value.fullNameEn,
+                    name: Get.locale?.languageCode == 'ar'
+                        ? _dashboardController.employee.value.fullName
+                        : _dashboardController.employee.value.fullNameEn,
                     job: _dashboardController.employee.value.jobName,
                   ),
                   Expanded(
@@ -194,7 +196,9 @@ class DashboardScreen extends StatelessWidget {
                           image:
                               _dashboardController.employee.value.imagePath ??
                                   AppImages.profile,
-                          name: _dashboardController.employee.value.fullNameEn,
+                          name: Get.locale?.languageCode == 'ar'
+                              ? _dashboardController.employee.value.fullName
+                              : _dashboardController.employee.value.fullNameEn,
                           job: _dashboardController.employee.value.jobName,
                           closeDrawer: () {
                             scaffoldKey.currentState!.closeDrawer();
@@ -204,16 +208,15 @@ class DashboardScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.only(
-                              top: 9.h,
-                              left: 9.h,
-                              bottom: 9.h,
+                            padding: EdgeInsets.all(
+                              9.h,
                             ),
                             decoration: const BoxDecoration(
                               color: AppColors.blueDark,
                               image: DecorationImage(
                                 image: AssetImage(AppImages.poster),
                                 fit: BoxFit.cover,
+                                matchTextDirection: true,
                               ),
                             ),
                             child: Column(
@@ -255,7 +258,7 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                     5.horizontalSpace,
                                     Text(
-                                      'Start Job: ${_dashboardController.employee.value.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
+                                      '${'start_job'.tr}: ${_dashboardController.employee.value.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
                                           DateTime.parse(
                                             _dashboardController.employee.value
                                                 .contractStartDate!,
@@ -288,7 +291,7 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                     5.horizontalSpace,
                                     Text(
-                                      'Job Code: ${_dashboardController.employee.value.code}',
+                                      '${'job_code'.tr}: ${_dashboardController.employee.value.code}',
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 14.sp,

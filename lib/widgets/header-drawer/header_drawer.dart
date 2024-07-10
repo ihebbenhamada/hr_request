@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
@@ -20,8 +19,6 @@ class HeaderDrawer extends StatelessWidget {
   final String name;
   @override
   Widget build(BuildContext context) {
-    log('0-0-0-0-0-0-0-0-0-0-0-0-0-');
-    log(job);
     return Padding(
       padding: EdgeInsets.only(
         bottom: 10.h,
@@ -44,7 +41,7 @@ class HeaderDrawer extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: Text(
-                      '$name,',
+                      '$name${Get.locale?.languageCode == 'ar' ? '،' : ','}',
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: 16.sp,

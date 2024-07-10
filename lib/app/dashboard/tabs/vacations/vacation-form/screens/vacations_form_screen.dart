@@ -42,7 +42,7 @@ class VacationsFormScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Vacation Type',
+                    title: 'vacation_type'.tr,
                     inputType: 'select',
                     selectedDropDownItem: _vacationsFormController.selectedType,
                     onSelect: (value) =>
@@ -53,7 +53,7 @@ class VacationsFormScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Due Date',
+                    title: 'due_date'.tr,
                     isDynamicText: true,
                     dynamicText: _vacationsFormController.dueDate,
                     inputType: 'text',
@@ -68,7 +68,7 @@ class VacationsFormScreen extends StatelessWidget {
                     () => InputForm(
                       height: 55.h,
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                      title: 'Date From',
+                      title: 'date_from'.tr,
                       inputType: 'date',
                       text: _vacationsFormController.dateFrom.value,
                       onSelectDate: () =>
@@ -80,7 +80,7 @@ class VacationsFormScreen extends StatelessWidget {
                     () => InputForm(
                       height: 55.h,
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                      title: 'Date To',
+                      title: 'date_to'.tr,
                       inputType: 'date',
                       text: _vacationsFormController.dateTo.value,
                       onSelectDate: () =>
@@ -109,7 +109,7 @@ class VacationsFormScreen extends StatelessWidget {
                   children: [
                     5.h.verticalSpace,
                     Text(
-                      "Alternative Employee",
+                      "alternative_employee".tr,
                       style: TextStyle(
                         color: AppColors.gray6,
                         fontSize: 14.sp,
@@ -117,7 +117,7 @@ class VacationsFormScreen extends StatelessWidget {
                     ),
                     CustomDropdown<DropDownModel>.searchRequest(
                       items: _vacationsFormController.employeesList,
-                      hintText: "Select employee",
+                      hintText: "select_employee".tr,
                       closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
                       listItemBuilder:
                           (context, employee, isSelected, onItemSelect) {
@@ -154,17 +154,6 @@ class VacationsFormScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              /* InputForm(
-                height: 55.h,
-                width: double.infinity,
-                title: 'Alternative Employee',
-                inputType: 'select',
-                selectedDropDownItem:
-                    _vacationsFormController.selectedAlternativeEmployee,
-                onSelect: (value) =>
-                    _vacationsFormController.onSelectAlternativeEmployee(value),
-                listDropDown: _vacationsFormController.employeesList,
-              ),*/
               15.h.verticalSpace,
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 11),
@@ -185,7 +174,7 @@ class VacationsFormScreen extends StatelessWidget {
                   children: [
                     5.h.verticalSpace,
                     Text(
-                      "Alternative To Paying Any Due",
+                      "alternative_paying_due".tr,
                       style: TextStyle(
                         color: AppColors.gray6,
                         fontSize: 14.sp,
@@ -193,7 +182,7 @@ class VacationsFormScreen extends StatelessWidget {
                     ),
                     CustomDropdown<DropDownModel>.searchRequest(
                       items: _vacationsFormController.employeesList,
-                      hintText: "Select employee",
+                      hintText: "select_employee".tr,
                       closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
                       listItemBuilder:
                           (context, employee, isSelected, onItemSelect) {
@@ -230,27 +219,15 @@ class VacationsFormScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              /*InputForm(
-                height: 55.h,
-                width: double.infinity,
-                title: 'Alternative To Paying Any Due',
-                inputType: 'select',
-                selectedDropDownItem:
-                    _vacationsFormController.selectedAlternativeToPay,
-                onSelect: (value) =>
-                    _vacationsFormController.onSelectAlternativeToPay(value),
-                listDropDown: _vacationsFormController.employeesList,
-              ),*/
               15.h.verticalSpace,
               InputForm(
                 textEditingController:
                     _vacationsFormController.remarkTextEditingController,
                 width: double.infinity,
-                title: 'Remark',
+                title: 'remark'.tr,
                 inputType: 'input',
                 text: 'Mohamed Maged Saleh',
               ),
-              15.h.verticalSpace,
               30.h.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

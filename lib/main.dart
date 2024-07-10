@@ -29,7 +29,6 @@ Future<void> main() async {
   /// INITIALIZE FIREBASE
 
   dynamic language = await GetStorage().read('language');
-
   if (language == null) {
     await GetStorage().write('language', 'en');
   }

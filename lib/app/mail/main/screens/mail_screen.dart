@@ -39,7 +39,10 @@ class MailScreen extends StatelessWidget {
                   child: Container(
                     height: 40.h,
                     width: 40.h,
-                    margin: const EdgeInsets.only(left: 25),
+                    margin: EdgeInsets.only(
+                      left: Get.locale?.languageCode == 'en' ? 25 : 0,
+                      right: Get.locale?.languageCode == 'ar' ? 25 : 0,
+                    ),
                     decoration: const ShapeDecoration(
                       shape: OvalBorder(),
                       color: AppColors.primary,
@@ -48,6 +51,7 @@ class MailScreen extends StatelessWidget {
                       child: Image.asset(
                         AppImages.back,
                         height: 20.h,
+                        matchTextDirection: true,
                         color: AppColors.white,
                       ),
                     ),
@@ -67,7 +71,7 @@ class MailScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Create Mail',
+                              'create_mail'.tr,
                               style: TextStyle(
                                 color: AppColors.primary,
                                 fontSize: 16.sp,

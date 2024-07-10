@@ -122,7 +122,9 @@ class InputForm extends StatelessWidget {
               items: listDropDown
                   ?.map<DropdownMenuItem<DropDownModel>>((DropDownModel value) {
                 return DropdownMenuItem<DropDownModel>(
-                  alignment: Alignment.centerLeft,
+                  alignment: Get.locale?.languageCode == 'en'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   value: value,
                   child: Text(value.text ?? ''),
                 );

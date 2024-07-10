@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
@@ -119,7 +120,10 @@ class EmailItem extends StatelessWidget {
                         ),
                         4.h.verticalSpace,
                         Padding(
-                          padding: const EdgeInsets.only(right: 12.0),
+                          padding: EdgeInsets.only(
+                            right: Get.locale?.languageCode == 'en' ? 12.0 : 0,
+                            left: Get.locale?.languageCode == 'ar' ? 12.0 : 0,
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

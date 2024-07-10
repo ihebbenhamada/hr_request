@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
@@ -31,7 +32,7 @@ class GeneralInformation extends StatelessWidget {
             children: [
               21.h.verticalSpace,
               Text(
-                'Contract',
+                'contract'.tr,
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 16.sp,
@@ -56,7 +57,7 @@ class GeneralInformation extends StatelessWidget {
               ),
               34.h.verticalSpace,
               Text(
-                'Start : 1/1/2023',
+                '${'start'.tr} : 1/1/2023',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 10.sp,
@@ -64,7 +65,7 @@ class GeneralInformation extends StatelessWidget {
               ),
               3.h.verticalSpace,
               Text(
-                'End : 1/1/2025',
+                '${'end'.tr} : 1/1/2025',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 10.sp,
@@ -104,14 +105,14 @@ class GeneralInformation extends StatelessWidget {
                         children: [
                           7.h.verticalSpace,
                           Text(
-                            'Vacations',
+                            'vacations'.tr,
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 14.sp,
                             ),
                           ),
                           Text(
-                            '30 days on year',
+                            '30_year'.tr,
                             style: TextStyle(
                               color: AppColors.blueDark,
                               fontSize: 10.sp,
@@ -136,7 +137,7 @@ class GeneralInformation extends StatelessWidget {
                           ),
                           5.h.verticalSpace,
                           Text(
-                            'Left 27',
+                            '${'left'.tr} 27',
                             style: TextStyle(
                               color: AppColors.blueDark,
                               fontSize: 12.sp,
@@ -166,14 +167,14 @@ class GeneralInformation extends StatelessWidget {
                         children: [
                           7.h.verticalSpace,
                           Text(
-                            'Indemnity',
+                            'indemnity'.tr,
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 14.sp,
                             ),
                           ),
                           Text(
-                            'Date entitlement\n19-20-2040',
+                            '${'date_entitlement'.tr}\n19-20-2040',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.blueDark,
@@ -217,14 +218,14 @@ class GeneralInformation extends StatelessWidget {
                         children: [
                           7.h.verticalSpace,
                           Text(
-                            'Ticket',
+                            'ticket'.tr,
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 14.sp,
                             ),
                           ),
                           Text(
-                            'Has airline tickets?',
+                            'has_tickets'.tr,
                             style: TextStyle(
                               color: AppColors.blueDark,
                               fontSize: 10.sp,
@@ -237,7 +238,7 @@ class GeneralInformation extends StatelessWidget {
                           ),
                           5.h.verticalSpace,
                           Text(
-                            'Yes',
+                            'yes'.tr,
                             style: TextStyle(
                               color: AppColors.blueDark,
                               fontSize: 12.sp,
@@ -267,14 +268,14 @@ class GeneralInformation extends StatelessWidget {
                         children: [
                           7.h.verticalSpace,
                           Text(
-                            ' Meetings',
+                            'meetings'.tr,
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 14.sp,
                             ),
                           ),
                           Text(
-                            'Total of Meeting\n30',
+                            '${'total_meetings'.tr}\n30',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.blueDark,

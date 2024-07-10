@@ -29,7 +29,7 @@ class MeetingsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Create\nNew Meeting',
+                  '${'create'.tr}\n${'new_meeting'.tr}',
                   style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 16.sp,

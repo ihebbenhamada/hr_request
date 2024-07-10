@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 import '../../config/colors/colors.dart';
@@ -18,19 +19,27 @@ class OfficialVacationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 70.h,
-      margin: const EdgeInsets.only(right: 15),
+      margin: EdgeInsets.only(
+        right: Get.locale?.languageCode == 'en' ? 15 : 0,
+        left: Get.locale?.languageCode == 'ar' ? 15 : 0,
+      ),
       decoration: BoxDecoration(
         color: AppColors.primary,
         borderRadius: BorderRadius.circular(12.h),
       ),
       child: Padding(
-        padding: EdgeInsets.only(right: 4, left: 12, top: 6.h, bottom: 6.h),
+        padding: EdgeInsets.only(
+          right: Get.locale?.languageCode == 'en' ? 4 : 12,
+          left: Get.locale?.languageCode == 'en' ? 12 : 4,
+          top: 6.h,
+          bottom: 6.h,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              title,
+              title.tr,
               style: TextStyle(
                 color: AppColors.white,
                 fontSize: 16.sp,
@@ -41,7 +50,7 @@ class OfficialVacationItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  date,
+                  date.tr,
                   style: TextStyle(
                     color: AppColors.white,
                     fontSize: 16.sp,

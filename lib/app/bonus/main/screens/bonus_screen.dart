@@ -41,7 +41,7 @@ class BonusScreen extends StatelessWidget {
                       children: [
                         !_bonusController.isAdmin
                             ? Text(
-                                'Your Bonus',
+                                'your_bonus'.tr,
                                 style: TextStyle(
                                   color: AppColors.primary,
                                   fontSize: 16.sp,
@@ -54,7 +54,7 @@ class BonusScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Create\nBonus',
+                                    '${'create'.tr}\n${'bonus'.tr}',
                                     style: TextStyle(
                                       color: AppColors.primary,
                                       fontSize: 16.sp,
@@ -118,7 +118,7 @@ class BonusScreen extends StatelessWidget {
                               )
                             : Center(
                                 child: Text(
-                                  'No Bonus found',
+                                  'no_bonus_found'.tr,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                   ),
@@ -136,7 +136,11 @@ class BonusScreen extends StatelessWidget {
                         Container(
                           width: double.infinity,
                           padding: EdgeInsets.only(
-                              top: 14.h, bottom: 23.h, left: 16),
+                            top: 14.h,
+                            bottom: 23.h,
+                            left: Get.locale?.languageCode == 'en' ? 16 : 0,
+                            right: Get.locale?.languageCode == 'ar' ? 16 : 0,
+                          ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             color: AppColors.white,
@@ -153,7 +157,7 @@ class BonusScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Your Bonus Chart',
+                                'your_bonus_chart'.tr,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.primary,
@@ -171,9 +175,11 @@ class BonusScreen extends StatelessWidget {
                                         borderData: FlBorderData(
                                           border: const Border(
                                             left: BorderSide(
-                                                color: AppColors.gray7),
+                                              color: AppColors.gray7,
+                                            ),
                                             bottom: BorderSide(
-                                                color: AppColors.gray7),
+                                              color: AppColors.gray7,
+                                            ),
                                           ),
                                         ),
                                         titlesData: FlTitlesData(
@@ -217,7 +223,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Jan',
+                                                        'jan'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -229,7 +235,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Feb',
+                                                        'feb'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -241,7 +247,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Mar',
+                                                        'mar'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -253,7 +259,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Apr',
+                                                        'apr'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -265,7 +271,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'May',
+                                                        'may'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -277,7 +283,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Jun',
+                                                        'jun'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -289,7 +295,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Jul',
+                                                        'jul'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -301,7 +307,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Aug',
+                                                        'aug'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -313,7 +319,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Sep',
+                                                        'sep'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -325,7 +331,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Oct',
+                                                        'oct'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -337,7 +343,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Nov',
+                                                        'nov'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -349,7 +355,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'Dec',
+                                                        'dec'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -362,7 +368,7 @@ class BonusScreen extends StatelessWidget {
                                                     return SideTitleWidget(
                                                       axisSide: AxisSide.bottom,
                                                       child: Text(
-                                                        'no month',
+                                                        'no_month'.tr,
                                                         style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color:
@@ -411,7 +417,9 @@ class BonusScreen extends StatelessWidget {
                         Container(
                           width: double.infinity,
                           padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 14),
+                            vertical: 10.h,
+                            horizontal: 14,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.white,
                             borderRadius: BorderRadius.circular(13.h),
@@ -434,7 +442,7 @@ class BonusScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Your Bonus  this Year',
+                                      'bonus_year'.tr,
                                       style: TextStyle(
                                         color: AppColors.primary,
                                         fontSize: 16.sp,
@@ -442,7 +450,7 @@ class BonusScreen extends StatelessWidget {
                                     ),
                                     5.h.verticalSpace,
                                     Text(
-                                      'Congratulations. The rewards I received this year',
+                                      'rewards_year'.tr,
                                       style: TextStyle(
                                         color: AppColors.blueDark,
                                         fontSize: 12.sp,
@@ -450,13 +458,22 @@ class BonusScreen extends StatelessWidget {
                                     ),
                                     17.h.verticalSpace,
                                     Stack(
-                                      alignment: Alignment.centerLeft,
+                                      alignment:
+                                          Get.locale?.languageCode == 'en'
+                                              ? Alignment.centerLeft
+                                              : Alignment.centerRight,
                                       children: [
                                         Container(
                                           height: 21.h,
-                                          padding: const EdgeInsets.only(
-                                            left: 25,
-                                            right: 5,
+                                          padding: EdgeInsets.only(
+                                            left:
+                                                Get.locale?.languageCode == 'en'
+                                                    ? 25
+                                                    : 5,
+                                            right:
+                                                Get.locale?.languageCode == 'ar'
+                                                    ? 25
+                                                    : 5,
                                           ),
                                           decoration: BoxDecoration(
                                             borderRadius:
@@ -464,7 +481,7 @@ class BonusScreen extends StatelessWidget {
                                             color: AppColors.primary,
                                           ),
                                           child: Text(
-                                            'Total:475/544541',
+                                            '${'total'.tr}:475/544541',
                                             style: TextStyle(
                                               color: AppColors.white,
                                               fontSize: 14.sp,
@@ -478,7 +495,8 @@ class BonusScreen extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(21.h),
                                             border: Border.all(
-                                                color: AppColors.primary),
+                                              color: AppColors.primary,
+                                            ),
                                             color: AppColors.white,
                                           ),
                                           child: Center(

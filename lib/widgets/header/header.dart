@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
@@ -40,14 +41,14 @@ class Header extends StatelessWidget {
               children: [
                 AvatarCircle(
                   image: image,
-                  size: 40.h,
+                  size: 45.h,
                   iconSize: 0,
                   stroke: true,
                   isBorderEnabled: false,
                 ),
                 6.horizontalSpace,
                 Text(
-                  '$name,\n$job',
+                  '$name${Get.locale?.languageCode == 'ar' ? '،' : ','}\n$job',
                   style: TextStyle(
                     color: AppColors.blueDark,
                     fontSize: 12.sp,
@@ -62,6 +63,7 @@ class Header extends StatelessWidget {
                 onTap: onClickMessage,
                 child: Image.asset(
                   AppImages.message,
+                  matchTextDirection: true,
                   height: 23.h,
                 ),
               ),
@@ -78,6 +80,7 @@ class Header extends StatelessWidget {
                 onTap: onClickMenu,
                 child: Image.asset(
                   AppImages.menu,
+                  matchTextDirection: true,
                   height: 20.h,
                 ),
               ),

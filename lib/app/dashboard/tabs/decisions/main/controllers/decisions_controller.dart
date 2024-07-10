@@ -43,7 +43,8 @@ class DecisionsController extends BaseController {
       }
       _dashboardController.isDecisionLoading.value = false;
       if (_dashboardController.isMeetingLoading.isFalse &&
-          _dashboardController.isVacationLoading.isFalse) {
+          _dashboardController.isVacationLoading.isFalse &&
+          _dashboardController.isBonusLoading.isFalse) {
         AppInterceptor.hideLoader();
       }
     });

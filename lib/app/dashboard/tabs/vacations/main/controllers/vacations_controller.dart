@@ -31,20 +31,20 @@ class VacationsController extends BaseController {
   RxList<Vacation> vacationsList = <Vacation>[].obs;
   final List<Map<String, dynamic>> officialVacationList = [
     {
-      'title': 'National day',
-      'date': '23 september',
+      'title': 'national_day',
+      'date': 'national_day_date',
     },
     {
-      'title': 'Founding day',
-      'date': '22 February',
+      'title': 'founding_day',
+      'date': 'founding_day_date',
     },
     {
-      'title': 'Eid al-Adha',
-      'date': '9-12 Dhul-Hijjah',
+      'title': 'eid_al_adha',
+      'date': 'eid_al_adha_date',
     },
     {
-      'title': 'Eid al-Fitr',
-      'date': '1-3 Shawwal',
+      'title': 'eid_al_fitr',
+      'date': 'eid_al_fitr_date',
     },
   ];
   RxDouble takenDays = 0.0.obs;
@@ -121,7 +121,8 @@ class VacationsController extends BaseController {
       }
       _dashboardController.isVacationLoading.value = false;
       if (_dashboardController.isDecisionLoading.isFalse &&
-          _dashboardController.isMeetingLoading.isFalse) {
+          _dashboardController.isMeetingLoading.isFalse &&
+          _dashboardController.isBonusLoading.isFalse) {
         AppInterceptor.hideLoader();
       }
     });

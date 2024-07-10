@@ -45,14 +45,14 @@ class VacationInfoContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Vacations',
+                  'vacations'.tr,
                   style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 16.sp,
                   ),
                 ),
                 Text(
-                  '30 days on year',
+                  '30_year'.tr,
                   style: TextStyle(
                     color: AppColors.blueDark,
                     fontSize: 14.sp,
@@ -60,7 +60,7 @@ class VacationInfoContainer extends StatelessWidget {
                 ),
                 10.h.verticalSpace,
                 Text(
-                  'Leave taken by the employee, the remaining leave, and the percentage',
+                  'remaining_vacation'.tr,
                   style: TextStyle(
                     color: AppColors.blueDark,
                     fontSize: 12.sp,
@@ -68,13 +68,18 @@ class VacationInfoContainer extends StatelessWidget {
                 ),
                 17.h.verticalSpace,
                 Stack(
-                  alignment: Alignment.centerLeft,
+                  alignment: Get.locale?.languageCode == 'en'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   children: [
                     Obx(
                       () => Container(
                         width: 118,
                         height: 25.h,
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.only(
+                          left: Get.locale?.languageCode == 'en' ? 10 : 0,
+                          right: Get.locale?.languageCode == 'ar' ? 10 : 0,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25.h),
                           border: Border.all(color: AppColors.primary),
@@ -82,7 +87,7 @@ class VacationInfoContainer extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            'Taken: ${takenDays.value}',
+                            '${'taken'.tr}: ${takenDays.value}',
                             style: TextStyle(
                               color: AppColors.blueDark,
                               fontSize: 14.sp,
@@ -110,20 +115,25 @@ class VacationInfoContainer extends StatelessWidget {
                 ),
                 6.h.verticalSpace,
                 Stack(
-                  alignment: Alignment.centerLeft,
+                  alignment: Get.locale?.languageCode == 'en'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   children: [
                     Obx(
                       () => Container(
                         width: 118,
                         height: 25.h,
-                        padding: const EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.only(
+                          left: Get.locale?.languageCode == 'en' ? 10 : 0,
+                          right: Get.locale?.languageCode == 'ar' ? 10 : 0,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25.h),
                           color: AppColors.primary,
                         ),
                         child: Center(
                           child: Text(
-                            'Left: ${leftDays.value}',
+                            '${'left'.tr}: ${leftDays.value}',
                             style: TextStyle(
                               color: AppColors.white,
                               fontSize: 14.sp,

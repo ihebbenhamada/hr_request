@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../config/colors/colors.dart';
 
@@ -44,7 +45,7 @@ class BonusPunishmentsCategoryItem extends StatelessWidget {
             ), // Customize the color
             child: Center(
               child: Text(
-                title,
+                title.tr,
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: selectedBonusPunishments == index

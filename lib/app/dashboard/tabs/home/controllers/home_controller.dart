@@ -20,129 +20,90 @@ class HomeController extends BaseController {
   final List<Map<String, dynamic>> carouselData = [
     {
       'image': AppImages.basicSalary,
-      'title': 'Basic Salary',
+      'title': 'basic_salary',
       'value': 9000,
     },
     {
       'image': AppImages.allowances,
-      'title': 'Allowances',
+      'title': 'allowances',
       'value': 100,
     },
     {
       'image': AppImages.totalExtra,
-      'title': 'Total extra',
+      'title': 'total_extra',
       'value': 0,
     },
     {
       'image': AppImages.totalLoan,
-      'title': 'Total loan',
+      'title': 'total_loan',
       'value': 500,
     },
     {
       'image': AppImages.punishments,
-      'title': 'Punishments',
+      'title': 'punishments1',
       'value': 500,
     },
     {
       'image': AppImages.netSalary,
-      'title': 'Net salary',
+      'title': 'net_salary',
       'value': 12000,
     },
   ];
   final List<Map<String, dynamic>> carouselBonusPunishmentsData = [
     {
       'image': AppImages.gift,
-      'title': 'Bonus\nAmount',
+      'title': 'bonus',
       'amount': 200.00,
       'type': 0,
     },
     {
       'image': AppImages.checkList,
-      'title': 'Punishments\nAmount',
+      'title': 'punishments',
       'amount': 200.00,
       'type': 1,
     },
     {
       'image': AppImages.loan,
-      'title': 'Loan\nAmount',
-      'amount': 200.00,
-      'type': 0,
-    },
-    {
-      'image': AppImages.gift,
-      'title': 'Bonus\nAmount',
-      'amount': 200.00,
-      'type': 0,
-    },
-    {
-      'image': AppImages.checkList,
-      'title': 'Punishments\nAmount',
-      'amount': 200.00,
-      'type': 1,
-    },
-    {
-      'image': AppImages.loan,
-      'title': 'Loan\nAmount',
-      'amount': 200.00,
-      'type': 0,
-    },
-    {
-      'image': AppImages.gift,
-      'title': 'Bonus\nAmount',
-      'amount': 200.00,
-      'type': 0,
-    },
-    {
-      'image': AppImages.checkList,
-      'title': 'Punishments\nAmount',
-      'amount': 200.00,
-      'type': 1,
-    },
-    {
-      'image': AppImages.loan,
-      'title': 'Loan\nAmount',
+      'title': 'loan',
       'amount': 200.00,
       'type': 0,
     },
   ];
   final List<Map<String, dynamic>> carouselMeetingsData = [
     {
-      'title': 'Meeting subject',
+      'title': 'subject_meeting',
       'image': AppImages.avatar1,
-      'description':
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the ',
+      'description': 'lorem_epsum',
       'date': '19/Dec/2023',
     },
     {
-      'title': 'Meeting subject',
+      'title': 'subject_meeting',
       'image': AppImages.avatar2,
-      'description':
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the ',
+      'description': 'lorem_epsum',
       'date': '19/Dec/2023',
     },
     {
-      'title': 'Meeting subject',
+      'title': 'subject_meeting',
       'image': AppImages.avatar1,
-      'description':
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the ',
+      'description': 'lorem_epsum',
       'date': '19/Dec/2023',
     },
   ];
   final List<Map<String, dynamic>> bonusPunishmentCategoryList = [
     {
-      'title': 'All',
+      'title': 'all',
       'is_new': false,
     },
     {
-      'title': 'Bonus',
+      'title': 'bonus',
       'is_new': true,
     },
     {
-      'title': 'Punishments',
+      'title': 'punishments',
       'is_new': false,
     },
     {
-      'title': 'Loan',
+      'title': 'loan',
       'is_new': false,
     }
   ];

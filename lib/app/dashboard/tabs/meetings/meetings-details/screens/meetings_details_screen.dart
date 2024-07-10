@@ -62,22 +62,32 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
           children: [
             widget.meetingItem != null
                 ? Padding(
-                    padding: const EdgeInsets.only(right: 25.0),
+                    padding: EdgeInsets.only(
+                      right: Get.locale?.languageCode == 'en' ? 25.0 : 0,
+                      left: Get.locale?.languageCode == 'ar' ? 25.0 : 0,
+                    ),
                     child: SizedBox(
                       height: 111.h,
                       width: double.infinity,
                       child: Stack(
-                        alignment: Alignment.centerLeft,
+                        alignment: Get.locale?.languageCode == 'en'
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
                         children: [
                           Container(
                             width: 360.w,
                             height: 80.h,
-                            padding: const EdgeInsets.only(left: 25),
+                            padding: EdgeInsets.only(
+                              left: Get.locale?.languageCode == 'en' ? 25.0 : 0,
+                              right:
+                                  Get.locale?.languageCode == 'ar' ? 25.0 : 0,
+                            ),
                             decoration: const BoxDecoration(
                               color: AppColors.primary,
                               image: DecorationImage(
                                 image: AssetImage(AppImages.poster),
                                 fit: BoxFit.cover,
+                                matchTextDirection: true,
                               ),
                             ),
                             child: Column(
@@ -181,7 +191,8 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                             ),
                           ),
                           Positioned(
-                            right: 0,
+                            right: Get.locale?.languageCode == 'en' ? 0 : null,
+                            left: Get.locale?.languageCode == 'ar' ? 0 : null,
                             child: AvatarCircle(
                               image: null,
                               isNetworkImage: true,
@@ -209,7 +220,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                           height: 55.h,
                           width:
                               MediaQuery.of(context).size.width * 0.485 - 25.0,
-                          title: 'Date',
+                          title: 'date'.tr,
                           inputType: 'date',
                           text: _meetingsDetailsController.meetingDate.value,
                           onSelectDate: () => _meetingsDetailsController
@@ -242,7 +253,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Depart",
+                              "depart".tr,
                               style: TextStyle(
                                 color: AppColors.gray6,
                                 fontSize: 14.sp,
@@ -274,10 +285,16 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                                       .map<DropdownMenuItem<Department>>(
                                           (Department value) {
                                     return DropdownMenuItem<Department>(
-                                      alignment: Alignment.centerLeft,
+                                      alignment:
+                                          Get.locale?.languageCode == 'en'
+                                              ? Alignment.centerLeft
+                                              : Alignment.centerRight,
                                       value: value,
                                       child: Text(
-                                        value.departmentNameEn ?? "",
+                                        (Get.locale?.languageCode == 'en'
+                                                ? value.departmentNameEn
+                                                : value.departmentNameAr) ??
+                                            '',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -317,7 +334,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                           children: [
                             5.h.verticalSpace,
                             Text(
-                              "Invitation To",
+                              "invitation_to".tr,
                               style: TextStyle(
                                 color: AppColors.gray6,
                                 fontSize: 14.sp,
@@ -325,7 +342,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                             ),
                             CustomDropdown<Employee>.multiSelectSearchRequest(
                               items: _meetingsDetailsController.employeeList,
-                              hintText: "Select employees",
+                              hintText: "select_employees".tr,
                               closedHeaderPadding:
                                   EdgeInsets.only(bottom: 10.h),
                               listItemBuilder: (context, employee, isSelected,
@@ -346,7 +363,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                                 String listEmployees = "";
                                 employees.forEach((e) {
                                   listEmployees =
-                                      '$listEmployees${e.fullName!}, ';
+                                      '$listEmployees${Get.locale?.languageCode == 'en' && e.fullNameEn != null ? e.fullNameEn : e.fullName!}${Get.locale?.languageCode == 'en' ? ',' : '،'} ';
                                 });
                                 return Text(listEmployees);
                               },
@@ -392,7 +409,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                   InputForm(
                     width: double.infinity,
                     height: 55.h,
-                    title: 'Meeting Title',
+                    title: 'meeting_title'.tr,
                     inputType: 'input',
                     enabled: widget.meetingItem == null,
                     nbrLines: 1,
@@ -402,7 +419,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                   13.h.verticalSpace,
                   InputForm(
                     width: double.infinity,
-                    title: 'Meeting Subject',
+                    title: 'meeting_subject'.tr,
                     inputType: 'input',
                     enabled: widget.meetingItem == null,
                     textEditingController: _meetingsDetailsController
@@ -443,7 +460,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                         ),
                         10.horizontalSpace,
                         Text(
-                          'Meeting Points',
+                          'meeting_points'.tr,
                           style: TextStyle(
                             fontSize: 14.sp,
                             color: AppColors.white,
@@ -460,7 +477,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                               padding: EdgeInsets.only(bottom: 17.0.h),
                               child: InputForm(
                                 width: double.infinity,
-                                title: 'Add Meeting Points',
+                                title: 'add_meeting_points'.tr,
                                 inputType: 'input',
                                 nbrLines: 2,
                                 textEditingController:
@@ -469,7 +486,10 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                               ),
                             ),
                             Positioned(
-                              right: 31,
+                              right:
+                                  Get.locale?.languageCode == 'en' ? 31 : null,
+                              left:
+                                  Get.locale?.languageCode == 'ar' ? 31 : null,
                               bottom: 0.h,
                               child: InkWell(
                                 onTap: () => _meetingsDetailsController
@@ -509,9 +529,10 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                         MeetingPoint item =
                             _meetingsDetailsController.meetingPointList[index];
                         return MeetingPointItem(
-                            name: widget.meetingItem == null
-                                ? item.pointText
-                                : '${index + 1}- ${item.pointText}');
+                          name: widget.meetingItem == null
+                              ? item.pointText
+                              : '${index + 1}- ${item.pointText}',
+                        );
                       },
                       separatorBuilder: (context, index) {
                         return 13.h.verticalSpace;
@@ -525,7 +546,9 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                       ? GestureDetector(
                           onTap: _meetingsDetailsController.uploadAttachment,
                           child: Align(
-                            alignment: Alignment.centerRight,
+                            alignment: Get.locale?.languageCode == 'en'
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
                             child: Container(
                               width: 162,
                               padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -550,7 +573,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                                   ),
                                   10.horizontalSpace,
                                   Text(
-                                    'Upload Attachment',
+                                    'upload_attachment'.tr,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: AppColors.white,

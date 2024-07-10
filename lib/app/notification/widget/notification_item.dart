@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
@@ -32,7 +33,8 @@ class NotificationItem extends StatelessWidget {
           padding: EdgeInsets.only(
             top: 11.h,
             bottom: 11.h,
-            left: 25,
+            left: Get.locale?.languageCode == 'en' ? 25 : 10,
+            right: Get.locale?.languageCode == 'ar' ? 25 : 10,
           ),
           decoration: BoxDecoration(
             color: AppColors.white,
@@ -87,7 +89,8 @@ class NotificationItem extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 28,
+          right: Get.locale?.languageCode == 'en' ? 28 : null,
+          left: Get.locale?.languageCode == 'ar' ? 28 : null,
           top: -24.h,
           child: Container(
             width: 48.h,

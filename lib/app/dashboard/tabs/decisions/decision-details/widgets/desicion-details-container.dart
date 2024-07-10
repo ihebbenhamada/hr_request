@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../../../config/colors/colors.dart';
 
@@ -13,14 +14,14 @@ class DecisionDetailsInput extends StatelessWidget {
     this.paddingBottom,
     this.paddingLeft,
     this.paddingRight,
-    this.hint,
+    required this.hint,
     this.initialValue,
     this.enabled,
   });
   final TextEditingController? controller;
   final int nbrLines;
   final String icon;
-  final String? hint;
+  final String hint;
   final double? paddingTop;
   final double? paddingBottom;
   final double? paddingLeft;
@@ -34,11 +35,9 @@ class DecisionDetailsInput extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.only(
-            top: 14.h,
-            bottom: 14.h,
-            left: 20.h,
-            right: 20.h,
+          padding: EdgeInsets.symmetric(
+            vertical: 14.h,
+            horizontal: 20.h,
           ),
           decoration: BoxDecoration(
             color: AppColors.white,
@@ -68,23 +67,24 @@ class DecisionDetailsInput extends StatelessWidget {
             cursorColor: AppColors.gray1,
             initialValue: initialValue,
             decoration: InputDecoration(
-                isDense: true,
-                focusedBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                focusedErrorBorder: InputBorder.none,
-                contentPadding: EdgeInsets.only(
-                  left: paddingLeft ?? 0,
-                  right: paddingRight ?? 0,
-                  top: paddingTop ?? 0,
-                  bottom: paddingBottom ?? 0,
-                ),
-                hintText: hint,
-                hintStyle: TextStyle(
-                  color: AppColors.gray,
-                  fontSize: 14.sp,
-                )),
+              isDense: true,
+              focusedBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
+              contentPadding: EdgeInsets.only(
+                left: paddingLeft ?? 0,
+                right: paddingRight ?? 0,
+                top: paddingTop ?? 0,
+                bottom: paddingBottom ?? 0,
+              ),
+              hintText: hint.tr,
+              hintStyle: TextStyle(
+                color: AppColors.gray,
+                fontSize: 14.sp,
+              ),
+            ),
             autocorrect: false,
             enableSuggestions: false,
             enabled: enabled,
@@ -92,7 +92,8 @@ class DecisionDetailsInput extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 28,
+          right: Get.locale?.languageCode == 'en' ? 28 : null,
+          left: Get.locale?.languageCode == 'ar' ? 28 : null,
           top: -32,
           child: Container(
             height: 55.h,

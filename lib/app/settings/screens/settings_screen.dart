@@ -35,13 +35,14 @@ class SettingsScreen extends StatelessWidget {
                     AppImages.back,
                     height: 20.h,
                     color: AppColors.white,
+                    matchTextDirection: true,
                   ),
                 ),
               ),
             ),
             7.h.verticalSpace,
             Text(
-              'Setting',
+              'settings'.tr,
               style: TextStyle(
                 color: AppColors.primary,
                 fontSize: 16.sp,

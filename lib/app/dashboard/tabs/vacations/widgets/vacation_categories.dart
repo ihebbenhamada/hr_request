@@ -62,7 +62,7 @@ class CategoriesFilter extends StatelessWidget {
                     ),
                     5.horizontalSpace,
                     Text(
-                      'All',
+                      'all'.tr,
                       style: TextStyle(
                         color: AppColors.blueDark,
                         fontSize: 12.sp,
@@ -136,7 +136,7 @@ class CategoriesFilter extends StatelessWidget {
                     ),
                     5.horizontalSpace,
                     Text(
-                      'Approved',
+                      'approved'.tr,
                       style: TextStyle(
                         color: AppColors.blueDark,
                         fontSize: 12.sp,

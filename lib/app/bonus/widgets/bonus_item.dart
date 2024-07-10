@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 import '../../../config/image_urls/image_urls.dart';
@@ -95,7 +96,8 @@ class BonusItem extends StatelessWidget {
           ),
           Positioned(
             bottom: -12.h,
-            right: 11,
+            right: Get.locale?.languageCode == 'en' ? 11 : null,
+            left: Get.locale?.languageCode == 'ar' ? 11 : null,
             child: Container(
               height: 24.h,
               width: 80,

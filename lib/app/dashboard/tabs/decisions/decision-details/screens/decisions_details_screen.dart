@@ -22,21 +22,30 @@ class DecisionsDetailsScreen extends StatelessWidget {
         children: [
           decisionsResponse != null
               ? Padding(
-                  padding: const EdgeInsets.only(right: 25.0),
+                  padding: EdgeInsets.only(
+                    right: Get.locale?.languageCode == 'en' ? 25.0 : 0,
+                    left: Get.locale?.languageCode == 'ar' ? 25.0 : 0,
+                  ),
                   child: SizedBox(
                     height: 111.h,
                     width: double.infinity,
                     child: Stack(
-                      alignment: Alignment.centerLeft,
+                      alignment: Get.locale?.languageCode == 'en'
+                          ? Alignment.centerLeft
+                          : Alignment.centerRight,
                       children: [
                         Container(
                           width: 360.w,
                           height: 80.h,
-                          padding: const EdgeInsets.only(left: 25),
+                          padding: EdgeInsets.only(
+                            left: Get.locale?.languageCode == 'en' ? 25.0 : 0,
+                            right: Get.locale?.languageCode == 'ar' ? 25.0 : 0,
+                          ),
                           decoration: const BoxDecoration(
                             color: AppColors.primary,
                             image: DecorationImage(
                               image: AssetImage(AppImages.poster),
+                              matchTextDirection: true,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -138,7 +147,8 @@ class DecisionsDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          right: 0,
+                          right: Get.locale?.languageCode == 'en' ? 0 : null,
+                          left: Get.locale?.languageCode == 'ar' ? 0 : null,
                           child: AvatarCircle(
                             image: decisionsResponse?.imagePath,
                             isNetworkImage: true,
@@ -164,10 +174,12 @@ class DecisionsDetailsScreen extends StatelessWidget {
                       ? _decisionsDetailsController.subjectTextEditingController
                       : null,
                   nbrLines: 1,
-                  paddingRight: 50,
+                  paddingRight: Get.locale?.languageCode == 'en' ? 50 : 0,
+                  paddingLeft: Get.locale?.languageCode == 'ar' ? 50 : 0,
                   enabled: decisionsResponse?.subject != null ? false : true,
                   initialValue: decisionsResponse?.subject,
-                  hint: 'Subject',
+                  hint:
+                      Get.locale?.languageCode == 'en' ? 'Subject' : 'الموضوع',
                 ),
                 40.h.verticalSpace,
                 DecisionDetailsInput(
@@ -181,7 +193,9 @@ class DecisionsDetailsScreen extends StatelessWidget {
                   initialValue: decisionsResponse?.creationDate,
                   enabled: decisionsResponse?.subject != null ? false : true,
                   nbrLines: 13,
-                  hint: 'Description',
+                  hint: Get.locale?.languageCode == 'en'
+                      ? 'Description'
+                      : 'الوصف',
                 ),
                 30.h.verticalSpace,
                 Row(

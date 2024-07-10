@@ -30,7 +30,7 @@ class DecisionsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Administrator  Decisions',
+                    'administrator_decisions'.tr,
                     style: TextStyle(
                       color: AppColors.primary,
                       fontSize: 16.sp,

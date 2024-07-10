@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../config/controllerConfig/base_controller.dart';
@@ -15,45 +14,6 @@ class NotificationsController extends BaseController {
   /// CONTROLLERS
 
   /// VARIABLES
-  final List<Map<String, dynamic>> listNotifications = [
-    {
-      'image': AppImages.profile,
-      'name': 'Dina Saber Ahmed',
-      'job': 'General Manager',
-      'date': '13Dec - 6:30',
-      'type': 1,
-    },
-    {
-      'name': 'Dina Saber Ahmed',
-      'job': 'Project Manager',
-      'date': '13Dec - 6:30',
-      'type': 2,
-    },
-    {
-      'name': 'Dina Saber Ahmed',
-      'job': 'General Manager',
-      'date': '13Dec - 6:30',
-      'type': 3,
-    },
-    {
-      'name': 'Dina Saber Ahmed',
-      'job': 'General Manager',
-      'date': '13Dec - 6:30',
-      'type': 4,
-    },
-    {
-      'name': 'Dina Saber Ahmed',
-      'job': 'General Manager',
-      'date': '13Dec - 6:30',
-      'type': 5,
-    },
-    {
-      'name': 'Dina Saber Ahmed',
-      'job': 'General Manager',
-      'date': '13Dec - 6:30',
-      'type': 6,
-    },
-  ];
   final RxList<Notification> notificationList = <Notification>[].obs;
 
   /// VALIDATION
@@ -80,5 +40,9 @@ class NotificationsController extends BaseController {
       }
       AppInterceptor.hideLoader();
     });
+  }
+
+  Future<void> handleRefresh() async {
+    getNotificationList();
   }
 }

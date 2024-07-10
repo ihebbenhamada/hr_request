@@ -29,7 +29,14 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Find your\nGeneral Information',
+            'find_your'.tr,
+            style: TextStyle(
+              color: AppColors.primary,
+              fontSize: 16.sp,
+            ),
+          ),
+          Text(
+            'general_information'.tr,
             style: TextStyle(
               color: AppColors.primary,
               fontSize: 16.sp,
@@ -73,7 +80,7 @@ class HomeScreen extends StatelessWidget {
           const GeneralInformation(),
           19.h.verticalSpace,
           Text(
-            'Find your\nBonus, Punishments and  Alerts',
+            '${'find_your'.tr}\n${'bonus'.tr}, ${'punishments'.tr} ${'and'.tr} ${'alerts'.tr}',
             style: TextStyle(
               color: AppColors.primary,
               fontSize: 16.sp,
@@ -148,7 +155,7 @@ class HomeScreen extends StatelessWidget {
           ),
           15.h.verticalSpace,
           Text(
-            'Find your\nIncoming Meeting',
+            '${'find_your'.tr}\n${'incoming_meeting'.tr}',
             style: TextStyle(
               color: AppColors.primary,
               fontSize: 16.sp,

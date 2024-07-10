@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../config/colors/colors.dart';
 
@@ -55,7 +56,7 @@ class CarouselInfoItem extends StatelessWidget {
             ),
             9.h.verticalSpace,
             Text(
-              title,
+              title.tr,
               style: TextStyle(
                 color: AppColors.blueDark,
                 fontSize: 16.sp,

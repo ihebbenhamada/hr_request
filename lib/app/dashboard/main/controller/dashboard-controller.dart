@@ -15,18 +15,19 @@ import 'package:request_hr/app/settings/screens/settings_screen.dart';
 import 'package:request_hr/app/sign-in-out/main/screens/sign_in_out_screen.dart';
 import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/image_urls/image_urls.dart';
 import '../../../alert/main/screens/alert_screen.dart';
 
 class DashboardController extends BaseController {
+  ///VARIABLES
   RxInt pageIndex = 2.obs;
-
   RxBool isDecisionLoading = true.obs;
   RxBool isMeetingLoading = true.obs;
   RxBool isVacationLoading = true.obs;
-
+  RxBool isBonusLoading = true.obs;
   final GetStorage storage = GetStorage();
   Rx<Emp> employee = Emp(
     id: 0,
@@ -64,117 +65,136 @@ class DashboardController extends BaseController {
     fKModifiedById: 0,
     lastModifiedDate: DateTime.now().toString().substring(0, 10),
   ).obs;
-
   Rx<Color> decisionsIconColor = AppColors.white.obs;
   Rx<Color> vacationsIconColor = AppColors.white.obs;
   Rx<Color> innTechIconColor = AppColors.white.obs;
   Rx<Color> meetingIconColor = AppColors.white.obs;
   Rx<Color> searchIconColor = AppColors.white.obs;
-
   final List<Map<String, dynamic>> drawerItems = [
     {
-      'title': 'Dashboard',
+      'title': 'dashboard',
       'icon': AppImages.dashboardDrawer,
       'icon_width': 35.0,
       'icon_height': 25.0,
     },
     {
-      'title': 'Decisions',
+      'title': 'decisions',
       'icon': AppImages.decisions,
       'icon_width': 30.5,
       'icon_height': 32.0,
     },
     {
-      'title': 'Vacations',
+      'title': 'vacations',
       'icon': AppImages.vacations,
       'icon_width': 30.0,
       'icon_height': 32.0,
     },
     {
-      'title': '  Final Exit',
+      'title': 'final_exit',
       'icon': AppImages.exitDrawer,
       'icon_width': 22.0,
       'icon_height': 22.0,
     },
     {
-      'title': 'Evaluations',
+      'title': 'evaluations',
       'icon': AppImages.evaluationsDrawer,
       'icon_width': 28.0,
       'icon_height': 22.5,
     },
     {
-      'title': 'Loan',
+      'title': 'loan',
       'icon': AppImages.loanDrawer,
       'icon_width': 27.5,
       'icon_height': 26.0,
     },
     {
-      'title': 'Bonus',
+      'title': 'bonus',
       'icon': AppImages.bonusDrawer,
       'icon_width': 24.0,
       'icon_height': 24.0,
     },
     {
-      'title': 'Punishments',
+      'title': 'punishments',
       'icon': AppImages.punishmentsDrawer,
       'icon_width': 32.0,
       'icon_height': 32.0,
     },
     {
-      'title': ' Alerts',
+      'title': 'alerts',
       'icon': AppImages.alertWhiteDrawer,
       'icon_width': 28.5,
       'icon_height': 26.0,
     },
     {
-      'title': 'Messages',
+      'title': 'messages',
       'icon': AppImages.messageDrawer,
       'icon_width': 26.0,
       'icon_height': 25.0,
     },
     {
-      'title': 'Meetings',
+      'title': 'meetings',
       'icon': AppImages.meetings,
       'icon_width': 29.0,
       'icon_height': 27.5,
     },
     {
-      'title': 'Complaint',
+      'title': 'complaint',
       'icon': AppImages.complaintDrawer,
       'icon_width': 29.5,
       'icon_height': 25.0,
     },
     {
-      'title': 'Ticket',
+      'title': 'ticket',
       'icon': AppImages.ticketMenuDrawer,
       'icon_width': 28.0,
       'icon_height': 28.5,
     },
     {
-      'title': 'Sign in & out',
+      'title': 'sign_in_out',
       'icon': AppImages.signOutDrawer,
       'icon_width': 23.5,
       'icon_height': 21.0,
     },
     {
-      'title': 'Custody',
+      'title': 'custody',
       'icon': AppImages.custodyDrawer,
       'icon_width': 22.5,
       'icon_height': 28.0,
     },
     {
-      'title': 'Purchase ',
+      'title': 'purchase',
       'icon': AppImages.purchaseDrawer,
       'icon_width': 20.20,
       'icon_height': 28.0,
     },
     {
-      'title': 'Setting',
+      'title': 'settings',
       'icon': AppImages.settingDrawer,
       'icon_width': 24.0,
       'icon_height': 27.0,
     },
   ];
+
+  /// SCREEN LIFE CYCLE
+  @override
+  void onInit() {
+    initView();
+    super.onInit();
+  }
+
+  /// FUNCTIONS
+  initView() {
+    innTechIconColor.value = AppColors.primary;
+    searchIconColor.value = AppColors.white;
+    vacationsIconColor.value = AppColors.white;
+    searchIconColor.value = AppColors.white;
+    meetingIconColor.value = AppColors.white;
+    if (Get.arguments != null) {
+      employee.value = Get.arguments;
+    } else {
+      employee.value = Emp.fromJson(GetStorage().read('employee'));
+    }
+  }
 
   onItemSelected(int index) {
     if (index != pageIndex.value) {
@@ -418,24 +438,6 @@ class DashboardController extends BaseController {
     }
   }
 
-  @override
-  void onInit() {
-    initView();
-    super.onInit();
-  }
-
-  initView() {
-    innTechIconColor.value = AppColors.primary;
-    searchIconColor.value = AppColors.white;
-    vacationsIconColor.value = AppColors.white;
-    searchIconColor.value = AppColors.white;
-    meetingIconColor.value = AppColors.white;
-    if (Get.arguments != null) {
-      employee.value = Get.arguments;
-    }
-  }
-
-  /// FUNCTIONS
   onClickDrawer(GlobalKey<ScaffoldState> scaffoldKey) {
     scaffoldKey.currentState!.openDrawer();
   }
@@ -459,4 +461,10 @@ class DashboardController extends BaseController {
   }
 
   onClickProfile() {}
+
+  @override
+  void onReady() {
+    AppInterceptor.showLoader();
+    super.onReady();
+  }
 }

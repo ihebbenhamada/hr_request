@@ -39,14 +39,14 @@ class VacationOfficialInfoContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Official vacations',
+                  'official_vacations'.tr,
                   style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 16.sp,
                   ),
                 ),
                 Text(
-                  '20 days on year',
+                  '20_year'.tr,
                   style: TextStyle(
                     color: AppColors.blueDark,
                     fontSize: 14.sp,
@@ -54,7 +54,7 @@ class VacationOfficialInfoContainer extends StatelessWidget {
                 ),
                 10.h.verticalSpace,
                 Text(
-                  'The official leaves that the employee will take without deducting them from his annual leave',
+                  'official_leaves'.tr,
                   style: TextStyle(
                     color: AppColors.blueDark,
                     fontSize: 12.sp,
@@ -71,7 +71,7 @@ class VacationOfficialInfoContainer extends StatelessWidget {
               ),
               6.h.verticalSpace,
               Text(
-                'Next Vacation',
+                'next_vacation'.tr,
                 style: TextStyle(
                   color: AppColors.blueDark,
                   fontSize: 14.sp,
