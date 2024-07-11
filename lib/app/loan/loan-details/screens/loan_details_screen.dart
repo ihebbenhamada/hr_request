@@ -47,13 +47,14 @@ class LoanDetailsScreen extends StatelessWidget {
                           AppImages.back,
                           height: 20.h,
                           color: AppColors.white,
+                          matchTextDirection: true,
                         ),
                       ),
                     ),
                   ),
                   10.h.horizontalSpace,
                   Text(
-                    screenTitle,
+                    screenTitle.tr,
                     style: TextStyle(
                       fontSize: 16.sp,
                     ),
@@ -77,7 +78,7 @@ class LoanDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Payment Type',
+                    title: 'payment_type'.tr,
                     enabled: _loanDetailsController.isDetails != null &&
                             _loanDetailsController.isDetails == true
                         ? false
@@ -93,7 +94,7 @@ class LoanDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Title',
+                    title: 'title'.tr,
                     inputType: 'input',
                     enabled: _loanDetailsController.isDetails != null &&
                             _loanDetailsController.isDetails == true
@@ -113,7 +114,7 @@ class LoanDetailsScreen extends StatelessWidget {
                     () => InputForm(
                       height: 55.h,
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                      title: 'Loan Date',
+                      title: 'loan_date'.tr,
                       inputType: 'date',
                       enabled: _loanDetailsController.isDetails != null &&
                               _loanDetailsController.isDetails == true
@@ -129,7 +130,7 @@ class LoanDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Total Loans',
+                    title: 'total_loans'.tr,
                     inputType: 'input',
                     nbrLines: 1,
                     enabled: _loanDetailsController.isDetails != null &&
@@ -150,14 +151,14 @@ class LoanDetailsScreen extends StatelessWidget {
               InputForm(
                 height: 55.h,
                 width: double.infinity,
-                title: 'Alternative Employee',
+                title: 'alternative_employee'.tr,
                 inputType: 'text',
                 text: 'Ahmed Mohamed Kazem',
               ),
               15.h.verticalSpace,
               InputForm(
                 width: double.infinity,
-                title: 'Topic',
+                title: 'topic'.tr,
                 inputType: 'input',
                 nbrLines: 5,
                 enabled: _loanDetailsController.isDetails != null &&

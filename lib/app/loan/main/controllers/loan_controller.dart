@@ -131,7 +131,7 @@ class LoanController extends BaseController {
       if (value != null) {
         AppInterceptor.hideLoader();
         Get.to(
-          () => LoanDetailsScreen(loanItem: item, screenTitle: 'Loan Details'),
+          () => LoanDetailsScreen(loanItem: item, screenTitle: 'loan_details'),
           arguments: [
             {
               'loan': value,
@@ -151,7 +151,7 @@ class LoanController extends BaseController {
   void navigateAndRefresh() async {
     final result = await Get.to(
       () => LoanDetailsScreen(
-        screenTitle: 'Create Loan',
+        screenTitle: 'create_loan',
       ),
       arguments: [
         {
@@ -183,7 +183,7 @@ class LoanController extends BaseController {
         AppInterceptor.hideLoader();
         final result = await Get.to(
           () => LoanDetailsScreen(
-            screenTitle: 'Update Loan',
+            screenTitle: 'update_loan',
           ),
           transition: Transition.leftToRight,
           arguments: [

@@ -8,6 +8,10 @@ class Ar {
         'approved': 'موافق',
         'create': 'إنشاء',
         'total': 'الإجمالي',
+        'send': 'إرسال',
+        'back': 'عودة',
+        ',': '،',
+        'details': 'التفاصيل',
 
         /// LOGIN PAGE
         'sign_in': 'تسجيل الدخول',
@@ -146,5 +150,57 @@ class Ar {
 
         ///MAIL SCREEN
         'create_mail': 'إنشاء رسالة',
+        'send_to': 'إرسال إلى',
+        'subject_here': 'موضوع الرسالة هنا',
+        'message_here': 'اكتب رسالتك',
+        'upload_file': 'رفع ملف',
+        'print': 'طباعة',
+        'name': 'الاسم',
+        'job': 'الوظيفة',
+        'replay': 'رد',
+        'download': 'تحميل',
+        'choose_transition': 'اختيار الانتقال',
+        'select_all': 'تحديد الكل',
+        'deselect_mails': 'إلغاء تحديد الرسائل',
+        'inverse_Mails': 'عكس تحديد الرسائل المحددة',
+        'delete_mail': 'حذف الرسالة المحدد',
+        'replay_mail': 'الرد على الرسالة',
+
+        ///LOAN SCREEN
+        'create_loan': 'إنشاء قرض',
+        'no_loan_found': 'لم يتم العثور على قرض',
+        'loan_year': 'قرضك هذا العام',
+        'loans_requested': 'القروض التي طلبتها من الشركة خلال العام',
+        'k': 'ألف',
+        'loan_details': 'تفاصيل القرض',
+        'update_loan': 'تحديث القرض',
+        'payment_type': 'نوع الدفع',
+        'title': 'العنوان',
+        'loan_date': 'تاريخ القرض',
+        'total_loans': 'إجمالي القروض',
+        'topic': 'الموضوع',
+
+        ///EVALUATION SCREEN
+        'evaluations_year': 'تقييمات هذا العام',
+        'no_evaluation_found': 'لم يتم العثور على تقييم',
+        'evaluations_chart': 'جدول تقييماتك',
+        'evolution_this_month': ' تطورك هذا الشهر',
+        'congratulation_eval':
+            'تهانينا. حققت تقييمات أداء. نتمنى لك دوماً كل التوفيق!',
+        'employee': 'الموظف',
+        'form_type': 'نوع النموذج',
+        'first_step': 'الخطوة الأولى',
+        'form_a': 'النموذج أ',
+        'second_step': 'الخطوة الثانية',
+        'recommendation': 'التوصية',
+        'third_step': 'الخطوة الثالثة',
+        'finish': 'انتهاء',
+        'next': 'التالي',
+        'agree': 'موافق',
+        'disagree': 'غير موافق',
+        'evaluation_model': 'نموذج نموذج التقييم',
+
+        ///SIGN IN OUT SCREEN
+        'create_signin_out': 'إنشاء تسجيل دخول / خروج',
       };
 }

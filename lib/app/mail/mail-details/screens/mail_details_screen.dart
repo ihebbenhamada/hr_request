@@ -41,11 +41,9 @@ class MailDetailsScreen extends StatelessWidget {
             20.h.verticalSpace,
             Container(
               width: double.infinity,
-              padding: EdgeInsets.only(
-                left: 15,
-                right: 15,
-                top: 11.h,
-                bottom: 11.h,
+              padding: EdgeInsets.symmetric(
+                horizontal: 15.h,
+                vertical: 11.h,
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
@@ -62,7 +60,7 @@ class MailDetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Name',
+                              'name'.tr,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
@@ -85,7 +83,7 @@ class MailDetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Job',
+                              'job'.tr,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
@@ -131,10 +129,11 @@ class MailDetailsScreen extends StatelessWidget {
                                 Image.asset(
                                   AppImages.replayEmail,
                                   height: 16.h,
+                                  matchTextDirection: true,
                                 ),
                                 11.horizontalSpace,
                                 Text(
-                                  'Replay',
+                                  'replay'.tr,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     color: AppColors.white,
@@ -163,10 +162,11 @@ class MailDetailsScreen extends StatelessWidget {
                                   AppImages.attachEmail,
                                   height: 16.h,
                                   color: AppColors.white,
+                                  matchTextDirection: true,
                                 ),
                                 11.horizontalSpace,
                                 Text(
-                                  'Download',
+                                  'download'.tr,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     color: AppColors.white,
@@ -220,7 +220,7 @@ class MailDetailsScreen extends StatelessWidget {
                                   enabledBorder: InputBorder.none,
                                   errorBorder: InputBorder.none,
                                   focusedErrorBorder: InputBorder.none,
-                                  hintText: 'Subject Message Here',
+                                  hintText: 'subject_here'.tr,
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: AppColors.white.withOpacity(0.56),
@@ -256,7 +256,7 @@ class MailDetailsScreen extends StatelessWidget {
                                   enabledBorder: InputBorder.none,
                                   errorBorder: InputBorder.none,
                                   focusedErrorBorder: InputBorder.none,
-                                  hintText: 'Write Your Message',
+                                  hintText: 'message_here'.tr,
                                   hintStyle: TextStyle(
                                     fontSize: 14.sp,
                                     color: AppColors.white.withOpacity(0.56),
@@ -290,7 +290,7 @@ class MailDetailsScreen extends StatelessWidget {
                                 children: [
                                   10.h.verticalSpace,
                                   Text(
-                                    'Upload file',
+                                    'upload_file'.tr,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: AppColors.white,
@@ -300,6 +300,7 @@ class MailDetailsScreen extends StatelessWidget {
                                   Image.asset(
                                     AppImages.upload,
                                     height: 29,
+                                    matchTextDirection: true,
                                   )
                                 ],
                               ),
@@ -316,7 +317,7 @@ class MailDetailsScreen extends StatelessWidget {
                                 children: [
                                   10.h.verticalSpace,
                                   Text(
-                                    'Print',
+                                    'print'.tr,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: AppColors.white,
@@ -326,6 +327,7 @@ class MailDetailsScreen extends StatelessWidget {
                                   Image.asset(
                                     AppImages.print,
                                     height: 29,
+                                    matchTextDirection: true,
                                   )
                                 ],
                               ),
@@ -352,7 +354,7 @@ class MailDetailsScreen extends StatelessWidget {
                         children: [
                           18.h.verticalSpace,
                           CustomButton(
-                            text: 'Replay',
+                            text: 'replay'.tr,
                             onClick: _mailDetailsController.onClickSendReplay,
                           ),
                         ],
@@ -361,7 +363,7 @@ class MailDetailsScreen extends StatelessWidget {
               ),
               18.h.verticalSpace,
               CustomButton(
-                text: 'Back',
+                text: 'back'.tr,
                 onClick: _mailDetailsController.onClickBack,
                 isPrimary: false,
               ),

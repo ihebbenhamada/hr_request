@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -178,38 +176,63 @@ class EvaluationsStepsController extends BaseController
               .getFormData(selectedEvalForm.value.value ?? '')
               .then((value) {
             if (value != null) {
+              bool isEnglish = Get.locale?.languageCode == 'en';
               evaluationFormData.value = value;
 
               ///area1
-              workPlaceFactoryTitle.value =
-                  value.evaluationMainItems![0].nameEn;
-              workPlaceDesc1.value = value
-                  .evaluationMainItems![0].evaluationItems[0].evaluationItemEn;
-              workPlaceDesc2.value = value
-                  .evaluationMainItems![0].evaluationItems[1].evaluationItemEn;
+              workPlaceFactoryTitle.value = isEnglish
+                  ? value.evaluationMainItems![0].nameEn
+                  : value.evaluationMainItems![0].nameAr;
+              workPlaceDesc1.value = isEnglish
+                  ? value.evaluationMainItems![0].evaluationItems[0]
+                      .evaluationItemEn
+                  : value.evaluationMainItems![0].evaluationItems[0]
+                      .evaluationItemAr;
+              workPlaceDesc2.value = isEnglish
+                  ? value.evaluationMainItems![0].evaluationItems[1]
+                      .evaluationItemEn
+                  : value.evaluationMainItems![0].evaluationItems[1]
+                      .evaluationItemAr;
 
               ///area2
-              relationShipCollageTitle.value =
-                  value.evaluationMainItems![1].nameEn;
-              relationShipDesc1.value = value
-                  .evaluationMainItems![1].evaluationItems[0].evaluationItemEn;
-              relationShipDesc2.value = value
-                  .evaluationMainItems![1].evaluationItems[1].evaluationItemEn;
-              relationShipDesc3.value = value
-                  .evaluationMainItems![1].evaluationItems[2].evaluationItemEn;
+              relationShipCollageTitle.value = isEnglish
+                  ? value.evaluationMainItems![1].nameEn
+                  : value.evaluationMainItems![1].nameAr;
+              relationShipDesc1.value = isEnglish
+                  ? value.evaluationMainItems![1].evaluationItems[0]
+                      .evaluationItemEn
+                  : value.evaluationMainItems![1].evaluationItems[0]
+                      .evaluationItemAr;
+              relationShipDesc2.value = isEnglish
+                  ? value.evaluationMainItems![1].evaluationItems[1]
+                      .evaluationItemEn
+                  : value.evaluationMainItems![1].evaluationItems[1]
+                      .evaluationItemAr;
+              relationShipDesc3.value = isEnglish
+                  ? value.evaluationMainItems![1].evaluationItems[2]
+                      .evaluationItemEn
+                  : value.evaluationMainItems![1].evaluationItems[2]
+                      .evaluationItemAr;
 
               ///area3
-              managementDepartmentTitle.value =
-                  value.evaluationMainItems![2].nameEn;
-              managementDepartmentDesc.value = value
-                  .evaluationMainItems![2].evaluationItems[0].evaluationItemEn;
+              managementDepartmentTitle.value = isEnglish
+                  ? value.evaluationMainItems![2].nameEn
+                  : value.evaluationMainItems![2].nameAr;
+              managementDepartmentDesc.value = isEnglish
+                  ? value.evaluationMainItems![2].evaluationItems[0]
+                      .evaluationItemEn
+                  : value.evaluationMainItems![2].evaluationItems[0]
+                      .evaluationItemAr;
 
               ///area4
-              directManagementTitle.value =
-                  value.evaluationMainItems![3].nameEn;
-              directManagementDesc.value = value
-                  .evaluationMainItems![3].evaluationItems[0].evaluationItemEn;
-              log(value.recommendationItems!.length.toString());
+              directManagementTitle.value = isEnglish
+                  ? value.evaluationMainItems![3].nameEn
+                  : value.evaluationMainItems![3].nameAr;
+              directManagementDesc.value = isEnglish
+                  ? value.evaluationMainItems![3].evaluationItems[0]
+                      .evaluationItemEn
+                  : value.evaluationMainItems![3].evaluationItems[0]
+                      .evaluationItemAr;
               recItemsList = value.recommendationItems!;
               steps.value = [
                 FormType(

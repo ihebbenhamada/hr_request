@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
           const GeneralInformation(),
           19.h.verticalSpace,
           Text(
-            '${'find_your'.tr}\n${'bonus'.tr}, ${'punishments'.tr} ${'and'.tr} ${'alerts'.tr}',
+            '${'find_your'.tr}\n${'bonus'.tr}${','.tr} ${'punishments'.tr} ${'and'.tr} ${'alerts'.tr}',
             style: TextStyle(
               color: AppColors.primary,
               fontSize: 16.sp,

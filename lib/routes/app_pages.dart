@@ -128,7 +128,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.loanDetails,
       page: () => LoanDetailsScreen(
-        screenTitle: 'Create Loan',
+        screenTitle: 'create_loan',
       ),
       binding: LoanDetailsPageBindings(),
     ),

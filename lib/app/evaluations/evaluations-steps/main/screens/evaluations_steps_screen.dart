@@ -224,14 +224,14 @@ class EvaluationsStepsScreen extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'Employee',
+                        'employee'.tr,
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 14.sp,
                         ),
                       ),
                       Text(
-                        'Form type',
+                        'form_type'.tr,
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 12.sp,
@@ -242,14 +242,14 @@ class EvaluationsStepsScreen extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'First Step',
+                        'first_step'.tr,
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 14.sp,
                         ),
                       ),
                       Text(
-                        'Form A',
+                        'form_a'.tr,
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 12.sp,
@@ -260,14 +260,14 @@ class EvaluationsStepsScreen extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'Second Step',
+                        'second_step'.tr,
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 14.sp,
                         ),
                       ),
                       Text(
-                        'Recommendation',
+                        'recommendation'.tr,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: AppColors.white,
@@ -279,14 +279,14 @@ class EvaluationsStepsScreen extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'Third Step',
+                        'third_step'.tr,
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 14.sp,
                         ),
                       ),
                       Text(
-                        'Employee',
+                        'employee'.tr,
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 12.sp,
@@ -317,8 +317,8 @@ class EvaluationsStepsScreen extends StatelessWidget {
                   Obx(
                     () => CustomButton(
                       text: _evaluationsStepsController.activePage.value == 3
-                          ? 'Finish'
-                          : 'Next'.tr,
+                          ? 'finish'.tr
+                          : 'next'.tr,
                       onClick: _evaluationsStepsController.activePage.value == 3
                           ? _evaluationsStepsController.onClickFinish
                           : _evaluationsStepsController.onClickNext,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:request_hr/app/auth/login/models/login_response.dart';
 import 'package:request_hr/app/bonus/bonus-details/screens/bonus_details_screen.dart';
 import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
@@ -28,11 +29,15 @@ import '../../tabs/decisions/main/screens/decisions_screen.dart';
 import '../controller/dashboard-controller.dart';
 
 class DashboardScreen extends StatelessWidget {
-  DashboardScreen({super.key});
+  DashboardScreen({
+    super.key,
+    this.employee,
+  });
   final _dashboardController = Get.put(DashboardController());
   final ThemeController themeController = Get.find();
   final GlobalKey<CurvedNavigationBarState> bottomNavigationKey =
       GlobalKey<CurvedNavigationBarState>();
+  final Emp? employee;
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -50,7 +55,7 @@ class DashboardScreen extends StatelessWidget {
               backgroundColor: AppColors.gray2,
               body: Column(
                 children: [
-                  20.h.verticalSpace,
+                  Platform.isIOS ? 0.h.verticalSpace : 20.h.verticalSpace,
                   Header(
                     onClickProfile: _dashboardController.onClickProfile,
                     onClickMenu: () =>
@@ -58,11 +63,16 @@ class DashboardScreen extends StatelessWidget {
                     onClickMessage: _dashboardController.onClickMessage,
                     onClickNotification:
                         _dashboardController.onClickNotification,
-                    image: _dashboardController.employee.value.imagePath ??
+                    image: employee?.imagePath ??
+                        _dashboardController.employee.value.imagePath ??
                         AppImages.profile,
                     name: Get.locale?.languageCode == 'ar'
-                        ? _dashboardController.employee.value.fullName
-                        : _dashboardController.employee.value.fullNameEn,
+                        ? employee?.fullName != null
+                            ? employee!.fullName
+                            : _dashboardController.employee.value.fullName
+                        : employee?.fullNameEn != null
+                            ? employee!.fullNameEn
+                            : _dashboardController.employee.value.fullNameEn,
                     job: _dashboardController.employee.value.jobName,
                   ),
                   Expanded(
@@ -188,7 +198,7 @@ class DashboardScreen extends StatelessWidget {
                       left: 25,
                       right: 25,
                       bottom: 10.h,
-                      top: MediaQuery.of(context).viewPadding.top + 10.h,
+                      top: MediaQuery.of(context).viewPadding.top,
                     ),
                     child: Column(
                       children: [
@@ -311,7 +321,7 @@ class DashboardScreen extends StatelessWidget {
                               crossAxisCount: 3,
                               mainAxisSpacing: 8.h,
                               crossAxisSpacing: 10,
-                              childAspectRatio: 1.2,
+                              childAspectRatio: Platform.isIOS ? 1.3 : 1.2,
                             ),
                             padding: const EdgeInsets.only(
                               left: 10.0,

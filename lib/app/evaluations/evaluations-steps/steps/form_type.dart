@@ -67,7 +67,9 @@ class _FormTypeState extends State<FormType> {
   }
 
   getDepartments() {
-    _publicApiServices.getDepartments().then((listDepartments) {
+    _publicApiServices
+        .getDepartments(lang: Get.locale?.languageCode ?? 'en')
+        .then((listDepartments) {
       if (listDepartments != null) {
         departmentList.value = listDepartments;
         selectedDepartment.value = listDepartments[0];
@@ -131,7 +133,7 @@ class _FormTypeState extends State<FormType> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Depart",
+                  "depart".tr,
                   style: TextStyle(
                     color: AppColors.gray6,
                     fontSize: 14.sp,
@@ -159,10 +161,15 @@ class _FormTypeState extends State<FormType> {
                       items: departmentList.map<DropdownMenuItem<Department>>(
                           (Department value) {
                         return DropdownMenuItem<Department>(
-                          alignment: Alignment.centerLeft,
+                          alignment: Get.locale?.languageCode == 'en'
+                              ? Alignment.centerLeft
+                              : Alignment.centerRight,
                           value: value,
                           child: Text(
-                            value.departmentNameEn ?? "",
+                            (Get.locale?.languageCode == 'en'
+                                    ? value.departmentNameEn
+                                    : value.departmentNameAr) ??
+                                '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -198,7 +205,7 @@ class _FormTypeState extends State<FormType> {
               children: [
                 5.h.verticalSpace,
                 Text(
-                  "Choose Employee",
+                  "select_employee".tr,
                   style: TextStyle(
                     color: AppColors.gray6,
                     fontSize: 14.sp,
@@ -206,14 +213,22 @@ class _FormTypeState extends State<FormType> {
                 ),
                 CustomDropdown<Employee>.searchRequest(
                   items: employeesList,
-                  hintText: "Select employee",
+                  hintText: "select_employee".tr,
                   closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
                   listItemBuilder:
                       (context, employee, isSelected, onItemSelect) {
-                    return Text(employee.fullName ?? "");
+                    return Text(
+                      Get.locale?.languageCode == 'en'
+                          ? employee.fullNameEn ?? employee.fullName!
+                          : employee.fullName ?? '',
+                    );
                   },
                   headerBuilder: (context, emp, isTrue) {
-                    return Text(emp.fullName ?? "");
+                    return Text(
+                      Get.locale?.languageCode == 'en'
+                          ? emp.fullNameEn ?? emp.fullName!
+                          : emp.fullName ?? '',
+                    );
                   },
                   decoration: CustomDropdownDecoration(
                       hintStyle: TextStyle(
@@ -258,7 +273,7 @@ class _FormTypeState extends State<FormType> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Evaluation form model',
+                  'evaluation_model'.tr,
                   style: TextStyle(
                     color: AppColors.gray6,
                     fontSize: 14.sp,
@@ -287,7 +302,9 @@ class _FormTypeState extends State<FormType> {
                       items: evalFormTypes.map<DropdownMenuItem<DropDownModel>>(
                           (DropDownModel value) {
                         return DropdownMenuItem<DropDownModel>(
-                          alignment: Alignment.centerLeft,
+                          alignment: Get.locale?.languageCode == 'en'
+                              ? Alignment.centerLeft
+                              : Alignment.centerRight,
                           value: value,
                           child: Text(
                             value.text ?? "",

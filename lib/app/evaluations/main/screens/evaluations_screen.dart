@@ -21,74 +21,71 @@ class EvaluationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.gray2,
-      body: RefreshIndicator(
-        onRefresh: _evaluationsController.handleRefresh,
-        color: AppColors.white,
-        backgroundColor: AppColors.primary,
-        edgeOffset: MediaQuery.of(context).viewPadding.top,
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverFillRemaining(
+      body: Padding(
+        padding: const EdgeInsets.only(
+          right: 25.0,
+          left: 25.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+            GestureDetector(
+              onTap: () => Get.back(),
               child: Container(
-                color: AppColors.gray2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    (MediaQuery.of(context).viewPadding.top + 20)
-                        .h
-                        .verticalSpace,
-                    GestureDetector(
-                      onTap: () => Get.back(),
+                height: 40.h,
+                width: 40.h,
+                margin: const EdgeInsets.only(left: 25),
+                decoration: const ShapeDecoration(
+                  shape: OvalBorder(),
+                  color: AppColors.primary,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    AppImages.back,
+                    height: 20.h,
+                    color: AppColors.white,
+                    matchTextDirection: true,
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'evaluations_year'.tr,
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                _evaluationsController.isAdmin
+                    ? GestureDetector(
+                        onTap: _evaluationsController.onClickCreateEvaluation,
+                        child: Image.asset(
+                          AppImages.addDecision,
+                          height: 34.h,
+                          width: 34.h,
+                          matchTextDirection: true,
+                        ),
+                      )
+                    : const SizedBox(),
+              ],
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _evaluationsController.handleRefresh,
+                color: AppColors.white,
+                backgroundColor: AppColors.primary,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverFillRemaining(
                       child: Container(
-                        height: 40.h,
-                        width: 40.h,
-                        margin: const EdgeInsets.only(left: 25),
-                        decoration: const ShapeDecoration(
-                          shape: OvalBorder(),
-                          color: AppColors.primary,
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            AppImages.back,
-                            height: 20.h,
-                            color: AppColors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    10.h.verticalSpace,
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          right: 25.0,
-                          left: 25.0,
-                        ),
+                        color: AppColors.gray2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Evaluations this year',
-                                  style: TextStyle(
-                                    color: AppColors.primary,
-                                    fontSize: 16.sp,
-                                  ),
-                                ),
-                                _evaluationsController.isAdmin
-                                    ? GestureDetector(
-                                        onTap: _evaluationsController
-                                            .onClickCreateEvaluation,
-                                        child: Image.asset(
-                                          AppImages.addDecision,
-                                          height: 34.h,
-                                          width: 34.h,
-                                        ),
-                                      )
-                                    : const SizedBox(),
-                              ],
-                            ),
                             20.h.verticalSpace,
                             Obx(
                               () => _evaluationsController
@@ -145,7 +142,7 @@ class EvaluationsScreen extends StatelessWidget {
                                     )
                                   : Center(
                                       child: Text(
-                                        'No Evaluation found',
+                                        'no_evaluation_found'.tr,
                                         style: TextStyle(
                                           fontSize: 14.sp,
                                         ),
@@ -165,7 +162,12 @@ class EvaluationsScreen extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               padding: EdgeInsets.only(
-                                  top: 14.h, bottom: 23.h, left: 16),
+                                top: 14.h,
+                                bottom: 23.h,
+                                left: Get.locale?.languageCode == 'en' ? 16 : 0,
+                                right:
+                                    Get.locale?.languageCode == 'ar' ? 16 : 0,
+                              ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                                 color: AppColors.white,
@@ -182,13 +184,13 @@ class EvaluationsScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Your Evaluations Chart',
+                                    'evaluations_chart'.tr,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: AppColors.primary,
                                     ),
                                   ),
-                                  Obx(
+                                  /*Obx(
                                     () => Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
@@ -254,8 +256,8 @@ class EvaluationsScreen extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  5.h.verticalSpace,
+                                  ),*/
+                                  15.h.verticalSpace,
                                   Obx(
                                     () => Container(
                                       height: 162.h,
@@ -267,9 +269,11 @@ class EvaluationsScreen extends StatelessWidget {
                                             borderData: FlBorderData(
                                               border: const Border(
                                                 left: BorderSide(
-                                                    color: AppColors.gray7),
+                                                  color: AppColors.gray7,
+                                                ),
                                                 bottom: BorderSide(
-                                                    color: AppColors.gray7),
+                                                  color: AppColors.gray7,
+                                                ),
                                               ),
                                             ),
                                             titlesData: FlTitlesData(
@@ -317,7 +321,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Jan',
+                                                            'jan'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -330,7 +334,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Feb',
+                                                            'feb'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -343,7 +347,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Mar',
+                                                            'mar'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -356,7 +360,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Apr',
+                                                            'apr'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -369,7 +373,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'May',
+                                                            'may'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -382,7 +386,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Jun',
+                                                            'jun'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -395,7 +399,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'July',
+                                                            'jul'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -408,7 +412,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Aug',
+                                                            'aug'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -421,7 +425,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Sep',
+                                                            'sep'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -434,7 +438,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Oct',
+                                                            'oct'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -447,7 +451,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Nov',
+                                                            'nov'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -460,7 +464,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'Dec',
+                                                            'dec'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -474,7 +478,7 @@ class EvaluationsScreen extends StatelessWidget {
                                                           axisSide:
                                                               AxisSide.bottom,
                                                           child: Text(
-                                                            'no month',
+                                                            'no_month'.tr,
                                                             style: TextStyle(
                                                               fontSize: 10.sp,
                                                               color: AppColors
@@ -524,7 +528,9 @@ class EvaluationsScreen extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10.h, horizontal: 14),
+                                vertical: 10.h,
+                                horizontal: 14,
+                              ),
                               decoration: BoxDecoration(
                                 color: AppColors.white,
                                 borderRadius: BorderRadius.circular(13.h),
@@ -549,7 +555,7 @@ class EvaluationsScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Your Evolution this month ',
+                                          'evolution_this_month'.tr,
                                           style: TextStyle(
                                             color: AppColors.primary,
                                             fontSize: 16.sp,
@@ -557,7 +563,7 @@ class EvaluationsScreen extends StatelessWidget {
                                         ),
                                         5.h.verticalSpace,
                                         Text(
-                                          'Congratulations. He achieved performance evaluations. We always wish you the best!',
+                                          'congratulation_eval'.tr,
                                           style: TextStyle(
                                             color: AppColors.blueDark,
                                             fontSize: 12.sp,
@@ -565,13 +571,26 @@ class EvaluationsScreen extends StatelessWidget {
                                         ),
                                         17.h.verticalSpace,
                                         Stack(
-                                          alignment: Alignment.centerLeft,
+                                          alignment:
+                                              Get.locale?.languageCode == 'en'
+                                                  ? Alignment.centerLeft
+                                                  : Alignment.centerRight,
                                           children: [
                                             Container(
                                               width: 120,
                                               height: 21.h,
-                                              padding: const EdgeInsets.only(
-                                                  left: 25),
+                                              padding: EdgeInsets.only(
+                                                left:
+                                                    Get.locale?.languageCode ==
+                                                            'en'
+                                                        ? 25
+                                                        : 0,
+                                                right:
+                                                    Get.locale?.languageCode ==
+                                                            'ar'
+                                                        ? 25
+                                                        : 0,
+                                              ),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(11.h),
@@ -579,7 +598,7 @@ class EvaluationsScreen extends StatelessWidget {
                                               ),
                                               child: Obx(
                                                 () => Text(
-                                                  'Total: ${_evaluationsController.totalMonthDegreeScale.value}',
+                                                  '${'total'.tr}: ${_evaluationsController.totalMonthDegreeScale.value}',
                                                   style: TextStyle(
                                                     color: AppColors.white,
                                                     fontSize: 14.sp,

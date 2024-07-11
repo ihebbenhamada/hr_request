@@ -95,7 +95,9 @@ class CreateMailController extends BaseController {
 
   getDepartments() {
     AppInterceptor.showLoader();
-    _publicApiServices.getDepartments().then((listDepartments) {
+    _publicApiServices
+        .getDepartments(lang: Get.locale?.languageCode ?? 'en')
+        .then((listDepartments) {
       if (listDepartments != null) {
         departmentList.value = listDepartments;
         selectedDepartment.value = listDepartments[0];
@@ -113,7 +115,10 @@ class CreateMailController extends BaseController {
   }
 
   getEmployeesByDepartment({required String id}) {
-    _publicApiServices.getEmployeesByDepartment(id: id).then((listEmployees) {
+    _publicApiServices
+        .getEmployeesByDepartment(
+            id: id, lang: Get.locale?.languageCode ?? 'en')
+        .then((listEmployees) {
       if (listEmployees != null) {
         employeeList.value = listEmployees;
         selectedEmployees.value = [listEmployees[0]];

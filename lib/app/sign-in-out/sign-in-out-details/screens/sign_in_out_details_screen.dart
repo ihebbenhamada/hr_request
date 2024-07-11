@@ -42,13 +42,14 @@ class SignInOutDetailsScreen extends StatelessWidget {
                           AppImages.back,
                           height: 20.h,
                           color: AppColors.white,
+                          matchTextDirection: true,
                         ),
                       ),
                     ),
                   ),
                   10.h.horizontalSpace,
                   Text(
-                    screenTitle,
+                    screenTitle.tr,
                     style: TextStyle(
                       fontSize: 16.sp,
                     ),

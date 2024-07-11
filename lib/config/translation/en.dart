@@ -8,6 +8,10 @@ class En {
         'approved': 'موافق',
         'create': 'Create',
         'total': 'Total',
+        'send': 'Send',
+        'back': 'Back',
+        ',': ',',
+        'details': 'Details',
 
         /// LOGIN PAGE
         'sign_in': 'Sign In',
@@ -146,5 +150,58 @@ class En {
 
         ///MAIL SCREEN
         'create_mail': 'Create Mail',
+        'send_to': 'Send to',
+        'subject_here': 'Subject Message Here',
+        'message_here': 'Write Your Message',
+        'upload_file': 'Upload file',
+        'print': 'Print',
+        'name': 'Name',
+        'job': 'Job',
+        'replay': 'Replay',
+        'download': 'Download',
+        'choose_transition': 'Choose Transition',
+        'select_all': 'Select All',
+        'deselect_mails': 'Deselect Mails',
+        'inverse_Mails': 'Inverse selected Mails',
+        'delete_mail': 'Delete selecting Mail',
+        'replay_mail': 'Replay Mail',
+
+        ///LOAN SCREEN
+        'create_loan': 'Create Loan',
+        'no_loan_found': 'No Loan found',
+        'loan_year': 'Your Loan this Year',
+        'loans_requested':
+            'Loans that you requested from the company during the year',
+        'k': 'k',
+        'loan_details': 'Loan Details',
+        'update_loan': 'Update Loan',
+        'payment_type': 'Payment Type',
+        'title': 'Title',
+        'loan_date': 'Loan Date',
+        'total_loans': 'Total Loans',
+        'topic': 'Topic',
+
+        ///EVALUATION SCREEN
+        'evaluations_year': 'Evaluations this year',
+        'no_evaluation_found': 'No Evaluation found',
+        'evaluations_chart': 'Your Evaluations Chart',
+        'evolution_this_month': 'Your Evolution this month',
+        'congratulation_eval':
+            'Congratulations. He achieved performance evaluations. We always wish you the best!',
+        'employee': 'Employee',
+        'form_type': 'Form type',
+        'first_step': 'First Step',
+        'form_a': 'Form A',
+        'second_step': 'Second Step',
+        'recommendation': 'Recommendation',
+        'third_step': 'Third Step',
+        'finish': 'Finish',
+        'next': 'Next',
+        'agree': 'Agree',
+        'disagree': 'Disagree',
+        'evaluation_model': 'Evaluation form model',
+
+        ///SIGN IN OUT SCREEN
+        'create_signin_out': 'Create SignIn / SignOut',
       };
 }

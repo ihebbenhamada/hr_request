@@ -94,9 +94,8 @@ class LoginController extends BaseController {
           }
           storage.write('user', value.toJson());
           storage.write('employee', value.employee.toJson());
-
           Get.offAll(
-            () => DashboardScreen(),
+            () => DashboardScreen(employee: value.employee),
             arguments: value.employee,
             transition: Transition.leftToRight,
             curve: Curves.ease,

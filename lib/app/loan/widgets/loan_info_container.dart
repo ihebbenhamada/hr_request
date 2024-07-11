@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:request_hr/app/loan/main/models/loan_response.dart';
 
@@ -32,19 +33,19 @@ class LoanInfoContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            width: 202.w,
+            width: 208.w,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Your Loan this Year ',
+                  'loan_year'.tr,
                   style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 16.sp,
                   ),
                 ),
                 Text(
-                  'Loans. Loans that you requested from the company during the year',
+                  'loans_requested'.tr,
                   style: TextStyle(
                     color: AppColors.blueDark,
                     fontSize: 14.sp,
@@ -52,18 +53,23 @@ class LoanInfoContainer extends StatelessWidget {
                 ),
                 17.h.verticalSpace,
                 Stack(
-                  alignment: Alignment.centerLeft,
+                  alignment: Get.locale?.languageCode == 'en'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   children: [
                     Container(
-                      height: 21.h,
+                      height: 22.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(11.h),
                         color: AppColors.primary,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 25.h, right: 5.h),
+                        padding: EdgeInsets.only(
+                          left: Get.locale?.languageCode == 'en' ? 25.h : 5.h,
+                          right: Get.locale?.languageCode == 'en' ? 5.h : 25.h,
+                        ),
                         child: Text(
-                          'Total:${getTotal(loanResponse.totalLoans ?? '0')}',
+                          '${'total'.tr}: ${getTotal(loanResponse.totalLoans ?? '0')}',
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 14.sp,
@@ -121,10 +127,10 @@ class LoanInfoContainer extends StatelessWidget {
           .substring(total.indexOf("/") + 1, total.length)
           .replaceAll("٫", ".");
       if (double.parse(a) >= 1000) {
-        a = "${(double.parse(a) / 1000).toStringAsFixed(2)}k";
+        a = "${(double.parse(a) / 1000).toStringAsFixed(2)}${'k'.tr}";
       }
       if (double.parse(b) >= 1000) {
-        b = "${(double.parse(b) / 1000).toStringAsFixed(2)}k";
+        b = "${(double.parse(b) / 1000).toStringAsFixed(2)}${'k'.tr}";
       }
       return '$a / $b';
     }

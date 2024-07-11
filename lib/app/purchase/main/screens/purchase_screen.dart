@@ -39,6 +39,7 @@ class PurchaseScreen extends StatelessWidget {
                     AppImages.back,
                     height: 20.h,
                     color: AppColors.white,
+                    matchTextDirection: true,
                   ),
                 ),
               ),

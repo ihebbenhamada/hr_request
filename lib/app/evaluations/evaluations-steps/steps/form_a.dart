@@ -685,16 +685,16 @@ class FormA extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: Container(
-              width: 135,
+              width: 145,
               padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10.h),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(19),
+                borderRadius: BorderRadius.circular(22),
                 color: AppColors.blueDark,
               ),
               child: Center(
                 child: Obx(
                   () => Text(
-                    'Total:${totalScale.value.round()}/700',
+                    '${'total'.tr} :${totalScale.value.round()}/700',
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: AppColors.white,

@@ -49,7 +49,7 @@ class SignInOutController extends BaseController {
   onClickSignInOutItem({required SignInOut item}) {
     Get.to(
       () => SignInOutDetailsScreen(
-        screenTitle: "Details",
+        screenTitle: "details",
       ),
       arguments: item,
       transition: Transition.leftToRight,
@@ -61,7 +61,7 @@ class SignInOutController extends BaseController {
   void navigateAndRefresh() async {
     final result = await Get.to(
       () => SignInOutDetailsScreen(
-        screenTitle: "Create SignIn / SignOut",
+        screenTitle: "create_signin_out",
       ),
       transition: Transition.leftToRight,
       curve: Curves.ease,

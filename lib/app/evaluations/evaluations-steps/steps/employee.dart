@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 class EmployeePart extends StatelessWidget {
@@ -27,7 +28,7 @@ class EmployeePart extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Agree / Disgree',
+                        '${'agree'.tr} / ${'disagree'.tr}',
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 14.sp,
@@ -51,7 +52,7 @@ class EmployeePart extends StatelessWidget {
                 ),
                 16.h.verticalSpace,
                 Text(
-                  'Date',
+                  'date'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.white,
@@ -88,7 +89,7 @@ class EmployeePart extends StatelessWidget {
                 ),
                 16.h.verticalSpace,
                 Text(
-                  'Remark',
+                  'remark'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.white,

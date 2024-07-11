@@ -108,7 +108,7 @@ class LoanStatisticsContainer extends StatelessWidget {
                       ),
                       8.horizontalSpace,
                       Text(
-                        'APPROVED',
+                        'approved'.tr.toUpperCase(),
                         style: TextStyle(
                           color: AppColors.gray8,
                           fontSize: 12.sp,
@@ -129,7 +129,7 @@ class LoanStatisticsContainer extends StatelessWidget {
                       ),
                       8.horizontalSpace,
                       Text(
-                        'cancel'.tr,
+                        'cancel'.tr.toUpperCase(),
                         style: TextStyle(
                           color: AppColors.gray8,
                           fontSize: 12.sp,

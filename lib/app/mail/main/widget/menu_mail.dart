@@ -42,7 +42,7 @@ class MenuMail extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    'Choose Transition',
+                    'choose_transition'.tr,
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: AppColors.primary,
@@ -59,7 +59,7 @@ class MenuMail extends StatelessWidget {
                         ),
                         10.horizontalSpace,
                         Text(
-                          'Select All',
+                          'select_all'.tr,
                           style: TextStyle(
                             fontSize: 20.sp,
                             color: AppColors.blueDark,
@@ -79,7 +79,7 @@ class MenuMail extends StatelessWidget {
                         ),
                         10.horizontalSpace,
                         Text(
-                          'Deselect Mails',
+                          'deselect_mails'.tr,
                           style: TextStyle(
                             fontSize: 20.sp,
                             color: AppColors.blueDark,
@@ -99,7 +99,7 @@ class MenuMail extends StatelessWidget {
                         ),
                         10.horizontalSpace,
                         Text(
-                          'Inverse select Mails',
+                          'inverse_Mails'.tr,
                           style: TextStyle(
                             fontSize: 20.sp,
                             color: AppColors.blueDark,
@@ -119,7 +119,7 @@ class MenuMail extends StatelessWidget {
                         ),
                         10.horizontalSpace,
                         Text(
-                          'Delete selecting Mail',
+                          'delete_mail'.tr,
                           style: TextStyle(
                             fontSize: 20.sp,
                             color: AppColors.blueDark,
@@ -139,7 +139,7 @@ class MenuMail extends StatelessWidget {
                         ),
                         10.horizontalSpace,
                         Text(
-                          'Replay Mail',
+                          'replay_mail'.tr,
                           style: TextStyle(
                             fontSize: 20.sp,
                             color: AppColors.blueDark,
@@ -154,7 +154,7 @@ class MenuMail extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: CustomButton(
-                text: 'Back',
+                text: 'back'.tr,
                 height: 50.h,
                 onClick: () {
                   Get.back();
