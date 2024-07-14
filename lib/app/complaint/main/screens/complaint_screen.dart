@@ -20,69 +20,66 @@ class ComplaintScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.gray2,
-      body: RefreshIndicator(
-        onRefresh: _complaintController.handleRefresh,
-        color: AppColors.white,
-        backgroundColor: AppColors.primary,
-        edgeOffset: MediaQuery.of(context).viewPadding.top,
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverFillRemaining(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: Container(
-                      height: 40.h,
-                      width: 40.h,
-                      margin: const EdgeInsets.only(left: 25),
-                      decoration: const ShapeDecoration(
-                        shape: OvalBorder(),
-                        color: AppColors.primary,
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.back,
-                          height: 20.h,
-                          color: AppColors.white,
-                          matchTextDirection: true,
-                        ),
-                      ),
-                    ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+          right: 25.0,
+          left: 25.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+            GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(
+                height: 40.h,
+                width: 40.h,
+                decoration: const ShapeDecoration(
+                  shape: OvalBorder(),
+                  color: AppColors.primary,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    AppImages.back,
+                    height: 20.h,
+                    color: AppColors.white,
+                    matchTextDirection: true,
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        right: 25.0,
-                        left: 25.0,
-                      ),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'create_complaint'.tr,
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: _complaintController.onClickCreateComplaint,
+                  child: Image.asset(
+                    AppImages.addDecision,
+                    height: 34.h,
+                    width: 34.h,
+                  ),
+                )
+              ],
+            ),
+            20.h.verticalSpace,
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _complaintController.handleRefresh,
+                color: AppColors.white,
+                backgroundColor: AppColors.primary,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverFillRemaining(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Create Complaint',
-                                style: TextStyle(
-                                  color: AppColors.primary,
-                                  fontSize: 16.sp,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap:
-                                    _complaintController.onClickCreateComplaint,
-                                child: Image.asset(
-                                  AppImages.addDecision,
-                                  height: 34.h,
-                                  width: 34.h,
-                                ),
-                              )
-                            ],
-                          ),
-                          20.h.verticalSpace,
                           Obx(
                             () => _complaintController.complaintResponse.value
                                     .reqComplaintMobile.isNotEmpty
@@ -141,7 +138,7 @@ class ComplaintScreen extends StatelessWidget {
                                   )
                                 : Center(
                                     child: Text(
-                                      'No Complaint found',
+                                      'no_complaint_found'.tr,
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                       ),
@@ -160,8 +157,13 @@ class ComplaintScreen extends StatelessWidget {
                           20.h.verticalSpace,
                           Container(
                             width: double.infinity,
+                            clipBehavior: Clip.none,
                             padding: EdgeInsets.only(
-                                top: 14.h, bottom: 23.h, left: 16),
+                              top: 14.h,
+                              bottom: 23.h,
+                              left: Get.locale?.languageCode == 'en' ? 16 : 0,
+                              right: Get.locale?.languageCode == 'ar' ? 16 : 0,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               color: AppColors.white,
@@ -178,7 +180,7 @@ class ComplaintScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Your Complaint Chart',
+                                  'your_complaint_chart'.tr,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     color: AppColors.primary,
@@ -188,7 +190,15 @@ class ComplaintScreen extends StatelessWidget {
                                 Obx(
                                   () => Container(
                                     height: 162.h,
-                                    padding: const EdgeInsets.only(right: 16),
+                                    padding: EdgeInsets.only(
+                                      right: Get.locale?.languageCode == 'en'
+                                          ? 16
+                                          : 0,
+                                      left: Get.locale?.languageCode == 'ar'
+                                          ? 16
+                                          : 0,
+                                    ),
+                                    clipBehavior: Clip.none,
                                     child: Center(
                                       child: BarChart(
                                         BarChartData(
@@ -196,9 +206,11 @@ class ComplaintScreen extends StatelessWidget {
                                           borderData: FlBorderData(
                                             border: const Border(
                                               left: BorderSide(
-                                                  color: AppColors.gray7),
+                                                color: AppColors.gray7,
+                                              ),
                                               bottom: BorderSide(
-                                                  color: AppColors.gray7),
+                                                color: AppColors.gray7,
+                                              ),
                                             ),
                                           ),
                                           titlesData: FlTitlesData(
@@ -247,9 +259,11 @@ class ComplaintScreen extends StatelessWidget {
                                                               .complaintResponse
                                                               .value
                                                               .reqComplaintChart
-                                                              .lastSixMonths[value
-                                                                  .toInt() -
-                                                              1],
+                                                              .lastSixMonths[
+                                                                  value.toInt() -
+                                                                      1]
+                                                              .toLowerCase()
+                                                              .tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -266,9 +280,11 @@ class ComplaintScreen extends StatelessWidget {
                                                               .complaintResponse
                                                               .value
                                                               .reqComplaintChart
-                                                              .lastSixMonths[value
-                                                                  .toInt() -
-                                                              1],
+                                                              .lastSixMonths[
+                                                                  value.toInt() -
+                                                                      1]
+                                                              .toLowerCase()
+                                                              .tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -285,9 +301,11 @@ class ComplaintScreen extends StatelessWidget {
                                                               .complaintResponse
                                                               .value
                                                               .reqComplaintChart
-                                                              .lastSixMonths[value
-                                                                  .toInt() -
-                                                              1],
+                                                              .lastSixMonths[
+                                                                  value.toInt() -
+                                                                      1]
+                                                              .toLowerCase()
+                                                              .tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -304,9 +322,11 @@ class ComplaintScreen extends StatelessWidget {
                                                               .complaintResponse
                                                               .value
                                                               .reqComplaintChart
-                                                              .lastSixMonths[value
-                                                                  .toInt() -
-                                                              1],
+                                                              .lastSixMonths[
+                                                                  value.toInt() -
+                                                                      1]
+                                                              .toLowerCase()
+                                                              .tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -323,9 +343,11 @@ class ComplaintScreen extends StatelessWidget {
                                                               .complaintResponse
                                                               .value
                                                               .reqComplaintChart
-                                                              .lastSixMonths[value
-                                                                  .toInt() -
-                                                              1],
+                                                              .lastSixMonths[
+                                                                  value.toInt() -
+                                                                      1]
+                                                              .toLowerCase()
+                                                              .tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -342,9 +364,11 @@ class ComplaintScreen extends StatelessWidget {
                                                               .complaintResponse
                                                               .value
                                                               .reqComplaintChart
-                                                              .lastSixMonths[value
-                                                                  .toInt() -
-                                                              1],
+                                                              .lastSixMonths[
+                                                                  value.toInt() -
+                                                                      1]
+                                                              .toLowerCase()
+                                                              .tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -358,7 +382,7 @@ class ComplaintScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'no month',
+                                                          'no_month'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -432,7 +456,7 @@ class ComplaintScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Your Complaint this year ',
+                                        'your_complaint_year'.tr,
                                         style: TextStyle(
                                           color: AppColors.primary,
                                           fontSize: 16.sp,
@@ -440,7 +464,7 @@ class ComplaintScreen extends StatelessWidget {
                                       ),
                                       5.h.verticalSpace,
                                       Text(
-                                        'Sorry. The Complaint sent to you during this year',
+                                        'complaints_sent_year'.tr,
                                         style: TextStyle(
                                           color: AppColors.blueDark,
                                           fontSize: 12.sp,
@@ -448,20 +472,31 @@ class ComplaintScreen extends StatelessWidget {
                                       ),
                                       32.h.verticalSpace,
                                       Stack(
-                                        alignment: Alignment.centerLeft,
+                                        alignment:
+                                            Get.locale?.languageCode == 'en'
+                                                ? Alignment.centerLeft
+                                                : Alignment.centerRight,
                                         children: [
                                           Container(
-                                            width: 120,
+                                            width: 150,
                                             height: 21.h,
-                                            padding:
-                                                const EdgeInsets.only(left: 25),
+                                            padding: EdgeInsets.only(
+                                              left: Get.locale?.languageCode ==
+                                                      'en'
+                                                  ? 25
+                                                  : 0,
+                                              right: Get.locale?.languageCode ==
+                                                      'ar'
+                                                  ? 25
+                                                  : 0,
+                                            ),
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(11.h),
                                               color: AppColors.primary,
                                             ),
                                             child: Text(
-                                              'Total:475/700',
+                                              '${'total'.tr}: 475/700',
                                               style: TextStyle(
                                                 color: AppColors.white,
                                                 fontSize: 14.sp,
@@ -497,14 +532,14 @@ class ComplaintScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
-                    ),
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

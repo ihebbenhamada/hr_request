@@ -98,4 +98,8 @@ class CustodyController extends BaseController {
       getCustodyList();
     }
   }
+
+  Future<void> onRefresh() async {
+    getCustodyList();
+  }
 }

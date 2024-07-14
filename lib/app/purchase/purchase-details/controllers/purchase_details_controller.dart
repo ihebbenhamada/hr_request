@@ -114,7 +114,9 @@ class PurchaseDetailsController extends BaseController {
   /// FUNCTIONS
   getDepartments() {
     AppInterceptor.showLoader();
-    _publicApiServices.getDepartments().then((listDepartments) {
+    _publicApiServices
+        .getDepartments(lang: Get.locale?.languageCode ?? 'en')
+        .then((listDepartments) {
       if (listDepartments != null) {
         departmentList.value = listDepartments;
         selectedDepartment.value = listDepartments[0];

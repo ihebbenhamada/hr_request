@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
+import 'package:request_hr/app/final_exit/main/controllers/final_exit_controller.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 class FinalExitApproval extends StatelessWidget {
   const FinalExitApproval({
     super.key,
-    required this.vacationsStepsController,
+    required this.finalExitController,
   });
 
-  final VacationsStepsController vacationsStepsController;
+  final FinalExitController finalExitController;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class FinalExitApproval extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'I Admit',
+                  'i_admit'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.white,
@@ -43,8 +43,8 @@ class FinalExitApproval extends StatelessWidget {
                       fontSize: 14.sp,
                       color: AppColors.white,
                     ),
-                    controller: vacationsStepsController
-                        .employeeNameTextEditingController,
+                    controller:
+                        finalExitController.employeeNameTextEditingController,
                     keyboardType: TextInputType.number,
                     cursorColor: AppColors.white,
                     decoration: const InputDecoration(
@@ -71,17 +71,17 @@ class FinalExitApproval extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'End of working day',
+                            'end_working'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => vacationsStepsController.selectDate(
-                                context, 'end'),
+                            onTap: () =>
+                                finalExitController.selectDate(context, 'end'),
                             child: Text(
-                              vacationsStepsController.endWorkingDate.value,
+                              finalExitController.endWorkingDate.value,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
@@ -95,17 +95,17 @@ class FinalExitApproval extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Adopted from',
+                            'adopted_from'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => vacationsStepsController.selectDate(
+                            onTap: () => finalExitController.selectDate(
                                 context, 'adopted'),
                             child: Text(
-                              vacationsStepsController.adoptedFromDate.value,
+                              finalExitController.adoptedFromDate.value,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
@@ -119,7 +119,7 @@ class FinalExitApproval extends StatelessWidget {
                 ),
                 5.h.verticalSpace,
                 Text(
-                  'I pledge to sign below to pay the phone, water and lighting bills, as well as any financial obligations, such as advances,etc , to Al-Ansari Specialized Hospital',
+                  'final_exit_desc'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.white,
@@ -143,7 +143,7 @@ class FinalExitApproval extends StatelessWidget {
               children: [
                 14.h.verticalSpace,
                 Text(
-                  'Data for the holder of the leave in the home country',
+                  'holder'.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColors.white,
@@ -159,7 +159,7 @@ class FinalExitApproval extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Telephone',
+                            'telephone'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -170,8 +170,8 @@ class FinalExitApproval extends StatelessWidget {
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
-                            controller: vacationsStepsController
-                                .phoneTextEditingController,
+                            controller:
+                                finalExitController.phoneTextEditingController,
                             keyboardType: TextInputType.number,
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
@@ -203,7 +203,7 @@ class FinalExitApproval extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Phone Number',
+                            'phone_number'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -214,8 +214,8 @@ class FinalExitApproval extends StatelessWidget {
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
-                            controller: vacationsStepsController
-                                .mobileTextEditingController,
+                            controller:
+                                finalExitController.mobileTextEditingController,
                             keyboardType: TextInputType.number,
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
@@ -250,7 +250,7 @@ class FinalExitApproval extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Address',
+                        'address'.tr,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -261,8 +261,8 @@ class FinalExitApproval extends StatelessWidget {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        controller: vacationsStepsController
-                            .addressTextEditingController,
+                        controller:
+                            finalExitController.addressTextEditingController,
                         keyboardType: TextInputType.number,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(

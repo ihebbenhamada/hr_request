@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/controllers/vacations_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
+import 'package:request_hr/app/final_exit/main/screens/final_exit_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
@@ -205,7 +205,7 @@ class VacationsFormController extends BaseController {
 
   onClickCompleteProcedures() {
     Get.to(
-      () => VacationsStepsScreen(),
+      () => FinalExitScreen(),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),

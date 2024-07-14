@@ -5,14 +5,14 @@ import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.da
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
-import '../main/controllers/vacations_steps_controller.dart';
+import '../main/controllers/final_exit_controller.dart';
 
 class TicketExchangeRequest extends StatelessWidget {
   const TicketExchangeRequest({
     super.key,
-    required this.vacationsStepsController,
+    required this.finalExitController,
   });
-  final VacationsStepsController vacationsStepsController;
+  final FinalExitController finalExitController;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class TicketExchangeRequest extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Payment Type',
+                            'payment_type'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -50,7 +50,7 @@ class TicketExchangeRequest extends StatelessWidget {
                             () => DropdownButtonHideUnderline(
                               child: DropdownButton<DropDownModel>(
                                 isDense: true,
-                                value: vacationsStepsController
+                                value: finalExitController
                                     .selectedPaymentType.value,
                                 style: TextStyle(
                                   color: AppColors.white,
@@ -65,9 +65,9 @@ class TicketExchangeRequest extends StatelessWidget {
                                 ),
                                 dropdownColor: AppColors.blueDark,
                                 onChanged: (DropDownModel? newValue) =>
-                                    vacationsStepsController
+                                    finalExitController
                                         .onSelectPaymentType(newValue!),
-                                items: vacationsStepsController.paymentTypeList
+                                items: finalExitController.paymentTypeList
                                     .map<DropdownMenuItem<DropDownModel>>(
                                         (DropDownModel value) {
                                   return DropdownMenuItem<DropDownModel>(
@@ -88,7 +88,7 @@ class TicketExchangeRequest extends StatelessWidget {
                     ),
                     Obx(
                       () => GestureDetector(
-                        onTap: () => vacationsStepsController.selectDate(
+                        onTap: () => finalExitController.selectDate(
                             context, 'secondStep'),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.38,
@@ -98,14 +98,14 @@ class TicketExchangeRequest extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Due Date',
+                                'due_date'.tr,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.white,
                                 ),
                               ),
                               Text(
-                                vacationsStepsController.dueDate.value,
+                                finalExitController.dueDate.value,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.white,
@@ -130,7 +130,7 @@ class TicketExchangeRequest extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Description',
+                        'description'.tr,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -141,7 +141,7 @@ class TicketExchangeRequest extends StatelessWidget {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        controller: vacationsStepsController
+                        controller: finalExitController
                             .descriptionTextEditingController,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(

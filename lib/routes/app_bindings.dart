@@ -15,10 +15,10 @@ import 'package:request_hr/app/dashboard/tabs/meetings/meetings-details/controll
 import 'package:request_hr/app/dashboard/tabs/vacations/main/controllers/vacations_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/controllers/success_vacation_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/controllers/vacations_form_controller.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
 import 'package:request_hr/app/delete/controllers/delete_controller.dart';
 import 'package:request_hr/app/evaluations/evaluations-steps/main/controllers/evaluations_steps_controller.dart';
 import 'package:request_hr/app/evaluations/main/controllers/evaluations_controller.dart';
+import 'package:request_hr/app/final_exit/main/controllers/final_exit_controller.dart';
 import 'package:request_hr/app/loan/loan-details/controllers/loan_details_controller.dart';
 import 'package:request_hr/app/loan/main/controllers/loan_controller.dart';
 import 'package:request_hr/app/mail/create-mail/controllers/create_mail_controller.dart';
@@ -94,10 +94,10 @@ class VacationsFormPageBindings extends Bindings {
   }
 }
 
-class VacationsStepsPageBindings extends Bindings {
+class FinalExitPageBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<VacationsStepsController>(() => VacationsStepsController());
+    Get.lazyPut<FinalExitController>(() => FinalExitController());
   }
 }
 

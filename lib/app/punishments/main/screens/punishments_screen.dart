@@ -20,81 +20,77 @@ class PunishmentsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.gray2,
-      body: RefreshIndicator(
-        onRefresh: _punishmentsController.handleRefresh,
-        color: AppColors.white,
-        backgroundColor: AppColors.primary,
-        edgeOffset: MediaQuery.of(context).viewPadding.top,
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverFillRemaining(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: Container(
-                      height: 40.h,
-                      width: 40.h,
-                      margin: const EdgeInsets.only(left: 25),
-                      decoration: const ShapeDecoration(
-                        shape: OvalBorder(),
-                        color: AppColors.primary,
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.back,
-                          height: 20.h,
-                          color: AppColors.white,
-                          matchTextDirection: true,
+      body: Padding(
+        padding: const EdgeInsets.only(
+          right: 25.0,
+          left: 25.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+            GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(
+                height: 40.h,
+                width: 40.h,
+                decoration: const ShapeDecoration(
+                  shape: OvalBorder(),
+                  color: AppColors.primary,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    AppImages.back,
+                    height: 20.h,
+                    color: AppColors.white,
+                    matchTextDirection: true,
+                  ),
+                ),
+              ),
+            ),
+            10.h.verticalSpace,
+            !_punishmentsController.isAdmin
+                ? Text(
+                    'Your_punishments'.tr,
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 16.sp,
+                    ),
+                  )
+                : const SizedBox(),
+            _punishmentsController.isAdmin
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'create_punishments'.tr,
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16.sp,
                         ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        right: 25.0,
-                        left: 25.0,
-                      ),
+                      GestureDetector(
+                        onTap: _punishmentsController.navigateAndRefresh,
+                        child: Image.asset(
+                          AppImages.addDecision,
+                          height: 34.h,
+                          width: 34.h,
+                        ),
+                      )
+                    ],
+                  )
+                : const SizedBox(),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _punishmentsController.handleRefresh,
+                color: AppColors.white,
+                backgroundColor: AppColors.primary,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverFillRemaining(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          10.h.verticalSpace,
-                          !_punishmentsController.isAdmin
-                              ? Text(
-                                  'Your Punishments',
-                                  style: TextStyle(
-                                    color: AppColors.primary,
-                                    fontSize: 16.sp,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          _punishmentsController.isAdmin
-                              ? Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Create Punishments',
-                                      style: TextStyle(
-                                        color: AppColors.primary,
-                                        fontSize: 16.sp,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: _punishmentsController
-                                          .navigateAndRefresh,
-                                      child: Image.asset(
-                                        AppImages.addDecision,
-                                        height: 34.h,
-                                        width: 34.h,
-                                      ),
-                                    )
-                                  ],
-                                )
-                              : const SizedBox(),
                           20.h.verticalSpace,
                           _punishmentsController.punishmentList.value.isNotEmpty
                               ? CarouselSlider.builder(
@@ -146,7 +142,7 @@ class PunishmentsScreen extends StatelessWidget {
                                 )
                               : Center(
                                   child: Text(
-                                    'No Punishments found',
+                                    'no_Punishments_found'.tr,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                     ),
@@ -165,7 +161,11 @@ class PunishmentsScreen extends StatelessWidget {
                           Container(
                             width: double.infinity,
                             padding: EdgeInsets.only(
-                                top: 14.h, bottom: 23.h, left: 16),
+                              top: 14.h,
+                              bottom: 23.h,
+                              left: Get.locale?.languageCode == 'en' ? 16 : 0,
+                              right: Get.locale?.languageCode == 'ar' ? 16 : 0,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               color: AppColors.white,
@@ -182,7 +182,7 @@ class PunishmentsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Your Punishments Chart',
+                                  'your_punishments_chart'.tr,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     color: AppColors.primary,
@@ -200,9 +200,11 @@ class PunishmentsScreen extends StatelessWidget {
                                           borderData: FlBorderData(
                                             border: const Border(
                                               left: BorderSide(
-                                                  color: AppColors.gray7),
+                                                color: AppColors.gray7,
+                                              ),
                                               bottom: BorderSide(
-                                                  color: AppColors.gray7),
+                                                color: AppColors.gray7,
+                                              ),
                                             ),
                                           ),
                                           titlesData: FlTitlesData(
@@ -247,7 +249,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Jan',
+                                                          'jan'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -260,7 +262,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Feb',
+                                                          'feb'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -273,7 +275,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Mar',
+                                                          'mar'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -286,7 +288,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Apr',
+                                                          'apr'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -299,7 +301,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'May',
+                                                          'may'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -312,7 +314,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Jun',
+                                                          'jun'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -325,7 +327,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Jul',
+                                                          'jul'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -338,7 +340,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Aug',
+                                                          'aug'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -351,7 +353,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Sep',
+                                                          'sep'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -364,7 +366,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Oct',
+                                                          'oct'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -377,7 +379,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Nov',
+                                                          'nov'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -390,7 +392,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Dec',
+                                                          'dec'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -404,7 +406,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'no month',
+                                                          'no_month'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -478,7 +480,7 @@ class PunishmentsScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Your Punishments this Year ',
+                                        'your_punishments_year'.tr,
                                         style: TextStyle(
                                           color: AppColors.primary,
                                           fontSize: 16.sp,
@@ -486,7 +488,7 @@ class PunishmentsScreen extends StatelessWidget {
                                       ),
                                       5.h.verticalSpace,
                                       Text(
-                                        'Sorry. The Punishments  received this year',
+                                        'punishments_sent_year'.tr,
                                         style: TextStyle(
                                           color: AppColors.blueDark,
                                           fontSize: 12.sp,
@@ -506,7 +508,7 @@ class PunishmentsScreen extends StatelessWidget {
                                               color: AppColors.redLight,
                                             ),
                                             child: Text(
-                                              'Total:475/544541',
+                                              '${'total'}: 475/544541',
                                               style: TextStyle(
                                                 color: AppColors.white,
                                                 fontSize: 14.sp,
@@ -520,7 +522,8 @@ class PunishmentsScreen extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(21.h),
                                               border: Border.all(
-                                                  color: AppColors.redLight),
+                                                color: AppColors.redLight,
+                                              ),
                                               color: AppColors.white,
                                             ),
                                             child: Center(
@@ -556,12 +559,12 @@ class PunishmentsScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
-                    ),
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ],

@@ -32,7 +32,10 @@ class BonusDetailsScreen extends StatelessWidget {
                   child: Container(
                     height: 40.h,
                     width: 40.h,
-                    margin: const EdgeInsets.only(left: 25),
+                    margin: EdgeInsets.only(
+                      left: Get.locale?.languageCode == 'en' ? 25 : 0,
+                      right: Get.locale?.languageCode == 'ar' ? 25 : 0,
+                    ),
                     decoration: const ShapeDecoration(
                       shape: OvalBorder(),
                       color: AppColors.primary,
@@ -49,7 +52,7 @@ class BonusDetailsScreen extends StatelessWidget {
                 ),
                 10.h.horizontalSpace,
                 Text(
-                  'Create bonus',
+                  'create_bonus'.tr,
                   style: TextStyle(
                     fontSize: 16.sp,
                   ),
@@ -57,22 +60,31 @@ class BonusDetailsScreen extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 25.0),
+              padding: EdgeInsets.only(
+                right: Get.locale?.languageCode == 'en' ? 25.0 : 0,
+                left: Get.locale?.languageCode == 'ar' ? 25.0 : 0,
+              ),
               child: SizedBox(
                 height: 111.h,
                 width: double.infinity,
                 child: Stack(
-                  alignment: Alignment.centerLeft,
+                  alignment: Get.locale?.languageCode == 'en'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   children: [
                     Container(
                       width: 360.w,
                       height: 80.h,
-                      padding: const EdgeInsets.only(left: 25),
+                      padding: EdgeInsets.only(
+                        left: Get.locale?.languageCode == 'en' ? 25 : 0,
+                        right: Get.locale?.languageCode == 'ar' ? 25 : 0,
+                      ),
                       decoration: const BoxDecoration(
                         color: AppColors.primary,
                         image: DecorationImage(
                           image: AssetImage(AppImages.poster),
                           fit: BoxFit.cover,
+                          matchTextDirection: true,
                         ),
                       ),
                       child: Column(
@@ -98,8 +110,11 @@ class BonusDetailsScreen extends StatelessWidget {
                               ),
                               4.horizontalSpace,
                               Text(
-                                _bonusDetailsController
-                                    .employee.value.fullNameEn,
+                                Get.locale?.languageCode == 'en'
+                                    ? _bonusDetailsController
+                                        .employee.value.fullNameEn
+                                    : _bonusDetailsController
+                                        .employee.value.fullName,
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14.sp,
@@ -171,7 +186,8 @@ class BonusDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      right: 0,
+                      right: Get.locale?.languageCode == 'en' ? 0 : null,
+                      left: Get.locale?.languageCode == 'ar' ? 0 : null,
                       child: AvatarCircle(
                         image: AppImages.profile,
                         size: 112.h,
@@ -215,7 +231,7 @@ class BonusDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Depart",
+                          "depart".tr,
                           style: TextStyle(
                             color: AppColors.gray6,
                             fontSize: 14.sp,
@@ -246,10 +262,15 @@ class BonusDetailsScreen extends StatelessWidget {
                                   .map<DropdownMenuItem<Department>>(
                                       (Department value) {
                                 return DropdownMenuItem<Department>(
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Get.locale?.languageCode == 'en'
+                                      ? Alignment.centerLeft
+                                      : Alignment.centerRight,
                                   value: value,
                                   child: Text(
-                                    value.departmentNameEn ?? "",
+                                    (Get.locale?.languageCode == 'en'
+                                            ? value.departmentNameEn
+                                            : value.departmentNameAr) ??
+                                        '',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
@@ -285,7 +306,7 @@ class BonusDetailsScreen extends StatelessWidget {
                       children: [
                         5.h.verticalSpace,
                         Text(
-                          "Choose Employee",
+                          "choose_employee".tr,
                           style: TextStyle(
                             color: AppColors.gray6,
                             fontSize: 14.sp,
@@ -293,7 +314,7 @@ class BonusDetailsScreen extends StatelessWidget {
                         ),
                         CustomDropdown<Employee>.searchRequest(
                           items: _bonusDetailsController.employeesList,
-                          hintText: "Select employee",
+                          hintText: "select_employee".tr,
                           closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
                           listItemBuilder:
                               (context, employee, isSelected, onItemSelect) {
@@ -325,7 +346,7 @@ class BonusDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: double.infinity,
-                    title: 'Bonus Amount',
+                    title: 'bonus_amount'.tr,
                     inputType: 'input',
                     nbrLines: 1,
                     textEditingController:
@@ -343,7 +364,7 @@ class BonusDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: double.infinity,
-                    title: 'Bonus Title',
+                    title: 'bonus_title'.tr,
                     inputType: 'input',
                     nbrLines: 1,
                     keyboardType: TextInputType.text,
@@ -353,7 +374,7 @@ class BonusDetailsScreen extends StatelessWidget {
                   13.h.verticalSpace,
                   InputForm(
                     width: double.infinity,
-                    title: 'Remark',
+                    title: 'remark'.tr,
                     inputType: 'input',
                     textEditingController:
                         _bonusDetailsController.remarkTextEditingController,

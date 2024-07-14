@@ -1,11 +1,11 @@
 class En {
   Map<String, String> get en => {
         ///PUBLIC
-        'cancel': 'إلغاء',
+        'cancel': 'Cancel',
         'continue': 'Continue',
         'pending': 'Pending',
         'all': 'All',
-        'approved': 'موافق',
+        'approved': 'Approved',
         'create': 'Create',
         'total': 'Total',
         'send': 'Send',
@@ -94,7 +94,6 @@ class En {
         'official_leaves':
             'The official leaves that the employee will take without deducting them from his annual leave',
         'next_vacation': 'Next Vacation',
-
         'national_day': 'National day',
         'national_day_date': '23 september',
         'founding_day': 'Founding day',
@@ -103,7 +102,6 @@ class En {
         'eid_al_adha_date': '9-12 Dhul-Hijjah',
         'eid_al_fitr': 'Eid al-Fitr',
         'eid_al_fitr_date': '1-3 Shawwal',
-
         'vacation_type': 'Vacation Type',
         'due_date': 'Due Date',
         'date_from': 'Date From',
@@ -144,6 +142,9 @@ class En {
         'no_month': 'no month',
         'bonus_year': 'Your Bonus  this Year',
         'rewards_year': 'Congratulations. The rewards I received this year',
+        'create_bonus': 'Create bonus',
+        'bonus_amount': 'Bonus Amount',
+        'bonus_title': 'Bonus Title',
 
         ///NOTIFICATION SCREEN
         'notifications': 'Notifications',
@@ -200,8 +201,103 @@ class En {
         'agree': 'Agree',
         'disagree': 'Disagree',
         'evaluation_model': 'Evaluation form model',
+        'dev_needs': 'Development / Training Needs',
+        'supervisor_comment': 'Supervisor comment',
+        'action_plans': 'Action plans',
+        'employee_comment': 'Employee comment',
+
+        ///FINAL EXIT
+        'final_exit_approval': 'Final exit approval',
+        'ticket_exchange': 'Ticket exchange',
+        'request': 'request',
+        'disclaimer': 'Disclaimer',
+        'i_admit': 'I Admit',
+        'end_working': 'End of working day',
+        'adopted_from': 'Adopted from',
+        'final_exit_desc':
+            'I pledge to sign below to pay the phone, water and lighting bills, as well as any financial obligations, such as advances,etc , to Al-Ansari Specialized Hospital',
+        'holder': 'Data for the holder of the leave in the home country',
+        'telephone': 'Telephone',
+        'phone_number': 'Phone Number',
+        'address': 'Address',
+        'last_working_day': 'Last day of work in',
+        'reason_for_leaving': 'Reason for leaving',
+
+        /// SUCCESS FINAL EXIT
+        'success_transaction': 'Your Transaction Done Successfully!!',
+        'click_continue': 'Click on continue button to continue',
+
+        ///ALERT
+        'create_alert': 'Create alert',
+        'your_alerts': 'Your Alerts',
+        'no_alerts': 'No Alert found',
+        'your_alerts_chart': 'Your Alerts Chart',
+        'your_alerts_year': 'Your Alerts this year',
+        'alerts_sent_year': 'Sorry. The warnings sent to you during this year',
+        'choose_employee': 'Choose Employee',
+        'alert_title': 'Alert Title',
+
+        ///PUNISHMENTS
+        'Your_punishments': 'Your Punishments',
+        'create_punishments': 'Create Punishments',
+        'no_Punishments_found': 'No Punishments found',
+        'your_punishments_chart': 'Your Punishments Chart',
+        'your_punishments_year': 'Your Punishments this Year',
+        'punishments_sent_year': 'Sorry. The Punishments  received this year',
+        'punishment_amount': 'Punishment Amount',
+        'punishment_title': 'Punishment Title',
+
+        ///COMPLAINT
+        'create_complaint': 'Create Complaint',
+        'no_complaint_found': 'No Complaint found',
+        'your_complaint_chart': 'Your Complaint Chart',
+        'your_complaint_year': 'Your Complaint this year',
+        'complaints_sent_year':
+            'Sorry. The Complaint sent to you during this year',
+        'send_complaint_to': 'Send Complaint To',
+        'select_job_type': 'Select job type',
+
+        ///CUSTODY
+        'request_custody': 'Request Custody',
+        'create_custody': 'Create custody',
+        'total_custody_amount': 'Total Custody Amount',
+        'custody_name': 'Custody Name',
+        'custody_type': 'Custody Type',
+        'date_custody': 'Date Custody',
+        'cash': 'Cash',
+        'check': 'Check',
+        'bank_transfer': 'Bank Transfer',
+        'choose': 'Choose',
+        'temporary': 'Temporary',
+        'permanent': 'Permanent',
 
         ///SIGN IN OUT SCREEN
         'create_signin_out': 'Create SignIn / SignOut',
+        'time': 'time',
+        'location': 'Location',
+        'area': 'Area',
+        'the_date': 'Date',
+
+        ///TICKET
+        'create_Ticket': 'Create New Ticket',
+        'request_ticket': 'Request ticket',
+        'data_not_completed': 'Travel Data Not Completed',
+        'note': 'Note',
+        'contracted': 'Contracted',
+        'wife': 'Wife',
+        'birth_date': 'Birth Date',
+        'son_less_than_12': 'son is less than 12 Years old',
+        'son_less_than_18': 'The second son is less than 18 Years old',
+
+        ///PURCHASE
+        'request_purchase': 'Request Purchase',
+        'responsible_person': 'Responsible Person',
+        'purchase_order_no': 'Purchase Order NO',
+        'order_date': 'Order Date',
+        'category': 'Category',
+        'product_name': 'Product Name',
+        'unit': 'Unit',
+        'quantity': 'Quantity',
+        'name_not_in_list': 'Name Not In List',
       };
 }

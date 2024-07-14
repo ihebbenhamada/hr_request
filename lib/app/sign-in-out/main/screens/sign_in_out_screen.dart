@@ -47,7 +47,7 @@ class SignInOutScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Sign in & Out',
+                  'sign_in_out'.tr,
                   style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 16.sp,

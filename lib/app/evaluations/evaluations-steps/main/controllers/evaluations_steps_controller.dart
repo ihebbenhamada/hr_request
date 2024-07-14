@@ -121,12 +121,18 @@ class EvaluationsStepsController extends BaseController
       duration: const Duration(milliseconds: 400),
     );
 
-    firstStepContainerAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_animationFirstStepContainer);
-    secondStepContainerAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_animationSecondStepContainer);
-    thirdStepContainerAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_animationThirdStepContainer);
+    firstStepContainerAnimation = Tween(
+            begin: Get.locale?.languageCode == 'en' ? 0.0 : 1.0,
+            end: Get.locale?.languageCode == 'en' ? 1.0 : 0.0)
+        .animate(_animationFirstStepContainer);
+    secondStepContainerAnimation = Tween(
+            begin: Get.locale?.languageCode == 'en' ? 0.0 : 1.0,
+            end: Get.locale?.languageCode == 'en' ? 1.0 : 0.0)
+        .animate(_animationSecondStepContainer);
+    thirdStepContainerAnimation = Tween(
+            begin: Get.locale?.languageCode == 'en' ? 0.0 : 1.0,
+            end: Get.locale?.languageCode == 'en' ? 1.0 : 0.0)
+        .animate(_animationThirdStepContainer);
     steps.value = [
       FormType(
         evaluationsStepsService: _evaluationsStepsService,
@@ -171,113 +177,7 @@ class EvaluationsStepsController extends BaseController
       if (activePage.value == 0) {
         if (selectedEvalForm.value.value != "0" &&
             selectedEmployee.value.id != 0) {
-          AppInterceptor.showLoader();
-          _evaluationsStepsService
-              .getFormData(selectedEvalForm.value.value ?? '')
-              .then((value) {
-            if (value != null) {
-              bool isEnglish = Get.locale?.languageCode == 'en';
-              evaluationFormData.value = value;
-
-              ///area1
-              workPlaceFactoryTitle.value = isEnglish
-                  ? value.evaluationMainItems![0].nameEn
-                  : value.evaluationMainItems![0].nameAr;
-              workPlaceDesc1.value = isEnglish
-                  ? value.evaluationMainItems![0].evaluationItems[0]
-                      .evaluationItemEn
-                  : value.evaluationMainItems![0].evaluationItems[0]
-                      .evaluationItemAr;
-              workPlaceDesc2.value = isEnglish
-                  ? value.evaluationMainItems![0].evaluationItems[1]
-                      .evaluationItemEn
-                  : value.evaluationMainItems![0].evaluationItems[1]
-                      .evaluationItemAr;
-
-              ///area2
-              relationShipCollageTitle.value = isEnglish
-                  ? value.evaluationMainItems![1].nameEn
-                  : value.evaluationMainItems![1].nameAr;
-              relationShipDesc1.value = isEnglish
-                  ? value.evaluationMainItems![1].evaluationItems[0]
-                      .evaluationItemEn
-                  : value.evaluationMainItems![1].evaluationItems[0]
-                      .evaluationItemAr;
-              relationShipDesc2.value = isEnglish
-                  ? value.evaluationMainItems![1].evaluationItems[1]
-                      .evaluationItemEn
-                  : value.evaluationMainItems![1].evaluationItems[1]
-                      .evaluationItemAr;
-              relationShipDesc3.value = isEnglish
-                  ? value.evaluationMainItems![1].evaluationItems[2]
-                      .evaluationItemEn
-                  : value.evaluationMainItems![1].evaluationItems[2]
-                      .evaluationItemAr;
-
-              ///area3
-              managementDepartmentTitle.value = isEnglish
-                  ? value.evaluationMainItems![2].nameEn
-                  : value.evaluationMainItems![2].nameAr;
-              managementDepartmentDesc.value = isEnglish
-                  ? value.evaluationMainItems![2].evaluationItems[0]
-                      .evaluationItemEn
-                  : value.evaluationMainItems![2].evaluationItems[0]
-                      .evaluationItemAr;
-
-              ///area4
-              directManagementTitle.value = isEnglish
-                  ? value.evaluationMainItems![3].nameEn
-                  : value.evaluationMainItems![3].nameAr;
-              directManagementDesc.value = isEnglish
-                  ? value.evaluationMainItems![3].evaluationItems[0]
-                      .evaluationItemEn
-                  : value.evaluationMainItems![3].evaluationItems[0]
-                      .evaluationItemAr;
-              recItemsList = value.recommendationItems!;
-              steps.value = [
-                FormType(
-                  evaluationsStepsService: _evaluationsStepsService,
-                  onSelect: (DropDownModel selectedEval) =>
-                      onSelectEvalForm(selectedEval),
-                  onSelectDep: onSelectDep,
-                  onSelectEmp: onSelectEmp,
-                ),
-                FormA(
-                  jobDescSliderValue: jobDescSliderValue,
-                  onChangeSlider: (value, type) => onChangeSlider(value, type),
-                  importantRoleValue: importantRoleValue,
-                  managementEncourageValue: managementEncourageValue,
-                  memberQualifiedValue: memberQualifiedValue,
-                  discusesJobDutiesValue: discusesJobDutiesValue,
-                  helpManagingWorkValue: helpManagingWorkValue,
-                  understandManagerExpectationValue:
-                      understandManagerExpectationValue,
-                  workPlaceFactoryTitle: workPlaceFactoryTitle,
-                  relationShipCollageTitle: relationShipCollageTitle,
-                  managementDepartmentTitle: managementDepartmentTitle,
-                  directManagementTitle: directManagementTitle,
-                  workPlaceDesc1: workPlaceDesc1,
-                  workPlaceDesc2: workPlaceDesc2,
-                  relationShipDesc1: relationShipDesc1,
-                  relationShipDesc2: relationShipDesc2,
-                  relationShipDesc3: relationShipDesc3,
-                  managementDepartmentDesc: managementDepartmentDesc,
-                  directManagementDesc: directManagementDesc,
-                  totalScale: totalScale,
-                ),
-                Recommendation(
-                  recItemsList: value.recommendationItems!,
-                  onCheckBox: onCheckBox,
-                ),
-                const EmployeePart(),
-              ];
-              update();
-
-              paginate(activePage.value + 1, true);
-              animateFirstStep('forward');
-            }
-            AppInterceptor.hideLoader();
-          });
+          getFormData();
         }
         return;
       }
@@ -476,5 +376,101 @@ class EvaluationsStepsController extends BaseController
 
   onSelectEmp(Employee value) {
     selectedEmployee.value = value;
+  }
+
+  getFormData() {
+    AppInterceptor.showLoader();
+    _evaluationsStepsService
+        .getFormData(selectedEvalForm.value.value ?? '')
+        .then((value) {
+      if (value != null) {
+        bool isEnglish = Get.locale?.languageCode == 'en';
+        evaluationFormData.value = value;
+
+        ///area1
+        workPlaceFactoryTitle.value = isEnglish
+            ? value.evaluationMainItems![0].nameEn
+            : value.evaluationMainItems![0].nameAr;
+        workPlaceDesc1.value = isEnglish
+            ? value.evaluationMainItems![0].evaluationItems[0].evaluationItemEn
+            : value.evaluationMainItems![0].evaluationItems[0].evaluationItemAr;
+        workPlaceDesc2.value = isEnglish
+            ? value.evaluationMainItems![0].evaluationItems[1].evaluationItemEn
+            : value.evaluationMainItems![0].evaluationItems[1].evaluationItemAr;
+
+        ///area2
+        relationShipCollageTitle.value = isEnglish
+            ? value.evaluationMainItems![1].nameEn
+            : value.evaluationMainItems![1].nameAr;
+        relationShipDesc1.value = isEnglish
+            ? value.evaluationMainItems![1].evaluationItems[0].evaluationItemEn
+            : value.evaluationMainItems![1].evaluationItems[0].evaluationItemAr;
+        relationShipDesc2.value = isEnglish
+            ? value.evaluationMainItems![1].evaluationItems[1].evaluationItemEn
+            : value.evaluationMainItems![1].evaluationItems[1].evaluationItemAr;
+        relationShipDesc3.value = isEnglish
+            ? value.evaluationMainItems![1].evaluationItems[2].evaluationItemEn
+            : value.evaluationMainItems![1].evaluationItems[2].evaluationItemAr;
+
+        ///area3
+        managementDepartmentTitle.value = isEnglish
+            ? value.evaluationMainItems![2].nameEn
+            : value.evaluationMainItems![2].nameAr;
+        managementDepartmentDesc.value = isEnglish
+            ? value.evaluationMainItems![2].evaluationItems[0].evaluationItemEn
+            : value.evaluationMainItems![2].evaluationItems[0].evaluationItemAr;
+
+        ///area4
+        directManagementTitle.value = isEnglish
+            ? value.evaluationMainItems![3].nameEn
+            : value.evaluationMainItems![3].nameAr;
+        directManagementDesc.value = isEnglish
+            ? value.evaluationMainItems![3].evaluationItems[0].evaluationItemEn
+            : value.evaluationMainItems![3].evaluationItems[0].evaluationItemAr;
+        recItemsList = value.recommendationItems!;
+        steps.value = [
+          FormType(
+            evaluationsStepsService: _evaluationsStepsService,
+            onSelect: (DropDownModel selectedEval) =>
+                onSelectEvalForm(selectedEval),
+            onSelectDep: onSelectDep,
+            onSelectEmp: onSelectEmp,
+          ),
+          FormA(
+            jobDescSliderValue: jobDescSliderValue,
+            onChangeSlider: (value, type) => onChangeSlider(value, type),
+            importantRoleValue: importantRoleValue,
+            managementEncourageValue: managementEncourageValue,
+            memberQualifiedValue: memberQualifiedValue,
+            discusesJobDutiesValue: discusesJobDutiesValue,
+            helpManagingWorkValue: helpManagingWorkValue,
+            understandManagerExpectationValue:
+                understandManagerExpectationValue,
+            workPlaceFactoryTitle: workPlaceFactoryTitle,
+            relationShipCollageTitle: relationShipCollageTitle,
+            managementDepartmentTitle: managementDepartmentTitle,
+            directManagementTitle: directManagementTitle,
+            workPlaceDesc1: workPlaceDesc1,
+            workPlaceDesc2: workPlaceDesc2,
+            relationShipDesc1: relationShipDesc1,
+            relationShipDesc2: relationShipDesc2,
+            relationShipDesc3: relationShipDesc3,
+            managementDepartmentDesc: managementDepartmentDesc,
+            directManagementDesc: directManagementDesc,
+            totalScale: totalScale,
+          ),
+          Recommendation(
+            recItemsList: value.recommendationItems!,
+            onCheckBox: onCheckBox,
+          ),
+          const EmployeePart(),
+        ];
+        update();
+
+        paginate(activePage.value + 1, true);
+        animateFirstStep('forward');
+      }
+      AppInterceptor.hideLoader();
+    });
   }
 }

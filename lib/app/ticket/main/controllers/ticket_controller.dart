@@ -99,4 +99,8 @@ class TicketController extends BaseController {
       getTickets();
     }
   }
+
+  Future<void> handleRefresh() async {
+    getTickets();
+  }
 }

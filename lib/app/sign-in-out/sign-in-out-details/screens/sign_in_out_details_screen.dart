@@ -115,7 +115,7 @@ class SignInOutDetailsScreen extends StatelessWidget {
                             ),
                             6.horizontalSpace,
                             Text(
-                              'Sign In',
+                              'sign_in'.tr,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.blueDark,
@@ -169,7 +169,7 @@ class SignInOutDetailsScreen extends StatelessWidget {
                             ),
                             6.horizontalSpace,
                             Text(
-                              'Sign Out',
+                              'sign_out'.tr,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.blueDark,
@@ -190,7 +190,7 @@ class SignInOutDetailsScreen extends StatelessWidget {
                     () => InputForm(
                       height: 55.h,
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                      title: 'Date',
+                      title: 'the_date'.tr,
                       inputType: 'date',
                       enabled: false,
                       text: DateFormat('dd-MM-yyyy')
@@ -204,7 +204,7 @@ class SignInOutDetailsScreen extends StatelessWidget {
                     () => InputForm(
                       height: 55.h,
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                      title: 'Time',
+                      title: 'time'.tr,
                       inputType: 'text',
                       text: _signInOutDetailsController.time.value,
                     ),
@@ -216,7 +216,7 @@ class SignInOutDetailsScreen extends StatelessWidget {
                 () => InputForm(
                   height: 55.h,
                   width: double.infinity,
-                  title: 'Location',
+                  title: 'location'.tr,
                   inputType: 'text',
                   text: _signInOutDetailsController.locationTitle.value,
                 ),
@@ -226,7 +226,7 @@ class SignInOutDetailsScreen extends StatelessWidget {
                 () => InputForm(
                   height: 55.h,
                   width: double.infinity,
-                  title: 'Area',
+                  title: 'area'.tr,
                   inputType: 'text',
                   text: _signInOutDetailsController.area.value,
                 ),

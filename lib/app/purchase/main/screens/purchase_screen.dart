@@ -49,7 +49,7 @@ class PurchaseScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Request Purchase',
+                  'request_purchase'.tr,
                   style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 16.sp,

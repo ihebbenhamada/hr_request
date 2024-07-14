@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 import '../../../config/image_urls/image_urls.dart';
@@ -22,7 +23,9 @@ class TicketItem extends StatelessWidget {
       onTap: onClick,
       child: Stack(
         clipBehavior: Clip.none,
-        alignment: Alignment.bottomRight,
+        alignment: Get.locale?.languageCode == 'en'
+            ? Alignment.bottomRight
+            : Alignment.bottomLeft,
         children: [
           Container(
             width: 114,
@@ -60,7 +63,8 @@ class TicketItem extends StatelessWidget {
           ),
           Positioned(
             bottom: 10.h,
-            right: 6,
+            right: Get.locale?.languageCode == 'en' ? 6 : null,
+            left: Get.locale?.languageCode == 'ar' ? 6 : null,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(

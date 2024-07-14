@@ -6,8 +6,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/auth/login/models/login_response.dart';
 import 'package:request_hr/app/complaint/main/screens/complaint_screen.dart';
 import 'package:request_hr/app/custody/main/screens/custody_screen.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
 import 'package:request_hr/app/evaluations/main/screens/evaluations_screen.dart';
+import 'package:request_hr/app/final_exit/main/screens/final_exit_screen.dart';
 import 'package:request_hr/app/loan/main/screens/loan_screen.dart';
 import 'package:request_hr/app/mail/main/screens/mail_screen.dart';
 import 'package:request_hr/app/notification/screens/notifications_screen.dart';
@@ -287,7 +287,7 @@ class DashboardController extends BaseController {
         // Navigate to final exit
         Get.back();
         pageIndex.value = 1;
-        Get.to(() => VacationsStepsScreen());
+        Get.to(() => FinalExitScreen());
         vacationsIconColor.value = AppColors.primary;
         searchIconColor.value = AppColors.white;
         innTechIconColor.value = AppColors.white;

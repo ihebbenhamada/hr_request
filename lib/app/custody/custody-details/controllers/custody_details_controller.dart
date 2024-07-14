@@ -28,14 +28,14 @@ class CustodyDetailsController extends BaseController {
   Rx<DateTime> custodyDate = DateTime.now().obs;
   RxInt id = 0.obs;
   final List<DropDownModel> paymentTypeList = [
-    DropDownModel(disabled: false, text: 'Cash', value: '1'),
-    DropDownModel(disabled: false, text: 'Check', value: '2'),
-    DropDownModel(disabled: false, text: 'Bank Transfer', value: '4'),
+    DropDownModel(disabled: false, text: 'cash'.tr, value: '1'),
+    DropDownModel(disabled: false, text: 'check'.tr, value: '2'),
+    DropDownModel(disabled: false, text: 'bank_transfer'.tr, value: '4'),
   ];
   final List<DropDownModel> custodyTypeList = [
-    DropDownModel(disabled: false, text: 'Choose', value: '0'),
-    DropDownModel(disabled: false, text: 'Temporary', value: '1'),
-    DropDownModel(disabled: false, text: 'Permanent', value: '2'),
+    DropDownModel(disabled: false, text: 'choose'.tr, value: '0'),
+    DropDownModel(disabled: false, text: 'temporary'.tr, value: '1'),
+    DropDownModel(disabled: false, text: 'permanent'.tr, value: '2'),
   ];
   Rx<DropDownModel> selectedPaymentType =
       DropDownModel(disabled: false, text: "", value: "").obs;

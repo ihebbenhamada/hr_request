@@ -21,24 +21,35 @@ class TicketDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
-            GestureDetector(
-              onTap: () => Get.back(),
-              child: Container(
-                height: 40.h,
-                width: 40.h,
-                decoration: const ShapeDecoration(
-                  shape: OvalBorder(),
-                  color: AppColors.primary,
-                ),
-                child: Center(
-                  child: Image.asset(
-                    AppImages.back,
-                    height: 20.h,
-                    color: AppColors.white,
-                    matchTextDirection: true,
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Container(
+                    height: 40.h,
+                    width: 40.h,
+                    decoration: const ShapeDecoration(
+                      shape: OvalBorder(),
+                      color: AppColors.primary,
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        AppImages.back,
+                        height: 20.h,
+                        color: AppColors.white,
+                        matchTextDirection: true,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                10.h.horizontalSpace,
+                Text(
+                  'create_Ticket'.tr,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
             ),
             20.h.verticalSpace,
             Expanded(
@@ -82,7 +93,7 @@ class TicketDetailsScreen extends StatelessWidget {
                           ),
                           10.horizontalSpace,
                           Text(
-                            'Travel Data Not Completed',
+                            'data_not_completed'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -99,7 +110,7 @@ class TicketDetailsScreen extends StatelessWidget {
                           height: 55.h,
                           width:
                               MediaQuery.of(context).size.width * 0.485 - 25.0,
-                          title: 'Payment Type',
+                          title: 'payment_type'.tr,
                           inputType: 'select',
                           enabled: _ticketDetailsController.isEnabled,
                           selectedDropDownItem:
@@ -115,7 +126,7 @@ class TicketDetailsScreen extends StatelessWidget {
                             height: 55.h,
                             width: MediaQuery.of(context).size.width * 0.485 -
                                 25.0,
-                            title: 'Due Date',
+                            title: 'due_date'.tr,
                             inputType: 'date',
                             enabled: _ticketDetailsController.isEnabled,
                             text: DateFormat('dd-MM-yyyy')
@@ -129,7 +140,7 @@ class TicketDetailsScreen extends StatelessWidget {
                     15.h.verticalSpace,
                     InputForm(
                       width: double.infinity,
-                      title: 'Note',
+                      title: 'note'.tr,
                       enabled: _ticketDetailsController.isEnabled,
                       inputType: 'input',
                       nbrLines: 3,
@@ -137,11 +148,16 @@ class TicketDetailsScreen extends StatelessWidget {
                           .firstNoteTextEditingController,
                     ),
                     15.h.verticalSpace,
+
                     Container(
                       width: double.infinity,
                       height: 44.h,
                       padding: EdgeInsets.only(
-                          top: 3.h, bottom: 3.h, left: 3.h, right: 21),
+                        top: 3.h,
+                        bottom: 3.h,
+                        left: Get.locale?.languageCode == 'en' ? 3.h : 21,
+                        right: Get.locale?.languageCode == 'en' ? 21 : 3.h,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(22),
                         color: AppColors.primary,
@@ -176,7 +192,7 @@ class TicketDetailsScreen extends StatelessWidget {
                               ),
                               10.horizontalSpace,
                               Text(
-                                'Contracted',
+                                'contracted'.tr,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.white,
@@ -229,7 +245,7 @@ class TicketDetailsScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width *
                                           0.485 -
                                       25.0,
-                                  title: 'Name',
+                                  title: 'name'.tr,
                                   inputType: 'input',
                                   enabled: _ticketDetailsController.isEnabled,
                                   nbrLines: 1,
@@ -243,7 +259,7 @@ class TicketDetailsScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width *
                                           0.485 -
                                       25.0,
-                                  title: 'Birth Date',
+                                  title: 'birth_date'.tr,
                                   inputType: 'date',
                                   enabled: _ticketDetailsController.isEnabled,
                                   text: DateFormat('dd-MM-yyyy').format(
@@ -257,7 +273,7 @@ class TicketDetailsScreen extends StatelessWidget {
                             15.h.verticalSpace,
                             InputForm(
                               width: double.infinity,
-                              title: 'Note',
+                              title: 'note'.tr,
                               inputType: 'input',
                               enabled: _ticketDetailsController.isEnabled,
                               nbrLines: 3,
@@ -274,7 +290,11 @@ class TicketDetailsScreen extends StatelessWidget {
                       width: double.infinity,
                       height: 44.h,
                       padding: EdgeInsets.only(
-                          top: 3.h, bottom: 3.h, left: 3.h, right: 21),
+                        top: 3.h,
+                        bottom: 3.h,
+                        left: Get.locale?.languageCode == 'en' ? 3.h : 21,
+                        right: Get.locale?.languageCode == 'en' ? 21 : 3.h,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(22),
                         color: AppColors.primary,
@@ -309,7 +329,7 @@ class TicketDetailsScreen extends StatelessWidget {
                               ),
                               10.horizontalSpace,
                               Text(
-                                'Wife',
+                                'wife'.tr,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.white,
@@ -362,7 +382,7 @@ class TicketDetailsScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width *
                                           0.485 -
                                       25.0,
-                                  title: 'Name',
+                                  title: 'name'.tr,
                                   inputType: 'input',
                                   enabled: _ticketDetailsController.isEnabled,
                                   nbrLines: 1,
@@ -376,7 +396,7 @@ class TicketDetailsScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width *
                                           0.485 -
                                       25.0,
-                                  title: 'Birth Date',
+                                  title: 'birth_date'.tr,
                                   inputType: 'date',
                                   enabled: _ticketDetailsController.isEnabled,
                                   text: DateFormat('dd-MM-yyyy').format(
@@ -390,7 +410,7 @@ class TicketDetailsScreen extends StatelessWidget {
                             15.h.verticalSpace,
                             InputForm(
                               width: double.infinity,
-                              title: 'Note',
+                              title: 'note'.tr,
                               inputType: 'input',
                               nbrLines: 3,
                               enabled: _ticketDetailsController.isEnabled,
@@ -407,7 +427,11 @@ class TicketDetailsScreen extends StatelessWidget {
                       width: double.infinity,
                       height: 44.h,
                       padding: EdgeInsets.only(
-                          top: 3.h, bottom: 3.h, left: 3.h, right: 21),
+                        top: 3.h,
+                        bottom: 3.h,
+                        left: Get.locale?.languageCode == 'en' ? 3.h : 21,
+                        right: Get.locale?.languageCode == 'en' ? 21 : 3.h,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(22),
                         color: AppColors.primary,
@@ -442,7 +466,7 @@ class TicketDetailsScreen extends StatelessWidget {
                               ),
                               10.horizontalSpace,
                               Text(
-                                'son is less than 12 Years old',
+                                'son_less_than_12'.tr,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.white,
@@ -496,7 +520,7 @@ class TicketDetailsScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width *
                                           0.485 -
                                       25.0,
-                                  title: 'Name',
+                                  title: 'name'.tr,
                                   inputType: 'input',
                                   nbrLines: 1,
                                   enabled: _ticketDetailsController.isEnabled,
@@ -510,7 +534,7 @@ class TicketDetailsScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width *
                                           0.485 -
                                       25.0,
-                                  title: 'Birth Date',
+                                  title: 'birth_date'.tr,
                                   inputType: 'date',
                                   enabled: _ticketDetailsController.isEnabled,
                                   text: DateFormat('dd-MM-yyyy').format(
@@ -525,7 +549,7 @@ class TicketDetailsScreen extends StatelessWidget {
                             15.h.verticalSpace,
                             InputForm(
                               width: double.infinity,
-                              title: 'Note',
+                              title: 'note'.tr,
                               inputType: 'input',
                               nbrLines: 3,
                               enabled: _ticketDetailsController.isEnabled,
@@ -542,7 +566,11 @@ class TicketDetailsScreen extends StatelessWidget {
                       width: double.infinity,
                       height: 44.h,
                       padding: EdgeInsets.only(
-                          top: 3.h, bottom: 3.h, left: 3.h, right: 21),
+                        top: 3.h,
+                        bottom: 3.h,
+                        left: Get.locale?.languageCode == 'en' ? 3.h : 21,
+                        right: Get.locale?.languageCode == 'en' ? 21 : 3.h,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(22),
                         color: AppColors.primary,
@@ -577,7 +605,7 @@ class TicketDetailsScreen extends StatelessWidget {
                               ),
                               10.horizontalSpace,
                               Text(
-                                'The second son is less than 18 Years old',
+                                'son_less_than_18'.tr,
                                 style: TextStyle(
                                   fontSize: 13.sp,
                                   color: AppColors.white,
@@ -631,7 +659,7 @@ class TicketDetailsScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width *
                                           0.485 -
                                       25.0,
-                                  title: 'Name',
+                                  title: 'name'.tr,
                                   inputType: 'input',
                                   nbrLines: 1,
                                   enabled: _ticketDetailsController.isEnabled,
@@ -646,7 +674,7 @@ class TicketDetailsScreen extends StatelessWidget {
                                     width: MediaQuery.of(context).size.width *
                                             0.485 -
                                         25.0,
-                                    title: 'Birth Date',
+                                    title: 'birth_date'.tr,
                                     inputType: 'date',
                                     enabled: _ticketDetailsController.isEnabled,
                                     text: DateFormat('dd-MM-yyyy').format(
@@ -661,7 +689,7 @@ class TicketDetailsScreen extends StatelessWidget {
                             15.h.verticalSpace,
                             InputForm(
                               width: double.infinity,
-                              title: 'Note',
+                              title: 'note'.tr,
                               inputType: 'input',
                               nbrLines: 3,
                               enabled: _ticketDetailsController.isEnabled,

@@ -28,166 +28,171 @@ class PurchaseDetailsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
-              GestureDetector(
-                onTap: () => Get.back(),
-                child: Container(
-                  height: 40.h,
-                  width: 40.h,
-                  decoration: const ShapeDecoration(
-                    shape: OvalBorder(),
-                    color: AppColors.primary,
-                  ),
-                  child: Center(
-                    child: Image.asset(
-                      AppImages.back,
-                      height: 20.h,
-                      color: AppColors.white,
-                      matchTextDirection: true,
-                    ),
-                  ),
-                ),
-              ),
-              20.h.verticalSpace,
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    height: 55.h,
-                    padding: const EdgeInsets.only(
-                      left: 11,
-                      right: 11,
-                      bottom: 0,
-                      top: 0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(12.h),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x29000000),
-                          blurRadius: 3,
-                          offset: Offset(0, 3),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Department',
-                          style: TextStyle(
-                            color: AppColors.gray6,
-                            fontSize: 14.sp,
-                          ),
+                  GestureDetector(
+                    onTap: () => Get.back(),
+                    child: Container(
+                      height: 40.h,
+                      width: 40.h,
+                      decoration: const ShapeDecoration(
+                        shape: OvalBorder(),
+                        color: AppColors.primary,
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          AppImages.back,
+                          height: 20.h,
+                          color: AppColors.white,
+                          matchTextDirection: true,
                         ),
-                        3.verticalSpace,
-                        Obx(
-                          () => DropdownButtonHideUnderline(
-                            child: DropdownButton<Department>(
-                              isDense: true,
-                              value: _purchaseDetailsController
-                                  .selectedDepartment.value,
-                              style: TextStyle(
-                                color: AppColors.blueDark,
-                                fontSize: 14.sp,
-                              ),
-                              isExpanded: true,
-                              alignment: Alignment.bottomCenter,
-                              icon: Image.asset(
-                                AppImages.arrowDown,
-                                height: 8.h,
-                              ),
-                              onChanged: (Department? newValue) =>
-                                  _purchaseDetailsController.onSelectDepartment(
-                                      newValue ?? Department(id: 0)),
-                              items: _purchaseDetailsController.departmentList
-                                  .map<DropdownMenuItem<Department>>(
-                                      (Department value) {
-                                return DropdownMenuItem<Department>(
-                                  alignment: Alignment.centerLeft,
-                                  value: value,
-                                  child: Text(value.departmentNameAr ?? ""),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                  10.h.verticalSpace,
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    height: 55.h,
-                    padding: const EdgeInsets.only(
-                      left: 11,
-                      right: 11,
-                      bottom: 0,
-                      top: 0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(12.h),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x29000000),
-                          blurRadius: 3,
-                          offset: Offset(0, 3),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Responsible Person',
-                          style: TextStyle(
-                            color: AppColors.gray6,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                        3.verticalSpace,
-                        Obx(
-                          () => DropdownButtonHideUnderline(
-                            child: DropdownButton<Employee>(
-                              isDense: true,
-                              value: _purchaseDetailsController
-                                  .selectedResponsible.value,
-                              style: TextStyle(
-                                color: AppColors.blueDark,
-                                fontSize: 14.sp,
-                              ),
-                              isExpanded: true,
-                              alignment: Alignment.bottomCenter,
-                              icon: Image.asset(
-                                AppImages.arrowDown,
-                                height: 8.h,
-                              ),
-                              onChanged: (Employee? newValue) =>
-                                  _purchaseDetailsController
-                                      .onSelectResponsible(
-                                          newValue ?? Employee(id: 0)),
-                              items: _purchaseDetailsController.responsibleList
-                                  .map<DropdownMenuItem<Employee>>(
-                                      (Employee value) {
-                                return DropdownMenuItem<Employee>(
-                                  alignment: Alignment.centerLeft,
-                                  value: value,
-                                  child: Text(value.fullName ?? ""),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                      ],
+                  10.h.horizontalSpace,
+                  Text(
+                    'request_purchase'.tr,
+                    style: TextStyle(
+                      fontSize: 16.sp,
                     ),
                   ),
                 ],
+              ),
+              20.h.verticalSpace,
+              Container(
+                width: double.infinity,
+                height: 55.h,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 11,
+                  vertical: 0,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(12.h),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x29000000),
+                      blurRadius: 3,
+                      offset: Offset(0, 3),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'depart'.tr,
+                      style: TextStyle(
+                        color: AppColors.gray6,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    3.verticalSpace,
+                    Obx(
+                      () => DropdownButtonHideUnderline(
+                        child: DropdownButton<Department>(
+                          isDense: true,
+                          value: _purchaseDetailsController
+                              .selectedDepartment.value,
+                          style: TextStyle(
+                            color: AppColors.blueDark,
+                            fontSize: 14.sp,
+                          ),
+                          isExpanded: true,
+                          alignment: Alignment.bottomCenter,
+                          icon: Image.asset(
+                            AppImages.arrowDown,
+                            height: 8.h,
+                          ),
+                          onChanged: (Department? newValue) =>
+                              _purchaseDetailsController.onSelectDepartment(
+                                  newValue ?? Department(id: 0)),
+                          items: _purchaseDetailsController.departmentList
+                              .map<DropdownMenuItem<Department>>(
+                                  (Department value) {
+                            return DropdownMenuItem<Department>(
+                              alignment: Get.locale?.languageCode == 'en'
+                                  ? Alignment.centerLeft
+                                  : Alignment.centerRight,
+                              value: value,
+                              child: Text(value.departmentNameAr ?? ""),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              10.h.verticalSpace,
+              Container(
+                width: double.infinity,
+                height: 55.h,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 11,
+                  vertical: 0,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(12.h),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x29000000),
+                      blurRadius: 3,
+                      offset: Offset(0, 3),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'responsible_person'.tr,
+                      style: TextStyle(
+                        color: AppColors.gray6,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                    3.verticalSpace,
+                    Obx(
+                      () => DropdownButtonHideUnderline(
+                        child: DropdownButton<Employee>(
+                          isDense: true,
+                          value: _purchaseDetailsController
+                              .selectedResponsible.value,
+                          style: TextStyle(
+                            color: AppColors.blueDark,
+                            fontSize: 14.sp,
+                          ),
+                          isExpanded: true,
+                          alignment: Alignment.bottomCenter,
+                          icon: Image.asset(
+                            AppImages.arrowDown,
+                            height: 8.h,
+                          ),
+                          onChanged: (Employee? newValue) =>
+                              _purchaseDetailsController.onSelectResponsible(
+                                  newValue ?? Employee(id: 0)),
+                          items: _purchaseDetailsController.responsibleList
+                              .map<DropdownMenuItem<Employee>>(
+                                  (Employee value) {
+                            return DropdownMenuItem<Employee>(
+                              alignment: Get.locale?.languageCode == 'en'
+                                  ? Alignment.centerLeft
+                                  : Alignment.centerRight,
+                              value: value,
+                              child: Text(value.fullName ?? ""),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               18.h.verticalSpace,
               Row(
@@ -196,7 +201,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Purchase Order NO',
+                    title: 'purchase_order_no'.tr,
                     inputType: 'select',
                     selectedDropDownItem:
                         _purchaseDetailsController.selectedPurchaseOrderNumber,
@@ -210,7 +215,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                     () => InputForm(
                       height: 55.h,
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                      title: 'Order Date',
+                      title: 'order_date',
                       inputType: 'date',
                       text: DateFormat('dd-MM-yyyy').format(
                         _purchaseDetailsController.orderDate.value,
@@ -228,11 +233,9 @@ class PurchaseDetailsScreen extends StatelessWidget {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     height: 55.h,
-                    padding: const EdgeInsets.only(
-                      left: 11,
-                      right: 11,
-                      bottom: 0,
-                      top: 0,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 11,
+                      vertical: 0,
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.white,
@@ -251,7 +254,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Category',
+                          'category'.tr,
                           style: TextStyle(
                             color: AppColors.gray6,
                             fontSize: 14.sp,
@@ -296,11 +299,9 @@ class PurchaseDetailsScreen extends StatelessWidget {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
                     height: 55.h,
-                    padding: const EdgeInsets.only(
-                      left: 11,
-                      right: 11,
-                      bottom: 0,
-                      top: 0,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 11,
+                      vertical: 0,
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.white,
@@ -319,7 +320,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Product Name',
+                          'product_name'.tr,
                           style: TextStyle(
                             color: AppColors.gray6,
                             fontSize: 14.sp,
@@ -369,7 +370,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Description',
+                    title: 'description'.tr,
                     inputType: 'select',
                     selectedDropDownItem:
                         _purchaseDetailsController.selectedDescription,
@@ -381,7 +382,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Description',
+                    title: 'description'.tr,
                     inputType: 'select',
                     selectedDropDownItem:
                         _purchaseDetailsController.selectedDescription1,
@@ -398,7 +399,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Unit',
+                    title: 'unit'.tr,
                     inputType: 'text',
                     text: '_ _',
                   ),
@@ -406,7 +407,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Quantity',
+                    title: 'quantity'.tr,
                     inputType: 'text',
                     text: '_ _',
                   ),
@@ -414,13 +415,18 @@ class PurchaseDetailsScreen extends StatelessWidget {
               ),
               18.h.verticalSpace,
               Stack(
-                alignment: Alignment.centerRight,
+                alignment: Get.locale?.languageCode == 'en'
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 18.0),
+                    padding: EdgeInsets.only(
+                      right: Get.locale?.languageCode == 'en' ? 18.0 : 0,
+                      left: Get.locale?.languageCode == 'ar' ? 18.0 : 0,
+                    ),
                     child: InputForm(
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                      title: 'Name Not In List',
+                      title: 'name_not_in_list'.tr,
                       inputType: 'input',
                       nbrLines: 1,
                       textEditingController:
@@ -428,7 +434,8 @@ class PurchaseDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    right: 0,
+                    right: Get.locale?.languageCode == 'en' ? 0 : null,
+                    left: Get.locale?.languageCode == 'ar' ? 0 : null,
                     child: InkWell(
                       onTap: () => _purchaseDetailsController.addNames(),
                       child: Container(

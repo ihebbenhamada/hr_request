@@ -1,21 +1,39 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:request_hr/api/models/result_response.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/model/get_create_second_step.dart';
 import 'package:request_hr/config/api-urls/end_points.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
-import '../../../main/models/drop_down.dart';
+import '../../../../../../../config/colors/colors.dart';
+import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
 import '../model/get_create_first_step.dart';
+import '../model/get_create_second_step.dart';
 import '../model/get_create_third_step.dart';
 
-class VacationsStepsService {
+class FinalExitService {
   /// FIRST STEP
   Future<GetCreateFirstStep?> getCreateFirstStep() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_FIRST_STEP_URL);
-    if (response != null && response.statusCode == 200) {
-      return GetCreateFirstStep.fromJson(response.data);
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_FIRST_STEP_URL);
+      if (response != null && response.statusCode == 200) {
+        return GetCreateFirstStep.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
       return null;
     }
   }
@@ -50,24 +68,51 @@ class VacationsStepsService {
       "isActive": isActive,
       "isDeleted": isDeleted,
     };
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_FIRST_STEP_URL, data: data);
 
-    Response? response = await AppInterceptor.dio
-        ?.post(EndPoints.CREATE_FIRST_STEP_URL, data: data);
-
-    if (response != null && response.statusCode == 200) {
-      return ResultResponse.fromJson(response.data);
-    } else {
+      if (response != null && response.statusCode == 200) {
+        return ResultResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      log('080808080808080808080808080808080');
+      log(e.response.toString());
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
       return null;
     }
   }
 
   /// SECOND STEP
   Future<GetCreateSecondStep?> getCreateSecondStep() async {
-    Response? response =
-        await AppInterceptor.dio?.get(EndPoints.GET_SECOND_STEP_URL);
-    if (response != null && response.statusCode == 200) {
-      return GetCreateSecondStep.fromJson(response.data);
-    } else {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_SECOND_STEP_URL);
+      if (response != null && response.statusCode == 200) {
+        return GetCreateSecondStep.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
       return null;
     }
   }
@@ -130,12 +175,24 @@ class VacationsStepsService {
       "paymentType": List<DropDownModel>.from(paymentType.map((x) => x)),
       "details": List<Detail>.from(details.map((x) => x.toJson())),
     };
-
-    Response? response = await AppInterceptor.dio
-        ?.post(EndPoints.CREATE_SECOND_STEP_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return ResultResponse.fromJson(response.data);
-    } else {
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_SECOND_STEP_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return ResultResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
       return null;
     }
   }
@@ -193,12 +250,24 @@ class VacationsStepsService {
       "reviewer": reviewer,
       "defBranchVM": defBranchVm?.toJson(),
     };
-
-    Response? response = await AppInterceptor.dio
-        ?.post(EndPoints.CREATE_THIRD_STEP_URL, data: data);
-    if (response != null && response.statusCode == 200) {
-      return ResultResponse.fromJson(response.data);
-    } else {
+    try {
+      Response? response = await AppInterceptor.dio
+          ?.post(EndPoints.CREATE_THIRD_STEP_URL, data: data);
+      if (response != null && response.statusCode == 200) {
+        return ResultResponse.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error!",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
       return null;
     }
   }

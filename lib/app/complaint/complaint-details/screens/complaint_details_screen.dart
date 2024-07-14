@@ -30,7 +30,10 @@ class ComplaintDetailsScreen extends StatelessWidget {
                   child: Container(
                     height: 40.h,
                     width: 40.h,
-                    margin: const EdgeInsets.only(left: 25),
+                    margin: EdgeInsets.only(
+                      left: Get.locale?.languageCode == 'en' ? 25 : 0,
+                      right: Get.locale?.languageCode == 'ar' ? 25 : 0,
+                    ),
                     decoration: const ShapeDecoration(
                       shape: OvalBorder(),
                       color: AppColors.primary,
@@ -47,7 +50,7 @@ class ComplaintDetailsScreen extends StatelessWidget {
                 ),
                 10.h.horizontalSpace,
                 Text(
-                  'Create complaint',
+                  'create_complaint'.tr,
                   style: TextStyle(
                     fontSize: 16.sp,
                   ),
@@ -55,22 +58,31 @@ class ComplaintDetailsScreen extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 25.0),
+              padding: EdgeInsets.only(
+                right: Get.locale?.languageCode == 'en' ? 25.0 : 0,
+                left: Get.locale?.languageCode == 'ar' ? 25.0 : 0,
+              ),
               child: SizedBox(
                 height: 111.h,
                 width: double.infinity,
                 child: Stack(
-                  alignment: Alignment.centerLeft,
+                  alignment: Get.locale?.languageCode == 'en'
+                      ? Alignment.centerLeft
+                      : Alignment.centerRight,
                   children: [
                     Container(
                       width: 360.w,
                       height: 80.h,
-                      padding: const EdgeInsets.only(left: 25),
+                      padding: EdgeInsets.only(
+                        left: Get.locale?.languageCode == 'en' ? 25 : 0,
+                        right: Get.locale?.languageCode == 'ar' ? 25 : 0,
+                      ),
                       decoration: const BoxDecoration(
                         color: AppColors.primary,
                         image: DecorationImage(
                           image: AssetImage(AppImages.poster),
                           fit: BoxFit.cover,
+                          matchTextDirection: true,
                         ),
                       ),
                       child: Column(
@@ -96,8 +108,11 @@ class ComplaintDetailsScreen extends StatelessWidget {
                               ),
                               4.horizontalSpace,
                               Text(
-                                _complaintDetailsController
-                                    .employee.value.fullNameEn,
+                                Get.locale?.languageCode == 'en'
+                                    ? _complaintDetailsController
+                                        .employee.value.fullNameEn
+                                    : _complaintDetailsController
+                                        .employee.value.fullName,
                                 style: TextStyle(
                                   color: AppColors.white,
                                   fontSize: 14.sp,
@@ -170,9 +185,10 @@ class ComplaintDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      right: 0,
+                      right: Get.locale?.languageCode == 'en' ? 0 : null,
+                      left: Get.locale?.languageCode == 'ar' ? 0 : null,
                       child: AvatarCircle(
-                        image: AppImages.avatar3,
+                        image: AppImages.profile,
                         size: 112.h,
                         iconSize: 22.h,
                         imageSize: 95.h,
@@ -208,7 +224,7 @@ class ComplaintDetailsScreen extends StatelessWidget {
                       children: [
                         5.h.verticalSpace,
                         Text(
-                          "Send Complaint To",
+                          "send_complaint_to".tr,
                           style: TextStyle(
                             color: AppColors.gray6,
                             fontSize: 14.sp,
@@ -218,7 +234,7 @@ class ComplaintDetailsScreen extends StatelessWidget {
                           builder: (_) => CustomDropdown<
                               DropDownModel>.multiSelectSearchRequest(
                             items: _complaintDetailsController.jobTypesList,
-                            hintText: "Select job type",
+                            hintText: "select_job_type".tr,
                             closedHeaderPadding: EdgeInsets.only(bottom: 10.h),
                             listItemBuilder:
                                 (context, jobType, isSelected, onItemSelect) {
@@ -278,7 +294,7 @@ class ComplaintDetailsScreen extends StatelessWidget {
                   InputForm(
                     height: 55.h,
                     width: double.infinity,
-                    title: 'Subject',
+                    title: 'subject'.tr,
                     inputType: 'input',
                     nbrLines: 1,
                     textEditingController: _complaintDetailsController
@@ -287,7 +303,7 @@ class ComplaintDetailsScreen extends StatelessWidget {
                   13.h.verticalSpace,
                   InputForm(
                     width: double.infinity,
-                    title: 'Description',
+                    title: 'description'.tr,
                     inputType: 'input',
                     textEditingController: _complaintDetailsController
                         .descriptionTextEditingController,

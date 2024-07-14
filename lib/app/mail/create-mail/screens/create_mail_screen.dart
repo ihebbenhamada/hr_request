@@ -99,9 +99,10 @@ class CreateMailScreen extends StatelessWidget {
                                       : Alignment.centerRight,
                                   value: value,
                                   child: Text(
-                                    Get.locale?.languageCode == 'en'
-                                        ? value.departmentNameEn!
-                                        : value.departmentNameAr!,
+                                    (Get.locale?.languageCode == 'en'
+                                            ? value.departmentNameEn
+                                            : value.departmentNameAr) ??
+                                        '',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(

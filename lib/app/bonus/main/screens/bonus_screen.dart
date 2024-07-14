@@ -19,59 +19,57 @@ class BonusScreen extends StatelessWidget {
   BonusScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: _bonusController.handleRefresh,
-      color: AppColors.white,
-      backgroundColor: AppColors.primary,
-      edgeOffset: MediaQuery.of(context).viewPadding.top,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverFillRemaining(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      right: 25.0,
-                      left: 25.0,
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 25.0,
+        left: 25.0,
+      ),
+      child: Column(
+        children: [
+          !_bonusController.isAdmin
+              ? Text(
+                  'your_bonus'.tr,
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: 16.sp,
+                  ),
+                )
+              : const SizedBox(),
+          _bonusController.isAdmin
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${'create'.tr}\n${'bonus'.tr}',
+                      style: TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 16.sp,
+                      ),
                     ),
+                    GestureDetector(
+                      onTap: _bonusController.navigateAndRefresh,
+                      child: Image.asset(
+                        AppImages.addDecision,
+                        height: 34.h,
+                        width: 34.h,
+                      ),
+                    )
+                  ],
+                )
+              : const SizedBox(),
+          20.h.verticalSpace,
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: _bonusController.handleRefresh,
+              color: AppColors.white,
+              backgroundColor: AppColors.primary,
+              edgeOffset: MediaQuery.of(context).viewPadding.top,
+              child: CustomScrollView(
+                slivers: <Widget>[
+                  SliverFillRemaining(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        !_bonusController.isAdmin
-                            ? Text(
-                                'your_bonus'.tr,
-                                style: TextStyle(
-                                  color: AppColors.primary,
-                                  fontSize: 16.sp,
-                                ),
-                              )
-                            : const SizedBox(),
-                        _bonusController.isAdmin
-                            ? Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${'create'.tr}\n${'bonus'.tr}',
-                                    style: TextStyle(
-                                      color: AppColors.primary,
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: _bonusController.navigateAndRefresh,
-                                    child: Image.asset(
-                                      AppImages.addDecision,
-                                      height: 34.h,
-                                      width: 34.h,
-                                    ),
-                                  )
-                                ],
-                              )
-                            : const SizedBox(),
-                        20.h.verticalSpace,
                         _bonusController.bonusResponse.value.bonuses.isNotEmpty
                             ? CarouselSlider.builder(
                                 itemCount: _bonusController
@@ -532,12 +530,12 @@ class BonusScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

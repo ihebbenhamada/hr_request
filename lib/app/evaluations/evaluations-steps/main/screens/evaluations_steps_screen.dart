@@ -91,9 +91,13 @@ class EvaluationsStepsScreen extends StatelessWidget {
                           height: 40.h,
                           width: 40.h,
                           child: LiquidCircularProgressIndicator(
-                            backgroundColor: AppColors.white,
-                            valueColor: const AlwaysStoppedAnimation(
-                              AppColors.blueDark,
+                            backgroundColor: Get.locale?.languageCode == 'en'
+                                ? AppColors.white
+                                : AppColors.blueDark,
+                            valueColor: AlwaysStoppedAnimation(
+                              Get.locale?.languageCode == 'en'
+                                  ? AppColors.blueDark
+                                  : AppColors.white,
                             ),
                             value: _evaluationsStepsController
                                 .firstStepContainerAnimation.value,
@@ -142,9 +146,13 @@ class EvaluationsStepsScreen extends StatelessWidget {
                           height: 40.h,
                           width: 40.h,
                           child: LiquidCircularProgressIndicator(
-                            backgroundColor: AppColors.white,
-                            valueColor: const AlwaysStoppedAnimation(
-                              AppColors.blueDark,
+                            backgroundColor: Get.locale?.languageCode == 'en'
+                                ? AppColors.white
+                                : AppColors.blueDark,
+                            valueColor: AlwaysStoppedAnimation(
+                              Get.locale?.languageCode == 'en'
+                                  ? AppColors.blueDark
+                                  : AppColors.white,
                             ),
                             value: _evaluationsStepsController
                                 .secondStepContainerAnimation.value,
@@ -193,9 +201,13 @@ class EvaluationsStepsScreen extends StatelessWidget {
                           height: 40.h,
                           width: 40.h,
                           child: LiquidCircularProgressIndicator(
-                            backgroundColor: AppColors.white,
-                            valueColor: const AlwaysStoppedAnimation(
-                              AppColors.blueDark,
+                            backgroundColor: Get.locale?.languageCode == 'en'
+                                ? AppColors.white
+                                : AppColors.blueDark,
+                            valueColor: AlwaysStoppedAnimation(
+                              Get.locale?.languageCode == 'en'
+                                  ? AppColors.blueDark
+                                  : AppColors.white,
                             ),
                             value: _evaluationsStepsController
                                 .thirdStepContainerAnimation.value,

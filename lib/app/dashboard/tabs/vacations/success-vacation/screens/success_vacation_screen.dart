@@ -45,7 +45,7 @@ class SuccessVacationScreen extends StatelessWidget {
               ),
               35.h.verticalSpace,
               Text(
-                'You Transaction Done Successfully!!\nClick on continue button for continue',
+                '${'success_transaction'.tr}\n${'click_continue'.tr}',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 20.sp,

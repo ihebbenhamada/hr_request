@@ -48,7 +48,10 @@ class Recommendation extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          item.evaluationItemEn ?? '',
+                          (Get.locale?.languageCode == 'en'
+                                  ? item.evaluationItemEn
+                                  : item.evaluationItemAr) ??
+                              '',
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 14.sp,
@@ -92,7 +95,7 @@ class Recommendation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '-  Development / Training Needs',
+                        '- ${'dev_needs'.tr}',
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 14.sp,
@@ -101,7 +104,7 @@ class Recommendation extends StatelessWidget {
                       //supervisor comment
                       10.h.verticalSpace,
                       Text(
-                        'supervisor comment',
+                        'supervisor_comment'.tr,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -139,7 +142,7 @@ class Recommendation extends StatelessWidget {
                       7.h.verticalSpace,
                       //Action plans
                       Text(
-                        'Action plans',
+                        'action_plans'.tr,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -177,7 +180,7 @@ class Recommendation extends StatelessWidget {
                       7.h.verticalSpace,
                       //Employee comment
                       Text(
-                        'Employee comment',
+                        'employee_comment'.tr,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,

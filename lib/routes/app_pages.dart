@@ -13,8 +13,8 @@ import 'package:request_hr/app/dashboard/tabs/meetings/meetings-details/screens/
 import 'package:request_hr/app/dashboard/tabs/vacations/main/screens/vacations_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/screens/success_vacation_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/screens/vacations_steps_screen.dart';
 import 'package:request_hr/app/delete/screens/delete_screen.dart';
+import 'package:request_hr/app/final_exit/main/screens/final_exit_screen.dart';
 import 'package:request_hr/app/loan/loan-details/screens/loan_details_screen.dart';
 import 'package:request_hr/app/loan/main/screens/loan_screen.dart';
 import 'package:request_hr/app/mail/create-mail/screens/create_mail_screen.dart';
@@ -102,8 +102,8 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.vacationsSteps,
-      page: () => VacationsStepsScreen(),
-      binding: VacationsStepsPageBindings(),
+      page: () => FinalExitScreen(),
+      binding: FinalExitPageBindings(),
     ),
     GetPage(
       name: AppRoutes.successVacation,

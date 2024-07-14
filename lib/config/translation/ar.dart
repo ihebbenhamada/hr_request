@@ -94,7 +94,6 @@ class Ar {
         'official_leaves':
             'الإجازات الرسمية التي سيأخذها الموظف دون خصمها من إجازته السنوية',
         'next_vacation': 'الإجازة القادمة',
-
         'national_day': 'اليوم الوطني',
         'national_day_date': '٢٣ سبتمبر',
         'founding_day': 'يوم التأسيس',
@@ -103,7 +102,6 @@ class Ar {
         'eid_al_adha_date': '٩-١٢ ذو الحجة',
         'eid_al_fitr': 'عيد الفطر',
         'eid_al_fitr_date': '١-٣ شوال',
-
         'vacation_type': 'نوع الإجازة',
         'due_date': 'تاريخ الاستحقاق',
         'date_from': 'التاريخ من',
@@ -144,6 +142,9 @@ class Ar {
         'no_month': 'لا يوجد شهر',
         'bonus_year': 'مكافأتك هذا العام',
         'rewards_year': 'تهانينا. الجوائز التي حصلت عليها هذا العام',
+        'create_bonus': 'إنشاء مكافأة',
+        'bonus_amount': 'مبلغ المكافأة',
+        'bonus_title': 'عنوان المكافأة',
 
         ///NOTIFICATION SCREEN
         'notifications': 'الإشعارات',
@@ -199,8 +200,102 @@ class Ar {
         'agree': 'موافق',
         'disagree': 'غير موافق',
         'evaluation_model': 'نموذج نموذج التقييم',
+        'dev_needs': 'احتياجات التطوير / التدريب',
+        'supervisor_comment': 'تعليق المشرف',
+        'action_plans': 'خطط العمل',
+        'employee_comment': 'تعليق الموظف',
+
+        ///FINAL EXIT
+        'final_exit_approval': 'موافقة الخروج النهائي',
+        'ticket_exchange': 'تبادل التذاكر',
+        'request': 'طلب',
+        'disclaimer': 'إخلاء مسؤولية',
+        'i_admit': 'أعترف',
+        'end_working': 'نهاية يوم العمل',
+        'adopted_from': 'مستمد من',
+        'final_exit_desc':
+            'أتعهد بالتوقيع أدناه لدفع فواتير الهاتف والماء والكهرباء، وأي التزامات مالية أخرى، مثل السلفيات، إلى مستشفى الأنصاري التخصص',
+        'holder': 'بيانات حامل الإجازة في البلد الأم',
+        'telephone': 'الهاتف',
+        'phone_number': 'رقم الهاتف',
+        'address': 'عنوان',
+        'last_working_day': 'آخر يوم عمل في',
+        'reason_for_leaving': 'سبب المغادرة',
+
+        /// SUCCESS FINAL EXIT
+        'success_transaction': ' تمت العملية بنجاح!!',
+        'click_continue': 'انقر على زر المتابعة للاستمرار',
+
+        ///ALERT
+        'create_alert': 'إنشاء تنبيه',
+        'your_alerts': 'تنبيهاتك',
+        'no_alerts': 'لم يتم العثور على تنبيه',
+        'your_alerts_chart': 'جدول تنبيهاتك',
+        'your_alerts_year': 'تنبيهاتك هذا العام',
+        'alerts_sent_year': 'عذرًا. التحذيرات المرسلة إليك خلال هذا العام',
+        'choose_employee': 'اختر الموظف',
+        'alert_title': 'عنوان التنبيه',
+
+        ///PUNISHMENTS
+        'Your_punishments': 'عقوباتك',
+        'create_punishments': 'إنشاء عقوبات',
+        'no_Punishments_found': 'لم يتم العثور على عقوبات',
+        'your_punishments_chart': 'جدول عقوباتك',
+        'your_punishments_year': 'عقوباتك هذا العام',
+        'punishments_sent_year': 'عذرًا. العقوبات المستلمة هذا العام',
+        'punishment_amount': 'مبلغ العقوبة',
+        'punishment_title': 'عنوان العقوبة',
+
+        ///COMPLAINT
+        'create_complaint': 'إنشاء شكوى',
+        'no_complaint_found': 'لم يتم العثور على شكوى',
+        'your_complaint_chart': 'جدول شكواك',
+        'your_complaint_year': ' شكواك هذا العام',
+        'complaints_sent_year': 'عذرًا. الشكوى المرسلة إليك هذا العام',
+        'send_complaint_to': 'إرسال الشكوى إلى',
+        'select_job_type': 'اختر نوع الوظيفة',
+
+        ///CUSTODY
+        'request_custody': 'طلب عهدة',
+        'create_custody': 'إنشاء عهدة',
+        'total_custody_amount': 'إجمالي مبلغ العهدة',
+        'custody_name': 'اسم العهدة',
+        'custody_type': 'نوع العهدة',
+        'date_custody': 'تاريخ العهدة',
+        'cash': 'نقداً',
+        'check': 'شيك',
+        'bank_transfer': 'تحويل بنكي',
+        'choose': 'اختر',
+        'temporary': 'مؤقت',
+        'permanent': 'دائم',
 
         ///SIGN IN OUT SCREEN
         'create_signin_out': 'إنشاء تسجيل دخول / خروج',
+        'time': 'الوقت',
+        'location': 'الموقع',
+        'area': 'المنطقة',
+        'the_date': 'التاريخ',
+
+        ///TICKET
+        'create_Ticket': 'إنشاء تذكرة جديدة',
+        'request_ticket': 'طلب تذكرة',
+        'data_not_completed': 'بيانات السفر غير مكتملة',
+        'note': 'ملاحظة',
+        'contracted': 'المتعاقد',
+        'wife': 'الزوجة',
+        'birth_date': 'تاريخ الميلاد',
+        'son_less_than_12': 'الابن أقل من 12 عامًا',
+        'son_less_than_18': 'الابن الثاني أقل من 18 عامًا',
+
+        ///PURCHASE
+        'request_purchase': 'طلب شراء',
+        'responsible_person': 'الشخص المسؤول',
+        'purchase_order_no': 'رقم طلب الشراء',
+        'order_date': 'تاريخ الطلب',
+        'category': 'الفئة',
+        'product_name': 'اسم المنتج',
+        'unit': 'الوحدة',
+        'quantity': 'الكمية',
+        'name_not_in_list': 'الاسم غير موجود في القائمة',
       };
 }

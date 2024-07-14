@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
@@ -66,7 +67,8 @@ class SignInOutGridItem extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: 9.h,
+                  left: Get.locale?.languageCode == 'en' ? 9.h : null,
+                  right: Get.locale?.languageCode == 'ar' ? 9.h : null,
                   bottom: 0,
                   child: Image.asset(
                     AppImages.innTechLogo,
@@ -79,6 +81,7 @@ class SignInOutGridItem extends StatelessWidget {
                   height: 66.h,
                   width: 66.h,
                   color: AppColors.primary,
+                  matchTextDirection: true,
                 ),
               ],
             ),
@@ -101,7 +104,9 @@ class SignInOutGridItem extends StatelessWidget {
             ),
             Expanded(
               child: Align(
-                alignment: Alignment.bottomRight,
+                alignment: Get.locale?.languageCode == 'en'
+                    ? Alignment.bottomRight
+                    : Alignment.bottomLeft,
                 child: Container(
                   height: 24.h,
                   width: 133,

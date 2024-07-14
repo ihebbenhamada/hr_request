@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
+import 'package:request_hr/app/final_exit/main/controllers/final_exit_controller.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 class Disclaimer extends StatelessWidget {
   const Disclaimer({
     super.key,
-    required this.vacationsStepsController,
+    required this.finalExitController,
   });
 
-  final VacationsStepsController vacationsStepsController;
+  final FinalExitController finalExitController;
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +37,14 @@ class Disclaimer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Name',
+                            'name'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
                           ),
                           Text(
-                            vacationsStepsController
+                            finalExitController
                                 .thirdStepData.value.employeeName,
                             style: TextStyle(
                               fontSize: 14.sp,
@@ -59,7 +59,7 @@ class Disclaimer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Job',
+                            'job'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -70,7 +70,7 @@ class Disclaimer extends StatelessWidget {
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
-                            controller: vacationsStepsController
+                            controller: finalExitController
                                 .jobNameTextEditingController,
                             cursorColor: AppColors.white,
                             decoration: const InputDecoration(
@@ -102,14 +102,14 @@ class Disclaimer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Department',
+                            'depart'.tr,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
                             ),
                           ),
                           Text(
-                            vacationsStepsController
+                            finalExitController
                                 .thirdStepData.value.departmentName,
                             style: TextStyle(
                               fontSize: 14.sp,
@@ -125,17 +125,17 @@ class Disclaimer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Last day of work in',
+                              'last_working_day'.tr,
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 color: AppColors.white,
                               ),
                             ),
                             GestureDetector(
-                              onTap: () => vacationsStepsController.selectDate(
+                              onTap: () => finalExitController.selectDate(
                                   context, 'thirdStep'),
                               child: Text(
-                                vacationsStepsController
+                                finalExitController
                                     .lastWorkingDateThirdStep.value
                                     .substring(0, 10),
                                 style: TextStyle(
@@ -157,7 +157,7 @@ class Disclaimer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Reason for leaving',
+                        'reason_for_leaving'.tr,
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.white,
@@ -168,8 +168,8 @@ class Disclaimer extends StatelessWidget {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        controller: vacationsStepsController
-                            .reasonTextEditingController,
+                        controller:
+                            finalExitController.reasonTextEditingController,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(
                           isDense: true,
@@ -212,7 +212,7 @@ class Disclaimer extends StatelessWidget {
                   children: [
                     10.h.verticalSpace,
                     Text(
-                      'Upload file',
+                      'upload_file'.tr,
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: AppColors.white,
@@ -238,7 +238,7 @@ class Disclaimer extends StatelessWidget {
                   children: [
                     10.h.verticalSpace,
                     Text(
-                      'Print',
+                      'print'.tr,
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: AppColors.white,

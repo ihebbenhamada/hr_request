@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/controllers/vacations_steps_controller.dart';
+import 'package:request_hr/app/final_exit/main/controllers/final_exit_controller.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
@@ -9,10 +9,10 @@ import 'package:request_hr/widgets/avatar-circle/avatar_circle.dart';
 import 'package:request_hr/widgets/custom-button/custom-button.dart';
 import 'package:request_hr/widgets/progress/circular_progress.dart';
 
-class VacationsStepsScreen extends StatelessWidget {
-  final _vacationsStepsController = Get.put(VacationsStepsController());
+class FinalExitScreen extends StatelessWidget {
+  final _vacationsStepsController = Get.put(FinalExitController());
   final ThemeController _themeController = Get.find();
-  VacationsStepsScreen({super.key});
+  FinalExitScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class VacationsStepsScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 400),
                           height: 5.h,
                           width: _vacationsStepsController
-                              .animatedSecondStepBarWidth.value,
+                              .animatedFirstStepBarWidth.value,
                           decoration: const BoxDecoration(
                             color: AppColors.blueDark,
                           ),
@@ -97,9 +97,13 @@ class VacationsStepsScreen extends StatelessWidget {
                           height: 40.h,
                           width: 40.h,
                           child: LiquidCircularProgressIndicator(
-                            backgroundColor: AppColors.white,
-                            valueColor: const AlwaysStoppedAnimation(
-                              AppColors.blueDark,
+                            backgroundColor: Get.locale?.languageCode == 'en'
+                                ? AppColors.white
+                                : AppColors.blueDark,
+                            valueColor: AlwaysStoppedAnimation(
+                              Get.locale?.languageCode == 'en'
+                                  ? AppColors.blueDark
+                                  : AppColors.white,
                             ),
                             value: _vacationsStepsController
                                 .firstStepContainerAnimation.value,
@@ -108,7 +112,7 @@ class VacationsStepsScreen extends StatelessWidget {
                                 '2',
                                 style: TextStyle(
                                   color: _vacationsStepsController
-                                      .secondStepTextColor.value,
+                                      .firstStepTextColor.value,
                                   fontSize: 18.sp,
                                 ),
                               ),
@@ -131,7 +135,7 @@ class VacationsStepsScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 400),
                           height: 5.h,
                           width: _vacationsStepsController
-                              .animatedThirdStepBarWidth.value,
+                              .animatedSecondStepBarWidth.value,
                           decoration: const BoxDecoration(
                             color: AppColors.blueDark,
                           ),
@@ -147,9 +151,13 @@ class VacationsStepsScreen extends StatelessWidget {
                           height: 40.h,
                           width: 40.h,
                           child: LiquidCircularProgressIndicator(
-                            backgroundColor: AppColors.white,
-                            valueColor: const AlwaysStoppedAnimation(
-                              AppColors.blueDark,
+                            backgroundColor: Get.locale?.languageCode == 'en'
+                                ? AppColors.white
+                                : AppColors.blueDark,
+                            valueColor: AlwaysStoppedAnimation(
+                              Get.locale?.languageCode == 'en'
+                                  ? AppColors.blueDark
+                                  : AppColors.white,
                             ),
                             value: _vacationsStepsController
                                 .secondStepContainerAnimation.value,
@@ -158,7 +166,7 @@ class VacationsStepsScreen extends StatelessWidget {
                                 '3',
                                 style: TextStyle(
                                   color: _vacationsStepsController
-                                      .thirdStepTextColor.value,
+                                      .secondStepTextColor.value,
                                   fontSize: 18.sp,
                                 ),
                               ),
@@ -172,7 +180,10 @@ class VacationsStepsScreen extends StatelessWidget {
               ),
               5.h.verticalSpace,
               Padding(
-                padding: const EdgeInsets.only(right: 17.0),
+                padding: EdgeInsets.only(
+                  right: Get.locale?.languageCode == 'en' ? 17.0 : 0,
+                  left: Get.locale?.languageCode == 'ar' ? 17.0 : 0,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,14 +191,14 @@ class VacationsStepsScreen extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          'First Step',
+                          'first_step'.tr,
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 14.sp,
                           ),
                         ),
                         Text(
-                          'Final exit approval',
+                          'final_exit_approval'.tr,
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 12.sp,
@@ -198,14 +209,14 @@ class VacationsStepsScreen extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          'Second Step',
+                          'second_step'.tr,
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 14.sp,
                           ),
                         ),
                         Text(
-                          'Ticket exchange\nrequest',
+                          '${'ticket_exchange'.tr}\n${'request'.tr}',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: AppColors.white,
@@ -217,14 +228,14 @@ class VacationsStepsScreen extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          'Third Step',
+                          'third_step'.tr,
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 14.sp,
                           ),
                         ),
                         Text(
-                          'Disclaimer',
+                          'disclaimer'.tr,
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 12.sp,
@@ -254,8 +265,8 @@ class VacationsStepsScreen extends StatelessWidget {
                   Obx(
                     () => CustomButton(
                       text: _vacationsStepsController.activePage.value == 2
-                          ? 'Finish'
-                          : 'Next'.tr,
+                          ? 'finish'.tr
+                          : 'next'.tr,
                       onClick: _vacationsStepsController.activePage.value == 2
                           ? _vacationsStepsController.onClickFinish
                           : _vacationsStepsController.onClickNext,
@@ -263,7 +274,7 @@ class VacationsStepsScreen extends StatelessWidget {
                   ),
                   18.h.verticalSpace,
                   CustomButton(
-                    text: 'Back'.tr,
+                    text: 'back'.tr,
                     onClick: _vacationsStepsController.onClickBack,
                     isPrimary: false,
                   ),

@@ -7,22 +7,22 @@ import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/main/controller/dashboard-controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/screens/success_vacation_screen.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/model/get_create_second_step.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/main/model/get_create_third_step.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/disclaimer.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/final_exit_approval.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/vacation-steps/steps/ticket_exchange_request.dart';
 import 'package:request_hr/config/controllerConfig/base_controller.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../../config/colors/colors.dart';
+import '../../steps/disclaimer.dart';
+import '../../steps/final_exit_approval.dart';
+import '../../steps/ticket_exchange_request.dart';
 import '../model/get_create_first_step.dart';
-import '../services/vacations_steps_service.dart';
+import '../model/get_create_second_step.dart';
+import '../model/get_create_third_step.dart';
+import '../services/final_exit_service.dart';
 
-class VacationsStepsController extends BaseController
+class FinalExitController extends BaseController
     with GetTickerProviderStateMixin {
   /// SERVICES
-  final VacationsStepsService _vacationsStepsService = VacationsStepsService();
+  final FinalExitService _finalExitService = FinalExitService();
 
   /// CONTROLLERS
   final PageController pageController = PageController(initialPage: 0);
@@ -30,11 +30,13 @@ class VacationsStepsController extends BaseController
       Get.find<DashboardController>();
 
   /// VARIABLES
-  RxDouble animatedSecondStepBarWidth = 0.0.obs;
-  RxDouble animatedThirdStepBarWidth = 0.0.obs;
+  final RxDouble animatedFirstStepBarWidth = 0.0.obs;
+  final RxDouble animatedSecondStepBarWidth = 0.0.obs;
+
   RxInt activePage = 0.obs;
-  Rx<Color> secondStepTextColor = AppColors.blueDark.obs;
-  Rx<Color> thirdStepTextColor = AppColors.blueDark.obs;
+  final Rx<Color> firstStepTextColor = AppColors.blueDark.obs;
+  final Rx<Color> secondStepTextColor = AppColors.blueDark.obs;
+
   RxString endWorkingDate = DateTime.now().toString().substring(0, 10).obs;
   RxString adoptedFromDate = DateTime.now().toString().substring(0, 10).obs;
   RxString lastWorkingDateThirdStep =
@@ -130,22 +132,6 @@ class VacationsStepsController extends BaseController
   void onInit() {
     initValues();
     super.onInit();
-    _animationFirstStepContainer = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-    _animationSecondStepContainer = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-
-    firstStepContainerAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_animationFirstStepContainer);
-    secondStepContainerAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_animationSecondStepContainer);
-    getFirstStep();
-    getSecondStep();
-    getThirdStep();
   }
 
   @override
@@ -158,16 +144,35 @@ class VacationsStepsController extends BaseController
 
   /// INITIALISATION
   void initValues() {
+    _animationFirstStepContainer = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _animationSecondStepContainer = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    firstStepContainerAnimation = Tween(
+            begin: Get.locale?.languageCode == 'en' ? 0.0 : 1.0,
+            end: Get.locale?.languageCode == 'en' ? 1.0 : 0.0)
+        .animate(_animationFirstStepContainer);
+    secondStepContainerAnimation = Tween(
+            begin: Get.locale?.languageCode == 'en' ? 0.0 : 1.0,
+            end: Get.locale?.languageCode == 'en' ? 1.0 : 0.0)
+        .animate(_animationSecondStepContainer);
+    getFirstStep();
+    getSecondStep();
+    getThirdStep();
     initialDate = DateTime.now().obs;
     steps = [
       FinalExitApproval(
-        vacationsStepsController: this,
+        finalExitController: this,
       ),
       TicketExchangeRequest(
-        vacationsStepsController: this,
+        finalExitController: this,
       ),
       Disclaimer(
-        vacationsStepsController: this,
+        finalExitController: this,
       ),
     ];
   }
@@ -193,12 +198,10 @@ class VacationsStepsController extends BaseController
           );
         }
         return;
-      } else if (activePage.value == 1) {
-        createSecondStep();
-      } else {
-        paginate(activePage.value + 1, true);
       }
-      animateThirdStep('forward');
+      if (activePage.value == 1) {
+        createSecondStep();
+      }
     }
     initialDate.value = DateTime.now();
   }
@@ -207,10 +210,10 @@ class VacationsStepsController extends BaseController
     if (activePage.value > 0) {
       paginate(activePage.value - 1, false);
       if (activePage.value == 2) {
-        animateThirdStep('back');
+        animateSecondStep('back');
         return;
       }
-      animateSecondStep('back');
+      animateFirstStep('back');
     } else {
       Get.back();
     }
@@ -228,10 +231,10 @@ class VacationsStepsController extends BaseController
       curve: Curves.easeIn,
     );
     Future.delayed(Duration(milliseconds: isForward ? 600 : 200), () {
-      secondStepTextColor.value =
+      firstStepTextColor.value =
           index != 0 ? AppColors.white : AppColors.blueDark;
-      thirdStepTextColor.value =
-          index != 2 ? AppColors.blueDark : AppColors.white;
+      secondStepTextColor.value =
+          index != 1 && index != 0 ? AppColors.white : AppColors.blueDark;
     });
   }
 
@@ -295,7 +298,7 @@ class VacationsStepsController extends BaseController
   /// FIRST STEP
   getFirstStep() {
     AppInterceptor.showLoader();
-    _vacationsStepsService.getCreateFirstStep().then((value) {
+    _finalExitService.getCreateFirstStep().then((value) {
       if (value != null) {
         firstStepData.value = value;
       }
@@ -305,13 +308,13 @@ class VacationsStepsController extends BaseController
 
   createFirstStep() {
     AppInterceptor.showLoader();
-    _vacationsStepsService
+    _finalExitService
         .createFinalExitApproval(
       fKHrEmployeeId: firstStepData.value.fKHrEmployeeId,
       fKReqFinalExitId: firstStepData.value.fKReqFinalExitId,
-      employeeName: firstStepData.value.employeeName,
+      employeeName: employeeNameTextEditingController.text,
       creationDate: firstStepData.value.creationDate ?? "",
-      quitDate: firstStepData.value.quitDate,
+      quitDate: endWorkingDate.value,
       lastWorkingDayDate: firstStepData.value.lastWorkingDayDate,
       hasCommitment: firstStepData.value.hasCommitment,
       phone: phoneTextEditingController.value.text.toString(),
@@ -324,16 +327,16 @@ class VacationsStepsController extends BaseController
         .then((value) {
       if (value != null) {
         AppInterceptor.hideLoader();
-        animateSecondStep('forward');
-        paginate(activePage.value + 1, true);
       }
     });
+    paginate(activePage.value + 1, true);
+    animateFirstStep('forward');
   }
 
   /// SECOND STEP
   getSecondStep() {
     AppInterceptor.showLoader();
-    _vacationsStepsService.getCreateSecondStep().then((value) {
+    _finalExitService.getCreateSecondStep().then((value) {
       if (value != null) {
         secondStepData.value = value;
         paymentTypeList.value = value.paymentType;
@@ -345,7 +348,7 @@ class VacationsStepsController extends BaseController
 
   createSecondStep() {
     AppInterceptor.showLoader();
-    _vacationsStepsService
+    _finalExitService
         .createTicketExchange(
       id: secondStepData.value.id,
       fKHrEmployeeId: secondStepData.value.fKHrEmployeeId,
@@ -378,8 +381,8 @@ class VacationsStepsController extends BaseController
         .then((value) {
       if (value != null) {
         AppInterceptor.hideLoader();
-        animateSecondStep('forward');
         paginate(activePage.value + 1, true);
+        animateSecondStep('forward');
       }
     });
   }
@@ -391,7 +394,7 @@ class VacationsStepsController extends BaseController
   /// THIRD STEP
   getThirdStep() {
     AppInterceptor.showLoader();
-    _vacationsStepsService.getCreateThirdStep().then((value) {
+    _finalExitService.getCreateThirdStep().then((value) {
       if (value != null) {
         thirdStepData.value = value;
         if (value.reason != null) {
@@ -403,7 +406,7 @@ class VacationsStepsController extends BaseController
   }
 
   createThirdStep() {
-    _vacationsStepsService
+    _finalExitService
         .createDisclaimer(
       id: thirdStepData.value.id,
       fKHrEmployeeId: thirdStepData.value.fKHrEmployeeId,
@@ -433,36 +436,35 @@ class VacationsStepsController extends BaseController
         curve: Curves.ease,
         duration: const Duration(milliseconds: 500),
       );
-      animateThirdStep('forward');
+      animateSecondStep('forward');
       paginate(activePage.value + 1, true);
     });
   }
 
-  animateSecondStep(String direction) {
+  animateFirstStep(String direction) {
     if (direction == 'forward') {
-      animatedSecondStepBarWidth.value = 86.0;
+      animatedFirstStepBarWidth.value = 86;
       Future.delayed(const Duration(milliseconds: 400), () {
         _animationFirstStepContainer.forward();
       });
     } else {
       _animationFirstStepContainer.reverse();
       Future.delayed(const Duration(milliseconds: 400), () {
-        animatedSecondStepBarWidth.value = 0.0;
+        animatedFirstStepBarWidth.value = 0.0;
       });
     }
   }
 
-  /// THIRD STEP
-  animateThirdStep(String direction) {
+  animateSecondStep(String direction) {
     if (direction == 'forward') {
-      animatedThirdStepBarWidth.value = 86.0;
+      animatedSecondStepBarWidth.value = 86;
       Future.delayed(const Duration(milliseconds: 400), () {
         _animationSecondStepContainer.forward();
       });
     } else {
       _animationSecondStepContainer.reverse();
       Future.delayed(const Duration(milliseconds: 400), () {
-        animatedThirdStepBarWidth.value = 0.0;
+        animatedSecondStepBarWidth.value = 0.0;
       });
     }
   }

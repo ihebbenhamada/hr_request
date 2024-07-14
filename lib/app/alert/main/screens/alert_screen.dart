@@ -20,82 +20,78 @@ class AlertScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.gray2,
-      body: RefreshIndicator(
-        onRefresh: _alertController.handleRefresh,
-        color: AppColors.white,
-        backgroundColor: AppColors.primary,
-        edgeOffset: MediaQuery.of(context).viewPadding.top,
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverFillRemaining(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: Container(
-                      height: 40.h,
-                      width: 40.h,
-                      margin: const EdgeInsets.only(left: 25),
-                      decoration: const ShapeDecoration(
-                        shape: OvalBorder(),
-                        color: AppColors.primary,
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          AppImages.back,
-                          height: 20.h,
-                          color: AppColors.white,
-                          matchTextDirection: true,
+      body: Padding(
+        padding: const EdgeInsets.only(
+          right: 25.0,
+          left: 25.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            (MediaQuery.of(context).viewPadding.top + 20).h.verticalSpace,
+            GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(
+                height: 40.h,
+                width: 40.h,
+                decoration: const ShapeDecoration(
+                  shape: OvalBorder(),
+                  color: AppColors.primary,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    AppImages.back,
+                    height: 20.h,
+                    color: AppColors.white,
+                    matchTextDirection: true,
+                  ),
+                ),
+              ),
+            ),
+            10.h.verticalSpace,
+            !_alertController.isAdmin
+                ? Text(
+                    'your_alerts'.tr,
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 16.sp,
+                    ),
+                  )
+                : const SizedBox(),
+            _alertController.isAdmin
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'create_alert'.tr,
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16.sp,
                         ),
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        right: 25.0,
-                        left: 25.0,
-                      ),
+                      GestureDetector(
+                        onTap: _alertController.navigateAndRefresh,
+                        child: Image.asset(
+                          AppImages.addDecision,
+                          height: 34.h,
+                          width: 34.h,
+                        ),
+                      )
+                    ],
+                  )
+                : const SizedBox(),
+            20.h.verticalSpace,
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _alertController.handleRefresh,
+                color: AppColors.white,
+                backgroundColor: AppColors.primary,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverFillRemaining(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          10.h.verticalSpace,
-                          !_alertController.isAdmin
-                              ? Text(
-                                  'Your Alerts',
-                                  style: TextStyle(
-                                    color: AppColors.primary,
-                                    fontSize: 16.sp,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          _alertController.isAdmin
-                              ? Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Create Alert',
-                                      style: TextStyle(
-                                        color: AppColors.primary,
-                                        fontSize: 16.sp,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap:
-                                          _alertController.navigateAndRefresh,
-                                      child: Image.asset(
-                                        AppImages.addDecision,
-                                        height: 34.h,
-                                        width: 34.h,
-                                      ),
-                                    )
-                                  ],
-                                )
-                              : const SizedBox(),
-                          20.h.verticalSpace,
                           Obx(
                             () => _alertController
                                     .alertResponse.value.alerts.isNotEmpty
@@ -148,7 +144,7 @@ class AlertScreen extends StatelessWidget {
                                   )
                                 : Center(
                                     child: Text(
-                                      'No Alert found',
+                                      'no_alerts'.tr,
                                       style: TextStyle(
                                         fontSize: 14.sp,
                                       ),
@@ -167,7 +163,11 @@ class AlertScreen extends StatelessWidget {
                           Container(
                             width: double.infinity,
                             padding: EdgeInsets.only(
-                                top: 14.h, bottom: 23.h, left: 16),
+                              top: 14.h,
+                              bottom: 23.h,
+                              left: Get.locale?.languageCode == 'en' ? 16 : 0,
+                              right: Get.locale?.languageCode == 'ar' ? 16 : 0,
+                            ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               color: AppColors.white,
@@ -184,7 +184,7 @@ class AlertScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Your Alerts Chart',
+                                  'your_alerts_chart'.tr,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     color: AppColors.primary,
@@ -202,9 +202,11 @@ class AlertScreen extends StatelessWidget {
                                           borderData: FlBorderData(
                                             border: const Border(
                                               left: BorderSide(
-                                                  color: AppColors.gray7),
+                                                color: AppColors.gray7,
+                                              ),
                                               bottom: BorderSide(
-                                                  color: AppColors.gray7),
+                                                color: AppColors.gray7,
+                                              ),
                                             ),
                                           ),
                                           titlesData: FlTitlesData(
@@ -249,7 +251,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Jan',
+                                                          'jan'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -262,7 +264,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Feb',
+                                                          'feb'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -275,7 +277,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Mar',
+                                                          'mar'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -288,7 +290,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Apr',
+                                                          'apr'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -301,7 +303,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'May',
+                                                          'may'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -314,7 +316,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Jun',
+                                                          'jun'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -327,7 +329,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Jul',
+                                                          'jul'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -340,7 +342,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Aug',
+                                                          'aug'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -353,7 +355,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Sep',
+                                                          'sep'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -366,7 +368,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Oct',
+                                                          'oct'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -379,7 +381,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Nov',
+                                                          'nov'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -392,7 +394,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'Dec',
+                                                          'dec'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -406,7 +408,7 @@ class AlertScreen extends StatelessWidget {
                                                         axisSide:
                                                             AxisSide.bottom,
                                                         child: Text(
-                                                          'no month',
+                                                          'no_month'.tr,
                                                           style: TextStyle(
                                                             fontSize: 10.sp,
                                                             color:
@@ -480,7 +482,7 @@ class AlertScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Your Alerts this year',
+                                        'your_alerts_year'.tr,
                                         style: TextStyle(
                                           color: AppColors.primary,
                                           fontSize: 16.sp,
@@ -488,7 +490,7 @@ class AlertScreen extends StatelessWidget {
                                       ),
                                       5.h.verticalSpace,
                                       Text(
-                                        'Sorry. The warnings sent to you during this year',
+                                        'alerts_sent_year'.tr,
                                         style: TextStyle(
                                           color: AppColors.blueDark,
                                           fontSize: 12.sp,
@@ -508,7 +510,7 @@ class AlertScreen extends StatelessWidget {
                                               color: AppColors.primary,
                                             ),
                                             child: Text(
-                                              'Total:0',
+                                              '${'total'.tr}: 0',
                                               style: TextStyle(
                                                 color: AppColors.white,
                                                 fontSize: 14.sp,
@@ -522,7 +524,8 @@ class AlertScreen extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(21.h),
                                               border: Border.all(
-                                                  color: AppColors.primary),
+                                                color: AppColors.primary,
+                                              ),
                                               color: AppColors.white,
                                             ),
                                             child: Center(
@@ -530,6 +533,7 @@ class AlertScreen extends StatelessWidget {
                                                 AppImages.alertWhiteDrawer,
                                                 height: 9.5.h,
                                                 color: AppColors.blueDark,
+                                                matchTextDirection: true,
                                               ),
                                             ),
                                           ),
@@ -541,15 +545,16 @@ class AlertScreen extends StatelessWidget {
                                 Image.asset(
                                   AppImages.alertChart,
                                   height: 65.h,
+                                  matchTextDirection: true,
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

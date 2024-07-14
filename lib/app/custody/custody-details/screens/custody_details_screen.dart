@@ -45,7 +45,7 @@ class CustodyDetailsScreen extends StatelessWidget {
                 ),
                 10.h.horizontalSpace,
                 Text(
-                  'Create custody',
+                  'create_custody'.tr,
                   style: TextStyle(
                     fontSize: 16.sp,
                   ),
@@ -69,7 +69,7 @@ class CustodyDetailsScreen extends StatelessWidget {
                 InputForm(
                   height: 55.h,
                   width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                  title: 'Custody',
+                  title: 'custody'.tr,
                   inputType: 'select',
                   selectedDropDownItem:
                       _custodyDetailsController.selectedPaymentType,
@@ -81,7 +81,7 @@ class CustodyDetailsScreen extends StatelessWidget {
                 InputForm(
                   height: 55.h,
                   width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                  title: 'Total Custody Amount',
+                  title: 'total_custody_amount'.tr,
                   inputType: 'input',
                   nbrLines: 1,
                   textEditingController: _custodyDetailsController
@@ -98,7 +98,7 @@ class CustodyDetailsScreen extends StatelessWidget {
             InputForm(
               height: 55.h,
               width: double.infinity,
-              title: 'Title',
+              title: 'title'.tr,
               inputType: 'input',
               nbrLines: 1,
               textEditingController:
@@ -108,7 +108,7 @@ class CustodyDetailsScreen extends StatelessWidget {
             InputForm(
               height: 55.h,
               width: double.infinity,
-              title: 'Custody Name',
+              title: 'custody_name'.tr,
               inputType: 'input',
               nbrLines: 1,
               textEditingController:
@@ -121,7 +121,7 @@ class CustodyDetailsScreen extends StatelessWidget {
                 InputForm(
                   height: 55.h,
                   width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                  title: 'Custody Type',
+                  title: 'custody_type'.tr,
                   inputType: 'select',
                   selectedDropDownItem:
                       _custodyDetailsController.selectedCustodyType,
@@ -134,7 +134,7 @@ class CustodyDetailsScreen extends StatelessWidget {
                   () => InputForm(
                     height: 55.h,
                     width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                    title: 'Date Custody',
+                    title: 'date_custody'.tr,
                     inputType: 'date',
                     text: DateFormat('dd-MM-yyyy').format(
                       _custodyDetailsController.custodyDate.value,
@@ -147,7 +147,7 @@ class CustodyDetailsScreen extends StatelessWidget {
             ),
             16.h.verticalSpace,
             InputForm(
-              title: 'Topic',
+              title: 'topic'.tr,
               nbrLines: 4,
               inputType: 'input',
               textEditingController:
