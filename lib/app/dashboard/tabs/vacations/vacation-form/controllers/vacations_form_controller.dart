@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/controllers/vacations_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
@@ -68,6 +69,7 @@ class VacationsFormController extends BaseController {
     BuildContext context,
     String selectedDate,
   ) async {
+    FocusManager.instance.primaryFocus?.unfocus();
     final DateTime? pickedDate = await showDatePicker(
       builder: (context, child) {
         return Theme(
@@ -157,45 +159,71 @@ class VacationsFormController extends BaseController {
   }
 
   onClickSubmit() {
-    AppInterceptor.showLoader();
     VacationsController vacationController = Get.find();
-    if (vacationController.selectedVacation != null) {
-      _vacationsFormService
-          .updateVacation(
-        vacationId: vacationController.selectedVacation!.vacationId,
-        fKAlternativeEmployee:
-            int.parse(selectedAlternativeEmployee.value.value ?? '0'),
-        fKAlternativeToPayingAnyDue:
-            int.parse(selectedAlternativeToPay.value.value ?? '0'),
-        fKHrVacationTypeId: int.parse(selectedType.value.value ?? '0'),
-        fKReqStatusId: 9,
-        dateFrom: dateFrom.value,
-        dateTo: dateTo.value,
-        description: remarkTextEditingController.value.text,
-      )
-          .then((value) {
-        if (value != null) {
-          Get.back(result: 'refresh', id: 2);
-        }
-      });
+    if (selectedAlternativeEmployee.value.value == '0' ||
+        selectedAlternativeToPay.value.value == '0' ||
+        selectedType.value.value == '0') {
+      Fluttertoast.showToast(
+        msg: "Please fill all fields",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else if (DateTime.parse(dateTo.value)
+        .isBefore(DateTime.parse(dateFrom.value))) {
+      Fluttertoast.showToast(
+        msg: "Check the dates ",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
     } else {
-      _vacationsFormService
-          .createVacation(
-        fKAlternativeEmployee:
-            int.parse(selectedAlternativeEmployee.value.value ?? '0'),
-        fKAlternativeToPayingAnyDue:
-            int.parse(selectedAlternativeToPay.value.value ?? '0'),
-        fKHrVacationTypeId: int.parse(selectedType.value.value ?? '0'),
-        fKReqStatusId: 9,
-        dateFrom: dateFrom.value,
-        dateTo: dateTo.value,
-        description: remarkTextEditingController.value.text,
-      )
-          .then((value) {
-        if (value != null) {
-          Get.back(result: 'refresh', id: 2);
-        }
-      });
+      if (vacationController.selectedVacation != null) {
+        AppInterceptor.showLoader();
+        _vacationsFormService
+            .updateVacation(
+          vacationId: vacationController.selectedVacation!.vacationId,
+          fKAlternativeEmployee:
+              int.parse(selectedAlternativeEmployee.value.value ?? '0'),
+          fKAlternativeToPayingAnyDue:
+              int.parse(selectedAlternativeToPay.value.value ?? '0'),
+          fKHrVacationTypeId: int.parse(selectedType.value.value ?? '0'),
+          fKReqStatusId: 9,
+          dateFrom: dateFrom.value,
+          dateTo: dateTo.value,
+          description: remarkTextEditingController.value.text,
+        )
+            .then((value) {
+          if (value != null) {
+            Get.back(result: 'refresh', id: 2);
+          }
+        });
+      } else {
+        AppInterceptor.showLoader();
+        _vacationsFormService
+            .createVacation(
+          fKAlternativeEmployee:
+              int.parse(selectedAlternativeEmployee.value.value ?? '0'),
+          fKAlternativeToPayingAnyDue:
+              int.parse(selectedAlternativeToPay.value.value ?? '0'),
+          fKHrVacationTypeId: int.parse(selectedType.value.value ?? '0'),
+          fKReqStatusId: 9,
+          dateFrom: dateFrom.value,
+          dateTo: dateTo.value,
+          description: remarkTextEditingController.value.text,
+        )
+            .then((value) {
+          if (value != null) {
+            Get.back(result: 'refresh', id: 2);
+          }
+        });
+      }
     }
   }
 
