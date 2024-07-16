@@ -1,5 +1,7 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -7,6 +9,7 @@ import '../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../api/models/public/department.dart';
 import '../../../../api/models/public/employee.dart';
 import '../../../../api/requests/public_api.dart';
+import '../../../../config/colors/colors.dart';
 import '../../../../config/image_urls/image_urls.dart';
 import '../../../../config/interceptor/interceptor.dart';
 import '../services/create_mail_service.dart';
@@ -52,41 +55,55 @@ class CreateMailController extends BaseController {
 
   /// FUNCTIONS
   onClickSend() {
-    AppInterceptor.showLoader();
-    _createMailService
-        .sendMessage(
-      fkParentId: 1,
-      fkHrEmployeeId: 1,
-      subject: subjectMessageTextEditingController.text,
-      description: bodyMessageTextEditingController.text,
-      reply: null,
-      assignees: assigneesList,
-      departmentIds: [],
-      filePath: "",
-      fKReqStatusId: 1,
-      assigneeName: "",
-      byAssigneeName: "",
-      jobName: "",
-      fKCreatorId: 1,
-      parentId: null,
-      assigneeByImagePath: '',
-      assigneeImagePath: '',
-      creationDate: DateTime.now().toString().substring(0, 10),
-      lastModifiedDate: DateTime.now().toString().substring(0, 10),
-      isActive: true,
-      isDeleted: false,
-      receiver: 1,
-      receivers: '',
-      file: null,
-      assigneesList: [],
-      departments: [],
-    )
-        .then((value) {
-      if (value != null) {
-        Get.back(result: 'refresh');
-      }
-      AppInterceptor.hideLoader();
-    });
+    if (subjectMessageTextEditingController.text.isEmpty ||
+        bodyMessageTextEditingController.text.isEmpty ||
+        assigneesList.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else {
+      AppInterceptor.showLoader();
+      _createMailService
+          .sendMessage(
+        fkParentId: 1,
+        fkHrEmployeeId: 1,
+        subject: subjectMessageTextEditingController.text,
+        description: bodyMessageTextEditingController.text,
+        reply: null,
+        assignees: assigneesList,
+        departmentIds: [],
+        filePath: "",
+        fKReqStatusId: 1,
+        assigneeName: "",
+        byAssigneeName: "",
+        jobName: "",
+        fKCreatorId: 1,
+        parentId: null,
+        assigneeByImagePath: '',
+        assigneeImagePath: '',
+        creationDate: DateTime.now().toString().substring(0, 10),
+        lastModifiedDate: DateTime.now().toString().substring(0, 10),
+        isActive: true,
+        isDeleted: false,
+        receiver: 1,
+        receivers: '',
+        file: null,
+        assigneesList: [],
+        departments: [],
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh');
+        }
+        AppInterceptor.hideLoader();
+      });
+    }
   }
 
   onClickBack() {
@@ -150,5 +167,12 @@ class CreateMailController extends BaseController {
   changeTextColor(bool value) {
     isSearchOpened = value;
     update();
+  }
+
+  Future<List<Department>> searchDepartment(String value) async {
+    return departmentList
+        .where((dep) =>
+            dep.departmentNameEn!.toLowerCase().contains(value.toLowerCase()))
+        .toList();
   }
 }

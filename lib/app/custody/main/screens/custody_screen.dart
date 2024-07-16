@@ -77,32 +77,41 @@ class CustodyScreen extends StatelessWidget {
               color: AppColors.white,
               backgroundColor: AppColors.primary,
               child: Obx(
-                () => GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3, // number of items in each row
-                    mainAxisSpacing: 11.h, // spacing between rows
-                    crossAxisSpacing: 11.h,
-                    mainAxisExtent: 135.h,
-                  ),
-                  padding: EdgeInsets.only(
-                    bottom: Platform.isIOS ? 70.h : 84.h,
-                  ),
-                  shrinkWrap: true, // padding around the grid
-                  itemCount: _custodyController
-                      .custodyList.length, // total number of items
-                  itemBuilder: (context, index) {
-                    Custody item = _custodyController.custodyList[index];
-                    return Center(
-                      child: CustodyItem(
-                        title: item.custodyName,
-                        date: item.dateCustody.substring(0, 10),
-                        status: item.fkReqStatusId,
-                        onClick: () =>
-                            _custodyController.onClickCustodyItem(item),
+                () => _custodyController.custodyList.isNotEmpty
+                    ? GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3, // number of items in each row
+                          mainAxisSpacing: 11.h, // spacing between rows
+                          crossAxisSpacing: 11.h,
+                          mainAxisExtent: 135.h,
+                        ),
+                        padding: EdgeInsets.only(
+                          bottom: Platform.isIOS ? 70.h : 84.h,
+                        ),
+                        shrinkWrap: true, // padding around the grid
+                        itemCount: _custodyController
+                            .custodyList.length, // total number of items
+                        itemBuilder: (context, index) {
+                          Custody item = _custodyController.custodyList[index];
+                          return Center(
+                            child: CustodyItem(
+                              title: item.custodyName,
+                              date: item.dateCustody.substring(0, 10),
+                              status: item.fkReqStatusId,
+                              onClick: () =>
+                                  _custodyController.onClickCustodyItem(item),
+                            ),
+                          );
+                        },
+                      )
+                    : Center(
+                        child: Text(
+                          'no_custody_found'.tr,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                          ),
+                        ),
                       ),
-                    );
-                  },
-                ),
               ),
             ),
           ],

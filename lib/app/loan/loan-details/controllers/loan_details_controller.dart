@@ -126,7 +126,7 @@ class LoanDetailsController extends BaseController {
         titleTextEditingController.text.isEmpty ||
         selectedPaymentType.value.value == "") {
       Fluttertoast.showToast(
-        msg: "Please fill all fields",
+        msg: "fill_credentials_toast".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,

@@ -105,7 +105,8 @@ class TicketExchangeRequest extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                finalExitController.dueDate.value,
+                                finalExitController.dueDate.value
+                                    .substring(0, 10),
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.white,

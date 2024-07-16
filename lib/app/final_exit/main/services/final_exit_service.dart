@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart' as get_tr;
 import 'package:request_hr/api/models/result_response.dart';
 import 'package:request_hr/config/api-urls/end_points.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
@@ -26,7 +25,7 @@ class FinalExitService {
       }
     } on DioException catch (e) {
       Fluttertoast.showToast(
-        msg: "Error!",
+        msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -78,10 +77,8 @@ class FinalExitService {
         return null;
       }
     } on DioException catch (e) {
-      log('080808080808080808080808080808080');
-      log(e.response.toString());
       Fluttertoast.showToast(
-        msg: "Error!",
+        msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -105,7 +102,7 @@ class FinalExitService {
       }
     } on DioException catch (e) {
       Fluttertoast.showToast(
-        msg: "Error!",
+        msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -185,7 +182,7 @@ class FinalExitService {
       }
     } on DioException catch (e) {
       Fluttertoast.showToast(
-        msg: "Error!",
+        msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -260,7 +257,7 @@ class FinalExitService {
       }
     } on DioException catch (e) {
       Fluttertoast.showToast(
-        msg: "Error!",
+        msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,

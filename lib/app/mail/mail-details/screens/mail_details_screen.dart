@@ -15,364 +15,367 @@ class MailDetailsScreen extends StatelessWidget {
   MailDetailsScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primary,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          left: 25.0,
-          right: 25,
-          top: MediaQuery.of(context).viewPadding.top + 20.h,
-          bottom: 190.h,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: AvatarCircle(
-                image: AppImages.profile,
-                circleColor: AppColors.white,
-                size: 111.h,
-                iconSize: 22.h,
-                imageSize: 95.h,
-                left: 13,
-                icon: AppImages.innTechDark,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: AppColors.primary,
+        body: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            left: 25.0,
+            right: 25,
+            top: MediaQuery.of(context).viewPadding.top + 20.h,
+            bottom: 190.h,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: AvatarCircle(
+                  image: AppImages.profile,
+                  circleColor: AppColors.white,
+                  size: 111.h,
+                  iconSize: 22.h,
+                  imageSize: 95.h,
+                  left: 13,
+                  icon: AppImages.innTechDark,
+                ),
               ),
-            ),
-            20.h.verticalSpace,
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                horizontal: 15.h,
-                vertical: 11.h,
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: AppColors.white.withOpacity(0.1),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.39,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'name'.tr,
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: AppColors.white,
-                              ),
-                            ),
-                            Text(
-                              _mailDetailsController.mail.value.senderName ??
-                                  "",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.39,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'job'.tr,
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: AppColors.white,
-                              ),
-                            ),
-                            Text(
-                              _mailDetailsController.mail.value.subject ?? "",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  5.h.verticalSpace,
-                  Text(
-                    _mailDetailsController.mail.value.description ?? "",
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: AppColors.white,
-                    ),
-                  ),
-                  5.h.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: _mailDetailsController.onClickReplay,
-                        child: Container(
-                          width: 104,
-                          padding: EdgeInsets.symmetric(vertical: 7.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: AppColors.primary,
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  AppImages.replayEmail,
-                                  height: 16.h,
-                                  matchTextDirection: true,
-                                ),
-                                11.horizontalSpace,
-                                Text(
-                                  'replay'.tr,
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: AppColors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      5.horizontalSpace,
-                      GestureDetector(
-                        onTap: _mailDetailsController.downloadFile,
-                        child: Container(
-                          width: 104,
-                          padding: EdgeInsets.symmetric(vertical: 7.h),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: AppColors.primary,
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  AppImages.attachEmail,
-                                  height: 16.h,
-                                  color: AppColors.white,
-                                  matchTextDirection: true,
-                                ),
-                                11.horizontalSpace,
-                                Text(
-                                  'download'.tr,
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: AppColors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Obx(
-              () => _mailDetailsController.isReplay.value ||
-                      _mailDetailsController.from.value == 'replay'
-                  ? Column(
+              20.h.verticalSpace,
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.h,
+                  vertical: 11.h,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: AppColors.white.withOpacity(0.1),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        19.h.verticalSpace,
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.only(
-                            left: 15,
-                            right: 15,
-                            top: 11.h,
-                            bottom: 11.h,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppColors.white.withOpacity(0.1),
-                          ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.39,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              TextFormField(
-                                controller: _mailDetailsController
-                                    .replaySubjectMessageTextEditingController,
+                              Text(
+                                'name'.tr,
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.white,
                                 ),
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 1,
-                                cursorColor: AppColors.gray1,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.zero,
-                                  focusedBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                  hintText: 'subject_here'.tr,
-                                  hintStyle: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: AppColors.white.withOpacity(0.56),
-                                  ),
-                                ),
-                                autocorrect: false,
-                                enableSuggestions: false,
-                                enabled: true,
-                                enableInteractiveSelection: true,
                               ),
-                              5.h.verticalSpace,
-                              const Divider(
-                                height: 1,
-                                color: AppColors.white,
-                                thickness: 1,
-                              ),
-                              10.h.verticalSpace,
-                              TextFormField(
-                                controller: _mailDetailsController
-                                    .replayBodyMessageTextEditingController,
+                              Text(
+                                _mailDetailsController.mail.value.senderName ??
+                                    "",
                                 style: TextStyle(
                                   fontSize: 14.sp,
                                   color: AppColors.white,
                                 ),
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 5,
-                                cursorColor: AppColors.gray1,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.zero,
-                                  focusedBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  focusedErrorBorder: InputBorder.none,
-                                  hintText: 'message_here'.tr,
-                                  hintStyle: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: AppColors.white.withOpacity(0.56),
-                                  ),
-                                ),
-                                autocorrect: false,
-                                enableSuggestions: false,
-                                enabled: true,
-                                enableInteractiveSelection: true,
-                              ),
-                              const Divider(
-                                height: 1,
-                                color: AppColors.white,
-                                thickness: 1,
                               ),
                             ],
                           ),
                         ),
-                        31.h.verticalSpace,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 88.h,
-                              height: 88.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.h),
-                                color: AppColors.white.withOpacity(0.1),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.39,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'job'.tr,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: AppColors.white,
+                                ),
                               ),
-                              child: Column(
+                              Text(
+                                _mailDetailsController.mail.value.subject ?? "",
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    5.h.verticalSpace,
+                    Text(
+                      _mailDetailsController.mail.value.description ?? "",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: AppColors.white,
+                      ),
+                    ),
+                    5.h.verticalSpace,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: _mailDetailsController.onClickReplay,
+                          child: Container(
+                            width: 104,
+                            padding: EdgeInsets.symmetric(vertical: 7.h),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: AppColors.primary,
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  10.h.verticalSpace,
+                                  Image.asset(
+                                    AppImages.replayEmail,
+                                    height: 16.h,
+                                    matchTextDirection: true,
+                                  ),
+                                  11.horizontalSpace,
                                   Text(
-                                    'upload_file'.tr,
+                                    'replay'.tr,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: AppColors.white,
                                     ),
                                   ),
-                                  13.h.verticalSpace,
-                                  Image.asset(
-                                    AppImages.upload,
-                                    height: 29,
-                                    matchTextDirection: true,
-                                  )
                                 ],
                               ),
                             ),
-                            15.horizontalSpace,
-                            Container(
-                              width: 88.h,
-                              height: 88.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.h),
-                                color: AppColors.white.withOpacity(0.1),
-                              ),
-                              child: Column(
+                          ),
+                        ),
+                        5.horizontalSpace,
+                        GestureDetector(
+                          onTap: _mailDetailsController.downloadFile,
+                          child: Container(
+                            width: 104,
+                            padding: EdgeInsets.symmetric(vertical: 7.h),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: AppColors.primary,
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  10.h.verticalSpace,
+                                  Image.asset(
+                                    AppImages.attachEmail,
+                                    height: 16.h,
+                                    color: AppColors.white,
+                                    matchTextDirection: true,
+                                  ),
+                                  11.horizontalSpace,
                                   Text(
-                                    'print'.tr,
+                                    'download'.tr,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       color: AppColors.white,
                                     ),
                                   ),
-                                  13.h.verticalSpace,
-                                  Image.asset(
-                                    AppImages.print,
-                                    height: 29,
-                                    matchTextDirection: true,
-                                  )
                                 ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     )
-                  : const SizedBox(),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-        child: Container(
-          color: AppColors.primary,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+                  ],
+                ),
+              ),
               Obx(
-                () => _mailDetailsController.isReplay.value
+                () => _mailDetailsController.isReplay.value ||
+                        _mailDetailsController.from.value == 'replay'
                     ? Column(
                         children: [
-                          18.h.verticalSpace,
-                          CustomButton(
-                            text: 'replay'.tr,
-                            onClick: _mailDetailsController.onClickSendReplay,
+                          19.h.verticalSpace,
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.only(
+                              left: 15,
+                              right: 15,
+                              top: 11.h,
+                              bottom: 11.h,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.white.withOpacity(0.1),
+                            ),
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  controller: _mailDetailsController
+                                      .replaySubjectMessageTextEditingController,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: AppColors.white,
+                                  ),
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 1,
+                                  cursorColor: AppColors.gray1,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    focusedBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    focusedErrorBorder: InputBorder.none,
+                                    hintText: 'subject_here'.tr,
+                                    hintStyle: TextStyle(
+                                      fontSize: 14.sp,
+                                      color: AppColors.white.withOpacity(0.56),
+                                    ),
+                                  ),
+                                  autocorrect: false,
+                                  enableSuggestions: false,
+                                  enabled: true,
+                                  enableInteractiveSelection: true,
+                                ),
+                                5.h.verticalSpace,
+                                const Divider(
+                                  height: 1,
+                                  color: AppColors.white,
+                                  thickness: 1,
+                                ),
+                                10.h.verticalSpace,
+                                TextFormField(
+                                  controller: _mailDetailsController
+                                      .replayBodyMessageTextEditingController,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: AppColors.white,
+                                  ),
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 5,
+                                  cursorColor: AppColors.gray1,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    contentPadding: EdgeInsets.zero,
+                                    focusedBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    focusedErrorBorder: InputBorder.none,
+                                    hintText: 'message_here'.tr,
+                                    hintStyle: TextStyle(
+                                      fontSize: 14.sp,
+                                      color: AppColors.white.withOpacity(0.56),
+                                    ),
+                                  ),
+                                  autocorrect: false,
+                                  enableSuggestions: false,
+                                  enabled: true,
+                                  enableInteractiveSelection: true,
+                                ),
+                                const Divider(
+                                  height: 1,
+                                  color: AppColors.white,
+                                  thickness: 1,
+                                ),
+                              ],
+                            ),
+                          ),
+                          31.h.verticalSpace,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 88.h,
+                                height: 88.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.h),
+                                  color: AppColors.white.withOpacity(0.1),
+                                ),
+                                child: Column(
+                                  children: [
+                                    10.h.verticalSpace,
+                                    Text(
+                                      'upload_file'.tr,
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: AppColors.white,
+                                      ),
+                                    ),
+                                    13.h.verticalSpace,
+                                    Image.asset(
+                                      AppImages.upload,
+                                      height: 29,
+                                      matchTextDirection: true,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              15.horizontalSpace,
+                              Container(
+                                width: 88.h,
+                                height: 88.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.h),
+                                  color: AppColors.white.withOpacity(0.1),
+                                ),
+                                child: Column(
+                                  children: [
+                                    10.h.verticalSpace,
+                                    Text(
+                                      'print'.tr,
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: AppColors.white,
+                                      ),
+                                    ),
+                                    13.h.verticalSpace,
+                                    Image.asset(
+                                      AppImages.print,
+                                      height: 29,
+                                      matchTextDirection: true,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       )
                     : const SizedBox(),
               ),
-              18.h.verticalSpace,
-              CustomButton(
-                text: 'back'.tr,
-                onClick: _mailDetailsController.onClickBack,
-                isPrimary: false,
-              ),
-              30.h.verticalSpace,
             ],
           ),
         ),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Container(
+            color: AppColors.primary,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Obx(
+                  () => _mailDetailsController.isReplay.value
+                      ? Column(
+                          children: [
+                            18.h.verticalSpace,
+                            CustomButton(
+                              text: 'replay'.tr,
+                              onClick: _mailDetailsController.onClickSendReplay,
+                            ),
+                          ],
+                        )
+                      : const SizedBox(),
+                ),
+                18.h.verticalSpace,
+                CustomButton(
+                  text: 'back'.tr,
+                  onClick: _mailDetailsController.onClickBack,
+                  isPrimary: false,
+                ),
+                30.h.verticalSpace,
+              ],
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

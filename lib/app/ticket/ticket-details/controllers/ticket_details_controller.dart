@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/ticket/ticket-details/models/ticket_details.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
@@ -279,46 +280,71 @@ class TicketDetailsController extends BaseController {
   }
 
   onClickSubmit() {
-    AppInterceptor.showLoader();
-    _ticketDetailsService
-        .createTicket(
-      fKHrEmployeeId: getCreateTicketResponse.value.fKHrEmployeeId,
-      dueDate: dueDate.value.toString().substring(0, 10),
-      paymentType: selectedPaymentType.value.text ?? '0',
-      employeeTicket: hasEmployeeTicket.value,
-      employeeNote: employeeNoteTextEditingController.value.text,
-      employeeName: employeeNameTextEditingController.value.text,
-      employeeBirthDate: employeeBirthDate.value.toString().substring(0, 10),
-      ticketForWife: hasTicketForWife.value,
-      wifeNote: wifeNoteTextEditingController.value.text,
-      wifeName: wifeNameTextEditingController.value.text,
-      wifeBirthDate: employeeWifeBirthDate.value.toString().substring(0, 10),
-      ticketForChild1: hasTicketForChild1.value,
-      child1Note: firstChildNoteTextEditingController.value.text,
-      child1Name: firstChildNameTextEditingController.value.text,
-      child1BirthDate:
-          employeeSonUnderTwelveBirthDate.value.toString().substring(0, 10),
-      ticketForChild2: hasTicketForChild2.value,
-      child2Note: secondChildNoteTextEditingController.value.text,
-      child2Name: secondChildNameTextEditingController.value.text,
-      child2BirthDate:
-          employeeSecondSonBirthDate.value.toString().substring(0, 10),
-      creationDate: DateTime.now().toString().substring(0, 10),
-      lastModifiedDate: DateTime.now().toString().substring(0, 10),
-      description: "",
-      isActive: true,
-      isDeleted: false,
-      hasAirlineTicket: getCreateTicketResponse.value.hasAirlineTicket ?? true,
-      fKReqStatusId: 0,
-      status: "RequestTicketInProgress",
-      employeeJob: "",
-    )
-        .then((value) {
-      if (value != null) {
-        Get.back(result: 'refresh');
-      }
-      AppInterceptor.hideLoader();
-    });
+    if (firstNoteTextEditingController.text.isEmpty ||
+        (hasEmployeeTicket.isTrue &&
+            (employeeNameTextEditingController.text.isEmpty ||
+                employeeNoteTextEditingController.text.isEmpty)) ||
+        (hasTicketForWife.isTrue &&
+            (wifeNameTextEditingController.text.isEmpty ||
+                wifeNoteTextEditingController.text.isEmpty)) ||
+        (hasTicketForChild1.isTrue &&
+            (firstChildNameTextEditingController.text.isEmpty ||
+                firstChildNoteTextEditingController.text.isEmpty)) ||
+        (hasTicketForChild2.isTrue &&
+            (secondChildNoteTextEditingController.text.isEmpty ||
+                secondChildNoteTextEditingController.text.isEmpty))) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else {
+      AppInterceptor.showLoader();
+      _ticketDetailsService
+          .createTicket(
+        fKHrEmployeeId: getCreateTicketResponse.value.fKHrEmployeeId,
+        dueDate: dueDate.value.toString().substring(0, 10),
+        paymentType: selectedPaymentType.value.text ?? '0',
+        employeeTicket: hasEmployeeTicket.value,
+        employeeNote: employeeNoteTextEditingController.value.text,
+        employeeName: employeeNameTextEditingController.value.text,
+        employeeBirthDate: employeeBirthDate.value.toString().substring(0, 10),
+        ticketForWife: hasTicketForWife.value,
+        wifeNote: wifeNoteTextEditingController.value.text,
+        wifeName: wifeNameTextEditingController.value.text,
+        wifeBirthDate: employeeWifeBirthDate.value.toString().substring(0, 10),
+        ticketForChild1: hasTicketForChild1.value,
+        child1Note: firstChildNoteTextEditingController.value.text,
+        child1Name: firstChildNameTextEditingController.value.text,
+        child1BirthDate:
+            employeeSonUnderTwelveBirthDate.value.toString().substring(0, 10),
+        ticketForChild2: hasTicketForChild2.value,
+        child2Note: secondChildNoteTextEditingController.value.text,
+        child2Name: secondChildNameTextEditingController.value.text,
+        child2BirthDate:
+            employeeSecondSonBirthDate.value.toString().substring(0, 10),
+        creationDate: DateTime.now().toString().substring(0, 10),
+        lastModifiedDate: DateTime.now().toString().substring(0, 10),
+        description: "",
+        isActive: true,
+        isDeleted: false,
+        hasAirlineTicket:
+            getCreateTicketResponse.value.hasAirlineTicket ?? true,
+        fKReqStatusId: 0,
+        status: "RequestTicketInProgress",
+        employeeJob: "",
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh');
+        }
+        AppInterceptor.hideLoader();
+      });
+    }
   }
 
   onClickBack() {

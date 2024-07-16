@@ -510,7 +510,7 @@ class AlertScreen extends StatelessWidget {
                                               color: AppColors.primary,
                                             ),
                                             child: Text(
-                                              '${'total'.tr}: 0',
+                                              '${'total'.tr}: ${_alertController.alertResponse.value.alerts.length}',
                                               style: TextStyle(
                                                 color: AppColors.white,
                                                 fontSize: 14.sp,

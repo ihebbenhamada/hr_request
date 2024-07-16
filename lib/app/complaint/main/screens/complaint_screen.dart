@@ -478,17 +478,16 @@ class ComplaintScreen extends StatelessWidget {
                                                 : Alignment.centerRight,
                                         children: [
                                           Container(
-                                            width: 150,
                                             height: 21.h,
                                             padding: EdgeInsets.only(
                                               left: Get.locale?.languageCode ==
                                                       'en'
                                                   ? 25
-                                                  : 0,
+                                                  : 10,
                                               right: Get.locale?.languageCode ==
                                                       'ar'
                                                   ? 25
-                                                  : 0,
+                                                  : 10,
                                             ),
                                             decoration: BoxDecoration(
                                               borderRadius:
@@ -496,7 +495,7 @@ class ComplaintScreen extends StatelessWidget {
                                               color: AppColors.primary,
                                             ),
                                             child: Text(
-                                              '${'total'.tr}: 475/700',
+                                              '${'total'.tr}: ${_complaintController.complaintResponse.value.totalCount}',
                                               style: TextStyle(
                                                 color: AppColors.white,
                                                 fontSize: 14.sp,

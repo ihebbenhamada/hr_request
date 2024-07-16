@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -186,18 +184,12 @@ class DashboardController extends BaseController {
 
   /// FUNCTIONS
   initView() {
+    employee.value = Emp.fromJson(GetStorage().read('employee'));
     innTechIconColor.value = AppColors.primary;
     searchIconColor.value = AppColors.white;
     vacationsIconColor.value = AppColors.white;
     searchIconColor.value = AppColors.white;
     meetingIconColor.value = AppColors.white;
-    log('6-6-6-6-6-6-6-6-6-6-6--6-6');
-    log(Get.arguments.toString());
-    if (Get.arguments != null) {
-      employee.value = Get.arguments;
-    } else {
-      employee.value = Emp.fromJson(GetStorage().read('employee'));
-    }
   }
 
   onItemSelected(int index) {

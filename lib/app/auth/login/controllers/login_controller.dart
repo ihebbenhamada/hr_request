@@ -96,14 +96,13 @@ class LoginController extends BaseController {
           storage.write('employee', value.employee.toJson());
           Get.offAll(
             () => DashboardScreen(employee: value.employee),
-            arguments: value.employee,
             transition: Transition.leftToRight,
             curve: Curves.ease,
             duration: const Duration(milliseconds: 500),
           );
         } else {
           Fluttertoast.showToast(
-            msg: "Check username or password!",
+            msg: "check_username_pass".tr,
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -115,13 +114,13 @@ class LoginController extends BaseController {
       });
     } else {
       Fluttertoast.showToast(
-        msg: "Fill in the credentials",
+        msg: "fill_credentials_toast".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: AppColors.redLight,
         textColor: AppColors.white,
-        fontSize: 16.0,
+        fontSize: 16.0.sp,
       );
     }
   }

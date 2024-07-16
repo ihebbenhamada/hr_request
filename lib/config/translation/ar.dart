@@ -122,6 +122,7 @@ class Ar {
         'meeting_points': 'نقاط الاجتماع',
         'add_meeting_points': 'إضافة نقاط الاجتماع',
         'upload_attachment': 'رفع المرفقات',
+        'no_meeting_found': 'لم يتم العثور على اجتماعات',
 
         /// BONUS SCREEN
         'your_bonus': 'مكافأتك',
@@ -268,6 +269,7 @@ class Ar {
         'choose': 'اختر',
         'temporary': 'مؤقت',
         'permanent': 'دائم',
+        'no_custody_found': 'لم يتم العثور على عهدة',
 
         ///SIGN IN OUT SCREEN
         'create_signin_out': 'إنشاء تسجيل دخول / خروج',
@@ -286,6 +288,7 @@ class Ar {
         'birth_date': 'تاريخ الميلاد',
         'son_less_than_12': 'الابن أقل من 12 عامًا',
         'son_less_than_18': 'الابن الثاني أقل من 18 عامًا',
+        'no_ticket_found': 'لم يتم العثور على تذاكر',
 
         ///PURCHASE
         'request_purchase': 'طلب شراء',
@@ -297,5 +300,11 @@ class Ar {
         'unit': 'الوحدة',
         'quantity': 'الكمية',
         'name_not_in_list': 'الاسم غير موجود في القائمة',
+
+        ///TOAST
+        'error': 'خطأ!',
+        'check_username_pass': 'تحقق من اسم المستخدم أو كلمة المرور!',
+        'fill_credentials_toast': 'يرجى ملء جميع الحقول',
+        'check_dates': 'تحقق من التواريخ',
       };
 }

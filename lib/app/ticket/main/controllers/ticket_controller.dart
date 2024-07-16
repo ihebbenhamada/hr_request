@@ -101,6 +101,7 @@ class TicketController extends BaseController {
   }
 
   Future<void> handleRefresh() async {
+    selectedFilter.value = 0;
     getTickets();
   }
 }

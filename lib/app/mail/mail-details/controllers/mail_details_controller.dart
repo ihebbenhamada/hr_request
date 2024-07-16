@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:open_file_plus/open_file_plus.dart';
@@ -12,6 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:request_hr/app/mail/mail-details/services/mail_details_service.dart';
 
 import '../../../../../config/controllerConfig/base_controller.dart';
+import '../../../../config/colors/colors.dart';
 import '../../main/model/mail.dart';
 
 class MailDetailsController extends BaseController {
@@ -40,6 +43,7 @@ class MailDetailsController extends BaseController {
     isActive: false,
   ).obs;
   RxString from = ''.obs;
+  RxList<int> assigneesList = <int>[].obs;
 
   /// VARIABLES
   RxBool isReplay = false.obs;
@@ -151,7 +155,55 @@ class MailDetailsController extends BaseController {
     isReplay.value = true;
   }
 
-  onClickSendReplay() {}
+  onClickSendReplay() {
+    if (replaySubjectMessageTextEditingController.text.isEmpty ||
+        replayBodyMessageTextEditingController.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else {
+      _mailDetailsService
+          .replayMessage(
+        fkParentId: 1,
+        fkHrEmployeeId: 1,
+        subject: replaySubjectMessageTextEditingController.text,
+        description: replayBodyMessageTextEditingController.text,
+        reply: null,
+        assignees: assigneesList,
+        departmentIds: [],
+        filePath: "",
+        fKReqStatusId: 1,
+        assigneeName: "",
+        byAssigneeName: "",
+        jobName: "",
+        fKCreatorId: 1,
+        parentId: null,
+        assigneeByImagePath: '',
+        assigneeImagePath: '',
+        creationDate: DateTime.now().toString().substring(0, 10),
+        lastModifiedDate: DateTime.now().toString().substring(0, 10),
+        isActive: true,
+        isDeleted: false,
+        receiver: 1,
+        receivers: '',
+        file: null,
+        assigneesList: [],
+        departments: [],
+        listReqMessageVMs: null,
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back();
+        }
+      });
+    }
+  }
 
   onClickBack() {
     Get.back();

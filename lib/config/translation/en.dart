@@ -122,6 +122,7 @@ class En {
         'meeting_points': 'Meeting Points',
         'add_meeting_points': 'Add Meeting Points',
         'upload_attachment': 'Upload Attachment',
+        'no_meeting_found': 'No meeting found',
 
         /// BONUS SCREEN
         'your_bonus': 'Your Bonus',
@@ -270,6 +271,7 @@ class En {
         'choose': 'Choose',
         'temporary': 'Temporary',
         'permanent': 'Permanent',
+        'no_custody_found': 'No custody found',
 
         ///SIGN IN OUT SCREEN
         'create_signin_out': 'Create SignIn / SignOut',
@@ -288,6 +290,7 @@ class En {
         'birth_date': 'Birth Date',
         'son_less_than_12': 'son is less than 12 Years old',
         'son_less_than_18': 'The second son is less than 18 Years old',
+        'no_ticket_found': 'No ticket found',
 
         ///PURCHASE
         'request_purchase': 'Request Purchase',
@@ -299,5 +302,11 @@ class En {
         'unit': 'Unit',
         'quantity': 'Quantity',
         'name_not_in_list': 'Name Not In List',
+
+        ///TOAST
+        'error': 'Error !',
+        'check_username_pass': 'Check username or password!',
+        'fill_credentials_toast': 'Fill in the credentials',
+        'check_dates': 'Check the dates',
       };
 }

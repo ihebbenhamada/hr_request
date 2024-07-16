@@ -164,7 +164,7 @@ class VacationsFormController extends BaseController {
         selectedAlternativeToPay.value.value == '0' ||
         selectedType.value.value == '0') {
       Fluttertoast.showToast(
-        msg: "Please fill all fields",
+        msg: "fill_credentials_toast".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
@@ -175,7 +175,7 @@ class VacationsFormController extends BaseController {
     } else if (DateTime.parse(dateTo.value)
         .isBefore(DateTime.parse(dateFrom.value))) {
       Fluttertoast.showToast(
-        msg: "Check the dates ",
+        msg: "Check the dates",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,

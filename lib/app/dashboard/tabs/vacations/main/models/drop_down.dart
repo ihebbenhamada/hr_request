@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+String dropDownModelToJson(DropDownModel data) => json.encode(data.toJson());
+
 class DropDownModel {
   final bool? disabled;
   final String? text;

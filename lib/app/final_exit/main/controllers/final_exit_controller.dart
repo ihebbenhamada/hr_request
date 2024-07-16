@@ -49,9 +49,9 @@ class FinalExitController extends BaseController
   late Animation<double> secondStepContainerAnimation;
 
   final Rx<GetCreateFirstStep> firstStepData = GetCreateFirstStep(
-          creationDate: DateTime.now().toString(),
-          lastWorkingDayDate: DateTime.now().toString())
-      .obs;
+    creationDate: DateTime.now().toString(),
+    lastWorkingDayDate: DateTime.now().toString(),
+  ).obs;
   final Rx<GetCreateSecondStep> secondStepData = GetCreateSecondStep(
     id: 0,
     fKHrEmployeeId: 0,
@@ -188,7 +188,7 @@ class FinalExitController extends BaseController
           createFirstStep();
         } else {
           Fluttertoast.showToast(
-            msg: 'Please fill all fields',
+            msg: 'fill_credentials_toast'.tr,
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -236,6 +236,34 @@ class FinalExitController extends BaseController
       secondStepTextColor.value =
           index != 1 && index != 0 ? AppColors.white : AppColors.blueDark;
     });
+  }
+
+  animateFirstStep(String direction) {
+    if (direction == 'forward') {
+      animatedFirstStepBarWidth.value = 86;
+      Future.delayed(const Duration(milliseconds: 400), () {
+        _animationFirstStepContainer.forward();
+      });
+    } else {
+      _animationFirstStepContainer.reverse();
+      Future.delayed(const Duration(milliseconds: 400), () {
+        animatedFirstStepBarWidth.value = 0.0;
+      });
+    }
+  }
+
+  animateSecondStep(String direction) {
+    if (direction == 'forward') {
+      animatedSecondStepBarWidth.value = 86;
+      Future.delayed(const Duration(milliseconds: 400), () {
+        _animationSecondStepContainer.forward();
+      });
+    } else {
+      _animationSecondStepContainer.reverse();
+      Future.delayed(const Duration(milliseconds: 400), () {
+        animatedSecondStepBarWidth.value = 0.0;
+      });
+    }
   }
 
   onPageChanged(int index) {
@@ -301,36 +329,54 @@ class FinalExitController extends BaseController
     _finalExitService.getCreateFirstStep().then((value) {
       if (value != null) {
         firstStepData.value = value;
+        employeeNameTextEditingController.text = value.employeeName ?? '';
+        phoneTextEditingController.text = value.phone ?? '';
+        mobileTextEditingController.text = value.mobile ?? '';
+        addressTextEditingController.text = value.address ?? '';
       }
       AppInterceptor.hideLoader();
     });
   }
 
   createFirstStep() {
-    AppInterceptor.showLoader();
-    _finalExitService
-        .createFinalExitApproval(
-      fKHrEmployeeId: firstStepData.value.fKHrEmployeeId,
-      fKReqFinalExitId: firstStepData.value.fKReqFinalExitId,
-      employeeName: employeeNameTextEditingController.text,
-      creationDate: firstStepData.value.creationDate ?? "",
-      quitDate: endWorkingDate.value,
-      lastWorkingDayDate: firstStepData.value.lastWorkingDayDate,
-      hasCommitment: firstStepData.value.hasCommitment,
-      phone: phoneTextEditingController.value.text.toString(),
-      mobile: mobileTextEditingController.value.text.toString(),
-      address: addressTextEditingController.value.text,
-      lastModifiedDate: firstStepData.value.lastModifiedDate ?? "",
-      isActive: firstStepData.value.isActive,
-      isDeleted: firstStepData.value.isDeleted,
-    )
-        .then((value) {
-      if (value != null) {
-        AppInterceptor.hideLoader();
-      }
-    });
-    paginate(activePage.value + 1, true);
-    animateFirstStep('forward');
+    if (phoneTextEditingController.text.isEmpty ||
+        mobileTextEditingController.text.isEmpty ||
+        addressTextEditingController.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else {
+      AppInterceptor.showLoader();
+      _finalExitService
+          .createFinalExitApproval(
+        fKHrEmployeeId: firstStepData.value.fKHrEmployeeId,
+        fKReqFinalExitId: firstStepData.value.fKReqFinalExitId,
+        employeeName: employeeNameTextEditingController.text,
+        creationDate: firstStepData.value.creationDate ?? "",
+        quitDate: endWorkingDate.value,
+        lastWorkingDayDate: firstStepData.value.lastWorkingDayDate,
+        hasCommitment: firstStepData.value.hasCommitment,
+        phone: phoneTextEditingController.value.text.toString(),
+        mobile: mobileTextEditingController.value.text.toString(),
+        address: addressTextEditingController.value.text,
+        lastModifiedDate: firstStepData.value.lastModifiedDate ?? "",
+        isActive: firstStepData.value.isActive,
+        isDeleted: firstStepData.value.isDeleted,
+      )
+          .then((value) {
+        if (value != null) {
+          AppInterceptor.hideLoader();
+          paginate(activePage.value + 1, true);
+          animateFirstStep('forward');
+        }
+      });
+    }
   }
 
   /// SECOND STEP
@@ -339,52 +385,66 @@ class FinalExitController extends BaseController
     _finalExitService.getCreateSecondStep().then((value) {
       if (value != null) {
         secondStepData.value = value;
+        dueDate.value = value.dateDue;
         paymentTypeList.value = value.paymentType;
         selectedPaymentType = value.paymentType[0].obs;
+        descriptionTextEditingController.text = value.description ?? '';
       }
       AppInterceptor.hideLoader();
     });
   }
 
   createSecondStep() {
-    AppInterceptor.showLoader();
-    _finalExitService
-        .createTicketExchange(
-      id: secondStepData.value.id,
-      fKHrEmployeeId: secondStepData.value.fKHrEmployeeId,
-      dateDue: dueDate.value,
-      totalDeservedAmount: secondStepData.value.totalDeservedAmount,
-      isFromRequests: secondStepData.value.isFromRequests,
-      fKCreatorId: secondStepData.value.fKCreatorId,
-      creationDate: secondStepData.value.creationDate,
-      lastModifiedDate: secondStepData.value.lastModifiedDate,
-      isActive: secondStepData.value.isActive,
-      isDeleted: secondStepData.value.isDeleted,
-      hrDepartments: secondStepData.value.hrDepartments,
-      hrManagements: secondStepData.value.hrManagements,
-      defBranches: secondStepData.value.defBranches,
-      kinshipType: secondStepData.value.kinshipType,
-      paymentType: secondStepData.value.paymentType,
-      details: secondStepData.value.details,
-      imagePath: secondStepData.value.imagePath,
-      description: descriptionTextEditingController.value.text,
-      employeeCode: secondStepData.value.employeeCode,
-      employeeName: secondStepData.value.employeeName,
-      fKDefBranchId: secondStepData.value.fKDefBranchId,
-      fKHrDepartmentId: secondStepData.value.fKHrDepartmentId,
-      fKHrManagementId: secondStepData.value.fKHrManagementId,
-      paymentTypes: int.parse(selectedPaymentType.value.value ?? '0'),
-      requestRefrenceId: secondStepData.value.requestRefrenceId,
-      ticketPath: secondStepData.value.ticketPath,
-      totalExtaraTicketsValue: secondStepData.value.totalExtaraTicketsValue,
-    )
-        .then((value) {
-      if (value != null) {
-        AppInterceptor.hideLoader();
-        paginate(activePage.value + 1, true);
-        animateSecondStep('forward');
-      }
-    });
+    if (descriptionTextEditingController.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else {
+      AppInterceptor.showLoader();
+      _finalExitService
+          .createTicketExchange(
+        id: secondStepData.value.id,
+        fKHrEmployeeId: secondStepData.value.fKHrEmployeeId,
+        dateDue: dueDate.value,
+        totalDeservedAmount: secondStepData.value.totalDeservedAmount,
+        isFromRequests: secondStepData.value.isFromRequests,
+        fKCreatorId: secondStepData.value.fKCreatorId,
+        creationDate: secondStepData.value.creationDate,
+        lastModifiedDate: secondStepData.value.lastModifiedDate,
+        isActive: secondStepData.value.isActive,
+        isDeleted: secondStepData.value.isDeleted,
+        hrDepartments: secondStepData.value.hrDepartments,
+        hrManagements: secondStepData.value.hrManagements,
+        defBranches: secondStepData.value.defBranches,
+        kinshipType: secondStepData.value.kinshipType,
+        paymentType: [selectedPaymentType.value],
+        details: secondStepData.value.details,
+        imagePath: secondStepData.value.imagePath,
+        description: descriptionTextEditingController.value.text,
+        employeeCode: secondStepData.value.employeeCode,
+        employeeName: secondStepData.value.employeeName,
+        fKDefBranchId: secondStepData.value.fKDefBranchId,
+        fKHrDepartmentId: secondStepData.value.fKHrDepartmentId,
+        fKHrManagementId: secondStepData.value.fKHrManagementId,
+        paymentTypes: int.parse(selectedPaymentType.value.value ?? '0'),
+        requestRefrenceId: secondStepData.value.requestRefrenceId,
+        ticketPath: secondStepData.value.ticketPath,
+        totalExtaraTicketsValue: secondStepData.value.totalExtaraTicketsValue,
+      )
+          .then((value) {
+        if (value != null) {
+          AppInterceptor.hideLoader();
+          paginate(activePage.value + 1, true);
+          animateSecondStep('forward');
+        }
+      });
+    }
   }
 
   onSelectPaymentType(DropDownModel value) {
@@ -397,74 +457,60 @@ class FinalExitController extends BaseController
     _finalExitService.getCreateThirdStep().then((value) {
       if (value != null) {
         thirdStepData.value = value;
-        if (value.reason != null) {
-          jobNameTextEditingController.text = value.reason!;
-        }
+        jobNameTextEditingController.text = value.jobName ?? '';
+        reasonTextEditingController.text = value.reason ?? '';
+        employeeNameTextEditingController.text = value.employeeName;
       }
       AppInterceptor.hideLoader();
     });
   }
 
   createThirdStep() {
-    _finalExitService
-        .createDisclaimer(
-      id: thirdStepData.value.id,
-      fKHrEmployeeId: thirdStepData.value.fKHrEmployeeId,
-      employeeName: thirdStepData.value.employeeName,
-      departmentName: thirdStepData.value.departmentName,
-      jobName: thirdStepData.value.jobName,
-      reason: reasonTextEditingController.value.text,
-      lastWorkingDayDate: lastWorkingDateThirdStep.value,
-      fKReqFinalExitId: thirdStepData.value.fKReqFinalExitId,
-      fKRequestVacationId: thirdStepData.value.fKRequestVacationId,
-      isFinalHandOver: thirdStepData.value.isFinalHandOver,
-      fileName: thirdStepData.value.fileName,
-      handOverCommitmentFilePath:
-          thirdStepData.value.handOverCommitmentFilePath,
-      fKHrCreatorId: thirdStepData.value.fKHrCreatorId,
-      creationDate: thirdStepData.value.creationDate,
-      lastModifiedDate: thirdStepData.value.lastModifiedDate,
-      isActive: thirdStepData.value.isActive,
-      isDeleted: thirdStepData.value.isDeleted,
-      reviewer: thirdStepData.value.reviewer,
-      defBranchVm: thirdStepData.value.defBranchVm,
-    )
-        .then((value) {
-      Get.offAll(
-        () => SuccessVacationScreen(),
-        transition: Transition.leftToRight,
-        curve: Curves.ease,
-        duration: const Duration(milliseconds: 500),
+    if (reasonTextEditingController.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
       );
-      animateSecondStep('forward');
-      paginate(activePage.value + 1, true);
-    });
-  }
-
-  animateFirstStep(String direction) {
-    if (direction == 'forward') {
-      animatedFirstStepBarWidth.value = 86;
-      Future.delayed(const Duration(milliseconds: 400), () {
-        _animationFirstStepContainer.forward();
-      });
     } else {
-      _animationFirstStepContainer.reverse();
-      Future.delayed(const Duration(milliseconds: 400), () {
-        animatedFirstStepBarWidth.value = 0.0;
-      });
-    }
-  }
-
-  animateSecondStep(String direction) {
-    if (direction == 'forward') {
-      animatedSecondStepBarWidth.value = 86;
-      Future.delayed(const Duration(milliseconds: 400), () {
-        _animationSecondStepContainer.forward();
-      });
-    } else {
-      _animationSecondStepContainer.reverse();
-      Future.delayed(const Duration(milliseconds: 400), () {
-        animatedSecondStepBarWidth.value = 0.0;
+      AppInterceptor.showLoader();
+      _finalExitService
+          .createDisclaimer(
+        id: thirdStepData.value.id,
+        fKHrEmployeeId: thirdStepData.value.fKHrEmployeeId,
+        employeeName: thirdStepData.value.employeeName,
+        departmentName: thirdStepData.value.departmentName,
+        jobName: thirdStepData.value.jobName,
+        reason: reasonTextEditingController.value.text,
+        lastWorkingDayDate: lastWorkingDateThirdStep.value,
+        fKReqFinalExitId: thirdStepData.value.fKReqFinalExitId,
+        fKRequestVacationId: thirdStepData.value.fKRequestVacationId,
+        isFinalHandOver: thirdStepData.value.isFinalHandOver,
+        fileName: thirdStepData.value.fileName,
+        handOverCommitmentFilePath:
+            thirdStepData.value.handOverCommitmentFilePath,
+        fKHrCreatorId: thirdStepData.value.fKHrCreatorId,
+        creationDate: thirdStepData.value.creationDate,
+        lastModifiedDate: thirdStepData.value.lastModifiedDate,
+        isActive: thirdStepData.value.isActive,
+        isDeleted: thirdStepData.value.isDeleted,
+        reviewer: thirdStepData.value.reviewer,
+        defBranchVm: thirdStepData.value.defBranchVm,
+      )
+          .then((value) {
+        AppInterceptor.hideLoader();
+        Get.offAll(
+          () => SuccessVacationScreen(),
+          transition: Transition.leftToRight,
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        );
+        animateSecondStep('forward');
+        paginate(activePage.value + 1, true);
       });
     }
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../api/requests/public_api.dart';
+import '../../../../config/colors/colors.dart';
 import '../../../../config/interceptor/interceptor.dart';
 import '../../../auth/login/models/login_response.dart';
 import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
@@ -23,7 +26,6 @@ class ComplaintDetailsController extends BaseController {
 
   /// VARIABLES
   RxList<DropDownModel> jobTypesList = <DropDownModel>[].obs;
-  RxList<DropDownModel> selectedJobTypesList = <DropDownModel>[].obs;
   RxList<int> jobTypesIds = <int>[].obs;
 
   Rx<Emp> employee = Emp(
@@ -105,19 +107,33 @@ class ComplaintDetailsController extends BaseController {
   }
 
   onClickSubmit() {
-    AppInterceptor.showLoader();
-    _complaintDetailsService
-        .createComplaint(
-      description: descriptionTextEditingController.value.text,
-      fKHrEmployeeId: employee.value.id,
-      subject: subjectTextEditingController.value.text,
-      jobTypesIds: jobTypesIds,
-    )
-        .then((value) {
-      if (value != null) {
-        Get.back(result: 'refresh');
-      }
-      AppInterceptor.hideLoader();
-    });
+    if (subjectTextEditingController.text.isEmpty ||
+        descriptionTextEditingController.text.isEmpty ||
+        jobTypesIds.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else {
+      AppInterceptor.showLoader();
+      _complaintDetailsService
+          .createComplaint(
+        description: descriptionTextEditingController.value.text,
+        fKHrEmployeeId: employee.value.id,
+        subject: subjectTextEditingController.value.text,
+        jobTypesIds: jobTypesIds,
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh');
+        }
+        AppInterceptor.hideLoader();
+      });
+    }
   }
 }

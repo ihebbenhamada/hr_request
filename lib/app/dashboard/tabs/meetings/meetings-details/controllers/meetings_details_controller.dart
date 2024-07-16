@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/api/models/public/department.dart';
 import 'package:request_hr/api/models/public/employee.dart';
@@ -148,24 +149,39 @@ class MeetingsDetailsController extends BaseController {
   }
 
   onClickDone() {
-    AppInterceptor.showLoader();
-    _meetingsDetailsService
-        .createMeeting(
-      subject: meetingSubjectTextEditingController.value.text,
-      meetingDate: meetingDate.value,
-      meetingTitle: meetingTitleTextEditingController.value.text,
-      fkHrDepartmentId: selectedDepartment.value.id,
-      fkAssigneeById: 0,
-      submitType: "send",
-      meetingPoints: meetingPointList.value,
-      assignees: assigneesList,
-    )
-        .then((value) {
-      if (value != null) {
-        Get.back(result: 'refresh', id: 4);
-      }
-      AppInterceptor.hideLoader();
-    });
+    if (assigneesList.isEmpty ||
+        meetingTitleTextEditingController.text.isEmpty ||
+        meetingSubjectTextEditingController.text.isEmpty ||
+        meetingPointList.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else {
+      AppInterceptor.showLoader();
+      _meetingsDetailsService
+          .createMeeting(
+        subject: meetingSubjectTextEditingController.value.text,
+        meetingDate: meetingDate.value,
+        meetingTitle: meetingTitleTextEditingController.value.text,
+        fkHrDepartmentId: selectedDepartment.value.id,
+        fkAssigneeById: 0,
+        submitType: "send",
+        meetingPoints: meetingPointList.value,
+        assignees: assigneesList,
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh', id: 4);
+        }
+        AppInterceptor.hideLoader();
+      });
+    }
   }
 
   Future<List<Employee>> searchEmployee(String value) async {

@@ -53,40 +53,51 @@ class MeetingsScreen extends StatelessWidget {
             ),
             28.h.verticalSpace,
             Obx(
-              () => Expanded(
-                child: RefreshIndicator(
-                  onRefresh: _meetingsController.handleRefresh,
-                  backgroundColor: AppColors.primary,
-                  color: AppColors.white,
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // number of items in each row
-                      mainAxisSpacing: 24.h, // spacing between rows
-                      crossAxisSpacing: 20.0.h,
-                      childAspectRatio: 0.9, // spacing between columns
+              () => _meetingsController.meetingList.isNotEmpty
+                  ? Expanded(
+                      child: RefreshIndicator(
+                        onRefresh: _meetingsController.handleRefresh,
+                        backgroundColor: AppColors.primary,
+                        color: AppColors.white,
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // number of items in each row
+                            mainAxisSpacing: 24.h, // spacing between rows
+                            crossAxisSpacing: 20.0.h,
+                            childAspectRatio: 0.9, // spacing between columns
+                          ),
+                          padding: EdgeInsets.only(
+                            bottom: Platform.isIOS ? 70.h : 84.h,
+                          ),
+                          shrinkWrap: true, // padding around the grid
+                          itemCount: _meetingsController
+                              .meetingList.length, // total number of items
+                          itemBuilder: (context, index) {
+                            MeetingResponse item =
+                                _meetingsController.meetingList[index];
+                            return MeetingGridItem(
+                              employeeName: item.assigneeByName ?? "",
+                              employeePosition: item.meetingTitle ?? "",
+                              employeeImage: AppImages.profile,
+                              type: item.fkReqStatusId,
+                              date:
+                                  item.creationDate.toString().substring(0, 10),
+                              onClick: () =>
+                                  _meetingsController.onClickMeetingItem(item),
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        'no_meeting_found'.tr,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                        ),
+                      ),
                     ),
-                    padding: EdgeInsets.only(
-                      bottom: Platform.isIOS ? 70.h : 84.h,
-                    ),
-                    shrinkWrap: true, // padding around the grid
-                    itemCount: _meetingsController
-                        .meetingList.length, // total number of items
-                    itemBuilder: (context, index) {
-                      MeetingResponse item =
-                          _meetingsController.meetingList[index];
-                      return MeetingGridItem(
-                        employeeName: item.assigneeByName ?? "",
-                        employeePosition: item.meetingTitle ?? "",
-                        employeeImage: AppImages.profile,
-                        type: item.fkReqStatusId,
-                        date: item.creationDate.toString().substring(0, 10),
-                        onClick: () =>
-                            _meetingsController.onClickMeetingItem(item),
-                      );
-                    },
-                  ),
-                ),
-              ),
             ),
           ],
         ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/api/models/public/employee.dart';
@@ -7,6 +9,7 @@ import 'package:request_hr/app/auth/login/models/login_response.dart';
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../api/models/public/department.dart';
 import '../../../../api/requests/public_api.dart';
+import '../../../../config/colors/colors.dart';
 import '../../../../config/interceptor/interceptor.dart';
 import '../services/bonus_details_service.dart';
 
@@ -124,33 +127,49 @@ class BonusDetailsController extends BaseController {
   }
 
   onClickSubmit() {
-    AppInterceptor.showLoader();
-    _bonusDetailsService
-        .createBonus(
-      amount: double.parse(amountTextEditingController.value.text),
-      description: remarkTextEditingController.value.text,
-      bonusType: 1,
-      creationDate: DateTime.now().toString().substring(0, 10),
-      fKHrEmployeeId: employee.value.id,
-      subject: titleTextEditingController.value.text,
-      assignees: [selectedEmployee.value.id],
-      departmentsIds: [selectedDepartment.value.id],
-      fKAssigneeId: selectedEmployee.value.id,
-      fKHrDepartmentId: selectedDepartment.value.id,
-      hrDepartments: [
-        {
-          "Value": selectedDepartment.value.id.toString(),
-          "Text": selectedDepartment.value.departmentNameEn
+    if (amountTextEditingController.text.isEmpty ||
+        titleTextEditingController.text.isEmpty ||
+        remarkTextEditingController.text.isEmpty ||
+        selectedDepartment.value.id == 0 ||
+        selectedEmployee.value.id == 0) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+    } else {
+      AppInterceptor.showLoader();
+      _bonusDetailsService
+          .createBonus(
+        amount: double.parse(amountTextEditingController.value.text),
+        description: remarkTextEditingController.value.text,
+        bonusType: 1,
+        creationDate: DateTime.now().toString().substring(0, 10),
+        fKHrEmployeeId: employee.value.id,
+        subject: titleTextEditingController.value.text,
+        assignees: [selectedEmployee.value.id],
+        departmentsIds: [selectedDepartment.value.id],
+        fKAssigneeId: selectedEmployee.value.id,
+        fKHrDepartmentId: selectedDepartment.value.id,
+        hrDepartments: [
+          {
+            "Value": selectedDepartment.value.id.toString(),
+            "Text": selectedDepartment.value.departmentNameEn
+          }
+        ],
+        isActive: true,
+        isDeleted: false,
+      )
+          .then((value) {
+        if (value != null) {
+          Get.back(result: 'refresh');
         }
-      ],
-      isActive: true,
-      isDeleted: false,
-    )
-        .then((value) {
-      if (value != null) {
-        Get.back(result: 'refresh');
-      }
-      AppInterceptor.hideLoader();
-    });
+        AppInterceptor.hideLoader();
+      });
+    }
   }
 }

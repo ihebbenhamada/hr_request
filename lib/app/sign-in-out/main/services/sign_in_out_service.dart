@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart' as get_tr;
 import 'package:request_hr/app/sign-in-out/main/model/sign_in_out.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
@@ -22,7 +23,7 @@ class SignInOutService {
       }
     } on DioException catch (e) {
       Fluttertoast.showToast(
-        msg: "Error!",
+        msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,

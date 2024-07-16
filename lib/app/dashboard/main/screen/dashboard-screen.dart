@@ -73,7 +73,13 @@ class DashboardScreen extends StatelessWidget {
                         : employee?.fullNameEn != null
                             ? employee!.fullNameEn
                             : _dashboardController.employee.value.fullNameEn,
-                    job: _dashboardController.employee.value.jobName,
+                    job: Get.locale?.languageCode == 'ar'
+                        ? employee?.jobName != null
+                            ? employee!.jobName
+                            : _dashboardController.employee.value.jobName
+                        : employee?.jobName != null
+                            ? employee!.jobName
+                            : _dashboardController.employee.value.jobName,
                   ),
                   Expanded(
                     child: IndexedStack(
@@ -207,9 +213,20 @@ class DashboardScreen extends StatelessWidget {
                               _dashboardController.employee.value.imagePath ??
                                   AppImages.profile,
                           name: Get.locale?.languageCode == 'ar'
-                              ? _dashboardController.employee.value.fullName
-                              : _dashboardController.employee.value.fullNameEn,
-                          job: _dashboardController.employee.value.jobName,
+                              ? employee?.fullName != null
+                                  ? employee!.fullName
+                                  : _dashboardController.employee.value.fullName
+                              : employee?.fullNameEn != null
+                                  ? employee!.fullNameEn
+                                  : _dashboardController
+                                      .employee.value.fullNameEn,
+                          job: Get.locale?.languageCode == 'ar'
+                              ? employee?.jobName != null
+                                  ? employee!.jobName
+                                  : _dashboardController.employee.value.jobName
+                              : employee?.jobName != null
+                                  ? employee!.jobName
+                                  : _dashboardController.employee.value.jobName,
                           closeDrawer: () {
                             scaffoldKey.currentState!.closeDrawer();
                           },
@@ -233,16 +250,22 @@ class DashboardScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _dashboardController
-                                              .employee.value.contractDueDate !=
-                                          null
+                                  employee?.contractDueDate != null
                                       ? DateFormat('ddMMM., yyyy').format(
                                           DateTime.parse(
-                                            _dashboardController.employee.value
-                                                .contractDueDate!,
+                                            employee!.contractDueDate!,
                                           ),
                                         )
-                                      : "--/--/---",
+                                      : _dashboardController.employee.value
+                                                  .contractDueDate !=
+                                              null
+                                          ? DateFormat('ddMMM., yyyy').format(
+                                              DateTime.parse(
+                                                _dashboardController.employee
+                                                    .value.contractDueDate!,
+                                              ),
+                                            )
+                                          : "--/--/---",
                                   style: TextStyle(
                                     color: AppColors.white,
                                     fontSize: 20.sp,
@@ -268,7 +291,11 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                     5.horizontalSpace,
                                     Text(
-                                      '${'start_job'.tr}: ${_dashboardController.employee.value.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
+                                      '${'start_job'.tr}: ${employee?.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
+                                          DateTime.parse(
+                                            employee!.contractStartDate!,
+                                          ),
+                                        ) : _dashboardController.employee.value.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
                                           DateTime.parse(
                                             _dashboardController.employee.value
                                                 .contractStartDate!,
@@ -301,7 +328,7 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                     5.horizontalSpace,
                                     Text(
-                                      '${'job_code'.tr}: ${_dashboardController.employee.value.code}',
+                                      '${'job_code'.tr}: ${employee?.code != null ? employee!.code : _dashboardController.employee.value.code}',
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 14.sp,

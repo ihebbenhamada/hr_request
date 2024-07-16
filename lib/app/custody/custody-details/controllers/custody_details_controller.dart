@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/custody/main/models/custody.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
@@ -124,42 +125,58 @@ class CustodyDetailsController extends BaseController {
   }
 
   onClickSubmit() {
-    AppInterceptor.showLoader();
-    if (Get.arguments != null) {
-      _custodyDetailsService
-          .updateCustody(
-        id: id.value,
-        paymentType: int.parse(selectedPaymentType.value.value ?? '0'),
-        dateCustody: custodyDate.toString(),
-        totalAmount: int.parse(totalCustodyTextEditingController.value.text),
-        fKCbCustodyTypeId: int.parse(selectedCustodyType.value.value ?? '0'),
-        custodyName: nameCustodyTextEditingController.value.text,
-        subject: titleCustodyTextEditingController.value.text,
-        description: topicCustodyTextEditingController.value.text,
-      )
-          .then((value) {
-        if (value != null) {
-          Get.back(result: 'refresh');
-        }
-        AppInterceptor.hideLoader();
-      });
+    if (totalCustodyTextEditingController.text.isEmpty ||
+        titleCustodyTextEditingController.text.isEmpty ||
+        nameCustodyTextEditingController.text.isEmpty ||
+        selectedCustodyType.value.value == '' ||
+        topicCustodyTextEditingController.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "fill_credentials_toast".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
     } else {
-      _custodyDetailsService
-          .createCustody(
-        paymentType: int.parse(selectedPaymentType.value.value ?? '0'),
-        dateCustody: custodyDate.toString(),
-        totalAmount: int.parse(totalCustodyTextEditingController.value.text),
-        fKCbCustodyTypeId: int.parse(selectedCustodyType.value.value ?? '0'),
-        custodyName: nameCustodyTextEditingController.value.text,
-        subject: titleCustodyTextEditingController.value.text,
-        description: topicCustodyTextEditingController.value.text,
-      )
-          .then((value) {
-        if (value != null) {
-          Get.back(result: 'refresh');
-        }
-        AppInterceptor.hideLoader();
-      });
+      AppInterceptor.showLoader();
+      if (Get.arguments != null) {
+        _custodyDetailsService
+            .updateCustody(
+          id: id.value,
+          paymentType: int.parse(selectedPaymentType.value.value ?? '0'),
+          dateCustody: custodyDate.toString(),
+          totalAmount: int.parse(totalCustodyTextEditingController.value.text),
+          fKCbCustodyTypeId: int.parse(selectedCustodyType.value.value ?? '0'),
+          custodyName: nameCustodyTextEditingController.value.text,
+          subject: titleCustodyTextEditingController.value.text,
+          description: topicCustodyTextEditingController.value.text,
+        )
+            .then((value) {
+          if (value != null) {
+            Get.back(result: 'refresh');
+          }
+          AppInterceptor.hideLoader();
+        });
+      } else {
+        _custodyDetailsService
+            .createCustody(
+          paymentType: int.parse(selectedPaymentType.value.value ?? '0'),
+          dateCustody: custodyDate.toString(),
+          totalAmount: int.parse(totalCustodyTextEditingController.value.text),
+          fKCbCustodyTypeId: int.parse(selectedCustodyType.value.value ?? '0'),
+          custodyName: nameCustodyTextEditingController.value.text,
+          subject: titleCustodyTextEditingController.value.text,
+          description: topicCustodyTextEditingController.value.text,
+        )
+            .then((value) {
+          if (value != null) {
+            Get.back(result: 'refresh');
+          }
+          AppInterceptor.hideLoader();
+        });
+      }
     }
   }
 

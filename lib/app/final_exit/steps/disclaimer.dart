@@ -84,7 +84,7 @@ class Disclaimer extends StatelessWidget {
                             maxLines: 1,
                             autocorrect: false,
                             enableSuggestions: false,
-                            enabled: true,
+                            enabled: false,
                             enableInteractiveSelection: true,
                           ),
                         ],

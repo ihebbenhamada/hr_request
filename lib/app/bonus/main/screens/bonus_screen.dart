@@ -25,6 +25,7 @@ class BonusScreen extends StatelessWidget {
         left: 25.0,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           !_bonusController.isAdmin
               ? Text(

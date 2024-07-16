@@ -58,7 +58,7 @@ class FinalExitApproval extends StatelessWidget {
                     ),
                     autocorrect: false,
                     enableSuggestions: false,
-                    enabled: true,
+                    enabled: false,
                     autofocus: true,
                     enableInteractiveSelection: true,
                   ),
