@@ -64,32 +64,47 @@ class SignInOutScreen extends StatelessWidget {
               ],
             ),
             20.h.verticalSpace,
-            Obx(
-              () => Expanded(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // number of items in each row
-                    mainAxisSpacing: 24.h, // spacing between rows
-                    crossAxisSpacing: 20.0.h,
-                    childAspectRatio: 0.8, // spacing between columns
-                  ),
-                  padding: EdgeInsets.only(
-                    bottom: Platform.isIOS ? 70.h : 84.h,
-                  ),
-                  shrinkWrap: true,
-                  itemCount: _signInOutController.signInOutList.value.length,
-                  itemBuilder: (context, index) {
-                    SignInOut item = _signInOutController.signInOutList[index];
-                    return SignInOutGridItem(
-                      employeeName: item.employeeName,
-                      workPlace: item.areaName,
-                      type: int.tryParse(item.attendType ?? "0") ?? 0,
-                      date: item.signDate.substring(0, 10),
-                      time: item.signTime.substring(0, 8),
-                      onClick: () =>
-                          _signInOutController.onClickSignInOutItem(item: item),
-                    );
-                  },
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _signInOutController.handleRefresh,
+                color: AppColors.white,
+                backgroundColor: AppColors.primary,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverFillRemaining(
+                      child: Obx(
+                        () => GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, // number of items in each row
+                            mainAxisSpacing: 24.h, // spacing between rows
+                            crossAxisSpacing: 20.0.h,
+                            childAspectRatio: 0.8, // spacing between columns
+                          ),
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.only(
+                            bottom: Platform.isIOS ? 70.h : 84.h,
+                          ),
+                          shrinkWrap: true,
+                          itemCount:
+                              _signInOutController.signInOutList.value.length,
+                          itemBuilder: (context, index) {
+                            SignInOut item =
+                                _signInOutController.signInOutList[index];
+                            return SignInOutGridItem(
+                              employeeName: item.employeeName,
+                              workPlace: item.areaName,
+                              type: int.tryParse(item.attendType ?? "0") ?? 0,
+                              date: item.signDate.substring(0, 10),
+                              time: item.signTime.substring(0, 8),
+                              onClick: () => _signInOutController
+                                  .onClickSignInOutItem(item: item),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

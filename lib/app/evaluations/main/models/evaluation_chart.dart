@@ -41,7 +41,7 @@ class EvaluationResponse {
 }
 
 class ListEmployeeEvaluationChart {
-  final int monthDegreeScalePercentage;
+  final double monthDegreeScalePercentage;
   final int month;
   final int year;
 
@@ -52,7 +52,8 @@ class ListEmployeeEvaluationChart {
 
   factory ListEmployeeEvaluationChart.fromJson(Map<String, dynamic> json) {
     return ListEmployeeEvaluationChart(
-      monthDegreeScalePercentage: json['monthDegreeScalePercentage'] as int,
+      monthDegreeScalePercentage:
+          double.parse(json['monthDegreeScalePercentage'].toString()),
       month: json['month'] as int,
       year: json['year'] as int,
     );

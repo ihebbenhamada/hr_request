@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart' as get_tr;
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/drop_down.dart';
+import 'package:request_hr/app/evaluations/evaluations-steps/main/model/detail_evaluation.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
 import '../../../../../config/api-urls/end_points.dart';
@@ -85,14 +86,7 @@ class EvaluationsStepsService {
     required String employeeNotes,
     required String employeeSigniture,
     required String employeeName,
-    required int fKHrEvaluationFormItemId,
-    required int fKHrEvaluationScaleId,
-    required double degreeScale,
-    required String recommendationText,
-    required int fKDetailCreatorId,
-    required String detailCreationDate,
-    required String detailLastModifiedDate,
-    required bool detailIsDeleted,
+    required List<DetailEvaluation> detailEvaluationList,
   }) async {
     Map<String, dynamic> data = {
       "FK_EvaluationFormId": fKEvaluationFormId,
@@ -117,18 +111,7 @@ class EvaluationsStepsService {
       "EmployeeNotes": employeeNotes,
       "EmployeeSigniture": employeeSigniture,
       "EmployeeName": employeeName,
-      "details": [
-        {
-          "FK_HrEvaluationFormItemId": fKHrEvaluationFormItemId,
-          "FK_HrEvaluationScaleId": fKHrEvaluationScaleId,
-          "DegreeScale": degreeScale,
-          "RecommendationText": recommendationText,
-          "FK_CreatorId": fKDetailCreatorId,
-          "CreationDate": detailCreationDate,
-          "LastModifiedDate": detailLastModifiedDate,
-          "IsDeleted": detailIsDeleted
-        },
-      ]
+      "details": detailEvaluationList.map((list) => list.toJson()).toList(),
     };
 
     try {

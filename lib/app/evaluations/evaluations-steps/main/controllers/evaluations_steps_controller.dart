@@ -15,6 +15,7 @@ import '../../steps/employee.dart';
 import '../../steps/form_a.dart';
 import '../../steps/form_type.dart';
 import '../../steps/recommendation.dart';
+import '../model/detail_evaluation.dart';
 import '../services/evaluations_steps_service.dart';
 
 class EvaluationsStepsController extends BaseController
@@ -44,6 +45,8 @@ class EvaluationsStepsController extends BaseController
   final RxString workPlaceDesc2 = ''.obs;
   final RxDouble jobDescSliderValue = 0.0.obs;
   final RxDouble importantRoleValue = 0.0.obs;
+  final RxInt jobDescScaleId = 5.obs;
+  final RxInt importantRoleScaleId = 5.obs;
 
   ///area2
   final RxString relationShipCollageTitle = ''.obs;
@@ -53,19 +56,30 @@ class EvaluationsStepsController extends BaseController
   final RxDouble managementEncourageValue = 0.0.obs;
   final RxDouble memberQualifiedValue = 0.0.obs;
   final RxDouble discusesJobDutiesValue = 0.0.obs;
+  final RxInt managementEncourageScaleId = 5.obs;
+  final RxInt memberQualifiedScaleId = 5.obs;
+  final RxInt discusesJobDutiesScaleId = 5.obs;
 
   ///area3
   final RxString managementDepartmentTitle = ''.obs;
   final RxString managementDepartmentDesc = ''.obs;
   final RxDouble helpManagingWorkValue = 0.0.obs;
+  final RxInt helpManagingWorkScaleId = 5.obs;
 
   ///area4
   final RxString directManagementTitle = ''.obs;
   final RxString directManagementDesc = ''.obs;
   final RxDouble understandManagerExpectationValue = 0.0.obs;
+  final RxInt understandManagerExpectationScaleId = 5.obs;
 
   final RxDouble totalScale = 0.0.obs;
-
+  final RxBool isEmployeeApprove = false.obs;
+  final RxString employeeApproveDate =
+      DateTime.now().toString().substring(0, 10).obs;
+  final TextEditingController employeeNotesController = TextEditingController();
+  final TextEditingController actionPlansController = TextEditingController();
+  final TextEditingController supervisorCommentController =
+      TextEditingController();
   List<RecommendationItem> recItemsList = [];
   //////////
 
@@ -88,6 +102,7 @@ class EvaluationsStepsController extends BaseController
 
   Rx<Department> selectedDepartment = Department(id: 0).obs;
   Rx<Employee> selectedEmployee = Employee(id: 0).obs;
+  RxList<DetailEvaluation> detailEvaluation = <DetailEvaluation>[].obs;
 
   /// VALIDATION
 
@@ -166,8 +181,15 @@ class EvaluationsStepsController extends BaseController
       Recommendation(
         recItemsList: recItemsList,
         onCheckBox: onCheckBox,
+        empCommentController: employeeNotesController,
+        actionPlansController: actionPlansController,
+        supervisorCommentController: supervisorCommentController,
       ),
-      const EmployeePart(),
+      EmployeePart(
+        onSelectDate: () => selectDate(Get.context!),
+        dateApproveEmp: employeeApproveDate.value,
+        onApproveEmp: onApproveEmp,
+      ),
     ];
   }
 
@@ -213,6 +235,7 @@ class EvaluationsStepsController extends BaseController
   }
 
   onClickFinish() {
+    AppInterceptor.showLoader();
     _evaluationsStepsService
         .createEvaluation(
       fKEvaluationFormId: int.parse(selectedEvalForm.value.value ?? '0'),
@@ -234,24 +257,16 @@ class EvaluationsStepsController extends BaseController
           DateTime.now().toString().substring(0, 10),
       isActive: evaluationFormData.value.isActive ?? true,
       isDeleted: evaluationFormData.value.isDeleted ?? false,
-      isEmployeeApprove: evaluationFormData.value.isEmployeeApprove ?? false,
-      employeeApproveDate: evaluationFormData.value.employeeApproveDate ??
-          DateTime.now().toString().substring(0, 10),
-      employeeNotes: evaluationFormData.value.employeeNotes ?? '',
+      isEmployeeApprove: isEmployeeApprove.value,
+      employeeApproveDate: employeeApproveDate.value,
+      employeeNotes: employeeNotesController.text,
       employeeSigniture: evaluationFormData.value.employeeSigniture ?? '',
-      employeeName: evaluationFormData.value.employeeName ?? '',
-      fKHrEvaluationFormItemId:
-          int.parse(selectedEvalForm.value.value.toString()),
-      fKHrEvaluationScaleId: 1,
-      degreeScale: totalScale.value,
-      recommendationText: '',
-      fKDetailCreatorId: 1,
-      detailCreationDate: DateTime.now().toString().substring(0, 10),
-      detailLastModifiedDate: DateTime.now().toString().substring(0, 10),
-      detailIsDeleted: false,
+      employeeName: selectedEmployee.value.fullName ?? '',
+      detailEvaluationList: detailEvaluation.value,
     )
         .then((value) {
       if (value != null) {
+        AppInterceptor.hideLoader();
         Get.to(
           () => SuccessVacationScreen(),
           transition: Transition.leftToRight,
@@ -328,25 +343,172 @@ class EvaluationsStepsController extends BaseController
   onChangeSlider(dynamic value, int type) {
     switch (type) {
       case 1:
+        detailEvaluation[0].degreeScale = value;
         jobDescSliderValue.value = value;
+        switch (value) {
+          case 0.0:
+            detailEvaluation[0].fkHrEvaluationScaleId = 5;
+            break;
+          case 25.0:
+            detailEvaluation[0].fkHrEvaluationScaleId = 4;
+            break;
+          case 50.0:
+            detailEvaluation[0].fkHrEvaluationScaleId = 3;
+            break;
+          case 75.0:
+            detailEvaluation[0].fkHrEvaluationScaleId = 2;
+            break;
+          case 100.0:
+            detailEvaluation[0].fkHrEvaluationScaleId = 1;
+            break;
+          default:
+            detailEvaluation[0].fkHrEvaluationScaleId = 5;
+            break;
+        }
         break;
       case 2:
+        detailEvaluation[1].degreeScale = value;
         importantRoleValue.value = value;
+        switch (value) {
+          case 0.0:
+            detailEvaluation[1].fkHrEvaluationScaleId = 5;
+            break;
+          case 25.0:
+            detailEvaluation[1].fkHrEvaluationScaleId = 4;
+            break;
+          case 50.0:
+            detailEvaluation[1].fkHrEvaluationScaleId = 3;
+            break;
+          case 75.0:
+            detailEvaluation[1].fkHrEvaluationScaleId = 2;
+            break;
+          case 100.0:
+            detailEvaluation[1].fkHrEvaluationScaleId = 1;
+            break;
+          default:
+            detailEvaluation[1].fkHrEvaluationScaleId = 5;
+            break;
+        }
         break;
       case 3:
+        detailEvaluation[2].degreeScale = value;
         managementEncourageValue.value = value;
+        switch (value) {
+          case 0.0:
+            detailEvaluation[2].fkHrEvaluationScaleId = 5;
+            break;
+          case 25.0:
+            detailEvaluation[2].fkHrEvaluationScaleId = 4;
+            break;
+          case 50.0:
+            detailEvaluation[2].fkHrEvaluationScaleId = 3;
+            break;
+          case 75.0:
+            detailEvaluation[2].fkHrEvaluationScaleId = 2;
+            break;
+          case 100.0:
+            detailEvaluation[2].fkHrEvaluationScaleId = 1;
+            break;
+          default:
+            detailEvaluation[2].fkHrEvaluationScaleId = 5;
+            break;
+        }
         break;
       case 4:
+        detailEvaluation[3].degreeScale = value;
         memberQualifiedValue.value = value;
+        switch (value) {
+          case 0.0:
+            detailEvaluation[3].fkHrEvaluationScaleId = 5;
+            break;
+          case 25.0:
+            detailEvaluation[3].fkHrEvaluationScaleId = 4;
+            break;
+          case 50.0:
+            detailEvaluation[3].fkHrEvaluationScaleId = 3;
+            break;
+          case 75.0:
+            detailEvaluation[3].fkHrEvaluationScaleId = 2;
+            break;
+          case 100.0:
+            detailEvaluation[3].fkHrEvaluationScaleId = 1;
+            break;
+          default:
+            detailEvaluation[3].fkHrEvaluationScaleId = 5;
+            break;
+        }
         break;
       case 5:
+        detailEvaluation[4].degreeScale = value;
         discusesJobDutiesValue.value = value;
+        switch (value) {
+          case 0.0:
+            detailEvaluation[4].fkHrEvaluationScaleId = 5;
+            break;
+          case 25.0:
+            detailEvaluation[4].fkHrEvaluationScaleId = 4;
+            break;
+          case 50.0:
+            detailEvaluation[4].fkHrEvaluationScaleId = 3;
+            break;
+          case 75.0:
+            detailEvaluation[4].fkHrEvaluationScaleId = 2;
+            break;
+          case 100.0:
+            detailEvaluation[4].fkHrEvaluationScaleId = 1;
+            break;
+          default:
+            detailEvaluation[4].fkHrEvaluationScaleId = 5;
+            break;
+        }
         break;
       case 6:
+        detailEvaluation[5].degreeScale = value;
         helpManagingWorkValue.value = value;
+        switch (value) {
+          case 0.0:
+            detailEvaluation[5].fkHrEvaluationScaleId = 5;
+            break;
+          case 25.0:
+            detailEvaluation[5].fkHrEvaluationScaleId = 4;
+            break;
+          case 50.0:
+            detailEvaluation[5].fkHrEvaluationScaleId = 3;
+            break;
+          case 75.0:
+            detailEvaluation[5].fkHrEvaluationScaleId = 2;
+            break;
+          case 100.0:
+            detailEvaluation[5].fkHrEvaluationScaleId = 1;
+            break;
+          default:
+            detailEvaluation[5].fkHrEvaluationScaleId = 5;
+            break;
+        }
         break;
       case 7:
+        detailEvaluation[6].degreeScale = value;
         understandManagerExpectationValue.value = value;
+        switch (value) {
+          case 0.0:
+            detailEvaluation[6].fkHrEvaluationScaleId = 5;
+            break;
+          case 25.0:
+            detailEvaluation[6].fkHrEvaluationScaleId = 4;
+            break;
+          case 50.0:
+            detailEvaluation[6].fkHrEvaluationScaleId = 3;
+            break;
+          case 75.0:
+            detailEvaluation[6].fkHrEvaluationScaleId = 2;
+            break;
+          case 100.0:
+            detailEvaluation[6].fkHrEvaluationScaleId = 1;
+            break;
+          default:
+            detailEvaluation[6].fkHrEvaluationScaleId = 5;
+            break;
+        }
         break;
       default:
         importantRoleValue.value = value;
@@ -368,6 +530,10 @@ class EvaluationsStepsController extends BaseController
   onCheckBox(int id, bool value) {
     recItemsList.firstWhere((test) => test.id == id).checked = value;
     update();
+  }
+
+  onApproveEmp(bool value) {
+    isEmployeeApprove.value = value;
   }
 
   onSelectDep(Department value) {
@@ -428,6 +594,86 @@ class EvaluationsStepsController extends BaseController
             ? value.evaluationMainItems![3].evaluationItems[0].evaluationItemEn
             : value.evaluationMainItems![3].evaluationItems[0].evaluationItemAr;
         recItemsList = value.recommendationItems!;
+        detailEvaluation.value = [
+          DetailEvaluation(
+            fkHrEvaluationFormItemId: value.evaluationMainItems![0]
+                .evaluationItems[0].fKHrEvaluationFormItemId,
+            fkHrEvaluationScaleId: jobDescScaleId.value,
+            degreeScale: jobDescSliderValue.value,
+            recommendationText: null,
+            fkCreatorId: 1,
+            creationDate: DateTime.now().toString().substring(0, 10),
+            lastModifiedDate: DateTime.now().toString().substring(0, 10),
+            isDeleted: false,
+          ),
+          DetailEvaluation(
+            fkHrEvaluationFormItemId: value.evaluationMainItems![0]
+                .evaluationItems[1].fKHrEvaluationFormItemId,
+            fkHrEvaluationScaleId: importantRoleScaleId.value,
+            degreeScale: importantRoleValue.value,
+            recommendationText: null,
+            fkCreatorId: 1,
+            creationDate: DateTime.now().toString().substring(0, 10),
+            lastModifiedDate: DateTime.now().toString().substring(0, 10),
+            isDeleted: false,
+          ),
+          DetailEvaluation(
+            fkHrEvaluationFormItemId: value.evaluationMainItems![1]
+                .evaluationItems[0].fKHrEvaluationFormItemId,
+            fkHrEvaluationScaleId: managementEncourageScaleId.value,
+            degreeScale: managementEncourageValue.value,
+            recommendationText: null,
+            fkCreatorId: 1,
+            creationDate: DateTime.now().toString().substring(0, 10),
+            lastModifiedDate: DateTime.now().toString().substring(0, 10),
+            isDeleted: false,
+          ),
+          DetailEvaluation(
+            fkHrEvaluationFormItemId: value.evaluationMainItems![1]
+                .evaluationItems[1].fKHrEvaluationFormItemId,
+            fkHrEvaluationScaleId: memberQualifiedScaleId.value,
+            degreeScale: memberQualifiedValue.value,
+            recommendationText: null,
+            fkCreatorId: 1,
+            creationDate: DateTime.now().toString().substring(0, 10),
+            lastModifiedDate: DateTime.now().toString().substring(0, 10),
+            isDeleted: false,
+          ),
+          DetailEvaluation(
+            fkHrEvaluationFormItemId: value.evaluationMainItems![1]
+                .evaluationItems[2].fKHrEvaluationFormItemId,
+            fkHrEvaluationScaleId: discusesJobDutiesScaleId.value,
+            degreeScale: discusesJobDutiesValue.value,
+            recommendationText: null,
+            fkCreatorId: 1,
+            creationDate: DateTime.now().toString().substring(0, 10),
+            lastModifiedDate: DateTime.now().toString().substring(0, 10),
+            isDeleted: false,
+          ),
+          DetailEvaluation(
+            fkHrEvaluationFormItemId: value.evaluationMainItems![2]
+                .evaluationItems[0].fKHrEvaluationFormItemId,
+            fkHrEvaluationScaleId: helpManagingWorkScaleId.value,
+            degreeScale: helpManagingWorkValue.value,
+            recommendationText: null,
+            fkCreatorId: 1,
+            creationDate: DateTime.now().toString().substring(0, 10),
+            lastModifiedDate: DateTime.now().toString().substring(0, 10),
+            isDeleted: false,
+          ),
+          DetailEvaluation(
+            fkHrEvaluationFormItemId: value.evaluationMainItems![3]
+                .evaluationItems[0].fKHrEvaluationFormItemId,
+            fkHrEvaluationScaleId: understandManagerExpectationScaleId.value,
+            degreeScale: understandManagerExpectationValue.value,
+            recommendationText: null,
+            fkCreatorId: 1,
+            creationDate: DateTime.now().toString().substring(0, 10),
+            lastModifiedDate: DateTime.now().toString().substring(0, 10),
+            isDeleted: false,
+          ),
+        ];
+
         steps.value = [
           FormType(
             evaluationsStepsService: _evaluationsStepsService,
@@ -462,8 +708,15 @@ class EvaluationsStepsController extends BaseController
           Recommendation(
             recItemsList: value.recommendationItems!,
             onCheckBox: onCheckBox,
+            empCommentController: employeeNotesController,
+            actionPlansController: actionPlansController,
+            supervisorCommentController: supervisorCommentController,
           ),
-          const EmployeePart(),
+          EmployeePart(
+            onApproveEmp: onApproveEmp,
+            dateApproveEmp: employeeApproveDate.value,
+            onSelectDate: () => selectDate(Get.context!),
+          ),
         ];
         update();
 
@@ -472,5 +725,38 @@ class EvaluationsStepsController extends BaseController
       }
       AppInterceptor.hideLoader();
     });
+  }
+
+  void selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primary, // header background color
+              onPrimary: AppColors.white, // header text color
+              onSurface: AppColors.black, // body text color
+            ),
+            textTheme: Theme.of(context).textTheme.copyWith(
+                  bodyLarge: TextStyle(fontSize: 14.sp),
+                ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.black, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null &&
+        pickedDate.toString().substring(0, 10) != employeeApproveDate.value) {
+      employeeApproveDate.value = pickedDate.toString().substring(0, 10);
+    }
   }
 }

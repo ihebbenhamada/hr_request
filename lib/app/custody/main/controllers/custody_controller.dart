@@ -100,6 +100,7 @@ class CustodyController extends BaseController {
   }
 
   Future<void> onRefresh() async {
+    selectedFilter.value = 0;
     getCustodyList();
   }
 }

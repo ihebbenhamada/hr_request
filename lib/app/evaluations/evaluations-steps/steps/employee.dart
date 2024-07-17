@@ -3,9 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 
-class EmployeePart extends StatelessWidget {
-  const EmployeePart({super.key});
+import '../../../../config/image_urls/image_urls.dart';
 
+class EmployeePart extends StatelessWidget {
+  const EmployeePart(
+      {super.key,
+      required this.onApproveEmp,
+      required this.onSelectDate,
+      required this.dateApproveEmp});
+  final Function(bool) onApproveEmp;
+  final void Function() onSelectDate;
+  final String dateApproveEmp;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -42,7 +50,7 @@ class EmployeePart extends StatelessWidget {
                           child: Switch(
                             value: true,
                             activeColor: AppColors.blueDark,
-                            onChanged: (value) {},
+                            onChanged: (value) => onApproveEmp(value),
                             activeTrackColor: AppColors.white,
                           ),
                         ),
@@ -59,27 +67,25 @@ class EmployeePart extends StatelessWidget {
                   ),
                 ),
                 5.h.verticalSpace,
-                TextFormField(
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.white,
+                GestureDetector(
+                  onTap: onSelectDate,
+                  behavior: HitTestBehavior.opaque,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        dateApproveEmp ?? '',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: AppColors.blueDark,
+                        ),
+                      ),
+                      Image.asset(
+                        AppImages.calender,
+                        height: 13.h,
+                      ),
+                    ],
                   ),
-                  keyboardType: TextInputType.number,
-                  cursorColor: AppColors.white,
-                  decoration: const InputDecoration(
-                    isDense: true,
-                    contentPadding: EdgeInsets.zero,
-                    focusedBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    focusedErrorBorder: InputBorder.none,
-                  ),
-                  maxLines: 1,
-                  autocorrect: false,
-                  enableSuggestions: false,
-                  enabled: true,
-                  enableInteractiveSelection: true,
                 ),
                 3.h.verticalSpace,
                 const Divider(

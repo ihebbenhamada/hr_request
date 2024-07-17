@@ -204,7 +204,7 @@ class DashboardScreen extends StatelessWidget {
                       left: 25,
                       right: 25,
                       bottom: 10.h,
-                      top: MediaQuery.of(context).viewPadding.top,
+                      top: MediaQuery.of(context).viewPadding.top + 10.h,
                     ),
                     child: Column(
                       children: [

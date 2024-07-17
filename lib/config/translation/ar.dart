@@ -300,6 +300,7 @@ class Ar {
         'unit': 'الوحدة',
         'quantity': 'الكمية',
         'name_not_in_list': 'الاسم غير موجود في القائمة',
+        'no_purchase_found': 'لم يتم العثور على مشتريات',
 
         ///TOAST
         'error': 'خطأ!',

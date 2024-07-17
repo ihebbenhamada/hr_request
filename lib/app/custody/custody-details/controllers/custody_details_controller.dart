@@ -169,6 +169,7 @@ class CustodyDetailsController extends BaseController {
           custodyName: nameCustodyTextEditingController.value.text,
           subject: titleCustodyTextEditingController.value.text,
           description: topicCustodyTextEditingController.value.text,
+          fKHrEmployeeId: 296,
         )
             .then((value) {
           if (value != null) {

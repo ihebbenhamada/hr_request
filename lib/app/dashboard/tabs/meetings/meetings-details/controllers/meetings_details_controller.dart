@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/api/models/public/department.dart';
 import 'package:request_hr/api/models/public/employee.dart';
 import 'package:request_hr/api/models/public/meeting_point.dart';
@@ -14,6 +15,7 @@ import 'package:request_hr/config/image_urls/image_urls.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../../../config/interceptor/interceptor.dart';
+import '../../../../../auth/login/models/login_response.dart';
 import '../services/meetings_details_service.dart';
 
 class MeetingsDetailsController extends BaseController {
@@ -42,6 +44,8 @@ class MeetingsDetailsController extends BaseController {
   RxList<Employee> selectedEmployees = <Employee>[].obs;
   RxList<String> imageList = <String>[].obs;
   RxList<int> assigneesList = <int>[].obs;
+
+  final GetStorage storage = GetStorage();
 
   /// VALIDATION
 
@@ -169,9 +173,8 @@ class MeetingsDetailsController extends BaseController {
         subject: meetingSubjectTextEditingController.value.text,
         meetingDate: meetingDate.value,
         meetingTitle: meetingTitleTextEditingController.value.text,
-        fkHrDepartmentId: selectedDepartment.value.id,
-        fkAssigneeById: 0,
         submitType: "send",
+        fkCreatorId: Emp.fromJson(GetStorage().read('employee')).fKCreatorId,
         meetingPoints: meetingPointList.value,
         assignees: assigneesList,
       )

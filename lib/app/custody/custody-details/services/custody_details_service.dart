@@ -39,6 +39,7 @@ class CustodyDetailsService {
 
   Future<bool?> createCustody({
     required int paymentType,
+    required int fKHrEmployeeId,
     required String dateCustody,
     required int totalAmount,
     required int fKCbCustodyTypeId,
@@ -47,7 +48,8 @@ class CustodyDetailsService {
     required String description,
   }) async {
     Map<String, dynamic> data = {
-      "PaymentType ": paymentType,
+      "FK_HrEmployeeId": fKHrEmployeeId,
+      "PaymentType": paymentType,
       "DateCustody": dateCustody.substring(0, 10),
       "TotalAmount": totalAmount,
       "FK_CbCustodyTypeId": fKCbCustodyTypeId,

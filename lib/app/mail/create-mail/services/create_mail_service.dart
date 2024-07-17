@@ -9,7 +9,7 @@ import '../../../../config/interceptor/interceptor.dart';
 
 class CreateMailService {
   Future<bool?> sendMessage({
-    required int fkParentId,
+    required int? fkParentId,
     required int fkHrEmployeeId,
     required String subject,
     required String description,
@@ -21,7 +21,7 @@ class CreateMailService {
     required String assigneeName,
     required String byAssigneeName,
     required String jobName,
-    required int fKCreatorId,
+    required int? fKCreatorId,
     required int? parentId,
     required String assigneeByImagePath,
     required String assigneeImagePath,

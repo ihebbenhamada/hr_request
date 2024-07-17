@@ -302,6 +302,7 @@ class En {
         'unit': 'Unit',
         'quantity': 'Quantity',
         'name_not_in_list': 'Name Not In List',
+        'no_purchase_found': 'No purchase found',
 
         ///TOAST
         'error': 'Error !',

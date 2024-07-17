@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/custody/main/controllers/custody_controller.dart';
-import 'package:request_hr/app/custody/main/models/custody.dart';
-import 'package:request_hr/app/custody/widget/custody_item.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_categories.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 import 'package:request_hr/config/theme/theme_controller.dart';
+
+import '../../widget/custody_item.dart';
+import '../models/custody.dart';
 
 class CustodyScreen extends StatelessWidget {
   final _custodyController = Get.put(CustodyController());
@@ -72,46 +73,59 @@ class CustodyScreen extends StatelessWidget {
                   _custodyController.onSelectFilter(index),
             ),
             30.h.verticalSpace,
-            RefreshIndicator(
-              onRefresh: _custodyController.onRefresh,
-              color: AppColors.white,
-              backgroundColor: AppColors.primary,
-              child: Obx(
-                () => _custodyController.custodyList.isNotEmpty
-                    ? GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3, // number of items in each row
-                          mainAxisSpacing: 11.h, // spacing between rows
-                          crossAxisSpacing: 11.h,
-                          mainAxisExtent: 135.h,
-                        ),
-                        padding: EdgeInsets.only(
-                          bottom: Platform.isIOS ? 70.h : 84.h,
-                        ),
-                        shrinkWrap: true, // padding around the grid
-                        itemCount: _custodyController
-                            .custodyList.length, // total number of items
-                        itemBuilder: (context, index) {
-                          Custody item = _custodyController.custodyList[index];
-                          return Center(
-                            child: CustodyItem(
-                              title: item.custodyName,
-                              date: item.dateCustody.substring(0, 10),
-                              status: item.fkReqStatusId,
-                              onClick: () =>
-                                  _custodyController.onClickCustodyItem(item),
-                            ),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          'no_custody_found'.tr,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                          ),
-                        ),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _custodyController.onRefresh,
+                color: AppColors.white,
+                backgroundColor: AppColors.primary,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverFillRemaining(
+                      child: Obx(
+                        () => _custodyController.custodyList.isNotEmpty
+                            ? GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      3, // number of items in each row
+                                  mainAxisSpacing: 11.h, // spacing between rows
+                                  crossAxisSpacing: 11.h,
+                                  mainAxisExtent: 135.h,
+                                ),
+                                physics: const NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.only(
+                                  bottom: Platform.isIOS ? 70.h : 84.h,
+                                ),
+                                shrinkWrap: true, // padding around the grid
+                                itemCount: _custodyController.custodyList
+                                    .length, // total number of items
+                                itemBuilder: (context, index) {
+                                  Custody item =
+                                      _custodyController.custodyList[index];
+
+                                  return Center(
+                                    child: CustodyItem(
+                                      title: item.custodyName,
+                                      date: item.dateCustody.substring(0, 10),
+                                      status: item.fkReqStatusId,
+                                      onClick: () => _custodyController
+                                          .onClickCustodyItem(item),
+                                    ),
+                                  );
+                                },
+                              )
+                            : Center(
+                                child: Text(
+                                  'no_custody_found'.tr,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ),
                       ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

@@ -140,8 +140,11 @@ class PurchaseDetailsController extends BaseController {
     _purchaseDetailsService.getCategories().then((listCategories) {
       if (listCategories != null) {
         categoryList.value = listCategories;
-        selectedCategory.value = listCategories[0];
-        getProductsByCategoryId(id: listCategories[0].id.toString());
+
+        if (listCategories.isNotEmpty) {
+          selectedCategory.value = listCategories[0];
+          getProductsByCategoryId(id: listCategories[0].id.toString());
+        }
       }
     });
   }
@@ -227,7 +230,21 @@ class PurchaseDetailsController extends BaseController {
   }
 
   onClickSubmit() {
-    Get.back();
+    AppInterceptor.showLoader();
+    _purchaseDetailsService.createPurchase(
+      serialPrefix: 'serialPrefix',
+      serialNumber: 1,
+      orderDate: DateTime.now().toString().substring(0, 10),
+      fkHrDepartmentId: 1,
+      status: 'status',
+      employeeName: selectedResponsible.value.fullName ?? '',
+      description: 'description',
+      purchaseOrderDetailList: [],
+    ).then(
+      (value) {
+        if (value != null) {}
+      },
+    );
   }
 
   onClickBack() {

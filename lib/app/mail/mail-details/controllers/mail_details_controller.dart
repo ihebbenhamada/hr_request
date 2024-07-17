@@ -15,6 +15,7 @@ import 'package:request_hr/app/mail/mail-details/services/mail_details_service.d
 
 import '../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../config/colors/colors.dart';
+import '../../../auth/login/models/login_response.dart';
 import '../../main/model/mail.dart';
 
 class MailDetailsController extends BaseController {
@@ -170,8 +171,8 @@ class MailDetailsController extends BaseController {
     } else {
       _mailDetailsService
           .replayMessage(
-        fkParentId: 1,
-        fkHrEmployeeId: 1,
+        fkParentId: null,
+        fkHrEmployeeId: Emp.fromJson(storage.read('employee')).id,
         subject: replaySubjectMessageTextEditingController.text,
         description: replayBodyMessageTextEditingController.text,
         reply: null,
@@ -182,7 +183,7 @@ class MailDetailsController extends BaseController {
         assigneeName: "",
         byAssigneeName: "",
         jobName: "",
-        fKCreatorId: 1,
+        fKCreatorId: null,
         parentId: null,
         assigneeByImagePath: '',
         assigneeImagePath: '',

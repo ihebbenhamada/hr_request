@@ -92,4 +92,9 @@ class PurchaseController extends BaseController {
       duration: const Duration(milliseconds: 500),
     );
   }
+
+  Future<void> handleRefresh() async {
+    selectedFilter.value = 0;
+    getPurchaseList();
+  }
 }

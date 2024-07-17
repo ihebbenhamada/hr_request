@@ -16,336 +16,340 @@ class EvaluationsStepsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primary,
-      body: Container(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-        color: AppColors.primary,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25.0.w),
-          child: Column(
-            children: [
-              Center(
-                child: AvatarCircle(
-                  image: AppImages.profile,
-                  circleColor: AppColors.white,
-                  size: 111.h,
-                  iconSize: 22.h,
-                  imageSize: 95.h,
-                  left: 13,
-                  icon: AppImages.innTechDark,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: AppColors.primary,
+        body: Container(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+          color: AppColors.primary,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0.w),
+            child: Column(
+              children: [
+                Center(
+                  child: AvatarCircle(
+                    image: AppImages.profile,
+                    circleColor: AppColors.white,
+                    size: 111.h,
+                    iconSize: 22.h,
+                    imageSize: 95.h,
+                    left: 13,
+                    icon: AppImages.innTechDark,
+                  ),
                 ),
-              ),
-              30.h.verticalSpace,
-              Obx(
-                () => Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //circle
-                    Container(
-                      height: 40.h,
-                      width: 40.h,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.blueDark,
+                30.h.verticalSpace,
+                Obx(
+                  () => Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //circle
+                      Container(
+                        height: 40.h,
+                        width: 40.h,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.blueDark,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '1',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 18.sp,
+                            ),
+                          ),
+                        ),
                       ),
-                      child: Center(
-                        child: Text(
-                          '1',
+                      //bar
+                      Stack(
+                        children: [
+                          Container(
+                            width:
+                                (MediaQuery.of(context).size.width - 170.w) / 4,
+                            height: 5.h,
+                            decoration: const BoxDecoration(
+                              color: AppColors.white,
+                            ),
+                          ),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 400),
+                            height: 5.h,
+                            width: _evaluationsStepsController
+                                .animatedFirstStepBarWidth.value,
+                            decoration: const BoxDecoration(
+                              color: AppColors.blueDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                      //circle
+                      AnimatedBuilder(
+                        animation: _evaluationsStepsController
+                            .firstStepContainerAnimation,
+                        builder: (context, child) {
+                          return SizedBox(
+                            height: 40.h,
+                            width: 40.h,
+                            child: LiquidCircularProgressIndicator(
+                              backgroundColor: Get.locale?.languageCode == 'en'
+                                  ? AppColors.white
+                                  : AppColors.blueDark,
+                              valueColor: AlwaysStoppedAnimation(
+                                Get.locale?.languageCode == 'en'
+                                    ? AppColors.blueDark
+                                    : AppColors.white,
+                              ),
+                              value: _evaluationsStepsController
+                                  .firstStepContainerAnimation.value,
+                              center: Center(
+                                child: Text(
+                                  '2',
+                                  style: TextStyle(
+                                    color: _evaluationsStepsController
+                                        .firstStepTextColor.value,
+                                    fontSize: 18.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      //bar
+                      Stack(
+                        children: [
+                          Container(
+                            width:
+                                (MediaQuery.of(context).size.width - 170.w) / 4,
+                            height: 5.h,
+                            decoration: const BoxDecoration(
+                              color: AppColors.white,
+                            ),
+                          ),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 400),
+                            height: 5.h,
+                            width: _evaluationsStepsController
+                                .animatedSecondStepBarWidth.value,
+                            decoration: const BoxDecoration(
+                              color: AppColors.blueDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                      //circle
+                      AnimatedBuilder(
+                        animation: _evaluationsStepsController
+                            .secondStepContainerAnimation,
+                        builder: (context, child) {
+                          return SizedBox(
+                            height: 40.h,
+                            width: 40.h,
+                            child: LiquidCircularProgressIndicator(
+                              backgroundColor: Get.locale?.languageCode == 'en'
+                                  ? AppColors.white
+                                  : AppColors.blueDark,
+                              valueColor: AlwaysStoppedAnimation(
+                                Get.locale?.languageCode == 'en'
+                                    ? AppColors.blueDark
+                                    : AppColors.white,
+                              ),
+                              value: _evaluationsStepsController
+                                  .secondStepContainerAnimation.value,
+                              center: Center(
+                                child: Text(
+                                  '3',
+                                  style: TextStyle(
+                                    color: _evaluationsStepsController
+                                        .secondStepTextColor.value,
+                                    fontSize: 18.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      //bar
+                      Stack(
+                        children: [
+                          Container(
+                            width:
+                                (MediaQuery.of(context).size.width - 170.w) / 4,
+                            height: 5.h,
+                            decoration: const BoxDecoration(
+                              color: AppColors.white,
+                            ),
+                          ),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 400),
+                            height: 5.h,
+                            width: _evaluationsStepsController
+                                .animatedThirdStepBarWidth.value,
+                            decoration: const BoxDecoration(
+                              color: AppColors.blueDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                      //circle
+                      AnimatedBuilder(
+                        animation: _evaluationsStepsController
+                            .thirdStepContainerAnimation,
+                        builder: (context, child) {
+                          return SizedBox(
+                            height: 40.h,
+                            width: 40.h,
+                            child: LiquidCircularProgressIndicator(
+                              backgroundColor: Get.locale?.languageCode == 'en'
+                                  ? AppColors.white
+                                  : AppColors.blueDark,
+                              valueColor: AlwaysStoppedAnimation(
+                                Get.locale?.languageCode == 'en'
+                                    ? AppColors.blueDark
+                                    : AppColors.white,
+                              ),
+                              value: _evaluationsStepsController
+                                  .thirdStepContainerAnimation.value,
+                              center: Center(
+                                child: Text(
+                                  '4',
+                                  style: TextStyle(
+                                    color: _evaluationsStepsController
+                                        .thirdStepTextColor.value,
+                                    fontSize: 18.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                5.h.verticalSpace,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          'employee'.tr,
                           style: TextStyle(
                             color: AppColors.white,
-                            fontSize: 18.sp,
+                            fontSize: 14.sp,
                           ),
                         ),
-                      ),
-                    ),
-                    //bar
-                    Stack(
-                      children: [
-                        Container(
-                          width:
-                              (MediaQuery.of(context).size.width - 170.w) / 4,
-                          height: 5.h,
-                          decoration: const BoxDecoration(
+                        Text(
+                          'form_type'.tr,
+                          style: TextStyle(
                             color: AppColors.white,
-                          ),
-                        ),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 400),
-                          height: 5.h,
-                          width: _evaluationsStepsController
-                              .animatedFirstStepBarWidth.value,
-                          decoration: const BoxDecoration(
-                            color: AppColors.blueDark,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
                     ),
-                    //circle
-                    AnimatedBuilder(
-                      animation: _evaluationsStepsController
-                          .firstStepContainerAnimation,
-                      builder: (context, child) {
-                        return SizedBox(
-                          height: 40.h,
-                          width: 40.h,
-                          child: LiquidCircularProgressIndicator(
-                            backgroundColor: Get.locale?.languageCode == 'en'
-                                ? AppColors.white
-                                : AppColors.blueDark,
-                            valueColor: AlwaysStoppedAnimation(
-                              Get.locale?.languageCode == 'en'
-                                  ? AppColors.blueDark
-                                  : AppColors.white,
-                            ),
-                            value: _evaluationsStepsController
-                                .firstStepContainerAnimation.value,
-                            center: Center(
-                              child: Text(
-                                '2',
-                                style: TextStyle(
-                                  color: _evaluationsStepsController
-                                      .firstStepTextColor.value,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    //bar
-                    Stack(
+                    Column(
                       children: [
-                        Container(
-                          width:
-                              (MediaQuery.of(context).size.width - 170.w) / 4,
-                          height: 5.h,
-                          decoration: const BoxDecoration(
+                        Text(
+                          'first_step'.tr,
+                          style: TextStyle(
                             color: AppColors.white,
+                            fontSize: 14.sp,
                           ),
                         ),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 400),
-                          height: 5.h,
-                          width: _evaluationsStepsController
-                              .animatedSecondStepBarWidth.value,
-                          decoration: const BoxDecoration(
-                            color: AppColors.blueDark,
+                        Text(
+                          'form_a'.tr,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
                     ),
-                    //circle
-                    AnimatedBuilder(
-                      animation: _evaluationsStepsController
-                          .secondStepContainerAnimation,
-                      builder: (context, child) {
-                        return SizedBox(
-                          height: 40.h,
-                          width: 40.h,
-                          child: LiquidCircularProgressIndicator(
-                            backgroundColor: Get.locale?.languageCode == 'en'
-                                ? AppColors.white
-                                : AppColors.blueDark,
-                            valueColor: AlwaysStoppedAnimation(
-                              Get.locale?.languageCode == 'en'
-                                  ? AppColors.blueDark
-                                  : AppColors.white,
-                            ),
-                            value: _evaluationsStepsController
-                                .secondStepContainerAnimation.value,
-                            center: Center(
-                              child: Text(
-                                '3',
-                                style: TextStyle(
-                                  color: _evaluationsStepsController
-                                      .secondStepTextColor.value,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    //bar
-                    Stack(
+                    Column(
                       children: [
-                        Container(
-                          width:
-                              (MediaQuery.of(context).size.width - 170.w) / 4,
-                          height: 5.h,
-                          decoration: const BoxDecoration(
+                        Text(
+                          'second_step'.tr,
+                          style: TextStyle(
                             color: AppColors.white,
+                            fontSize: 14.sp,
                           ),
                         ),
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 400),
-                          height: 5.h,
-                          width: _evaluationsStepsController
-                              .animatedThirdStepBarWidth.value,
-                          decoration: const BoxDecoration(
-                            color: AppColors.blueDark,
+                        Text(
+                          'recommendation'.tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
                     ),
-                    //circle
-                    AnimatedBuilder(
-                      animation: _evaluationsStepsController
-                          .thirdStepContainerAnimation,
-                      builder: (context, child) {
-                        return SizedBox(
-                          height: 40.h,
-                          width: 40.h,
-                          child: LiquidCircularProgressIndicator(
-                            backgroundColor: Get.locale?.languageCode == 'en'
-                                ? AppColors.white
-                                : AppColors.blueDark,
-                            valueColor: AlwaysStoppedAnimation(
-                              Get.locale?.languageCode == 'en'
-                                  ? AppColors.blueDark
-                                  : AppColors.white,
-                            ),
-                            value: _evaluationsStepsController
-                                .thirdStepContainerAnimation.value,
-                            center: Center(
-                              child: Text(
-                                '4',
-                                style: TextStyle(
-                                  color: _evaluationsStepsController
-                                      .thirdStepTextColor.value,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                            ),
+                    Column(
+                      children: [
+                        Text(
+                          'third_step'.tr,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 14.sp,
                           ),
-                        );
-                      },
+                        ),
+                        Text(
+                          'employee'.tr,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ),
-              5.h.verticalSpace,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        'employee'.tr,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                      Text(
-                        'form_type'.tr,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'first_step'.tr,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                      Text(
-                        'form_a'.tr,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'second_step'.tr,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                      Text(
-                        'recommendation'.tr,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'third_step'.tr,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                      Text(
-                        'employee'.tr,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              30.h.verticalSpace,
-              Obx(
-                () => Expanded(
-                  child: PageView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: _evaluationsStepsController.pageController,
-                    itemCount: _evaluationsStepsController.steps.value.length,
-                    onPageChanged: (index) =>
-                        _evaluationsStepsController.onPageChanged(index),
-                    itemBuilder: (BuildContext context, int index) {
-                      return _evaluationsStepsController.steps.value[index];
-                    },
-                  ),
-                ),
-              ),
-              Column(
-                children: [
-                  10.h.verticalSpace,
-                  Obx(
-                    () => CustomButton(
-                      text: _evaluationsStepsController.activePage.value == 3
-                          ? 'finish'.tr
-                          : 'next'.tr,
-                      onClick: _evaluationsStepsController.activePage.value == 3
-                          ? _evaluationsStepsController.onClickFinish
-                          : _evaluationsStepsController.onClickNext,
+                30.h.verticalSpace,
+                Obx(
+                  () => Expanded(
+                    child: PageView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: _evaluationsStepsController.pageController,
+                      itemCount: _evaluationsStepsController.steps.value.length,
+                      onPageChanged: (index) =>
+                          _evaluationsStepsController.onPageChanged(index),
+                      itemBuilder: (BuildContext context, int index) {
+                        return _evaluationsStepsController.steps.value[index];
+                      },
                     ),
                   ),
-                  18.h.verticalSpace,
-                  CustomButton(
-                    text: 'back'.tr,
-                    onClick: _evaluationsStepsController.onClickBack,
-                    isPrimary: false,
-                  ),
-                  56.h.verticalSpace,
-                ],
-              ),
-            ],
+                ),
+                Column(
+                  children: [
+                    10.h.verticalSpace,
+                    Obx(
+                      () => CustomButton(
+                        text: _evaluationsStepsController.activePage.value == 3
+                            ? 'finish'.tr
+                            : 'next'.tr,
+                        onClick:
+                            _evaluationsStepsController.activePage.value == 3
+                                ? _evaluationsStepsController.onClickFinish
+                                : _evaluationsStepsController.onClickNext,
+                      ),
+                    ),
+                    18.h.verticalSpace,
+                    CustomButton(
+                      text: 'back'.tr,
+                      onClick: _evaluationsStepsController.onClickBack,
+                      isPrimary: false,
+                    ),
+                    56.h.verticalSpace,
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -23,7 +23,7 @@ class CreateMailScreen extends StatelessWidget {
         backgroundColor: AppColors.primary,
         body: Column(
           children: [
-            MediaQuery.of(context).viewPadding.top.verticalSpace,
+            (MediaQuery.of(context).viewPadding.top + 20.h).verticalSpace,
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.only(

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:request_hr/api/models/public/department.dart';
 import 'package:request_hr/api/models/public/employee.dart';
+import 'package:request_hr/app/auth/login/models/login_response.dart';
 import 'package:request_hr/config/api-urls/end_points.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
 
@@ -43,6 +44,17 @@ class PublicApiServices {
           .toList();
 
       return employeeResponseList;
+    } else {
+      return null;
+    }
+  }
+
+  Future<Emp?> getEmployeeById({required String id}) async {
+    Response? response =
+        await AppInterceptor.dio?.get(EndPoints.GET_EMPLOYEE_BY_ID_URL(id));
+    if (response != null && response.statusCode == 200) {
+      Emp emp = Emp.fromJson(response.data);
+      return emp;
     } else {
       return null;
     }

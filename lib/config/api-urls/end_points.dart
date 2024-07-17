@@ -72,6 +72,9 @@ class EndPoints {
   static String GET_EMPLOYEES_BY_DEPARTMENT_URL(String id, String lang) =>
       '/ReqBonusAPI/GetEmployeesByDepartment?departmnetId=$id&lang=$lang';
 
+  static String GET_EMPLOYEE_BY_ID_URL(String id) =>
+      '/HrEmployeeEvaluationAPI/GetEmployeeById?id=$id';
+
   /// EVALUATION
   static const String GET_EVALUATIONS_URL = '/HrEmployeeEvaluationAPI/Index';
 
@@ -86,7 +89,7 @@ class EndPoints {
       '/HrEvaluationFormAPI/GetAllEvaluationFormForDDList';
 
   static String GET_UPDATE_EVALUATION_URL(
-          String fileId, String empId, String empEvalId) =>
+          String? fileId, String empId, String empEvalId) =>
       '/HrEmployeeEvaluationAPI/Edit?fileId=$fileId&empId=$empId&FK_HrEmployeeEvaluationId=$empEvalId';
   static const String UPDATE_EVALUATION_URL = '/HrEmployeeEvaluationAPI/Edit';
 

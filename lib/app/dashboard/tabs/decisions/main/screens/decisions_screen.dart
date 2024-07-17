@@ -68,7 +68,9 @@ class DecisionsScreen extends StatelessWidget {
                       DecisionsResponse item =
                           _decisionsController.decisionList[index];
                       return DecisionGridItem(
-                        employeeName: item.byAssigneeName,
+                        employeeName: Get.locale?.languageCode == 'en'
+                            ? item.byAssigneeNameEn
+                            : item.byAssigneeName,
                         employeePosition: item.subject,
                         employeeImage: item.imagePath,
                         date: item.creationDate.substring(0, 10),

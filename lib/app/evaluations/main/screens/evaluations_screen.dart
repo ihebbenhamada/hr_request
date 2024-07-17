@@ -22,9 +22,8 @@ class EvaluationsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.gray2,
       body: Padding(
-        padding: const EdgeInsets.only(
-          right: 25.0,
-          left: 25.0,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 25.0,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +34,6 @@ class EvaluationsScreen extends StatelessWidget {
               child: Container(
                 height: 40.h,
                 width: 40.h,
-                margin: const EdgeInsets.only(left: 25),
                 decoration: const ShapeDecoration(
                   shape: OvalBorder(),
                   color: AppColors.primary,
@@ -577,19 +575,18 @@ class EvaluationsScreen extends StatelessWidget {
                                                   : Alignment.centerRight,
                                           children: [
                                             Container(
-                                              width: 120,
                                               height: 21.h,
                                               padding: EdgeInsets.only(
                                                 left:
                                                     Get.locale?.languageCode ==
                                                             'en'
                                                         ? 25
-                                                        : 0,
+                                                        : 10,
                                                 right:
                                                     Get.locale?.languageCode ==
                                                             'ar'
                                                         ? 25
-                                                        : 0,
+                                                        : 10,
                                               ),
                                               decoration: BoxDecoration(
                                                 borderRadius:
@@ -613,7 +610,8 @@ class EvaluationsScreen extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(21.h),
                                                 border: Border.all(
-                                                    color: AppColors.primary),
+                                                  color: AppColors.primary,
+                                                ),
                                                 color: AppColors.white,
                                               ),
                                               child: Center(
@@ -630,26 +628,30 @@ class EvaluationsScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    child: CircularPercentIndicator(
-                                      radius: 48.0,
-                                      lineWidth: 10.0,
-                                      animation: true,
-                                      percent: double.parse(
-                                          _evaluationsController
-                                              .percentage.value),
-                                      center: Obx(
-                                        () => Text(
+                                    child: Obx(
+                                      () => CircularPercentIndicator(
+                                        radius: 48.0,
+                                        lineWidth: 10.0,
+                                        animation: true,
+                                        percent: double.parse(
                                           _evaluationsController
                                               .percentage.value,
+                                        ),
+                                        center: Text(
+                                          (double.parse(_evaluationsController
+                                                      .percentage.value) *
+                                                  100)
+                                              .toStringAsFixed(1),
                                           style: TextStyle(
                                             color: AppColors.primary,
                                             fontSize: 27.sp,
                                           ),
                                         ),
+                                        circularStrokeCap:
+                                            CircularStrokeCap.butt,
+                                        progressColor: AppColors.primary,
+                                        backgroundColor: AppColors.blueLight1,
                                       ),
-                                      circularStrokeCap: CircularStrokeCap.butt,
-                                      progressColor: AppColors.primary,
-                                      backgroundColor: AppColors.blueLight1,
                                     ),
                                   ),
                                 ],

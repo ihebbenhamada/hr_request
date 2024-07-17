@@ -10,9 +10,15 @@ class Recommendation extends StatelessWidget {
     super.key,
     required this.recItemsList,
     required this.onCheckBox,
+    required this.empCommentController,
+    required this.actionPlansController,
+    required this.supervisorCommentController,
   });
   List<RecommendationItem> recItemsList;
   final Function(int, bool) onCheckBox;
+  final TextEditingController empCommentController;
+  final TextEditingController actionPlansController;
+  final TextEditingController supervisorCommentController;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -116,7 +122,7 @@ class Recommendation extends StatelessWidget {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        keyboardType: TextInputType.number,
+                        controller: supervisorCommentController,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(
                           isDense: true,
@@ -154,7 +160,7 @@ class Recommendation extends StatelessWidget {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        keyboardType: TextInputType.number,
+                        controller: actionPlansController,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(
                           isDense: true,
@@ -192,7 +198,7 @@ class Recommendation extends StatelessWidget {
                           fontSize: 14.sp,
                           color: AppColors.white,
                         ),
-                        keyboardType: TextInputType.number,
+                        controller: empCommentController,
                         cursorColor: AppColors.white,
                         decoration: const InputDecoration(
                           isDense: true,

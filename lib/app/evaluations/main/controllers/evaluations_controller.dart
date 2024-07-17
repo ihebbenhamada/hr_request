@@ -108,7 +108,8 @@ class EvaluationsController extends BaseController {
         listHrEmployeeEvaluations.value =
             value.listHrEmployeeEvaluations ?? <Evaluation>[];
         totalMonthDegreeScale.value = value.totalMonthDegreeScale ?? "";
-        getPercentage(value.totalMonthDegreeScale ?? "");
+        percentage.value =
+            evaluateExpression(value.totalMonthDegreeScale ?? '1/1').toString();
         barGroups.value = generateGroupData(value.listEmployeeEvaluationChart ??
             <ListEmployeeEvaluationChart>[]);
       }
@@ -116,18 +117,12 @@ class EvaluationsController extends BaseController {
     });
   }
 
-  getPercentage(String value) {
-    double a = 0.0;
-    double b = 0.0;
-    if (value.isNotEmpty) {
-      a = int.parse(value[0]).toDouble();
-      b = int.parse(value[4]).toDouble();
-    }
-    if (b == 0.0) {
-      percentage.value = "0";
-    } else {
-      percentage.value = (a / b).toString();
-    }
+  double evaluateExpression(String expression) {
+    List<String> parts = expression.split('/');
+    double numerator = double.parse(parts[0].trim());
+    double denominator = double.parse(parts[1].trim());
+
+    return denominator != 0 ? numerator / denominator : 0.0;
   }
 
   Future<void> handleRefresh() async {

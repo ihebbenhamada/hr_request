@@ -100,6 +100,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                             color: AppColors.blueDark,
                             fontSize: 14.sp,
                           ),
+                          dropdownColor: AppColors.white,
                           isExpanded: true,
                           alignment: Alignment.bottomCenter,
                           icon: Image.asset(
@@ -168,6 +169,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                             color: AppColors.blueDark,
                             fontSize: 14.sp,
                           ),
+                          dropdownColor: AppColors.white,
                           isExpanded: true,
                           alignment: Alignment.bottomCenter,
                           icon: Image.asset(
@@ -215,7 +217,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                     () => InputForm(
                       height: 55.h,
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
-                      title: 'order_date',
+                      title: 'order_date'.tr,
                       inputType: 'date',
                       text: DateFormat('dd-MM-yyyy').format(
                         _purchaseDetailsController.orderDate.value,
@@ -426,6 +428,7 @@ class PurchaseDetailsScreen extends StatelessWidget {
                     ),
                     child: InputForm(
                       width: MediaQuery.of(context).size.width * 0.485 - 25.0,
+                      height: 55.h,
                       title: 'name_not_in_list'.tr,
                       inputType: 'input',
                       nbrLines: 1,

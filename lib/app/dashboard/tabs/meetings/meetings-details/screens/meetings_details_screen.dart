@@ -551,7 +551,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                       ),
                     ),
                     25.h.verticalSpace,
-                    widget.meetingItem == null
+                    /*widget.meetingItem == null
                         ? GestureDetector(
                             onTap: _meetingsDetailsController.uploadAttachment,
                             child: Align(
@@ -594,7 +594,7 @@ class _MeetingsDetailsScreenState extends State<MeetingsDetailsScreen> {
                             ),
                           )
                         : const SizedBox(),
-                    20.h.verticalSpace,
+                    20.h.verticalSpace,*/
                     _meetingsDetailsController.files.isNotEmpty
                         ? SizedBox(
                             height: 100.h,

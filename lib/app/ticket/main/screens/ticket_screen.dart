@@ -77,48 +77,59 @@ class TicketScreen extends StatelessWidget {
               30.h.verticalSpace,
               Expanded(
                 child: RefreshIndicator(
-                  onRefresh: _ticketController.handleRefresh,
-                  color: AppColors.white,
-                  backgroundColor: AppColors.primary,
-                  child: Obx(
-                    () => _ticketController.ticketsList.isNotEmpty
-                        ? GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3, // number of items in each row
-                              mainAxisSpacing: 11.h, // spacing between rows
-                              crossAxisSpacing: 11.h,
-                              mainAxisExtent: 135.h,
-                            ),
-                            padding: EdgeInsets.only(
-                              bottom: Platform.isIOS ? 70.h : 84.h,
-                            ),
-                            shrinkWrap: true,
-                            itemCount: _ticketController.ticketsList.length,
-                            itemBuilder: (context, index) {
-                              Ticket item =
-                                  _ticketController.ticketsList[index];
-                              return Center(
-                                child: TicketItem(
-                                  title: "request_ticket".tr,
-                                  date: item.creationDate.substring(0, 10),
-                                  status: item.status,
-                                  onClick: () =>
-                                      _ticketController.onClickTicketItem(item),
-                                ),
-                              );
-                            },
-                          )
-                        : Center(
-                            child: Text(
-                              'no_ticket_found'.tr,
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                              ),
-                            ),
+                    onRefresh: _ticketController.handleRefresh,
+                    color: AppColors.white,
+                    backgroundColor: AppColors.primary,
+                    child: CustomScrollView(
+                      slivers: <Widget>[
+                        SliverFillRemaining(
+                          child: Obx(
+                            () => _ticketController.ticketsList.isNotEmpty
+                                ? GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          3, // number of items in each row
+                                      mainAxisSpacing:
+                                          11.h, // spacing between rows
+                                      crossAxisSpacing: 11.h,
+                                      mainAxisExtent: 135.h,
+                                    ),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.only(
+                                      bottom: Platform.isIOS ? 70.h : 84.h,
+                                    ),
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        _ticketController.ticketsList.length,
+                                    itemBuilder: (context, index) {
+                                      Ticket item =
+                                          _ticketController.ticketsList[index];
+                                      return Center(
+                                        child: TicketItem(
+                                          title: "request_ticket".tr,
+                                          date: item.creationDate
+                                              .substring(0, 10),
+                                          status: item.status,
+                                          onClick: () => _ticketController
+                                              .onClickTicketItem(item),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : Center(
+                                    child: Text(
+                                      'no_ticket_found'.tr,
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ),
                           ),
-                  ),
-                ),
+                        )
+                      ],
+                    )),
               ),
             ],
           ),

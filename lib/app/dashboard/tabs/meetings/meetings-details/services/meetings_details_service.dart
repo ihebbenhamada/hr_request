@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,21 +14,19 @@ class MeetingsDetailsService {
     required String subject,
     required String meetingDate,
     required String meetingTitle,
-    required int fkHrDepartmentId,
-    required int fkAssigneeById,
     required String submitType,
+    required int fkCreatorId,
     required List<MeetingPoint> meetingPoints,
     required List<int> assignees,
   }) async {
     Map<String, dynamic> data = {
+      "meetingTitle": meetingTitle,
       "subject": subject,
       "meetingDate": meetingDate,
-      "meetingTitle": meetingTitle,
-      "fk_HrDepartmentId": fkHrDepartmentId,
-      "fk_AssigneeById": fkAssigneeById,
       "submitType": submitType,
+      "fK_CreatorId": fkCreatorId,
       "meetingPoints": meetingPoints.map((map) => map.toJson()).toList(),
-      "assignees ": assignees
+      "assignees": assignees
     };
     try {
       Response? response = await AppInterceptor.dio
@@ -37,6 +37,7 @@ class MeetingsDetailsService {
         return null;
       }
     } on DioException catch (e) {
+      log(e.response.toString());
       Fluttertoast.showToast(
         msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,

@@ -71,4 +71,8 @@ class SignInOutController extends BaseController {
       getSignInoutList();
     }
   }
+
+  Future<void> handleRefresh() async {
+    getSignInoutList();
+  }
 }

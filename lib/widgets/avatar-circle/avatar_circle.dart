@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
@@ -71,23 +72,27 @@ class AvatarCircle extends StatelessWidget {
                         height: imageSize ?? size,
                       );
                     },
+                    matchTextDirection: true,
                   )
                 : Image.asset(
                     image ?? AppImages.profile,
                     width: imageSize ?? size,
                     height: imageSize ?? size,
                     color: imageColor,
+                    matchTextDirection: true,
                   ),
           ),
         ),
         isBorderEnabled
             ? Positioned(
-                left: left ?? 9.h,
+                left: Get.locale?.languageCode == 'en' ? left ?? 9.h : null,
+                right: Get.locale?.languageCode == 'ar' ? left ?? 9.h : null,
                 bottom: bottom ?? 0,
                 child: Image.asset(
                   icon ?? AppImages.innTechLogo,
                   height: iconSize,
                   width: iconSize,
+                  matchTextDirection: true,
                 ),
               )
             : const SizedBox(),
@@ -97,6 +102,7 @@ class AvatarCircle extends StatelessWidget {
                 height: size,
                 width: size,
                 color: circleColor,
+                matchTextDirection: true,
               )
             : const SizedBox(),
       ],

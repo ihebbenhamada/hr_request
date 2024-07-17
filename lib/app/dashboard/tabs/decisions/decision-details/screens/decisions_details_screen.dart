@@ -1,18 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/api/requests/public_api.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/widgets/desicion-details-container.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/main/model/get_decisions_response.dart';
+import 'package:request_hr/config/interceptor/interceptor.dart';
 
 import '../../../../../../config/colors/colors.dart';
 import '../../../../../../config/image_urls/image_urls.dart';
 import '../../../../../../widgets/avatar-circle/avatar_circle.dart';
 import '../controllers/decisions_details_controller.dart';
 
-class DecisionsDetailsScreen extends StatelessWidget {
-  final _decisionsDetailsController = Get.put(DecisionsDetailsController());
-  DecisionsDetailsScreen({super.key, this.decisionsResponse});
+class DecisionsDetailsScreen extends StatefulWidget {
+  const DecisionsDetailsScreen({super.key, this.decisionsResponse});
   final DecisionsResponse? decisionsResponse;
+
+  @override
+  State<DecisionsDetailsScreen> createState() => _DecisionsDetailsScreenState();
+}
+
+class _DecisionsDetailsScreenState extends State<DecisionsDetailsScreen> {
+  final _decisionsDetailsController = Get.put(DecisionsDetailsController());
+  final PublicApiServices _publicApiServices = PublicApiServices();
+
+  String assigneeJobName = '';
+  @override
+  void initState() {
+    if (widget.decisionsResponse != null) {
+      getAssigneeByEmployeeId(widget.decisionsResponse!.fkAssigneeById);
+    }
+
+    super.initState();
+  }
+
+  getAssigneeByEmployeeId(int id) {
+    AppInterceptor.showLoader();
+    _publicApiServices.getEmployeeById(id: id.toString()).then((value) {
+      if (value != null) {
+        setState(() {
+          assigneeJobName = value.jobName;
+        });
+      }
+      AppInterceptor.hideLoader();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,7 +54,7 @@ class DecisionsDetailsScreen extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            decisionsResponse != null
+            widget.decisionsResponse != null
                 ? Padding(
                     padding: EdgeInsets.only(
                       right: Get.locale?.languageCode == 'en' ? 25.0 : 0,
@@ -77,7 +109,9 @@ class DecisionsDetailsScreen extends StatelessWidget {
                                     ),
                                     4.horizontalSpace,
                                     Text(
-                                      decisionsResponse?.byAssigneeName ?? "",
+                                      widget.decisionsResponse
+                                              ?.byAssigneeName ??
+                                          "",
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 14.sp,
@@ -108,7 +142,7 @@ class DecisionsDetailsScreen extends StatelessWidget {
                                     ),
                                     4.horizontalSpace,
                                     Text(
-                                      decisionsResponse?.assigneeName ?? "",
+                                      assigneeJobName,
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 14.sp,
@@ -139,7 +173,7 @@ class DecisionsDetailsScreen extends StatelessWidget {
                                     ),
                                     4.horizontalSpace,
                                     Text(
-                                      decisionsResponse?.creationDate
+                                      widget.decisionsResponse?.creationDate
                                               .substring(0, 10) ??
                                           "",
                                       style: TextStyle(
@@ -156,7 +190,7 @@ class DecisionsDetailsScreen extends StatelessWidget {
                             right: Get.locale?.languageCode == 'en' ? 0 : null,
                             left: Get.locale?.languageCode == 'ar' ? 0 : null,
                             child: AvatarCircle(
-                              image: decisionsResponse?.imagePath,
+                              image: widget.decisionsResponse?.imagePath,
                               isNetworkImage: true,
                               size: 112.h,
                               iconSize: 22.h,
@@ -176,15 +210,17 @@ class DecisionsDetailsScreen extends StatelessWidget {
                 children: [
                   DecisionDetailsInput(
                     icon: AppImages.title,
-                    controller: decisionsResponse?.subject == null
+                    controller: widget.decisionsResponse?.subject == null
                         ? _decisionsDetailsController
                             .subjectTextEditingController
                         : null,
                     nbrLines: 1,
                     paddingRight: Get.locale?.languageCode == 'en' ? 50 : 0,
                     paddingLeft: Get.locale?.languageCode == 'ar' ? 50 : 0,
-                    enabled: decisionsResponse?.subject != null ? false : true,
-                    initialValue: decisionsResponse?.subject,
+                    enabled: widget.decisionsResponse?.subject != null
+                        ? false
+                        : true,
+                    initialValue: widget.decisionsResponse?.subject,
                     hint: Get.locale?.languageCode == 'en'
                         ? 'Subject'
                         : 'الموضوع',
@@ -194,12 +230,14 @@ class DecisionsDetailsScreen extends StatelessWidget {
                     icon: AppImages.description,
                     paddingTop: 20.h,
                     paddingBottom: 20.h,
-                    controller: decisionsResponse?.creationDate == null
+                    controller: widget.decisionsResponse?.description == null
                         ? _decisionsDetailsController
                             .descriptionTextEditingController
                         : null,
-                    initialValue: decisionsResponse?.creationDate,
-                    enabled: decisionsResponse?.subject != null ? false : true,
+                    initialValue: widget.decisionsResponse?.description,
+                    enabled: widget.decisionsResponse?.description != null
+                        ? false
+                        : true,
                     nbrLines: 13,
                     hint: Get.locale?.languageCode == 'en'
                         ? 'Description'
@@ -209,7 +247,7 @@ class DecisionsDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      decisionsResponse == null
+                      widget.decisionsResponse == null
                           ? GestureDetector(
                               onTap: _decisionsDetailsController.onClickDone,
                               child: Container(

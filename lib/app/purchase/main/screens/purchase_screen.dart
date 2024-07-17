@@ -72,31 +72,58 @@ class PurchaseScreen extends StatelessWidget {
                   _purchaseController.onSelectFilter(index),
             ),
             30.h.verticalSpace,
-            Obx(
-              () => GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, // number of items in each row
-                  mainAxisSpacing: 11.h, // spacing between rows
-                  crossAxisSpacing: 11.h,
-                  mainAxisExtent: 135.h,
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _purchaseController.handleRefresh,
+                color: AppColors.white,
+                backgroundColor: AppColors.primary,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      child: Obx(
+                        () => _purchaseController.purchaseList.isNotEmpty
+                            ? GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      3, // number of items in each row
+                                  mainAxisSpacing: 11.h, // spacing between rows
+                                  crossAxisSpacing: 11.h,
+                                  mainAxisExtent: 135.h,
+                                ),
+                                padding: EdgeInsets.only(
+                                  bottom: Platform.isIOS ? 70.h : 84.h,
+                                ),
+                                shrinkWrap: true, // padding around the grid
+                                itemCount:
+                                    _purchaseController.purchaseList.length,
+                                // total number of items
+                                itemBuilder: (context, index) {
+                                  Purchase item =
+                                      _purchaseController.purchaseList[index];
+                                  return Center(
+                                    child: PurchaseItem(
+                                      title: item.serialPrefix,
+                                      date: item.orderDate,
+                                      status: item.fkStStatusId,
+                                      onClick: _purchaseController
+                                          .onClickPurchaseItem,
+                                    ),
+                                  );
+                                },
+                              )
+                            : Center(
+                                child: Text(
+                                  'no_purchase_found'.tr,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ),
+                      ),
+                    )
+                  ],
                 ),
-                padding: EdgeInsets.only(
-                  bottom: Platform.isIOS ? 70.h : 84.h,
-                ),
-                shrinkWrap: true, // padding around the grid
-                itemCount: _purchaseController.purchaseList.length,
-                // total number of items
-                itemBuilder: (context, index) {
-                  Purchase item = _purchaseController.purchaseList[index];
-                  return Center(
-                    child: PurchaseItem(
-                      title: item.serialPrefix,
-                      date: item.orderDate,
-                      status: item.fkStStatusId,
-                      onClick: _purchaseController.onClickPurchaseItem,
-                    ),
-                  );
-                },
               ),
             ),
           ],

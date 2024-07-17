@@ -7,7 +7,9 @@ class DecisionsResponse {
   final int fkReqDecisionId;
   final String? assigneeName;
   final String byAssigneeName;
+  final String byAssigneeNameEn;
   final String subject;
+  final String description;
   final String imagePath;
   final String creationDate;
   final String lastModifiedDate;
@@ -21,7 +23,9 @@ class DecisionsResponse {
     required this.fkReqDecisionId,
     required this.assigneeName,
     required this.byAssigneeName,
+    required this.byAssigneeNameEn,
     required this.subject,
+    required this.description,
     required this.imagePath,
     required this.creationDate,
     required this.lastModifiedDate,
@@ -36,8 +40,10 @@ class DecisionsResponse {
       fkAssigneeById: json['fK_AssigneeById'] as int,
       fkReqDecisionId: json['fK_ReqDecisionId'] as int,
       assigneeName: json['assigneeName'] as String?,
+      byAssigneeNameEn: json['byAssigneeNameEn'] as String,
       byAssigneeName: json['byAssigneeName'] as String,
       subject: json['subject'] as String,
+      description: json['description'] as String,
       imagePath: json['imagePath'] as String,
       creationDate: json['creationDate'] as String,
       lastModifiedDate: json['lastModifiedDate'] as String,
@@ -54,7 +60,9 @@ class DecisionsResponse {
       'fK_ReqDecisionId': fkReqDecisionId,
       'assigneeName': assigneeName,
       'byAssigneeName': byAssigneeName,
+      'byAssigneeNameEn': byAssigneeNameEn,
       'subject': subject,
+      'description': description,
       'imagePath': imagePath,
       'creationDate': creationDate,
       'lastModifiedDate': lastModifiedDate,

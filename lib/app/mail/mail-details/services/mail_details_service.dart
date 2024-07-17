@@ -11,7 +11,7 @@ import '../../../../config/interceptor/interceptor.dart';
 
 class MailDetailsService {
   Future<bool?> replayMessage({
-    required int fkParentId,
+    required int? fkParentId,
     required int fkHrEmployeeId,
     required String subject,
     required String description,
@@ -23,7 +23,7 @@ class MailDetailsService {
     required String assigneeName,
     required String byAssigneeName,
     required String jobName,
-    required int fKCreatorId,
+    required int? fKCreatorId,
     required int? parentId,
     required String assigneeByImagePath,
     required String assigneeImagePath,
@@ -77,7 +77,6 @@ class MailDetailsService {
         return null;
       }
     } on DioException catch (e) {
-      log('3-3-3-3-3-3-3-3--3-3-33');
       log(e.response.toString());
       Fluttertoast.showToast(
         msg: "error".tr,

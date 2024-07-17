@@ -12,6 +12,7 @@ import '../../../../api/requests/public_api.dart';
 import '../../../../config/colors/colors.dart';
 import '../../../../config/image_urls/image_urls.dart';
 import '../../../../config/interceptor/interceptor.dart';
+import '../../../auth/login/models/login_response.dart';
 import '../services/create_mail_service.dart';
 
 class CreateMailController extends BaseController {
@@ -71,8 +72,8 @@ class CreateMailController extends BaseController {
       AppInterceptor.showLoader();
       _createMailService
           .sendMessage(
-        fkParentId: 1,
-        fkHrEmployeeId: 1,
+        fkParentId: null,
+        fkHrEmployeeId: Emp.fromJson(storage.read('employee')).id,
         subject: subjectMessageTextEditingController.text,
         description: bodyMessageTextEditingController.text,
         reply: null,
@@ -83,7 +84,7 @@ class CreateMailController extends BaseController {
         assigneeName: "",
         byAssigneeName: "",
         jobName: "",
-        fKCreatorId: 1,
+        fKCreatorId: null,
         parentId: null,
         assigneeByImagePath: '',
         assigneeImagePath: '',
