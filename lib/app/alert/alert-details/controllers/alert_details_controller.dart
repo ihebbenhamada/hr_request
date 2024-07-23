@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:request_hr/app/alert/main/models/alert_response.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../api/models/public/department.dart';
@@ -65,6 +66,8 @@ class AlertDetailsController extends BaseController {
     fKModifiedById: 0,
     lastModifiedDate: "",
   ).obs;
+  Rx<Alert> alertItem = Alert(id: 0).obs;
+
   GetStorage storage = GetStorage();
 
   /// VALIDATION
@@ -76,15 +79,16 @@ class AlertDetailsController extends BaseController {
     super.onInit();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   /// INITIALISATION
   void initValues() {
     employee.value = Emp.fromJson(GetStorage().read('employee'));
-    getDepartments();
+    if (Get.arguments != null) {
+      alertItem.value = Get.arguments;
+      titleTextEditingController.text = alertItem.value.subject ?? '';
+      remarkTextEditingController.text = alertItem.value.subject ?? '';
+    } else {
+      getDepartments();
+    }
   }
 
   /// FUNCTIONS

@@ -3,6 +3,7 @@ class GetCreateFirstStep {
   final int? fKHrEmployeeId;
   final int? fKReqFinalExitId;
   final String? employeeName;
+  final String? employeeNameEn;
   final String? creationDate;
   final String? quitDate;
   final String? lastWorkingDayDate;
@@ -15,6 +16,7 @@ class GetCreateFirstStep {
   final bool? isDeleted;
 
   GetCreateFirstStep({
+    this.employeeNameEn,
     this.id,
     this.fKHrEmployeeId,
     this.fKReqFinalExitId,
@@ -37,6 +39,7 @@ class GetCreateFirstStep {
       fKHrEmployeeId: json['fK_HrEmployeeId'] as int?,
       fKReqFinalExitId: json['fK_ReqFinalExitId'] as int?,
       employeeName: json['employeeName'] as String?,
+      employeeNameEn: json['employeeNameEn'] as String?,
       creationDate: json['creationDate'] as String?,
       quitDate: json['quitDate'] as String?,
       lastWorkingDayDate: json['lastWorkingDayDate'] as String?,
@@ -56,6 +59,7 @@ class GetCreateFirstStep {
       'fK_HrEmployeeId': fKHrEmployeeId,
       'fK_ReqFinalExitId': fKReqFinalExitId,
       'employeeName': employeeName,
+      'employeeNameEn': employeeNameEn,
       'creationDate': creationDate,
       'quitDate': quitDate,
       'lastWorkingDayDate': lastWorkingDayDate,

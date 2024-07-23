@@ -109,7 +109,9 @@ class VacationsFormController extends BaseController {
 
   getCreateVacations() {
     AppInterceptor.showLoader();
-    _vacationsFormService.getCreateVacations().then((value) {
+    _vacationsFormService
+        .getCreateVacations(Get.locale?.languageCode ?? 'en')
+        .then((value) {
       if (value != null) {
         selectedType.value = value.vacationTypes[0];
         vacationTypeList.value = value.vacationTypes;

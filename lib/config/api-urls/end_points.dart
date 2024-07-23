@@ -11,7 +11,8 @@ class EndPoints {
 
   static const String GET_ALL_VACATION_SENT_URL = '/ReqVacation/GetAllSent';
   static const String CREATE_VACATION_URL = '/ReqVacation/Create';
-  static const String GET_CREATE_VACATION_URL = '/ReqVacation/GetCreate';
+  static String GET_CREATE_VACATION_URL(String lang) =>
+      '/ReqVacation/GetCreate?lang=$lang';
   static const String UPDATE_VACATION_URL = '/ReqVacation/Update';
   static String GET_UPDATE_VACATION_URL(String vacationId) =>
       '/ReqVacation/GetUpdate?id=$vacationId';
@@ -30,7 +31,8 @@ class EndPoints {
   static const String GET_FIRST_STEP_URL = '/ReqFinalExitAPI/GetFirstStep';
   static const String CREATE_FIRST_STEP_URL =
       '/ReqFinalExitAPI/CreateFirstStep';
-  static const String GET_SECOND_STEP_URL = '/ReqFinalExitAPI/GetSecondStep';
+  static String GET_SECOND_STEP_URL(String lang) =>
+      '/ReqFinalExitAPI/GetSecondStep?lang=$lang';
   static const String CREATE_SECOND_STEP_URL =
       '/ReqFinalExitAPI/CreateSecondStep';
   static const String GET_THIRD_STEP_URL = '/ReqFinalExitAPI/GetThirdStep';
@@ -95,7 +97,8 @@ class EndPoints {
 
   /// LOAN
   static const String GET_EMP_LOANS_URL = '/ReqLoanAPI/GetEmployeeLoans';
-  static const String GET_CREATE_LOAN_URL = '/ReqLoanAPI/Create';
+  static String GET_CREATE_LOAN_URL(String lang) =>
+      '/ReqLoanAPI/Create?lang=$lang';
   static String GET_UPDATE_LOAN_URL(String loanId) =>
       '/ReqLoanAPI/Edit?id=$loanId';
   static const String CREATE_LOAN_URL = '/ReqLoanAPI/Create';
@@ -110,7 +113,7 @@ class EndPoints {
 
   /// PUNISHMENT
   static const String GET_ALL_PUNISHMENTS_URL =
-      '/ReqPunishmentAPI/GetAllPunishments';
+      '/ReqPunishmentAPI/GetAllPunishment';
   static const String GET_PUNISHMENTS_COUNT_URL =
       '/ReqPunishmentAPI/GetPunishmentsCount';
   static const String GET_PUNISHMENTS_CHART_URL =

@@ -88,7 +88,7 @@ class NotificationsScreen extends StatelessWidget {
                     notifModel.Notification item =
                         _notificationsController.notificationList[index];
                     return NotificationItem(
-                      image: null,
+                      image: AppImages.profile,
                       name: item.creatorName,
                       job: item.notificationText,
                       date: item.creationDate,

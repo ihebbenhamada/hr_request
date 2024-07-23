@@ -118,7 +118,7 @@ class NotificationItem extends StatelessWidget {
   Widget imageCircle(int type) {
     switch (type) {
       case 1:
-        return Image.asset(image!);
+        return Image.asset(image ?? '');
       case 13:
         return Image.asset(AppImages.meetings, height: 22.4.h);
       case 3:
@@ -156,6 +156,8 @@ class NotificationItem extends StatelessWidget {
         return "New Loan !";
       case 14:
         return "New Evaluation !";
+      case 8:
+        return "New Alert !";
       default:
         return "No title";
     }

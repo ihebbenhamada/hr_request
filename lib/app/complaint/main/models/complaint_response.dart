@@ -89,23 +89,23 @@ class ReqComplaintMobile {
   factory ReqComplaintMobile.fromJson(Map<String, dynamic> json) =>
       ReqComplaintMobile(
         id: json["id"],
-        fkHrEmployeeId: json["fk_HrEmployeeId"],
+        fkHrEmployeeId: json["fK_HrEmployeeId"],
         senderName: json["senderName"],
         senderImagePath: json["senderImagePath"],
         subject: json["subject"],
         description: json["description"],
-        fkReqStatusId: json["fk_ReqStatusId"],
+        fkReqStatusId: json["fK_ReqStatusId"],
         complaintDate: json["complaintDate"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "fk_HrEmployeeId": fkHrEmployeeId,
+        "fK_HrEmployeeId": fkHrEmployeeId,
         "senderName": senderName,
         "senderImagePath": senderImagePath,
         "subject": subject,
         "description": description,
-        "fk_ReqStatusId": fkReqStatusId,
+        "fK_ReqStatusId": fkReqStatusId,
         "complaintDate": complaintDate,
       };
 }

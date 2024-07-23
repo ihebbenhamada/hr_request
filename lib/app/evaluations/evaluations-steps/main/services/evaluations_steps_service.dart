@@ -63,6 +63,30 @@ class EvaluationsStepsService {
     }
   }
 
+  Future<EvaluationForm?> getUpdateEvaluation(
+      String? fileId, String empId, String fkHrEmpEvalId) async {
+    try {
+      Response? response = await AppInterceptor.dio?.get(
+          EndPoints.GET_UPDATE_EVALUATION_URL(fileId, empId, fkHrEmpEvalId));
+      if (response != null && response.statusCode == 200) {
+        return EvaluationForm.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "error".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+      return null;
+    }
+  }
+
   Future<bool?> createEvaluation({
     required int fKEvaluationFormId,
     required int fKEvaluatedById,

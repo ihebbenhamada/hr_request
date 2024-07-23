@@ -139,7 +139,9 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.bonusDetails,
-      page: () => BonusDetailsScreen(),
+      page: () => BonusDetailsScreen(
+        title: '',
+      ),
       binding: BonusDetailsPageBindings(),
     ),
     GetPage(
@@ -149,7 +151,9 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.punishmentsDetails,
-      page: () => PunishmentsDetailsScreen(),
+      page: () => PunishmentsDetailsScreen(
+        title: '',
+      ),
       binding: PunishmentsDetailsPageBindings(),
     ),
     GetPage(
@@ -159,7 +163,9 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.complaintDetails,
-      page: () => ComplaintDetailsScreen(),
+      page: () => ComplaintDetailsScreen(
+        title: '',
+      ),
       binding: ComplaintDetailsPageBindings(),
     ),
     GetPage(

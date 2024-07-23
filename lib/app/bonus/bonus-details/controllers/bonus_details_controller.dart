@@ -11,6 +11,7 @@ import '../../../../api/models/public/department.dart';
 import '../../../../api/requests/public_api.dart';
 import '../../../../config/colors/colors.dart';
 import '../../../../config/interceptor/interceptor.dart';
+import '../../main/models/bonus_response.dart';
 import '../services/bonus_details_service.dart';
 
 class BonusDetailsController extends BaseController {
@@ -64,11 +65,11 @@ class BonusDetailsController extends BaseController {
     lastModifiedDate: "",
   ).obs;
   GetStorage storage = GetStorage();
-
   RxList<Department> departmentList = <Department>[].obs;
   RxList<Employee> employeesList = <Employee>[].obs;
   Rx<Department> selectedDepartment = Department(id: 0).obs;
   Rx<Employee> selectedEmployee = Employee(id: 0).obs;
+  Rx<Bonus> bonusItem = Bonus(id: 0).obs;
 
   /// VALIDATION
 
@@ -79,6 +80,20 @@ class BonusDetailsController extends BaseController {
     super.onInit();
   }
 
+  /// INITIALISATION
+  void initValues() {
+    employee.value = Emp.fromJson(GetStorage().read('employee'));
+    if (Get.arguments != null) {
+      bonusItem.value = Get.arguments;
+      amountTextEditingController.text = bonusItem.value.amount.toString();
+      titleTextEditingController.text = bonusItem.value.subject ?? '';
+      remarkTextEditingController.text = bonusItem.value.description ?? '';
+    } else {
+      getDepartments();
+    }
+  }
+
+  /// FUNCTIONS
   onSelectDepartment(Department value) {
     AppInterceptor.showLoader();
     selectedDepartment.value = value;
@@ -108,13 +123,6 @@ class BonusDetailsController extends BaseController {
     });
   }
 
-  /// INITIALISATION
-  void initValues() {
-    employee.value = Emp.fromJson(GetStorage().read('employee'));
-    getDepartments();
-  }
-
-  /// FUNCTIONS
   onSelectEmployee(Employee value) {
     selectedEmployee.value = value;
   }

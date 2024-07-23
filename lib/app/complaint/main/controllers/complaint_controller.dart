@@ -61,7 +61,9 @@ class ComplaintController extends BaseController {
 
   onClickCreateComplaint() async {
     final result = await Get.to(
-      () => ComplaintDetailsScreen(),
+      () => ComplaintDetailsScreen(
+        title: 'create_complaint',
+      ),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
@@ -72,10 +74,11 @@ class ComplaintController extends BaseController {
     }
   }
 
-  onClickItemComplaint() {
+  onClickItemComplaint(ReqComplaintMobile item) {
     Get.to(
-      () => ComplaintDetailsScreen(),
+      () => ComplaintDetailsScreen(title: 'detail_complaint'),
       transition: Transition.leftToRight,
+      arguments: item,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
     );

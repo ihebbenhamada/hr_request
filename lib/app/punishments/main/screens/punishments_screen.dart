@@ -92,62 +92,65 @@ class PunishmentsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           20.h.verticalSpace,
-                          _punishmentsController.punishmentList.value.isNotEmpty
-                              ? CarouselSlider.builder(
-                                  itemCount: _punishmentsController
-                                          .punishmentList.length +
-                                      1,
-                                  itemBuilder: (context, index, i) {
-                                    if (index ==
-                                        _punishmentsController
-                                            .punishmentList.length) {
-                                      // Display fake item at the last index
-                                      return const SizedBox();
-                                    } else {
-                                      PunishmentResponse item =
+                          Obx(
+                            () => _punishmentsController
+                                    .punishmentList.value.isNotEmpty
+                                ? CarouselSlider.builder(
+                                    itemCount: _punishmentsController
+                                            .punishmentList.length +
+                                        1,
+                                    itemBuilder: (context, index, i) {
+                                      if (index ==
                                           _punishmentsController
-                                              .punishmentList[index];
-                                      // Display real items
-                                      return PunishmentItem(
-                                        employeeName: item.assigneeName ?? "",
-                                        employeePunishment: item.amount ?? 0.0,
-                                        employeeImage: item.imagePath ?? "",
-                                        date: item.creationDate
-                                                ?.substring(0, 10) ??
-                                            "",
-                                        editable: true,
-                                        onClick: _punishmentsController
-                                            .onClickItemPunishments,
-                                      );
-                                    }
-                                  },
-                                  options: CarouselOptions(
-                                    height: 170.h,
-                                    animateToClosest: true,
-                                    clipBehavior: Clip.none,
-                                    viewportFraction: 0.45,
-                                    initialPage: 0,
-                                    enableInfiniteScroll: false,
-                                    reverse: false,
-                                    autoPlay: false,
-                                    enlargeCenterPage: false,
-                                    padEnds: false,
-                                    pageSnapping: false,
-                                    onPageChanged: (index, reason) =>
-                                        _punishmentsController
-                                            .onChangePunishmentsCarousel(
-                                                index, reason),
-                                    scrollDirection: Axis.horizontal,
-                                  ),
-                                )
-                              : Center(
-                                  child: Text(
-                                    'no_Punishments_found'.tr,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
+                                              .punishmentList.length) {
+                                        // Display fake item at the last index
+                                        return const SizedBox();
+                                      } else {
+                                        Punishment item = _punishmentsController
+                                            .punishmentList[index];
+                                        // Display real items
+                                        return PunishmentItem(
+                                          employeeName: item.assigneeName ?? "",
+                                          employeePunishment:
+                                              item.amount ?? 0.0,
+                                          employeeImage: item.imagePath ?? "",
+                                          date: item.creationDate
+                                                  ?.substring(0, 10) ??
+                                              "",
+                                          editable: true,
+                                          onClick: () => _punishmentsController
+                                              .onClickItemPunishments(item),
+                                        );
+                                      }
+                                    },
+                                    options: CarouselOptions(
+                                      height: 170.h,
+                                      animateToClosest: true,
+                                      clipBehavior: Clip.none,
+                                      viewportFraction: 0.45,
+                                      initialPage: 0,
+                                      enableInfiniteScroll: false,
+                                      reverse: false,
+                                      autoPlay: false,
+                                      enlargeCenterPage: false,
+                                      padEnds: false,
+                                      pageSnapping: false,
+                                      onPageChanged: (index, reason) =>
+                                          _punishmentsController
+                                              .onChangePunishmentsCarousel(
+                                                  index, reason),
+                                      scrollDirection: Axis.horizontal,
+                                    ),
+                                  )
+                                : Center(
+                                    child: Text(
+                                      'no_Punishments_found'.tr,
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                      ),
                                     ),
                                   ),
-                                ),
+                          ),
                           20.h.verticalSpace,
                           Obx(
                             () => CustomDotsIndicator(
@@ -469,95 +472,103 @@ class PunishmentsScreen extends StatelessWidget {
                                 )
                               ],
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 225.w,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'your_punishments_year'.tr,
+                            child: Obx(
+                              () => Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 225.w,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'your_punishments_year'.tr,
+                                          style: TextStyle(
+                                            color: AppColors.primary,
+                                            fontSize: 16.sp,
+                                          ),
+                                        ),
+                                        5.h.verticalSpace,
+                                        Text(
+                                          'punishments_sent_year'.tr,
+                                          style: TextStyle(
+                                            color: AppColors.blueDark,
+                                            fontSize: 12.sp,
+                                          ),
+                                        ),
+                                        33.h.verticalSpace,
+                                        Stack(
+                                          alignment: Alignment.centerLeft,
+                                          children: [
+                                            Container(
+                                              height: 21.h,
+                                              padding: const EdgeInsets.only(
+                                                  left: 25, right: 5),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(11.h),
+                                                color: AppColors.redLight,
+                                              ),
+                                              child: Text(
+                                                '${'total'}: ${_punishmentsController.total.value}',
+                                                style: TextStyle(
+                                                  color: AppColors.white,
+                                                  fontSize: 14.sp,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 21.h,
+                                              height: 21.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(21.h),
+                                                border: Border.all(
+                                                  color: AppColors.redLight,
+                                                ),
+                                                color: AppColors.white,
+                                              ),
+                                              child: Center(
+                                                child: Image.asset(
+                                                  AppImages.punishmentsDrawer,
+                                                  height: 9.5.h,
+                                                  color: AppColors.redLight,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    child: CircularPercentIndicator(
+                                      radius: 48.0,
+                                      lineWidth: 10.0,
+                                      animation: true,
+                                      percent: double.parse(
+                                        (_punishmentsController
+                                                    .percentage.value /
+                                                100)
+                                            .toStringAsFixed(2),
+                                      ),
+                                      center: Text(
+                                        '${(_punishmentsController.percentage.value / 100).toStringAsFixed(1)}%',
                                         style: TextStyle(
                                           color: AppColors.primary,
-                                          fontSize: 16.sp,
+                                          fontSize: 27.sp,
                                         ),
                                       ),
-                                      5.h.verticalSpace,
-                                      Text(
-                                        'punishments_sent_year'.tr,
-                                        style: TextStyle(
-                                          color: AppColors.blueDark,
-                                          fontSize: 12.sp,
-                                        ),
-                                      ),
-                                      33.h.verticalSpace,
-                                      Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: [
-                                          Container(
-                                            height: 21.h,
-                                            padding: const EdgeInsets.only(
-                                                left: 25, right: 5),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(11.h),
-                                              color: AppColors.redLight,
-                                            ),
-                                            child: Text(
-                                              '${'total'}: 475/544541',
-                                              style: TextStyle(
-                                                color: AppColors.white,
-                                                fontSize: 14.sp,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 21.h,
-                                            height: 21.h,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(21.h),
-                                              border: Border.all(
-                                                color: AppColors.redLight,
-                                              ),
-                                              color: AppColors.white,
-                                            ),
-                                            child: Center(
-                                              child: Image.asset(
-                                                AppImages.punishmentsDrawer,
-                                                height: 9.5.h,
-                                                color: AppColors.redLight,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  child: CircularPercentIndicator(
-                                    radius: 48.0,
-                                    lineWidth: 10.0,
-                                    animation: true,
-                                    percent: 0.25,
-                                    center: Text(
-                                      '25%',
-                                      style: TextStyle(
-                                        color: AppColors.primary,
-                                        fontSize: 27.sp,
-                                      ),
+                                      circularStrokeCap: CircularStrokeCap.butt,
+                                      progressColor: AppColors.primary,
+                                      backgroundColor: AppColors.blueLight1,
                                     ),
-                                    circularStrokeCap: CircularStrokeCap.butt,
-                                    progressColor: AppColors.primary,
-                                    backgroundColor: AppColors.blueLight1,
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],

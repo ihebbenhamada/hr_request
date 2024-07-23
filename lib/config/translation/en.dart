@@ -127,6 +127,7 @@ class En {
         /// BONUS SCREEN
         'your_bonus': 'Your Bonus',
         'no_bonus_found': 'No Bonus found',
+        'detail_bonus': 'Bonus details',
         'your_bonus_chart': 'Your Bonus Chart',
         'jan': 'Jan',
         'feb': 'Feb',
@@ -230,6 +231,7 @@ class En {
 
         ///ALERT
         'create_alert': 'Create alert',
+        'detail_alerts': 'Alert details',
         'your_alerts': 'Your Alerts',
         'no_alerts': 'No Alert found',
         'your_alerts_chart': 'Your Alerts Chart',
@@ -241,6 +243,7 @@ class En {
         ///PUNISHMENTS
         'Your_punishments': 'Your Punishments',
         'create_punishments': 'Create Punishments',
+        'detail_punishments': 'Punishment details',
         'no_Punishments_found': 'No Punishments found',
         'your_punishments_chart': 'Your Punishments Chart',
         'your_punishments_year': 'Your Punishments this Year',
@@ -250,6 +253,7 @@ class En {
 
         ///COMPLAINT
         'create_complaint': 'Create Complaint',
+        'detail_complaint': 'Complaint details',
         'no_complaint_found': 'No Complaint found',
         'your_complaint_chart': 'Your Complaint Chart',
         'your_complaint_year': 'Your Complaint this year',

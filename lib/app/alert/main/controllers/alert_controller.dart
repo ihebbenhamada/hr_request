@@ -59,7 +59,7 @@ class AlertController extends BaseController {
 
   void navigateAndRefresh() async {
     final result = await Get.to(
-      () => AlertDetailsScreen(),
+      () => AlertDetailsScreen(title: 'create_alert'),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
@@ -70,9 +70,10 @@ class AlertController extends BaseController {
     }
   }
 
-  onClickItemAlert() {
+  onClickItemAlert(Alert alert) {
     Get.to(
-      () => AlertDetailsScreen(),
+      () => AlertDetailsScreen(title: 'detail_alerts'),
+      arguments: alert,
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),

@@ -87,38 +87,34 @@ class TicketExchangeRequest extends StatelessWidget {
                       ),
                     ),
                     Obx(
-                      () => GestureDetector(
-                        onTap: () => finalExitController.selectDate(
-                            context, 'secondStep'),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.38,
-                          height: 60.h,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'due_date'.tr,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: AppColors.white,
-                                ),
-                              ),
-                              Text(
-                                finalExitController.dueDate.value
-                                    .substring(0, 10),
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: AppColors.white,
-                                ),
-                              ),
-                              const Divider(
-                                height: 1,
+                      () => SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.38,
+                        height: 60.h,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'due_date'.tr,
+                              style: TextStyle(
+                                fontSize: 14.sp,
                                 color: AppColors.white,
-                                thickness: 1,
                               ),
-                            ],
-                          ),
+                            ),
+                            Text(
+                              finalExitController.dueDate.value
+                                  .substring(0, 10),
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.white,
+                              ),
+                            ),
+                            const Divider(
+                              height: 1,
+                              color: AppColors.white,
+                              thickness: 1,
+                            ),
+                          ],
                         ),
                       ),
                     ),

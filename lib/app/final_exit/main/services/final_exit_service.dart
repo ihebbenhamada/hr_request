@@ -91,10 +91,10 @@ class FinalExitService {
   }
 
   /// SECOND STEP
-  Future<GetCreateSecondStep?> getCreateSecondStep() async {
+  Future<GetCreateSecondStep?> getCreateSecondStep(String lang) async {
     try {
       Response? response =
-          await AppInterceptor.dio?.get(EndPoints.GET_SECOND_STEP_URL);
+          await AppInterceptor.dio?.get(EndPoints.GET_SECOND_STEP_URL(lang));
       if (response != null && response.statusCode == 200) {
         return GetCreateSecondStep.fromJson(response.data);
       } else {

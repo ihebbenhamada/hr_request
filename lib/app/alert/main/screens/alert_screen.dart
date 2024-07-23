@@ -118,8 +118,8 @@ class AlertScreen extends StatelessWidget {
                                                   ?.substring(0, 10) ??
                                               "",
                                           editable: false,
-                                          onClick:
-                                              _alertController.onClickItemAlert,
+                                          onClick: () => _alertController
+                                              .onClickItemAlert(item),
                                         );
                                       }
                                     },

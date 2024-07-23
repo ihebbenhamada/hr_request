@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:request_hr/app/punishments/main/models/punishment_response.dart';
 
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../api/models/public/department.dart';
@@ -32,6 +33,7 @@ class PunishmentsDetailsController extends BaseController {
   RxList<Employee> employeesList = <Employee>[].obs;
   Rx<Department> selectedDepartment = Department(id: 0).obs;
   Rx<Employee> selectedEmployee = Employee(id: 0).obs;
+  Rx<Punishment> punishmentItem = Punishment(id: 0).obs;
 
   Rx<Emp> employee = Emp(
     id: 0,
@@ -79,14 +81,16 @@ class PunishmentsDetailsController extends BaseController {
     super.onInit();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   /// INITIALISATION
   void initValues() {
-    getDepartments();
+    if (Get.arguments != null) {
+      punishmentItem.value = Get.arguments;
+      amountTextEditingController.text = punishmentItem.value.amount.toString();
+      titleTextEditingController.text = punishmentItem.value.subject ?? '';
+      remarkTextEditingController.text = punishmentItem.value.description ?? '';
+    } else {
+      getDepartments();
+    }
     employee.value = Emp.fromJson(GetStorage().read('employee'));
   }
 

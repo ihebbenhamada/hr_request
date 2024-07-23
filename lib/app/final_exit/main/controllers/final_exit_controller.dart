@@ -303,17 +303,6 @@ class FinalExitController extends BaseController
         endWorkingDate.value = pickedDate.toString().substring(0, 10);
         initialDate.value = DateTime.parse(endWorkingDate.value);
       }
-    } else if (selectedDate == 'secondStep') {
-      if (pickedDate != null && pickedDate.toString() != dueDate.value) {
-        dueDate.value = pickedDate.toString().substring(0, 10);
-        initialDate.value = DateTime.parse(dueDate.value);
-      }
-    } else if (selectedDate == 'thirdStep') {
-      if (pickedDate != null &&
-          pickedDate.toString() != lastWorkingDateThirdStep.value) {
-        lastWorkingDateThirdStep.value = pickedDate.toString().substring(0, 10);
-        initialDate.value = DateTime.parse(lastWorkingDateThirdStep.value);
-      }
     } else {
       if (pickedDate != null &&
           pickedDate.toString() != adoptedFromDate.value) {
@@ -329,7 +318,10 @@ class FinalExitController extends BaseController
     _finalExitService.getCreateFirstStep().then((value) {
       if (value != null) {
         firstStepData.value = value;
-        employeeNameTextEditingController.text = value.employeeName ?? '';
+        employeeNameTextEditingController.text =
+            Get.locale?.languageCode == 'en'
+                ? value.employeeNameEn ?? ''
+                : value.employeeName ?? '';
         phoneTextEditingController.text = value.phone ?? '';
         mobileTextEditingController.text = value.mobile ?? '';
         addressTextEditingController.text = value.address ?? '';
@@ -382,7 +374,9 @@ class FinalExitController extends BaseController
   /// SECOND STEP
   getSecondStep() {
     AppInterceptor.showLoader();
-    _finalExitService.getCreateSecondStep().then((value) {
+    _finalExitService
+        .getCreateSecondStep(Get.locale?.languageCode ?? 'en')
+        .then((value) {
       if (value != null) {
         secondStepData.value = value;
         dueDate.value = value.dateDue;
@@ -390,6 +384,7 @@ class FinalExitController extends BaseController
         selectedPaymentType = value.paymentType[0].obs;
         descriptionTextEditingController.text = value.description ?? '';
       }
+
       AppInterceptor.hideLoader();
     });
   }
@@ -459,7 +454,6 @@ class FinalExitController extends BaseController
         thirdStepData.value = value;
         jobNameTextEditingController.text = value.jobName ?? '';
         reasonTextEditingController.text = value.reason ?? '';
-        employeeNameTextEditingController.text = value.employeeName;
       }
       AppInterceptor.hideLoader();
     });

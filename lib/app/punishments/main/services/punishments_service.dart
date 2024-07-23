@@ -10,16 +10,12 @@ import '../../../../config/interceptor/interceptor.dart';
 import '../models/punishment_chart.dart';
 
 class PunishmentsService {
-  Future<List<PunishmentResponse>?> getPunishmentList() async {
+  Future<PunishmentResponse?> getPunishmentList() async {
     try {
       Response? response =
           await AppInterceptor.dio?.get(EndPoints.GET_ALL_PUNISHMENTS_URL);
       if (response != null && response.statusCode == 200) {
-        List<PunishmentResponse> punishmentResponseList =
-            (response.data as List<dynamic>)
-                .map((json) => PunishmentResponse.fromJson(json))
-                .toList();
-        return punishmentResponseList;
+        return PunishmentResponse.fromJson(response.data);
       } else {
         return null;
       }

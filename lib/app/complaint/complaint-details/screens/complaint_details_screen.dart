@@ -12,7 +12,8 @@ import '../../../../../../config/colors/colors.dart';
 
 class ComplaintDetailsScreen extends StatelessWidget {
   final _complaintDetailsController = Get.put(ComplaintDetailsController());
-  ComplaintDetailsScreen({super.key});
+  ComplaintDetailsScreen({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -52,7 +53,7 @@ class ComplaintDetailsScreen extends StatelessWidget {
                   ),
                   10.h.horizontalSpace,
                   Text(
-                    'create_complaint'.tr,
+                    title.tr,
                     style: TextStyle(
                       fontSize: 16.sp,
                     ),
@@ -206,99 +207,111 @@ class ComplaintDetailsScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Column(
                   children: [
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 11),
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(12.h),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0x29000000),
-                            blurRadius: 3,
-                            offset: Offset(0, 3),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          5.h.verticalSpace,
-                          Text(
-                            "send_complaint_to".tr,
-                            style: TextStyle(
-                              color: AppColors.gray6,
-                              fontSize: 14.sp,
+                    _complaintDetailsController.item.value.id == 0
+                        ? Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(horizontal: 11),
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(12.h),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x29000000),
+                                  blurRadius: 3,
+                                  offset: Offset(0, 3),
+                                  spreadRadius: 0,
+                                )
+                              ],
                             ),
-                          ),
-                          GetBuilder<ComplaintDetailsController>(
-                            builder: (_) => CustomDropdown<
-                                DropDownModel>.multiSelectSearchRequest(
-                              items: _complaintDetailsController.jobTypesList,
-                              hintText: "select_job_type".tr,
-                              closedHeaderPadding:
-                                  EdgeInsets.only(bottom: 10.h),
-                              listItemBuilder:
-                                  (context, jobType, isSelected, onItemSelect) {
-                                return Text(
-                                  jobType.text ?? "",
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                5.h.verticalSpace,
+                                Text(
+                                  "send_complaint_to".tr,
                                   style: TextStyle(
-                                    color: isSelected
-                                        ? AppColors.white
-                                        : AppColors.blueDark,
+                                    color: AppColors.gray6,
+                                    fontSize: 14.sp,
                                   ),
-                                );
-                              },
-                              overlayHeight:
-                                  MediaQuery.of(context).size.height * 0.45,
-                              decoration: CustomDropdownDecoration(
-                                closedFillColor: AppColors.white,
-                                headerStyle: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: AppColors.blueDark,
                                 ),
-                                listItemDecoration: const ListItemDecoration(
-                                  selectedColor: AppColors.primary,
+                                GetBuilder<ComplaintDetailsController>(
+                                  builder: (_) => CustomDropdown<
+                                      DropDownModel>.multiSelectSearchRequest(
+                                    items: _complaintDetailsController
+                                        .jobTypesList,
+                                    hintText: "select_job_type".tr,
+                                    enabled: _complaintDetailsController
+                                            .item.value.id ==
+                                        0,
+                                    closedHeaderPadding:
+                                        EdgeInsets.only(bottom: 10.h),
+                                    listItemBuilder: (context, jobType,
+                                        isSelected, onItemSelect) {
+                                      return Text(
+                                        jobType.text ?? "",
+                                        style: TextStyle(
+                                          color: isSelected
+                                              ? AppColors.white
+                                              : AppColors.blueDark,
+                                        ),
+                                      );
+                                    },
+                                    overlayHeight:
+                                        MediaQuery.of(context).size.height *
+                                            0.45,
+                                    decoration: CustomDropdownDecoration(
+                                      closedFillColor: AppColors.white,
+                                      headerStyle: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: AppColors.blueDark,
+                                      ),
+                                      listItemDecoration:
+                                          const ListItemDecoration(
+                                        selectedColor: AppColors.primary,
+                                      ),
+                                      hintStyle: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: AppColors.blueDark
+                                            .withOpacity(0.56),
+                                      ),
+                                      closedSuffixIcon: Image.asset(
+                                        AppImages.arrowDown,
+                                        height: 8.h,
+                                        color: AppColors.blueDark,
+                                      ),
+                                    ),
+                                    headerListBuilder:
+                                        (context, jobTypes, isTrue) {
+                                      String listJobTypes = "";
+                                      jobTypes.forEach((e) {
+                                        listJobTypes =
+                                            '$listJobTypes${e.text!}، ';
+                                      });
+                                      return Text(
+                                        listJobTypes,
+                                        style: const TextStyle(
+                                            color: AppColors.blueDark),
+                                      );
+                                    },
+                                    onListChanged: (List<DropDownModel> list) =>
+                                        _complaintDetailsController
+                                            .onChangeListJobs(list),
+                                    futureRequest: (value) =>
+                                        _complaintDetailsController
+                                            .searchJobType(value),
+                                  ),
                                 ),
-                                hintStyle: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: AppColors.blueDark.withOpacity(0.56),
-                                ),
-                                closedSuffixIcon: Image.asset(
-                                  AppImages.arrowDown,
-                                  height: 8.h,
-                                  color: AppColors.blueDark,
-                                ),
-                              ),
-                              headerListBuilder: (context, jobTypes, isTrue) {
-                                String listJobTypes = "";
-                                jobTypes.forEach((e) {
-                                  listJobTypes = '$listJobTypes${e.text!}، ';
-                                });
-                                return Text(
-                                  listJobTypes,
-                                  style: const TextStyle(
-                                      color: AppColors.blueDark),
-                                );
-                              },
-                              onListChanged: (List<DropDownModel> list) =>
-                                  _complaintDetailsController
-                                      .onChangeListJobs(list),
-                              futureRequest: (value) =>
-                                  _complaintDetailsController
-                                      .searchJobType(value),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
+                          )
+                        : const SizedBox(),
                     13.h.verticalSpace,
                     InputForm(
                       height: 55.h,
                       width: double.infinity,
                       title: 'subject'.tr,
                       inputType: 'input',
+                      enabled: _complaintDetailsController.item.value.id == 0,
                       nbrLines: 1,
                       textEditingController: _complaintDetailsController
                           .subjectTextEditingController,
@@ -308,53 +321,59 @@ class ComplaintDetailsScreen extends StatelessWidget {
                       width: double.infinity,
                       title: 'description'.tr,
                       inputType: 'input',
+                      enabled: _complaintDetailsController.item.value.id == 0,
                       textEditingController: _complaintDetailsController
                           .descriptionTextEditingController,
                     ),
                     30.h.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: _complaintDetailsController.onClickSubmit,
-                          child: Container(
-                            height: 50.h,
-                            width: 50.h,
-                            decoration: const ShapeDecoration(
-                              color: AppColors.primary,
-                              shape: OvalBorder(),
-                            ),
-                            child: Center(
-                              child: Image.asset(
-                                AppImages.tick,
-                                color: AppColors.white,
-                                height: 30.h,
+                    Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _complaintDetailsController.item.value.id == 0
+                              ? GestureDetector(
+                                  onTap:
+                                      _complaintDetailsController.onClickSubmit,
+                                  child: Container(
+                                    height: 50.h,
+                                    width: 50.h,
+                                    decoration: const ShapeDecoration(
+                                      color: AppColors.primary,
+                                      shape: OvalBorder(),
+                                    ),
+                                    child: Center(
+                                      child: Image.asset(
+                                        AppImages.tick,
+                                        color: AppColors.white,
+                                        height: 30.h,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox(),
+                          23.horizontalSpace,
+                          GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(
+                              height: 50.h,
+                              width: 50.h,
+                              decoration: const ShapeDecoration(
+                                color: AppColors.blueDark,
+                                shape: OvalBorder(),
+                              ),
+                              child: Center(
+                                child: Image.asset(
+                                  AppImages.x,
+                                  color: AppColors.white,
+                                  height: 20.h,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        23.horizontalSpace,
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Container(
-                            height: 50.h,
-                            width: 50.h,
-                            decoration: const ShapeDecoration(
-                              color: AppColors.blueDark,
-                              shape: OvalBorder(),
-                            ),
-                            child: Center(
-                              child: Image.asset(
-                                AppImages.x,
-                                color: AppColors.white,
-                                height: 20.h,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

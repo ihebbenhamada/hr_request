@@ -50,10 +50,10 @@ class VacationsFormService {
     }
   }
 
-  Future<GetCreateVacation?> getCreateVacations() async {
+  Future<GetCreateVacation?> getCreateVacations(String lang) async {
     try {
-      Response? response =
-          await AppInterceptor.dio?.get(EndPoints.GET_CREATE_VACATION_URL);
+      Response? response = await AppInterceptor.dio
+          ?.get(EndPoints.GET_CREATE_VACATION_URL(lang));
       if (response != null && response.statusCode == 200) {
         return GetCreateVacation.fromJson(response.data);
       } else {

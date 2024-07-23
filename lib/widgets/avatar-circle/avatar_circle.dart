@@ -53,29 +53,27 @@ class AvatarCircle extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           child: Center(
             child: isNetworkImage && image != null
-                ? Image.network(
-                    image!,
+                ? FadeInImage.assetNetwork(
+                    placeholder: AppImages.profile,
+                    image: image ?? '',
                     width: imageSize ?? size,
                     height: imageSize ?? size,
                     color: imageColor,
                     fit: BoxFit.cover,
-                    loadingBuilder: (context, widget, event) {
-                      if (event == null) return widget;
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    errorBuilder: (context, object, stackTrace) {
+                    matchTextDirection: true,
+                    imageErrorBuilder: (context, error, stackTrace) {
                       return Image.asset(
                         AppImages.profile,
+                        fit: BoxFit.cover,
+                        matchTextDirection: true,
                         width: imageSize ?? size,
                         height: imageSize ?? size,
                       );
                     },
-                    matchTextDirection: true,
                   )
                 : Image.asset(
-                    image ?? AppImages.profile,
+                    AppImages.profile,
+                    fit: BoxFit.cover,
                     width: imageSize ?? size,
                     height: imageSize ?? size,
                     color: imageColor,

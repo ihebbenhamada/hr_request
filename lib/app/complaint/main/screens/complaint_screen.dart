@@ -110,10 +110,11 @@ class ComplaintScreen extends StatelessWidget {
                                           employeeName: item.senderName,
                                           employeePosition: item.subject,
                                           employeeImage: item.senderImagePath,
-                                          date: item.complaintDate,
+                                          date: item.complaintDate
+                                              .substring(0, 10),
                                           editable: true,
-                                          onClick: _complaintController
-                                              .onClickItemComplaint,
+                                          onClick: () => _complaintController
+                                              .onClickItemComplaint(item),
                                         );
                                       }
                                     },

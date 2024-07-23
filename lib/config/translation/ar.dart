@@ -127,6 +127,7 @@ class Ar {
         /// BONUS SCREEN
         'your_bonus': 'مكافأتك',
         'no_bonus_found': 'لم يتم العثور على مكافأة',
+        'detail_bonus': 'نفاصيل المكافأة',
         'your_bonus_chart': 'رسم بياني لمكافآتك',
         'jan': 'يناير',
         'feb': 'فبراير',
@@ -229,6 +230,7 @@ class Ar {
 
         ///ALERT
         'create_alert': 'إنشاء تنبيه',
+        'detail_alerts': 'تفاصيل التنبيه',
         'your_alerts': 'تنبيهاتك',
         'no_alerts': 'لم يتم العثور على تنبيه',
         'your_alerts_chart': 'جدول تنبيهاتك',
@@ -240,6 +242,7 @@ class Ar {
         ///PUNISHMENTS
         'Your_punishments': 'عقوباتك',
         'create_punishments': 'إنشاء عقوبات',
+        'detail_punishments': 'نفاصيل العقوبة',
         'no_Punishments_found': 'لم يتم العثور على عقوبات',
         'your_punishments_chart': 'جدول عقوباتك',
         'your_punishments_year': 'عقوباتك هذا العام',
@@ -249,6 +252,7 @@ class Ar {
 
         ///COMPLAINT
         'create_complaint': 'إنشاء شكوى',
+        'detail_complaint': 'تفاصيل الشكوى',
         'no_complaint_found': 'لم يتم العثور على شكوى',
         'your_complaint_chart': 'جدول شكواك',
         'your_complaint_year': ' شكواك هذا العام',

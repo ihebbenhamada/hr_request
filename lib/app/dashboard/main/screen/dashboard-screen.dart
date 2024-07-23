@@ -181,7 +181,9 @@ class DashboardScreen extends StatelessWidget {
                                 AppRoutes.bonusDetails) {
                               return GetPageRoute(
                                 routeName: AppRoutes.bonusDetails,
-                                page: () => BonusDetailsScreen(),
+                                page: () => BonusDetailsScreen(
+                                  title: '',
+                                ),
                                 binding: BonusDetailsPageBindings(),
                               );
                             }

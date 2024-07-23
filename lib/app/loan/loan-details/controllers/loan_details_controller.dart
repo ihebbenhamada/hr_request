@@ -42,7 +42,9 @@ class LoanDetailsController extends BaseController {
 
   getCreateLoan() {
     AppInterceptor.showLoader();
-    _loanDetailsService.getCreateLoan().then((value) {
+    _loanDetailsService
+        .getCreateLoan(Get.locale?.languageCode ?? 'en')
+        .then((value) {
       if (value != null) {
         titleTextEditingController.text = value.subject ?? '';
         createLoan.value = value;
@@ -124,7 +126,8 @@ class LoanDetailsController extends BaseController {
   onClickSubmit() {
     if (selectedPaymentType.value.value == "" ||
         titleTextEditingController.text.isEmpty ||
-        selectedPaymentType.value.value == "") {
+        selectedPaymentType.value.value == "" ||
+        totalLoansTextEditingController.text.isEmpty) {
       Fluttertoast.showToast(
         msg: "fill_credentials_toast".tr,
         toastLength: Toast.LENGTH_LONG,

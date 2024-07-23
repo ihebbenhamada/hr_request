@@ -45,7 +45,7 @@ class Disclaimer extends StatelessWidget {
                           ),
                           Text(
                             finalExitController
-                                .thirdStepData.value.employeeName,
+                                .employeeNameTextEditingController.text,
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: AppColors.white,
@@ -131,17 +131,12 @@ class Disclaimer extends StatelessWidget {
                                 color: AppColors.white,
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () => finalExitController.selectDate(
-                                  context, 'thirdStep'),
-                              child: Text(
-                                finalExitController
-                                    .lastWorkingDateThirdStep.value
-                                    .substring(0, 10),
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: AppColors.white,
-                                ),
+                            Text(
+                              finalExitController.lastWorkingDateThirdStep.value
+                                  .substring(0, 10),
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.white,
                               ),
                             ),
                           ],

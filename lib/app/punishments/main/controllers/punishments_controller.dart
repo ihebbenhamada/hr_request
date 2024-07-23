@@ -22,9 +22,11 @@ class PunishmentsController extends BaseController {
   RxInt currentPunishment = 0.obs;
   RxInt selectedChart = 0.obs;
   RxInt showingTooltip = 1.obs;
-  RxList<PunishmentResponse> punishmentList = <PunishmentResponse>[].obs;
+  RxList<Punishment> punishmentList = <Punishment>[].obs;
   RxList<PunishmentChart> punishmentChart = <PunishmentChart>[].obs;
   bool isAdmin = false;
+  RxDouble total = 0.0.obs;
+  RxDouble percentage = 0.0.obs;
   GetStorage storage = GetStorage();
   RxList<BarChartGroupData> barGroups = <BarChartGroupData>[].obs;
 
@@ -50,20 +52,12 @@ class PunishmentsController extends BaseController {
     AppInterceptor.showLoader();
     _punishmentsService.getPunishmentList().then((value) {
       if (value != null) {
-        punishmentList.value = value;
-        getPunishmentChartList();
-      } else {
-        AppInterceptor.hideLoader();
-      }
-    });
-  }
-
-  getPunishmentChartList() {
-    _punishmentsService.getPunishmentChart().then((value) {
-      if (value != null) {
-        punishmentChart.value = value;
-        for (var i = 0; i < value.length; i++) {
-          barGroups.add(generateGroupData(i + 1, value[i].count));
+        punishmentList.value = value.punishments;
+        punishmentChart.value = value.chart;
+        total.value = value.total;
+        percentage.value = value.percent;
+        for (var i = 0; i < value.chart.length; i++) {
+          barGroups.add(generateGroupData(i + 1, value.chart[i].count));
         }
       }
       AppInterceptor.hideLoader();
@@ -72,7 +66,7 @@ class PunishmentsController extends BaseController {
 
   void navigateAndRefresh() async {
     final result = await Get.to(
-      () => PunishmentsDetailsScreen(),
+      () => PunishmentsDetailsScreen(title: 'create_punishments'),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
@@ -83,9 +77,10 @@ class PunishmentsController extends BaseController {
     }
   }
 
-  onClickItemPunishments() {
+  onClickItemPunishments(Punishment item) {
     Get.to(
-      () => PunishmentsDetailsScreen(),
+      () => PunishmentsDetailsScreen(title: 'detail_punishments'),
+      arguments: item,
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),

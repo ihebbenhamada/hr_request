@@ -9,10 +9,10 @@ import '../../../../config/interceptor/interceptor.dart';
 import '../models/create_loan.dart';
 
 class LoanDetailsService {
-  Future<CreateLoan?> getCreateLoan() async {
+  Future<CreateLoan?> getCreateLoan(String lang) async {
     try {
       Response? response =
-          await AppInterceptor.dio?.get(EndPoints.GET_CREATE_LOAN_URL);
+          await AppInterceptor.dio?.get(EndPoints.GET_CREATE_LOAN_URL(lang));
       if (response != null && response.statusCode == 200) {
         CreateLoan getCreateLoanResponse = CreateLoan.fromJson(response.data);
         return getCreateLoanResponse;

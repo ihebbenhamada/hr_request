@@ -23,7 +23,8 @@ class BonusController extends BaseController {
   RxInt currentBonus = 0.obs;
   RxInt selectedChart = 0.obs;
   RxInt showingTooltip = 1.obs;
-  Rx<BonusResponse> bonusResponse = BonusResponse(bonuses: [], chart: []).obs;
+  Rx<BonusResponse> bonusResponse =
+      BonusResponse(bonuses: [], chart: [], total: 0, percent: 0).obs;
   bool isAdmin = false;
   GetStorage storage = GetStorage();
   RxList<BarChartGroupData> barGroups = <BarChartGroupData>[].obs;
@@ -63,9 +64,10 @@ class BonusController extends BaseController {
     });
   }
 
-  onClickItemBonus() {
+  onClickItemBonus(Bonus bonus) {
     Get.to(
-      () => BonusDetailsScreen(),
+      () => BonusDetailsScreen(title: 'detail_bonus'),
+      arguments: bonus,
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
@@ -74,7 +76,7 @@ class BonusController extends BaseController {
 
   void navigateAndRefresh() async {
     final result = await Get.to(
-      () => BonusDetailsScreen(),
+      () => BonusDetailsScreen(title: 'create_bonus'),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),

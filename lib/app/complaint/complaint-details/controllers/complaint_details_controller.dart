@@ -10,6 +10,7 @@ import '../../../../config/colors/colors.dart';
 import '../../../../config/interceptor/interceptor.dart';
 import '../../../auth/login/models/login_response.dart';
 import '../../../dashboard/tabs/vacations/main/models/drop_down.dart';
+import '../../main/models/complaint_response.dart';
 import '../services/complaint_details_service.dart';
 
 class ComplaintDetailsController extends BaseController {
@@ -64,6 +65,16 @@ class ComplaintDetailsController extends BaseController {
     fKModifiedById: 0,
     lastModifiedDate: "",
   ).obs;
+  Rx<ReqComplaintMobile> item = ReqComplaintMobile(
+    id: 0,
+    fkHrEmployeeId: 0,
+    senderName: '',
+    senderImagePath: '',
+    subject: '',
+    description: '',
+    fkReqStatusId: 0,
+    complaintDate: DateTime.now().toString().substring(0, 10),
+  ).obs;
 
   /// VALIDATION
 
@@ -76,6 +87,11 @@ class ComplaintDetailsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
+    if (Get.arguments != null) {
+      item.value = Get.arguments;
+      subjectTextEditingController.text = item.value.subject;
+      descriptionTextEditingController.text = item.value.description;
+    }
     getJobTypes();
     employee.value = Emp.fromJson(GetStorage().read('employee'));
   }

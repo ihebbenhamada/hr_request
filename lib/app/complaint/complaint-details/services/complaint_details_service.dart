@@ -46,7 +46,7 @@ class ComplaintDetailsService {
     required List<int> jobTypesIds,
   }) async {
     Map<String, dynamic> data = {
-      "fk_HrEmployeeId": fKHrEmployeeId,
+      "fK_HrEmployeeId": fKHrEmployeeId,
       "subject": subject,
       "description": description,
       "jobTypesIds": jobTypesIds,

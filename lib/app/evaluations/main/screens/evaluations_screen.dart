@@ -638,10 +638,7 @@ class EvaluationsScreen extends StatelessWidget {
                                               .percentage.value,
                                         ),
                                         center: Text(
-                                          (double.parse(_evaluationsController
-                                                      .percentage.value) *
-                                                  100)
-                                              .toStringAsFixed(1),
+                                          '${(double.parse(_evaluationsController.percentage.value) * 100).toStringAsFixed(1)}%',
                                           style: TextStyle(
                                             color: AppColors.primary,
                                             fontSize: 27.sp,

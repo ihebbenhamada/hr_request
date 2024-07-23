@@ -71,58 +71,63 @@ class BonusScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _bonusController.bonusResponse.value.bonuses.isNotEmpty
-                            ? CarouselSlider.builder(
-                                itemCount: _bonusController
-                                        .bonusResponse.value.bonuses.length +
-                                    1,
-                                itemBuilder: (context, index, i) {
-                                  if (index ==
-                                      _bonusController
-                                          .bonusResponse.value.bonuses.length) {
-                                    // Display fake item at the last index
-                                    return const SizedBox();
-                                  } else {
-                                    Bonus item = _bonusController
-                                        .bonusResponse.value.bonuses[index];
-                                    // Display real items
-                                    return BonusItem(
-                                      employeeName: item.assigneeName ?? "",
-                                      employeeBonus: item.amount ?? 0.0,
-                                      employeeImage: item.imagePath ?? "",
-                                      date: item.creationDate ?? "",
-                                      editable: true,
-                                      onClick:
-                                          _bonusController.onClickItemBonus,
-                                    );
-                                  }
-                                },
-                                options: CarouselOptions(
-                                  height: 170.h,
-                                  animateToClosest: true,
-                                  clipBehavior: Clip.none,
-                                  viewportFraction: 0.45,
-                                  initialPage: 0,
-                                  enableInfiniteScroll: false,
-                                  reverse: false,
-                                  autoPlay: false,
-                                  enlargeCenterPage: false,
-                                  padEnds: false,
-                                  pageSnapping: false,
-                                  onPageChanged: (index, reason) =>
-                                      _bonusController.onChangeBonusCarousel(
-                                          index, reason),
-                                  scrollDirection: Axis.horizontal,
-                                ),
-                              )
-                            : Center(
-                                child: Text(
-                                  'no_bonus_found'.tr,
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
+                        Obx(
+                          () => _bonusController
+                                  .bonusResponse.value.bonuses.isNotEmpty
+                              ? CarouselSlider.builder(
+                                  itemCount: _bonusController
+                                          .bonusResponse.value.bonuses.length +
+                                      1,
+                                  itemBuilder: (context, index, i) {
+                                    if (index ==
+                                        _bonusController.bonusResponse.value
+                                            .bonuses.length) {
+                                      // Display fake item at the last index
+                                      return const SizedBox();
+                                    } else {
+                                      Bonus item = _bonusController
+                                          .bonusResponse.value.bonuses[index];
+                                      // Display real items
+                                      return BonusItem(
+                                        employeeName: item.assigneeName ?? "",
+                                        employeeBonus: item.amount ?? 0.0,
+                                        employeeImage: item.imagePath ?? "",
+                                        date: item.creationDate
+                                                ?.substring(0, 10) ??
+                                            "",
+                                        editable: true,
+                                        onClick: () => _bonusController
+                                            .onClickItemBonus(item),
+                                      );
+                                    }
+                                  },
+                                  options: CarouselOptions(
+                                    height: 170.h,
+                                    animateToClosest: true,
+                                    clipBehavior: Clip.none,
+                                    viewportFraction: 0.45,
+                                    initialPage: 0,
+                                    enableInfiniteScroll: false,
+                                    reverse: false,
+                                    autoPlay: false,
+                                    enlargeCenterPage: false,
+                                    padEnds: false,
+                                    pageSnapping: false,
+                                    onPageChanged: (index, reason) =>
+                                        _bonusController.onChangeBonusCarousel(
+                                            index, reason),
+                                    scrollDirection: Axis.horizontal,
+                                  ),
+                                )
+                              : Center(
+                                  child: Text(
+                                    'no_bonus_found'.tr,
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                    ),
                                   ),
                                 ),
-                              ),
+                        ),
                         20.h.verticalSpace,
                         Obx(
                           () => CustomDotsIndicator(
@@ -431,105 +436,113 @@ class BonusScreen extends StatelessWidget {
                               )
                             ],
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 202.w,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'bonus_year'.tr,
-                                      style: TextStyle(
-                                        color: AppColors.primary,
-                                        fontSize: 16.sp,
-                                      ),
-                                    ),
-                                    5.h.verticalSpace,
-                                    Text(
-                                      'rewards_year'.tr,
-                                      style: TextStyle(
-                                        color: AppColors.blueDark,
-                                        fontSize: 12.sp,
-                                      ),
-                                    ),
-                                    17.h.verticalSpace,
-                                    Stack(
-                                      alignment:
-                                          Get.locale?.languageCode == 'en'
-                                              ? Alignment.centerLeft
-                                              : Alignment.centerRight,
-                                      children: [
-                                        Container(
-                                          height: 21.h,
-                                          padding: EdgeInsets.only(
-                                            left:
-                                                Get.locale?.languageCode == 'en'
-                                                    ? 25
-                                                    : 5,
-                                            right:
-                                                Get.locale?.languageCode == 'ar'
-                                                    ? 25
-                                                    : 5,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(11.h),
-                                            color: AppColors.primary,
-                                          ),
-                                          child: Text(
-                                            '${'total'.tr}:475/544541',
-                                            style: TextStyle(
-                                              color: AppColors.white,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ),
+                          child: Obx(
+                            () => Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 202.w,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'bonus_year'.tr,
+                                        style: TextStyle(
+                                          color: AppColors.primary,
+                                          fontSize: 16.sp,
                                         ),
-                                        Container(
-                                          width: 21.h,
-                                          height: 21.h,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(21.h),
-                                            border: Border.all(
+                                      ),
+                                      5.h.verticalSpace,
+                                      Text(
+                                        'rewards_year'.tr,
+                                        style: TextStyle(
+                                          color: AppColors.blueDark,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                      17.h.verticalSpace,
+                                      Stack(
+                                        alignment:
+                                            Get.locale?.languageCode == 'en'
+                                                ? Alignment.centerLeft
+                                                : Alignment.centerRight,
+                                        children: [
+                                          Container(
+                                            height: 21.h,
+                                            padding: EdgeInsets.only(
+                                              left: Get.locale?.languageCode ==
+                                                      'en'
+                                                  ? 25
+                                                  : 5,
+                                              right: Get.locale?.languageCode ==
+                                                      'ar'
+                                                  ? 25
+                                                  : 5,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(11.h),
                                               color: AppColors.primary,
                                             ),
-                                            color: AppColors.white,
-                                          ),
-                                          child: Center(
-                                            child: Image.asset(
-                                              AppImages.bonusDrawer,
-                                              height: 9.5.h,
-                                              color: AppColors.blueDark,
+                                            child: Text(
+                                              '${'total'.tr}: ${_bonusController.bonusResponse.value.total}',
+                                              style: TextStyle(
+                                                color: AppColors.white,
+                                                fontSize: 14.sp,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                child: CircularPercentIndicator(
-                                  radius: 48.0,
-                                  lineWidth: 10.0,
-                                  animation: true,
-                                  percent: 0.25,
-                                  center: Text(
-                                    '25%',
-                                    style: TextStyle(
-                                      color: AppColors.primary,
-                                      fontSize: 27.sp,
-                                    ),
+                                          Container(
+                                            width: 21.h,
+                                            height: 21.h,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(21.h),
+                                              border: Border.all(
+                                                color: AppColors.primary,
+                                              ),
+                                              color: AppColors.white,
+                                            ),
+                                            child: Center(
+                                              child: Image.asset(
+                                                AppImages.bonusDrawer,
+                                                height: 9.5.h,
+                                                color: AppColors.blueDark,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                  circularStrokeCap: CircularStrokeCap.butt,
-                                  progressColor: AppColors.primary,
-                                  backgroundColor: AppColors.blueLight1,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  child: CircularPercentIndicator(
+                                    radius: 48.0,
+                                    lineWidth: 10.0,
+                                    animation: true,
+                                    percent: double.parse(
+                                      (_bonusController
+                                                  .bonusResponse.value.percent /
+                                              1000)
+                                          .toStringAsFixed(2),
+                                    ),
+                                    center: Text(
+                                      '${(_bonusController.bonusResponse.value.percent / 100).toStringAsFixed(1)}%',
+                                      style: TextStyle(
+                                        color: AppColors.primary,
+                                        fontSize: 27.sp,
+                                      ),
+                                    ),
+                                    circularStrokeCap: CircularStrokeCap.butt,
+                                    progressColor: AppColors.primary,
+                                    backgroundColor: AppColors.blueLight1,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
