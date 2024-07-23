@@ -112,6 +112,7 @@ class BonusController extends BaseController {
 
   Future<void> handleRefresh() async {
     barGroups.clear();
+    AppInterceptor.showLoader();
     getBonusList();
   }
 }

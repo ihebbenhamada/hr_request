@@ -42,4 +42,5 @@ class AppRoutes {
   static const String signInOutDetails = '/signInOutDetails';
   static const String settings = '/settings';
   static const String delete = '/delete';
+  static const String chairman = '/chairman';
 }

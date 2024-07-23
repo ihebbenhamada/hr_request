@@ -76,6 +76,7 @@ class SettingsController extends BaseController {
     storage.remove('employee');
     storage.remove('user');
     storage.remove('isAdmin');
+    storage.remove('isChairman');
     Get.offAll(
       () => LoginScreen(),
       transition: Transition.rightToLeft,

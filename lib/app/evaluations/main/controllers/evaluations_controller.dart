@@ -126,6 +126,7 @@ class EvaluationsController extends BaseController {
   }
 
   Future<void> handleRefresh() async {
+    barGroups.clear();
     getListEvaluations();
   }
 }

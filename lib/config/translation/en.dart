@@ -313,5 +313,12 @@ class En {
         'check_username_pass': 'Check username or password!',
         'fill_credentials_toast': 'Fill in the credentials',
         'check_dates': 'Check the dates',
+
+        ///CHAIRMAN
+        'most_rated_emp': 'Most rated employees - this month',
+        'total_bonus_month': 'total bonus on 6 month',
+        'vacation_taken_year': 'Vacations Taken for this year',
+        'total_alert_year': 'Total Alert for this Year',
+        'total_alert_sent': 'Total Alert sent from Managers to employees',
       };
 }

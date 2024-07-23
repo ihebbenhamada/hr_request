@@ -4,10 +4,12 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:request_hr/app/auth/login/models/login_response.dart';
 import 'package:request_hr/app/bonus/bonus-details/screens/bonus_details_screen.dart';
 import 'package:request_hr/app/bonus/main/screens/bonus_screen.dart';
+import 'package:request_hr/app/dashboard/tabs/chairman/main/screens/chairman_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/decisions/decision-details/screens/decisions_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/main/screens/meetings_screen.dart';
@@ -132,20 +134,36 @@ class DashboardScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        Navigator(
-                          key: Get.nestedKey(nestedNavigationHomeId),
-                          initialRoute: AppRoutes.home,
-                          onGenerateRoute: (routeSettings) {
-                            if (routeSettings.name == AppRoutes.home) {
-                              return GetPageRoute(
-                                routeName: AppRoutes.home,
-                                page: () => HomeScreen(),
-                                binding: HomePageBindings(),
-                              );
-                            }
-                            return null;
-                          },
-                        ),
+                        GetStorage().read('isChairman') == true
+                            ? Navigator(
+                                key: Get.nestedKey(nestedNavigationChairmanId),
+                                initialRoute: AppRoutes.chairman,
+                                onGenerateRoute: (routeSettings) {
+                                  if (routeSettings.name ==
+                                      AppRoutes.chairman) {
+                                    return GetPageRoute(
+                                      routeName: AppRoutes.chairman,
+                                      page: () => ChairmanScreen(),
+                                      binding: ChairmanPageBindings(),
+                                    );
+                                  }
+                                  return null;
+                                },
+                              )
+                            : Navigator(
+                                key: Get.nestedKey(nestedNavigationHomeId),
+                                initialRoute: AppRoutes.home,
+                                onGenerateRoute: (routeSettings) {
+                                  if (routeSettings.name == AppRoutes.home) {
+                                    return GetPageRoute(
+                                      routeName: AppRoutes.home,
+                                      page: () => HomeScreen(),
+                                      binding: HomePageBindings(),
+                                    );
+                                  }
+                                  return null;
+                                },
+                              ),
                         Navigator(
                           key: Get.nestedKey(nestedNavigationMeetingsId),
                           initialRoute: AppRoutes.meetings,

@@ -198,6 +198,9 @@ class PunishmentsScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(right: 16),
                                     child: Center(
                                       child: BarChart(
+                                        swapAnimationCurve: Curves.bounceIn,
+                                        swapAnimationDuration:
+                                            const Duration(milliseconds: 0),
                                         BarChartData(
                                           backgroundColor: AppColors.white,
                                           borderData: FlBorderData(
@@ -513,7 +516,7 @@ class PunishmentsScreen extends StatelessWidget {
                                                 color: AppColors.redLight,
                                               ),
                                               child: Text(
-                                                '${'total'}: ${_punishmentsController.total.value}',
+                                                '${'total'.tr}: ${_punishmentsController.total.value}',
                                                 style: TextStyle(
                                                   color: AppColors.white,
                                                   fontSize: 14.sp,

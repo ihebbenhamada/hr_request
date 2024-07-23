@@ -92,6 +92,7 @@ class LoginController extends BaseController {
           } else {
             storage.write('isAdmin', true);
           }
+          storage.write('isChairman', true);
           storage.write('user', value.toJson());
           storage.write('employee', value.employee.toJson());
           Get.offAll(

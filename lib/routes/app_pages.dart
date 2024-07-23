@@ -32,6 +32,7 @@ import 'package:request_hr/app/ticket/main/screens/ticket_screen.dart';
 import 'package:request_hr/app/ticket/ticket-details/screens/ticket_details_screen.dart';
 
 import '../app/auth/login/screens/login_screen.dart';
+import '../app/dashboard/tabs/chairman/main/screens/chairman_screen.dart';
 import '../app/dashboard/tabs/decisions/main/screens/decisions_screen.dart';
 import 'app_bindings.dart';
 import 'app_routes.dart';
@@ -225,6 +226,11 @@ class AppPages {
       name: AppRoutes.delete,
       page: () => DeleteScreen(),
       binding: DeletePageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.chairman,
+      page: () => ChairmanScreen(),
+      binding: ChairmanPageBindings(),
     ),
   ];
 }

@@ -202,6 +202,9 @@ class ComplaintScreen extends StatelessWidget {
                                     clipBehavior: Clip.none,
                                     child: Center(
                                       child: BarChart(
+                                        swapAnimationCurve: Curves.bounceIn,
+                                        swapAnimationDuration:
+                                            const Duration(milliseconds: 0),
                                         BarChartData(
                                           backgroundColor: AppColors.white,
                                           borderData: FlBorderData(

@@ -197,6 +197,9 @@ class AlertScreen extends StatelessWidget {
                                     padding: const EdgeInsets.only(right: 16),
                                     child: Center(
                                       child: BarChart(
+                                        swapAnimationCurve: Curves.bounceIn,
+                                        swapAnimationDuration:
+                                            const Duration(milliseconds: 0),
                                         BarChartData(
                                           backgroundColor: AppColors.white,
                                           borderData: FlBorderData(

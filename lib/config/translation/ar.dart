@@ -311,5 +311,12 @@ class Ar {
         'check_username_pass': 'تحقق من اسم المستخدم أو كلمة المرور!',
         'fill_credentials_toast': 'يرجى ملء جميع الحقول',
         'check_dates': 'تحقق من التواريخ',
+
+        ///CHAIRMAN
+        'most_rated_emp': 'أعلى الموظفين تقييمًا - هذا الشهر',
+        'total_bonus_month': 'إجمالي المكافآت على مدى 6 أشهر',
+        'vacation_taken_year': 'الإجازات المأخوذة لهذا العام',
+        'total_alert_year': 'إجمالي التنبيهات لهذا العام',
+        'total_alert_sent': 'إجمالي التنبيهات المرسلة من المديرين إلى الموظفين',
       };
 }

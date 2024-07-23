@@ -36,6 +36,7 @@ import 'package:request_hr/app/ticket/main/controllers/ticket_controller.dart';
 import 'package:request_hr/app/ticket/ticket-details/controllers/ticket_details_controller.dart';
 
 import '../app/auth/login/controllers/login_controller.dart';
+import '../app/dashboard/tabs/chairman/main/controllers/chairman_controller.dart';
 import '../app/dashboard/tabs/decisions/main/controllers/decisions_controller.dart';
 
 class LoginPageBindings extends Bindings {
@@ -295,5 +296,12 @@ class DeletePageBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DeleteController>(() => DeleteController());
+  }
+}
+
+class ChairmanPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<ChairmanController>(() => ChairmanController());
   }
 }
