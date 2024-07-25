@@ -34,12 +34,14 @@ class DashboardScreen extends StatelessWidget {
   DashboardScreen({
     super.key,
     this.employee,
+    required this.from,
   });
   final _dashboardController = Get.put(DashboardController());
   final ThemeController themeController = Get.find();
   final GlobalKey<CurvedNavigationBarState> bottomNavigationKey =
       GlobalKey<CurvedNavigationBarState>();
   final Emp? employee;
+  final String from;
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -270,21 +272,28 @@ class DashboardScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  employee?.contractDueDate != null
-                                      ? DateFormat('ddMMM., yyyy').format(
-                                          DateTime.parse(
-                                            employee!.contractDueDate!,
-                                          ),
-                                        )
-                                      : _dashboardController.employee.value
-                                                  .contractDueDate !=
-                                              null
+                                  from == 'login'
+                                      ? employee?.contractDueDate != null
                                           ? DateFormat('ddMMM., yyyy').format(
                                               DateTime.parse(
-                                                _dashboardController.employee
-                                                    .value.contractDueDate!,
+                                                employee!.contractDueDate!,
                                               ),
                                             )
+                                          : "--/--/---"
+                                      : from == 'reload'
+                                          ? _dashboardController.employee.value
+                                                      .contractDueDate !=
+                                                  null
+                                              ? DateFormat('ddMMM., yyyy')
+                                                  .format(
+                                                  DateTime.parse(
+                                                    _dashboardController
+                                                        .employee
+                                                        .value
+                                                        .contractDueDate!,
+                                                  ),
+                                                )
+                                              : "--/--/---"
                                           : "--/--/---",
                                   style: TextStyle(
                                     color: AppColors.white,
@@ -311,16 +320,16 @@ class DashboardScreen extends StatelessWidget {
                                     ),
                                     5.horizontalSpace,
                                     Text(
-                                      '${'start_job'.tr}: ${employee?.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
+                                      '${'start_job'.tr}: ${from == 'login' ? employee?.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
                                           DateTime.parse(
                                             employee!.contractStartDate!,
                                           ),
-                                        ) : _dashboardController.employee.value.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
+                                        ) : "--/--/---" : from == 'reload' ? _dashboardController.employee.value.contractStartDate != null ? DateFormat('dd-MM-yyyy').format(
                                           DateTime.parse(
                                             _dashboardController.employee.value
                                                 .contractStartDate!,
                                           ),
-                                        ) : "--/--/---"}',
+                                        ) : "--/--/---" : "--/--/---"}',
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 14.sp,

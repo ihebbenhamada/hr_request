@@ -451,6 +451,9 @@ class FinalExitController extends BaseController
     AppInterceptor.showLoader();
     _finalExitService.getCreateThirdStep().then((value) {
       if (value != null) {
+        if (employeeNameTextEditingController.text.isEmpty) {
+          employeeNameTextEditingController.text = value.employeeName;
+        }
         thirdStepData.value = value;
         jobNameTextEditingController.text = value.jobName ?? '';
         reasonTextEditingController.text = value.reason ?? '';

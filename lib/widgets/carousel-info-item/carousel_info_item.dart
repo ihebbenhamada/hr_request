@@ -59,7 +59,7 @@ class CarouselInfoItem extends StatelessWidget {
               title.tr,
               style: TextStyle(
                 color: AppColors.blueDark,
-                fontSize: 16.sp,
+                fontSize: 15.sp,
               ),
             ),
             4.h.verticalSpace,

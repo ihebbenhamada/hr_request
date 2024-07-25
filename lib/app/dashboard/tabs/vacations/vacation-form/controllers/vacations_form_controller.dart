@@ -117,7 +117,7 @@ class VacationsFormController extends BaseController {
         vacationTypeList.value = value.vacationTypes;
         dateFrom.value = value.dateFrom.substring(0, 10);
         dateTo.value = value.dateTo.substring(0, 10);
-        dueDate.value = value.dueDate ?? '--/--/--';
+        dueDate.value = value.dueDate?.substring(0, 10) ?? '--/--/--';
         employeesList.value = value.employees;
         selectedAlternativeToPay.value = value.employees[0];
         selectedAlternativeEmployee.value = value.employees[0];

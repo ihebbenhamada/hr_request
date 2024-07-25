@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/evaluations/evaluations-steps/main/screens/evaluations_steps_screen.dart';
+import 'package:request_hr/app/evaluations/evaluations-update-steps/main/screens/evaluations_update_steps_screen.dart';
 import 'package:request_hr/app/evaluations/main/models/evaluation.dart';
 import 'package:request_hr/app/evaluations/main/models/evaluation_chart.dart';
 import 'package:request_hr/config/colors/colors.dart';
@@ -60,13 +61,23 @@ class EvaluationsController extends BaseController {
     );
   }
 
-  onClickItemEvaluation() {
-    Get.to(
-      () => EvaluationsStepsScreen(),
-      transition: Transition.leftToRight,
-      curve: Curves.ease,
-      duration: const Duration(milliseconds: 500),
-    );
+  onClickItemEvaluation(Evaluation item) async {
+    AppInterceptor.showLoader();
+    _evaluationsService
+        .getUpdateEvaluation(
+            '', item.fKEvaluatedEmployeeId.toString(), item.id.toString())
+        .then((value) {
+      if (value != null) {
+        Get.to(
+          () => EvaluationsUpdateStepsScreen(),
+          arguments: value,
+          transition: Transition.leftToRight,
+          curve: Curves.ease,
+          duration: const Duration(milliseconds: 500),
+        );
+      }
+      AppInterceptor.hideLoader();
+    });
   }
 
   onChangeEvaluationCarousel(int index, CarouselPageChangedReason reason) {

@@ -99,7 +99,6 @@ class PurchaseDetailsService {
         return null;
       }
     } on DioException catch (e) {
-      log('12-12-1-212-12-12-1-2-12-12-12');
       log(e.response.toString());
       Fluttertoast.showToast(
         msg: "error".tr,

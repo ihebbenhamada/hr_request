@@ -31,7 +31,9 @@ class SuccessVacationController extends BaseController {
   /// FUNCTIONS
   onClickContinue() {
     Get.offAll(
-      () => DashboardScreen(),
+      () => DashboardScreen(
+        from: 'reload',
+      ),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -90,7 +89,6 @@ class MailDetailsController extends BaseController {
 
   Future<void> openFile(String filePath) async {
     final result = await OpenFile.open(filePath, type: 'pdf');
-    log("type=${result.type}  message=${result.message}");
   }
 
   void downloadFile() async {
@@ -102,9 +100,7 @@ class MailDetailsController extends BaseController {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       if (androidInfo.version.sdkInt <= 32) {
         permissionToRequest = Permission.storage;
-        log('  Permission.storage   --------');
       } else {
-        log('  Permission.photos   --------');
         permissionToRequest = Permission.photos;
       }
       if (await permissionToRequest.request().isGranted) {

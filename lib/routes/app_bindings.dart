@@ -17,6 +17,7 @@ import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/control
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/controllers/vacations_form_controller.dart';
 import 'package:request_hr/app/delete/controllers/delete_controller.dart';
 import 'package:request_hr/app/evaluations/evaluations-steps/main/controllers/evaluations_steps_controller.dart';
+import 'package:request_hr/app/evaluations/evaluations-update-steps/main/controllers/evaluations_update_steps_controller.dart';
 import 'package:request_hr/app/evaluations/main/controllers/evaluations_controller.dart';
 import 'package:request_hr/app/final_exit/main/controllers/final_exit_controller.dart';
 import 'package:request_hr/app/loan/loan-details/controllers/loan_details_controller.dart';
@@ -155,6 +156,14 @@ class EvaluationsStepsPageBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<EvaluationsStepsController>(() => EvaluationsStepsController());
+  }
+}
+
+class EvaluationsUpdateStepsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<EvaluationsUpdateStepsController>(
+        () => EvaluationsUpdateStepsController());
   }
 }
 

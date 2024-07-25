@@ -559,7 +559,7 @@ class PunishmentsScreen extends StatelessWidget {
                                             .toStringAsFixed(2),
                                       ),
                                       center: Text(
-                                        '${(_punishmentsController.percentage.value / 100).toStringAsFixed(1)}%',
+                                        '${(_punishmentsController.percentage.value).toStringAsFixed(1)}%',
                                         style: TextStyle(
                                           color: AppColors.primary,
                                           fontSize: 27.sp,

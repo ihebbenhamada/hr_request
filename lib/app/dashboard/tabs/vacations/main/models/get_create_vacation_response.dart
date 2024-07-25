@@ -16,7 +16,7 @@ class GetCreateVacation {
   final String? dueDate;
   final List<DropDownModel> vacationTypes;
   final List<DropDownModel> employees;
-  final String resultMessage;
+  final String? resultMessage;
   final String? resultStatus;
 
   GetCreateVacation({
@@ -35,13 +35,13 @@ class GetCreateVacation {
     required this.dueDate,
     required this.vacationTypes,
     required this.employees,
-    required this.resultMessage,
+    this.resultMessage,
     this.resultStatus,
   });
 
   factory GetCreateVacation.fromJson(Map<String, dynamic> json) {
     return GetCreateVacation(
-      resultMessage: json['resultMessage'] as String,
+      resultMessage: json['resultMessage'] as String?,
       resultStatus: json['resultStatus'] as String?,
       vacationId: json['vacationId'] as int,
       fKHrEmployeeId: json['fK_HrEmployeeId'] as int?,

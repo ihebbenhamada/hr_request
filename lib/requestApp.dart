@@ -51,8 +51,11 @@ class RequestApp extends StatelessWidget {
           ],
           initialBinding: Binding(),
           smartManagement: SmartManagement.keepFactory,
-          home:
-              storage.read("token") != null ? DashboardScreen() : LoginScreen(),
+          home: storage.read("token") != null
+              ? DashboardScreen(
+                  from: 'reload',
+                )
+              : LoginScreen(),
           builder: EasyLoading.init(),
         );
       },

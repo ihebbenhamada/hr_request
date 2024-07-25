@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,6 +8,8 @@ import 'package:request_hr/app/evaluations/main/models/evaluation_chart.dart';
 import 'package:request_hr/config/api-urls/end_points.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
+
+import '../models/evaluation_form.dart';
 
 class EvaluationsService {
   /*Future<List<Evaluation>?> getEvaluations() async {
@@ -32,6 +36,31 @@ class EvaluationsService {
         return null;
       }
     } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "error".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+      return null;
+    }
+  }
+
+  Future<EvaluationForm?> getUpdateEvaluation(
+      String? fileId, String empId, String fkHrEmpEvalId) async {
+    try {
+      Response? response = await AppInterceptor.dio?.get(
+          EndPoints.GET_UPDATE_EVALUATION_URL(fileId, empId, fkHrEmpEvalId));
+      if (response != null && response.statusCode == 200) {
+        return EvaluationForm.fromJson(response.data);
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      log(e.response.toString());
       Fluttertoast.showToast(
         msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,

@@ -278,11 +278,11 @@ class DashboardController extends BaseController {
       case 3:
         // Navigate to final exit
         Get.back();
-        pageIndex.value = 1;
+        pageIndex.value = 2;
         Get.to(() => FinalExitScreen());
-        vacationsIconColor.value = AppColors.primary;
+        vacationsIconColor.value = AppColors.white;
         searchIconColor.value = AppColors.white;
-        innTechIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.primary;
         meetingIconColor.value = AppColors.white;
         decisionsIconColor.value = AppColors.white;
         break;

@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:request_hr/app/evaluations/main/controllers/evaluations_controller.dart';
 import 'package:request_hr/app/evaluations/main/models/evaluation.dart';
@@ -113,9 +114,12 @@ class EvaluationsScreen extends StatelessWidget {
                                             date: item.evaluationDate
                                                     ?.substring(0, 10) ??
                                                 "",
-                                            editable: true,
-                                            onClick: _evaluationsController
-                                                .onClickItemEvaluation,
+                                            editable:
+                                                GetStorage().read('isAdmin'),
+                                            onClick: () =>
+                                                _evaluationsController
+                                                    .onClickItemEvaluation(
+                                                        item),
                                           );
                                         }
                                       },

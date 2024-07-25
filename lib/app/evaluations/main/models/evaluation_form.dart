@@ -53,7 +53,7 @@ class EvaluationForm {
   dynamic? details;
   List<Evaluation>? evaluationMainItems;
   List<RecommendationItem>? recommendationItems;
-  List<dynamic>? hrEmployeeEvaluationDetails;
+  List<HrEmployeeEvaluationDetails>? hrEmployeeEvaluationDetails;
   dynamic defBranchVm;
   String? resultMessage;
   bool? resultStatus;
@@ -180,8 +180,9 @@ class EvaluationForm {
             json["recommendationItems"]
                 .map((x) => RecommendationItem.fromJson(x))),
         hrEmployeeEvaluationDetails: json["hrEmployeeEvaluationDetails"] != null
-            ? List<dynamic>.from(
-                json["hrEmployeeEvaluationDetails"].map((x) => x))
+            ? List<HrEmployeeEvaluationDetails>.from(
+                json["hrEmployeeEvaluationDetails"]
+                    .map((x) => HrEmployeeEvaluationDetails.fromJson(x)))
             : null,
         defBranchVm: json["defBranchVM"],
         resultMessage: json["resultMessage"],
@@ -521,6 +522,76 @@ class RecommendationItem {
         "isActive": isActive,
         "isDeleted": isDeleted,
         "checked": checked,
+        "recommendationText": recommendationText,
+        "fK_HrEvaluationScaleId": fKHrEvaluationScaleId,
+      };
+}
+
+class HrEmployeeEvaluationDetails {
+  int? id;
+  int? fKHrEmployeeEvaluationId;
+  int? fKHrEvaluationFormItemId;
+  int? fKHrEvaluationScaleId;
+  EvaluationItem? evaluationItem;
+  String? scaleName;
+  double? degreeScale;
+  String? recommendationText;
+  int? fKCreatorId;
+  String? creationDate;
+  String? lastModifiedDate;
+  bool? isActive;
+  bool? isDeleted;
+
+  HrEmployeeEvaluationDetails({
+    this.id,
+    this.fKHrEmployeeEvaluationId,
+    this.fKHrEvaluationFormItemId,
+    this.fKHrEvaluationScaleId,
+    this.evaluationItem,
+    this.scaleName,
+    this.degreeScale,
+    this.recommendationText,
+    this.fKCreatorId,
+    this.creationDate,
+    this.lastModifiedDate,
+    this.isActive,
+    this.isDeleted,
+  });
+
+  factory HrEmployeeEvaluationDetails.fromRawJson(String str) =>
+      HrEmployeeEvaluationDetails.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory HrEmployeeEvaluationDetails.fromJson(Map<String, dynamic> json) =>
+      HrEmployeeEvaluationDetails(
+        id: json["id"] as int?,
+        degreeScale: json["degreeScale"] as double?,
+        evaluationItem: json["evaluationItem"] as EvaluationItem?,
+        fKHrEmployeeEvaluationId: json["fK_HrEmployeeEvaluationId"] as int?,
+        scaleName: json["scaleName"] as String?,
+        fKHrEvaluationFormItemId: json["fK_HrEvaluationFormItemId"] as int?,
+        fKCreatorId: json["fK_CreatorId"] as int?,
+        creationDate: json["creationDate"] as String?,
+        lastModifiedDate: json["lastModifiedDate"] as String?,
+        isActive: json["isActive"] as bool?,
+        isDeleted: json["isDeleted"] as bool?,
+        recommendationText: json["recommendationText"] as String?,
+        fKHrEvaluationScaleId: json["fK_HrEvaluationScaleId"] as int?,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "degreeScale": degreeScale,
+        "scaleName": scaleName,
+        "evaluationItem": evaluationItem,
+        "fK_HrEvaluationFormItemId": fKHrEvaluationFormItemId,
+        "fK_HrEmployeeEvaluationId": fKHrEmployeeEvaluationId,
+        "fK_CreatorId": fKCreatorId,
+        "creationDate": creationDate,
+        "lastModifiedDate": lastModifiedDate,
+        "isActive": isActive,
+        "isDeleted": isDeleted,
         "recommendationText": recommendationText,
         "fK_HrEvaluationScaleId": fKHrEvaluationScaleId,
       };

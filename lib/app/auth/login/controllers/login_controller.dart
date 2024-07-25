@@ -92,11 +92,14 @@ class LoginController extends BaseController {
           } else {
             storage.write('isAdmin', true);
           }
-          storage.write('isChairman', true);
+          storage.write('isChairman', false);
           storage.write('user', value.toJson());
           storage.write('employee', value.employee.toJson());
           Get.offAll(
-            () => DashboardScreen(employee: value.employee),
+            () => DashboardScreen(
+              employee: value.employee,
+              from: 'login',
+            ),
             transition: Transition.leftToRight,
             curve: Curves.ease,
             duration: const Duration(milliseconds: 500),

@@ -22,6 +22,7 @@ class AppRoutes {
   static const String notifications = '/notifications';
   static const String evaluation = '/evaluation';
   static const String evaluationSteps = '/evaluationSteps';
+  static const String evaluationUpdateSteps = '/evaluationUpdateSteps';
   static const String loan = '/loan';
   static const String loanDetails = '/loanDetails';
   static const String bonus = '/bonus';

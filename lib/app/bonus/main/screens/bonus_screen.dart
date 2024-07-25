@@ -64,7 +64,6 @@ class BonusScreen extends StatelessWidget {
               onRefresh: _bonusController.handleRefresh,
               color: AppColors.white,
               backgroundColor: AppColors.primary,
-              edgeOffset: MediaQuery.of(context).viewPadding.top,
               child: CustomScrollView(
                 slivers: <Widget>[
                   SliverFillRemaining(
