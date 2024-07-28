@@ -286,6 +286,7 @@ class En {
 
         ///TICKET
         'create_Ticket': 'Create New Ticket',
+        'ticket_detail': 'Ticket details',
         'request_ticket': 'Request ticket',
         'data_not_completed': 'Travel Data Not Completed',
         'note': 'Note',

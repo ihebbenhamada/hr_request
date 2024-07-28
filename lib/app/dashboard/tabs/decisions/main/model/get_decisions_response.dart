@@ -9,6 +9,8 @@ class DecisionsResponse {
   final String byAssigneeName;
   final String byAssigneeNameEn;
   final String subject;
+  final String jobName;
+  final String jobNameEn;
   final String description;
   final String imagePath;
   final String creationDate;
@@ -24,6 +26,8 @@ class DecisionsResponse {
     required this.assigneeName,
     required this.byAssigneeName,
     required this.byAssigneeNameEn,
+    required this.jobName,
+    required this.jobNameEn,
     required this.subject,
     required this.description,
     required this.imagePath,
@@ -42,6 +46,8 @@ class DecisionsResponse {
       assigneeName: json['assigneeName'] as String?,
       byAssigneeNameEn: json['byAssigneeNameEn'] as String,
       byAssigneeName: json['byAssigneeName'] as String,
+      jobName: json['jobName'] as String,
+      jobNameEn: json['jobNameEn'] as String,
       subject: json['subject'] as String,
       description: json['description'] as String,
       imagePath: json['imagePath'] as String,
@@ -62,6 +68,8 @@ class DecisionsResponse {
       'byAssigneeName': byAssigneeName,
       'byAssigneeNameEn': byAssigneeNameEn,
       'subject': subject,
+      'jobName': jobName,
+      'jobNamEn': jobNameEn,
       'description': description,
       'imagePath': imagePath,
       'creationDate': creationDate,

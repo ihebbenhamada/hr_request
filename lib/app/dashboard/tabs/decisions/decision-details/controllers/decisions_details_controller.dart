@@ -25,13 +25,7 @@ class DecisionsDetailsController extends BaseController {
   @override
   void onInit() {
     initValues();
-
     super.onInit();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   /// INITIALISATION

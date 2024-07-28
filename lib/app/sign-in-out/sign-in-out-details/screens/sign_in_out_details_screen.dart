@@ -224,11 +224,11 @@ class SignInOutDetailsScreen extends StatelessWidget {
               15.h.verticalSpace,
               Obx(
                 () => InputForm(
-                  height: 55.h,
                   width: double.infinity,
                   title: 'area'.tr,
                   inputType: 'text',
                   text: _signInOutDetailsController.area.value,
+                  paddingBottom: 10.h,
                 ),
               ),
               30.h.verticalSpace,

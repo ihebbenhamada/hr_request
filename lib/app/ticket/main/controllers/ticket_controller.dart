@@ -78,7 +78,9 @@ class TicketController extends BaseController {
     _ticketService.getTicketDetails(id: ticket.id).then((value) {
       if (value != null) {
         Get.to(
-          () => TicketDetailsScreen(),
+          () => TicketDetailsScreen(
+            title: 'ticket_detail',
+          ),
           arguments: value,
           transition: Transition.leftToRight,
           curve: Curves.ease,

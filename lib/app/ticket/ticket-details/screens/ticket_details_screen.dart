@@ -10,7 +10,12 @@ import '../../../../../../config/colors/colors.dart';
 
 class TicketDetailsScreen extends StatelessWidget {
   final _ticketDetailsController = Get.put(TicketDetailsController());
-  TicketDetailsScreen({super.key});
+
+  TicketDetailsScreen({
+    super.key,
+    this.title = 'create_Ticket',
+  });
+  final String title;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,7 +51,7 @@ class TicketDetailsScreen extends StatelessWidget {
                   ),
                   10.h.horizontalSpace,
                   Text(
-                    'create_Ticket'.tr,
+                    title.tr,
                     style: TextStyle(
                       fontSize: 16.sp,
                     ),
@@ -150,7 +155,6 @@ class TicketDetailsScreen extends StatelessWidget {
                             .firstNoteTextEditingController,
                       ),
                       15.h.verticalSpace,
-
                       Container(
                         width: double.infinity,
                         height: 44.h,
@@ -232,59 +236,65 @@ class TicketDetailsScreen extends StatelessWidget {
                       Obx(
                         () => AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
-                          clipBehavior: Clip.hardEdge,
+                          clipBehavior: Clip.none,
                           color: AppColors.white.withOpacity(0),
                           height:
                               _ticketDetailsController.hasEmployeeTicket.value
                                   ? 160.h
                                   : 0,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InputForm(
-                                    height: 55.h,
-                                    width: MediaQuery.of(context).size.width *
-                                            0.485 -
-                                        25.0,
-                                    title: 'name'.tr,
-                                    inputType: 'input',
-                                    enabled: _ticketDetailsController.isEnabled,
-                                    nbrLines: 1,
-                                    textEditingController:
-                                        _ticketDetailsController
-                                            .employeeNameTextEditingController,
-                                  ),
-                                  10.h.verticalSpace,
-                                  InputForm(
-                                    height: 55.h,
-                                    width: MediaQuery.of(context).size.width *
-                                            0.485 -
-                                        25.0,
-                                    title: 'birth_date'.tr,
-                                    inputType: 'date',
-                                    enabled: _ticketDetailsController.isEnabled,
-                                    text: DateFormat('dd-MM-yyyy').format(
-                                        _ticketDetailsController
-                                            .employeeBirthDate.value),
-                                    onSelectDate: () => _ticketDetailsController
-                                        .selectDate(context, 1),
-                                  ),
-                                ],
-                              ),
-                              15.h.verticalSpace,
-                              InputForm(
-                                width: double.infinity,
-                                title: 'note'.tr,
-                                inputType: 'input',
-                                enabled: _ticketDetailsController.isEnabled,
-                                nbrLines: 3,
-                                textEditingController: _ticketDetailsController
-                                    .employeeNoteTextEditingController,
-                              ),
-                            ],
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InputForm(
+                                      height: 55.h,
+                                      width: MediaQuery.of(context).size.width *
+                                              0.485 -
+                                          25.0,
+                                      title: 'name'.tr,
+                                      inputType: 'input',
+                                      enabled:
+                                          _ticketDetailsController.isEnabled,
+                                      nbrLines: 1,
+                                      textEditingController:
+                                          _ticketDetailsController
+                                              .employeeNameTextEditingController,
+                                    ),
+                                    10.h.verticalSpace,
+                                    InputForm(
+                                      height: 55.h,
+                                      width: MediaQuery.of(context).size.width *
+                                              0.485 -
+                                          25.0,
+                                      title: 'birth_date'.tr,
+                                      inputType: 'date',
+                                      enabled:
+                                          _ticketDetailsController.isEnabled,
+                                      text: DateFormat('dd-MM-yyyy').format(
+                                          _ticketDetailsController
+                                              .employeeBirthDate.value),
+                                      onSelectDate: () =>
+                                          _ticketDetailsController.selectDate(
+                                              context, 1),
+                                    ),
+                                  ],
+                                ),
+                                15.h.verticalSpace,
+                                InputForm(
+                                  width: double.infinity,
+                                  title: 'note'.tr,
+                                  inputType: 'input',
+                                  enabled: _ticketDetailsController.isEnabled,
+                                  nbrLines: 3,
+                                  textEditingController:
+                                      _ticketDetailsController
+                                          .employeeNoteTextEditingController,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -377,53 +387,59 @@ class TicketDetailsScreen extends StatelessWidget {
                               _ticketDetailsController.hasTicketForWife.value
                                   ? 160.h
                                   : 0,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InputForm(
-                                    height: 55.h,
-                                    width: MediaQuery.of(context).size.width *
-                                            0.485 -
-                                        25.0,
-                                    title: 'name'.tr,
-                                    inputType: 'input',
-                                    enabled: _ticketDetailsController.isEnabled,
-                                    nbrLines: 1,
-                                    textEditingController:
-                                        _ticketDetailsController
-                                            .wifeNameTextEditingController,
-                                  ),
-                                  10.h.verticalSpace,
-                                  InputForm(
-                                    height: 55.h,
-                                    width: MediaQuery.of(context).size.width *
-                                            0.485 -
-                                        25.0,
-                                    title: 'birth_date'.tr,
-                                    inputType: 'date',
-                                    enabled: _ticketDetailsController.isEnabled,
-                                    text: DateFormat('dd-MM-yyyy').format(
-                                        _ticketDetailsController
-                                            .employeeWifeBirthDate.value),
-                                    onSelectDate: () => _ticketDetailsController
-                                        .selectDate(context, 2),
-                                  ),
-                                ],
-                              ),
-                              15.h.verticalSpace,
-                              InputForm(
-                                width: double.infinity,
-                                title: 'note'.tr,
-                                inputType: 'input',
-                                nbrLines: 3,
-                                enabled: _ticketDetailsController.isEnabled,
-                                textEditingController: _ticketDetailsController
-                                    .wifeNoteTextEditingController,
-                              ),
-                            ],
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InputForm(
+                                      height: 55.h,
+                                      width: MediaQuery.of(context).size.width *
+                                              0.485 -
+                                          25.0,
+                                      title: 'name'.tr,
+                                      inputType: 'input',
+                                      enabled:
+                                          _ticketDetailsController.isEnabled,
+                                      nbrLines: 1,
+                                      textEditingController:
+                                          _ticketDetailsController
+                                              .wifeNameTextEditingController,
+                                    ),
+                                    10.h.verticalSpace,
+                                    InputForm(
+                                      height: 55.h,
+                                      width: MediaQuery.of(context).size.width *
+                                              0.485 -
+                                          25.0,
+                                      title: 'birth_date'.tr,
+                                      inputType: 'date',
+                                      enabled:
+                                          _ticketDetailsController.isEnabled,
+                                      text: DateFormat('dd-MM-yyyy').format(
+                                          _ticketDetailsController
+                                              .employeeWifeBirthDate.value),
+                                      onSelectDate: () =>
+                                          _ticketDetailsController.selectDate(
+                                              context, 2),
+                                    ),
+                                  ],
+                                ),
+                                15.h.verticalSpace,
+                                InputForm(
+                                  width: double.infinity,
+                                  title: 'note'.tr,
+                                  inputType: 'input',
+                                  nbrLines: 3,
+                                  enabled: _ticketDetailsController.isEnabled,
+                                  textEditingController:
+                                      _ticketDetailsController
+                                          .wifeNoteTextEditingController,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -516,54 +532,60 @@ class TicketDetailsScreen extends StatelessWidget {
                               _ticketDetailsController.hasTicketForChild1.value
                                   ? 160.h
                                   : 0,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InputForm(
-                                    height: 55.h,
-                                    width: MediaQuery.of(context).size.width *
-                                            0.485 -
-                                        25.0,
-                                    title: 'name'.tr,
-                                    inputType: 'input',
-                                    nbrLines: 1,
-                                    enabled: _ticketDetailsController.isEnabled,
-                                    textEditingController:
-                                        _ticketDetailsController
-                                            .firstChildNameTextEditingController,
-                                  ),
-                                  10.h.verticalSpace,
-                                  InputForm(
-                                    height: 55.h,
-                                    width: MediaQuery.of(context).size.width *
-                                            0.485 -
-                                        25.0,
-                                    title: 'birth_date'.tr,
-                                    inputType: 'date',
-                                    enabled: _ticketDetailsController.isEnabled,
-                                    text: DateFormat('dd-MM-yyyy').format(
-                                        _ticketDetailsController
-                                            .employeeSonUnderTwelveBirthDate
-                                            .value),
-                                    onSelectDate: () => _ticketDetailsController
-                                        .selectDate(context, 3),
-                                  ),
-                                ],
-                              ),
-                              15.h.verticalSpace,
-                              InputForm(
-                                width: double.infinity,
-                                title: 'note'.tr,
-                                inputType: 'input',
-                                nbrLines: 3,
-                                enabled: _ticketDetailsController.isEnabled,
-                                textEditingController: _ticketDetailsController
-                                    .firstChildNoteTextEditingController,
-                              ),
-                            ],
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InputForm(
+                                      height: 55.h,
+                                      width: MediaQuery.of(context).size.width *
+                                              0.485 -
+                                          25.0,
+                                      title: 'name'.tr,
+                                      inputType: 'input',
+                                      nbrLines: 1,
+                                      enabled:
+                                          _ticketDetailsController.isEnabled,
+                                      textEditingController:
+                                          _ticketDetailsController
+                                              .firstChildNameTextEditingController,
+                                    ),
+                                    10.h.verticalSpace,
+                                    InputForm(
+                                      height: 55.h,
+                                      width: MediaQuery.of(context).size.width *
+                                              0.485 -
+                                          25.0,
+                                      title: 'birth_date'.tr,
+                                      inputType: 'date',
+                                      enabled:
+                                          _ticketDetailsController.isEnabled,
+                                      text: DateFormat('dd-MM-yyyy').format(
+                                          _ticketDetailsController
+                                              .employeeSonUnderTwelveBirthDate
+                                              .value),
+                                      onSelectDate: () =>
+                                          _ticketDetailsController.selectDate(
+                                              context, 3),
+                                    ),
+                                  ],
+                                ),
+                                15.h.verticalSpace,
+                                InputForm(
+                                  width: double.infinity,
+                                  title: 'note'.tr,
+                                  inputType: 'input',
+                                  nbrLines: 3,
+                                  enabled: _ticketDetailsController.isEnabled,
+                                  textEditingController:
+                                      _ticketDetailsController
+                                          .firstChildNoteTextEditingController,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -656,58 +678,63 @@ class TicketDetailsScreen extends StatelessWidget {
                               _ticketDetailsController.hasTicketForChild2.value
                                   ? 160.h
                                   : 0,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InputForm(
-                                    height: 55.h,
-                                    width: MediaQuery.of(context).size.width *
-                                            0.485 -
-                                        25.0,
-                                    title: 'name'.tr,
-                                    inputType: 'input',
-                                    nbrLines: 1,
-                                    enabled: _ticketDetailsController.isEnabled,
-                                    textEditingController:
-                                        _ticketDetailsController
-                                            .secondChildNameTextEditingController,
-                                  ),
-                                  10.h.verticalSpace,
-                                  Obx(
-                                    () => InputForm(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InputForm(
                                       height: 55.h,
                                       width: MediaQuery.of(context).size.width *
                                               0.485 -
                                           25.0,
-                                      title: 'birth_date'.tr,
-                                      inputType: 'date',
+                                      title: 'name'.tr,
+                                      inputType: 'input',
+                                      nbrLines: 1,
                                       enabled:
                                           _ticketDetailsController.isEnabled,
-                                      text: DateFormat('dd-MM-yyyy').format(
+                                      textEditingController:
                                           _ticketDetailsController
-                                              .employeeSecondSonBirthDate
-                                              .value),
-                                      onSelectDate: () =>
-                                          _ticketDetailsController.selectDate(
-                                              context, 4),
+                                              .secondChildNameTextEditingController,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              15.h.verticalSpace,
-                              InputForm(
-                                width: double.infinity,
-                                title: 'note'.tr,
-                                inputType: 'input',
-                                nbrLines: 3,
-                                enabled: _ticketDetailsController.isEnabled,
-                                textEditingController: _ticketDetailsController
-                                    .secondChildNoteTextEditingController,
-                              ),
-                            ],
+                                    10.h.verticalSpace,
+                                    Obx(
+                                      () => InputForm(
+                                        height: 55.h,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                    0.485 -
+                                                25.0,
+                                        title: 'birth_date'.tr,
+                                        inputType: 'date',
+                                        enabled:
+                                            _ticketDetailsController.isEnabled,
+                                        text: DateFormat('dd-MM-yyyy').format(
+                                            _ticketDetailsController
+                                                .employeeSecondSonBirthDate
+                                                .value),
+                                        onSelectDate: () =>
+                                            _ticketDetailsController.selectDate(
+                                                context, 4),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                15.h.verticalSpace,
+                                InputForm(
+                                  width: double.infinity,
+                                  title: 'note'.tr,
+                                  inputType: 'input',
+                                  nbrLines: 3,
+                                  enabled: _ticketDetailsController.isEnabled,
+                                  textEditingController:
+                                      _ticketDetailsController
+                                          .secondChildNoteTextEditingController,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

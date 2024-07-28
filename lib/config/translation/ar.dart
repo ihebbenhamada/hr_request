@@ -285,6 +285,8 @@ class Ar {
         ///TICKET
         'create_Ticket': 'إنشاء تذكرة جديدة',
         'request_ticket': 'طلب تذكرة',
+        'ticket_detail': 'تفاصيل التذاكر',
+
         'data_not_completed': 'بيانات السفر غير مكتملة',
         'note': 'ملاحظة',
         'contracted': 'المتعاقد',
