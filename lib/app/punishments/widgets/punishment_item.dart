@@ -77,7 +77,7 @@ class PunishmentItem extends StatelessWidget {
                   employeeName,
                   style: TextStyle(
                     color: AppColors.blueDark,
-                    fontSize: 16.sp,
+                    fontSize: 15.sp,
                     height: 1.2,
                   ),
                 ),

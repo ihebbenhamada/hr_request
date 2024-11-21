@@ -74,6 +74,9 @@ class ComplaintDetailsController extends BaseController {
     description: '',
     fkReqStatusId: 0,
     complaintDate: DateTime.now().toString().substring(0, 10),
+    senderNameEn: '',
+    jobNameAr: '',
+    jobNameEn: '',
   ).obs;
 
   /// VALIDATION
@@ -91,8 +94,10 @@ class ComplaintDetailsController extends BaseController {
       item.value = Get.arguments;
       subjectTextEditingController.text = item.value.subject;
       descriptionTextEditingController.text = item.value.description;
+    } else {
+      getJobTypes();
     }
-    getJobTypes();
+
     employee.value = Emp.fromJson(GetStorage().read('employee'));
   }
 

@@ -33,7 +33,6 @@ class EvaluationItem extends StatelessWidget {
         children: [
           Container(
             width: 153.w,
-            height: 170.h,
             padding: const EdgeInsets.symmetric(horizontal: 8),
             decoration: ShapeDecoration(
               color: AppColors.white,
@@ -78,7 +77,7 @@ class EvaluationItem extends StatelessWidget {
                   employeeName,
                   style: TextStyle(
                     color: AppColors.blueDark,
-                    fontSize: 16.sp,
+                    fontSize: 15.sp,
                     height: 1.2,
                   ),
                 ),

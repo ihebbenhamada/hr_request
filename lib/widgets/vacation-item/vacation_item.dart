@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../config/colors/colors.dart';
 import '../../config/image_urls/image_urls.dart';
@@ -15,6 +16,8 @@ class VacationItem extends StatelessWidget {
     required this.color,
     required this.iconHeight,
     required this.onClick,
+    this.marginLeft,
+    this.marginRight,
   });
 
   final String title;
@@ -24,6 +27,8 @@ class VacationItem extends StatelessWidget {
   final Color? color;
   final bool? withAlert;
   final double? iconHeight;
+  final double? marginLeft;
+  final double? marginRight;
   final void Function() onClick;
 
   @override
@@ -34,7 +39,8 @@ class VacationItem extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Container(
-            width: 130,
+            margin:
+                EdgeInsets.only(left: marginLeft ?? 0, right: marginRight ?? 0),
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(13.h),
@@ -118,7 +124,11 @@ class VacationItem extends StatelessWidget {
                 )
               : const SizedBox(),
           Positioned(
-            right: 8,
+            right: Get.locale?.languageCode == 'en'
+                ? 8 + (marginRight ?? 0)
+                : null,
+            left:
+                Get.locale?.languageCode == 'ar' ? 8 + (marginLeft ?? 0) : null,
             top: 10.h,
             child: Image.asset(
               AppImages.edit,

@@ -385,18 +385,25 @@ class DashboardScreen extends StatelessWidget {
                             ),
                             physics: const AlwaysScrollableScrollPhysics(),
                             shrinkWrap: true, // padding around the grid
-                            itemCount: _dashboardController
-                                .drawerItems.length, // total number of items
+                            itemCount: !GetStorage().read('isChairman')
+                                ? _dashboardController.drawerItems.length
+                                : _dashboardController.chairmanDrawerItems
+                                    .length, // total number of items
                             itemBuilder: (context, index) {
                               Map<String, dynamic> item =
-                                  _dashboardController.drawerItems[index];
+                                  !GetStorage().read('isChairman')
+                                      ? _dashboardController.drawerItems[index]
+                                      : _dashboardController
+                                          .chairmanDrawerItems[index];
                               return DrawerGridItem(
                                 title: item['title'],
                                 icon: item['icon'],
                                 iconWidth: item['icon_width'],
                                 iconHeight: item['icon_height'],
-                                onTap: () =>
-                                    _dashboardController.onTapDrawer(index),
+                                onTap: () => !GetStorage().read('isChairman')
+                                    ? _dashboardController.onTapDrawer(index)
+                                    : _dashboardController
+                                        .onTapChairmanDrawer(index),
                               );
                             },
                           ),

@@ -14,7 +14,11 @@ import '../controllers/vacations_form_controller.dart';
 class VacationsFormScreen extends StatelessWidget {
   final _vacationsFormController = Get.put(VacationsFormController());
   final ThemeController _themeController = Get.find();
-  VacationsFormScreen({super.key});
+  VacationsFormScreen({
+    super.key,
+    this.from,
+  });
+  final String? from;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,6 +31,9 @@ class VacationsFormScreen extends StatelessWidget {
             physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
+                from == 'showAll'
+                    ? (MediaQuery.of(context).viewPadding.top).h.verticalSpace
+                    : 0.h.verticalSpace,
                 Center(
                   child: AvatarCircle(
                     image: AppImages.profile,
@@ -255,7 +262,7 @@ class VacationsFormScreen extends StatelessWidget {
                     ),
                     23.horizontalSpace,
                     GestureDetector(
-                      onTap: _vacationsFormController.onClickBack,
+                      onTap: () => _vacationsFormController.onClickBack(from),
                       child: Container(
                         height: 50.h,
                         width: 50.h,

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/loan/main/controllers/loan_controller.dart';
 import 'package:request_hr/app/loan/main/models/loan_response.dart';
 import 'package:request_hr/app/loan/widgets/loan_item.dart';
@@ -48,26 +49,34 @@ class LoanScreen extends StatelessWidget {
               ),
             ),
             7.h.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'create_loan'.tr,
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 16.sp,
+            !GetStorage().read('isChairman')
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'create_loan'.tr,
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: _loanController.navigateAndRefresh,
+                        child: Image.asset(
+                          AppImages.addDecision,
+                          height: 34.h,
+                          width: 34.h,
+                        ),
+                      )
+                    ],
+                  )
+                : Text(
+                    'employees_loans'.tr,
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: _loanController.navigateAndRefresh,
-                  child: Image.asset(
-                    AppImages.addDecision,
-                    height: 34.h,
-                    width: 34.h,
-                  ),
-                )
-              ],
-            ),
             16.h.verticalSpace,
             CategoriesFilter(
               selectedFilter: _loanController.selectedFilter,

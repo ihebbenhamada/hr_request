@@ -34,12 +34,21 @@ class NotificationsController extends BaseController {
   /// FUNCTIONS
   getNotificationList() {
     AppInterceptor.showLoader();
-    _notificationsService.getNotifications().then((value) {
-      if (value != null) {
-        notificationList.value = value;
-      }
-      AppInterceptor.hideLoader();
-    });
+    if (GetStorage().read('isAdmin') == true) {
+      _notificationsService.getAdminNotifications().then((value) {
+        if (value != null) {
+          notificationList.value = value;
+        }
+        AppInterceptor.hideLoader();
+      });
+    } else {
+      _notificationsService.getNotifications().then((value) {
+        if (value != null) {
+          notificationList.value = value;
+        }
+        AppInterceptor.hideLoader();
+      });
+    }
   }
 
   Future<void> handleRefresh() async {

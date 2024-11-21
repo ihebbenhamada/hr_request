@@ -11,6 +11,7 @@ import 'package:request_hr/app/dashboard/tabs/home/screens/home_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/main/screens/meetings_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/meetings-details/screens/meetings_details_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/screens/vacations_screen.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/show_all_vacations/screens/show_all_vacations_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/screens/success_vacation_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
 import 'package:request_hr/app/delete/screens/delete_screen.dart';
@@ -251,6 +252,11 @@ class AppPages {
       name: AppRoutes.chairman,
       page: () => ChairmanScreen(),
       binding: ChairmanPageBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.showAllVacations,
+      page: () => ShowAllVacationsScreen(),
+      binding: ShowAllVacationsPageBindings(),
     ),
   ];
 }

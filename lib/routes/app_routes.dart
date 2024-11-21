@@ -12,6 +12,7 @@ class AppRoutes {
   static const String replyMail = '/replyMail';
   static const String mailDetails = '/mailDetails';
   static const String vacations = '/vacations';
+  static const String showAllVacations = '/showAllVacations';
   static const String vacationsForm = '/vacationsForm';
   static const String vacationsSteps = '/vacationsSteps';
   static const String successVacation = '/successVacation';

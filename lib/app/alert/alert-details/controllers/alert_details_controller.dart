@@ -85,7 +85,7 @@ class AlertDetailsController extends BaseController {
     if (Get.arguments != null) {
       alertItem.value = Get.arguments;
       titleTextEditingController.text = alertItem.value.subject ?? '';
-      remarkTextEditingController.text = alertItem.value.subject ?? '';
+      remarkTextEditingController.text = alertItem.value.remark ?? '';
     } else {
       getDepartments();
     }

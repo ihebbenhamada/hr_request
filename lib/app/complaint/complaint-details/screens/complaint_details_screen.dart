@@ -113,9 +113,9 @@ class ComplaintDetailsScreen extends StatelessWidget {
                                 Text(
                                   Get.locale?.languageCode == 'en'
                                       ? _complaintDetailsController
-                                          .employee.value.fullNameEn
+                                          .item.value.senderNameEn
                                       : _complaintDetailsController
-                                          .employee.value.fullName,
+                                          .item.value.senderName,
                                   style: TextStyle(
                                     color: AppColors.white,
                                     fontSize: 14.sp,
@@ -144,8 +144,11 @@ class ComplaintDetailsScreen extends StatelessWidget {
                                 ),
                                 4.horizontalSpace,
                                 Text(
-                                  _complaintDetailsController
-                                      .employee.value.jobName,
+                                  Get.locale?.languageCode == 'en'
+                                      ? _complaintDetailsController
+                                          .item.value.jobNameEn
+                                      : _complaintDetailsController
+                                          .item.value.jobNameAr,
                                   style: TextStyle(
                                     color: AppColors.white,
                                     fontSize: 14.sp,

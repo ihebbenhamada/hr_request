@@ -106,7 +106,8 @@ class BonusDetailsScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20.h),
                                           border: Border.all(
-                                              color: AppColors.blue1),
+                                            color: AppColors.blue1,
+                                          ),
                                         ),
                                         child: Center(
                                           child: Image.asset(
@@ -120,7 +121,7 @@ class BonusDetailsScreen extends StatelessWidget {
                                       Text(
                                         Get.locale?.languageCode == 'en'
                                             ? _bonusDetailsController.bonusItem
-                                                    .value.byAssigneeName ??
+                                                    .value.byAssigneeNameEn ??
                                                 ''
                                             : _bonusDetailsController.bonusItem
                                                     .value.byAssigneeName ??
@@ -155,7 +156,13 @@ class BonusDetailsScreen extends StatelessWidget {
                                       ),
                                       4.horizontalSpace,
                                       Text(
-                                        '',
+                                        Get.locale?.languageCode == 'en'
+                                            ? _bonusDetailsController.bonusItem
+                                                    .value.jobNameEn ??
+                                                ''
+                                            : _bonusDetailsController
+                                                    .bonusItem.value.jobName ??
+                                                '',
                                         style: TextStyle(
                                           color: AppColors.white,
                                           fontSize: 14.sp,
@@ -174,7 +181,8 @@ class BonusDetailsScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20.h),
                                           border: Border.all(
-                                              color: AppColors.blue1),
+                                            color: AppColors.blue1,
+                                          ),
                                         ),
                                         child: Center(
                                           child: Image.asset(

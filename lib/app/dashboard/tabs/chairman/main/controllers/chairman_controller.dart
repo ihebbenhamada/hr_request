@@ -1,15 +1,14 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:request_hr/config/image_urls/image_urls.dart';
 
 import '../../../../../../config/colors/colors.dart';
 import '../../../../../../config/controllerConfig/base_controller.dart';
-import '../models/bonus_chairman_chart.dart';
-import '../models/rated_employee_chart.dart';
+import '../models/dashboard_admin_model.dart';
 import '../services/chairman_service.dart';
 
-class ChairmanController extends BaseController {
+class ChairmanController extends BaseController
+    with GetTickerProviderStateMixin {
   /// SERVICES
   final ChairmanService _chairmanService = ChairmanService();
 
@@ -18,29 +17,18 @@ class ChairmanController extends BaseController {
   /// VARIABLES
   RxInt showingTooltip = 1.obs;
   RxInt vacationTakenPercentage = 40.obs;
-  RxList<BarChartGroupData> barGroups = <BarChartGroupData>[].obs;
+  RxList<BarChartGroupData> barGroupsLowRated = <BarChartGroupData>[].obs;
+  RxList<BarChartGroupData> barGroupsMostRated = <BarChartGroupData>[].obs;
   RxList<FlSpot> spots = <FlSpot>[].obs;
 
-  List<RatedEmployeeChart> list = [
-    RatedEmployeeChart(
-        count: 100, name: 'Ahmed mohamed', image: AppImages.profile),
-    RatedEmployeeChart(count: 80, name: 'Jana Ahmed', image: AppImages.profile),
-    RatedEmployeeChart(count: 60, name: 'Ahmed Zaki', image: AppImages.profile),
-    RatedEmployeeChart(
-        count: 50, name: 'Ibrahim Ramzy', image: AppImages.profile),
-    RatedEmployeeChart(
-        count: 30, name: 'Mohamed Shazly', image: AppImages.profile),
-    RatedEmployeeChart(
-        count: 10, name: 'Faten Ahmed', image: AppImages.profile),
-  ];
-  List<ChairmanBonusChart> listBonus = [
-    ChairmanBonusChart(count: 0, month: 1, monthName: 'Jun', year: '2024'),
-    ChairmanBonusChart(count: 50, month: 2, monthName: 'Jul', year: '2024'),
-    ChairmanBonusChart(count: 20, month: 3, monthName: 'Aug', year: '2024'),
-    ChairmanBonusChart(count: 60, month: 4, monthName: 'Sep', year: '2024'),
-    ChairmanBonusChart(count: 15, month: 5, monthName: 'Oct', year: '2024'),
-    ChairmanBonusChart(count: 40, month: 6, monthName: 'Nov', year: '2024'),
-  ];
+  Rx<DashboardAdminModel> dashboardAdminData = DashboardAdminModel(
+    mostRatedEvaluations: [],
+    lowRatedEvaluations: [],
+    bonuStatistics: [],
+    punishmentStatistics: [],
+    yearVacations: [],
+    totalAlerts: 0,
+  ).obs;
 
   /// second chart
   List<Color> gradientColors = [
@@ -61,15 +49,76 @@ class ChairmanController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    for (var i = 0; i < list.length; i++) {
-      barGroups.add(generateGroupData(i, list[i].count));
-    }
-    for (var i = 0; i < listBonus.length; i++) {
-      spots.add(FlSpot((i).toDouble(), listBonus[i].count.toDouble()));
-    }
+    getDashboardData();
   }
 
   /// FUNCTIONS
+  getDashboardData() {
+    _chairmanService.getDashboardAdmin().then((value) {
+      if (value != null) {
+        dashboardAdminData.value = value;
+        for (int month = 1; month <= 12; month++) {
+          bool monthExists = dashboardAdminData.value.bonuStatistics.any(
+              (stat) =>
+                  int.parse(stat.month) == month &&
+                  int.parse(stat.year) == 2024);
+          if (!monthExists) {
+            dashboardAdminData.value.bonuStatistics.add(Statistic(
+                month: month.toString(), year: '2024', totalAmount: 0.0));
+          }
+        }
+        dashboardAdminData.value.bonuStatistics
+            .sort((a, b) => int.parse(a.month).compareTo(int.parse(b.month)));
+
+        for (var i = 0;
+            i < dashboardAdminData.value.lowRatedEvaluations.length;
+            i++) {
+          barGroupsLowRated.add(generateGroupData(
+              i,
+              dashboardAdminData.value.lowRatedEvaluations[i].degreeScale
+                  .toInt()));
+        }
+        for (var i = 0;
+            i < dashboardAdminData.value.mostRatedEvaluations.length;
+            i++) {
+          barGroupsMostRated.add(generateGroupData(
+              i,
+              dashboardAdminData.value.mostRatedEvaluations[i].degreeScale
+                  .toInt()));
+        }
+        for (var i = 0;
+            i < dashboardAdminData.value.bonuStatistics.length;
+            i++) {
+          spots.add(FlSpot((i).toDouble(),
+              dashboardAdminData.value.bonuStatistics[i].totalAmount));
+        }
+      }
+    });
+  }
+
+  Future<void> handleRefresh() async {
+    getDashboardData();
+  }
+
+  var isLowRatedSelected = true.obs;
+  var isBonusSelected = true.obs;
+
+  void toggleMostRated() {
+    isLowRatedSelected.value = false;
+  }
+
+  void toggleLowRated() {
+    isLowRatedSelected.value = true;
+  }
+
+  void toggleBonus() {
+    isBonusSelected.value = true;
+  }
+
+  void togglePunishment() {
+    isBonusSelected.value = false;
+  }
+
   BarChartGroupData generateGroupData(int x, int y) {
     return BarChartGroupData(
       x: x,

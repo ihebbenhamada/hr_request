@@ -9,10 +9,10 @@ import '../../../../config/interceptor/interceptor.dart';
 import '../models/complaint_response.dart';
 
 class ComplaintService {
-  Future<ComplaintResponse?> getComplaints() async {
+  Future<ComplaintResponse?> getComplaints(String lang) async {
     try {
-      Response? response =
-          await AppInterceptor.dio?.get(EndPoints.GET_COMPLAINTS_HOME_PAGE_URL);
+      Response? response = await AppInterceptor.dio
+          ?.get(EndPoints.GET_COMPLAINTS_HOME_PAGE_URL(lang));
       if (response != null && response.statusCode == 200) {
         return ComplaintResponse.fromJson(response.data);
       } else {

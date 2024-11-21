@@ -85,6 +85,7 @@ class Ar {
         ///VACATION
         'new_vacation': 'إجازة جديدة',
         'vacation': 'إجازة',
+        'employees_vacations': 'إجازات الموظفين',
         'no_vacation_found': 'لم يتم العثور على إجازة',
         'remaining_vacation':
             'الإجازة التي استخدمها الموظف، الإجازة المتبقية، والنسبة المئوية',
@@ -171,6 +172,7 @@ class Ar {
 
         ///LOAN SCREEN
         'create_loan': 'إنشاء قرض',
+        'employees_loans': 'قروض الموظفين',
         'no_loan_found': 'لم يتم العثور على قرض',
         'loan_year': 'قرضك هذا العام',
         'loans_requested': 'القروض التي طلبتها من الشركة خلال العام',
@@ -252,6 +254,7 @@ class Ar {
 
         ///COMPLAINT
         'create_complaint': 'إنشاء شكوى',
+        'employees_complaints': 'شكاوي الموظفين',
         'detail_complaint': 'تفاصيل الشكوى',
         'no_complaint_found': 'لم يتم العثور على شكوى',
         'your_complaint_chart': 'جدول شكواك',
@@ -262,6 +265,7 @@ class Ar {
 
         ///CUSTODY
         'request_custody': 'طلب عهدة',
+        'employees_custodies': 'عهود الموظفين',
         'create_custody': 'إنشاء عهدة',
         'total_custody_amount': 'إجمالي مبلغ العهدة',
         'custody_name': 'اسم العهدة',
@@ -277,6 +281,7 @@ class Ar {
 
         ///SIGN IN OUT SCREEN
         'create_signin_out': 'إنشاء تسجيل دخول / خروج',
+        'employees_sign_in_out': 'تسجيل دخول و خروج الموظفين',
         'time': 'الوقت',
         'location': 'الموقع',
         'area': 'المنطقة',
@@ -284,6 +289,7 @@ class Ar {
 
         ///TICKET
         'create_Ticket': 'إنشاء تذكرة جديدة',
+        'employees_tickets': 'تذاكر الموظفين',
         'request_ticket': 'طلب تذكرة',
         'ticket_detail': 'تفاصيل التذاكر',
 
@@ -298,6 +304,7 @@ class Ar {
 
         ///PURCHASE
         'request_purchase': 'طلب شراء',
+        'employees_purchases': 'مشتريات الموظفين',
         'responsible_person': 'الشخص المسؤول',
         'purchase_order_no': 'رقم طلب الشراء',
         'order_date': 'تاريخ الطلب',
@@ -320,5 +327,7 @@ class Ar {
         'vacation_taken_year': 'الإجازات المأخوذة لهذا العام',
         'total_alert_year': 'إجمالي التنبيهات لهذا العام',
         'total_alert_sent': 'إجمالي التنبيهات المرسلة من المديرين إلى الموظفين',
+        'low_rated': 'اعلى تقييم',
+        'most_rated': 'ادنى تقييم',
       };
 }

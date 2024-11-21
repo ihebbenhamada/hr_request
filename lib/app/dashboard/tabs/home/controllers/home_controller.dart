@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
@@ -11,7 +10,6 @@ class HomeController extends BaseController {
   final HomeService _homeService = HomeService();
 
   /// CONTROLLERS
-  final CarouselController controller = CarouselController();
 
   /// VARIABLES
   RxInt current = 0.obs;

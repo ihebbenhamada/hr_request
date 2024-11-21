@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/app/loan/main/models/loan_response.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+
+//TODO
+//import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../../config/colors/colors.dart';
 
@@ -35,7 +37,8 @@ class LoanStatisticsContainer extends StatelessWidget {
             width: (MediaQuery.of(context).size.width - 120) / 2,
             height: 120.h,
             child: Center(
-              child: SfCircularChart(
+              child: Text('remove comment after upgrade syncfusion'),
+              /* SfCircularChart(
                 series: <CircularSeries>[
                   // Renders radial bar chart
                   RadialBarSeries<ChartData, String>(
@@ -66,7 +69,7 @@ class LoanStatisticsContainer extends StatelessWidget {
                     maximumValue: 100,
                   ),
                 ],
-              ),
+              ),*/
             ),
           ),
           SizedBox(

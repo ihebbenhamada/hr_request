@@ -174,6 +174,104 @@ class DashboardController extends BaseController {
       'icon_height': 27.0,
     },
   ];
+  final List<Map<String, dynamic>> chairmanDrawerItems = [
+    {
+      'title': 'dashboard',
+      'icon': AppImages.dashboardDrawer,
+      'icon_width': 35.0,
+      'icon_height': 25.0,
+    },
+    {
+      'title': 'decisions',
+      'icon': AppImages.decisions,
+      'icon_width': 30.5,
+      'icon_height': 32.0,
+    },
+    {
+      'title': 'vacations',
+      'icon': AppImages.vacations,
+      'icon_width': 30.0,
+      'icon_height': 32.0,
+    },
+    {
+      'title': 'evaluations',
+      'icon': AppImages.evaluationsDrawer,
+      'icon_width': 28.0,
+      'icon_height': 22.5,
+    },
+    {
+      'title': 'loan',
+      'icon': AppImages.loanDrawer,
+      'icon_width': 27.5,
+      'icon_height': 26.0,
+    },
+    {
+      'title': 'bonus',
+      'icon': AppImages.bonusDrawer,
+      'icon_width': 24.0,
+      'icon_height': 24.0,
+    },
+    {
+      'title': 'punishments',
+      'icon': AppImages.punishmentsDrawer,
+      'icon_width': 32.0,
+      'icon_height': 32.0,
+    },
+    {
+      'title': 'alerts',
+      'icon': AppImages.alertWhiteDrawer,
+      'icon_width': 28.5,
+      'icon_height': 26.0,
+    },
+    {
+      'title': 'messages',
+      'icon': AppImages.messageDrawer,
+      'icon_width': 26.0,
+      'icon_height': 25.0,
+    },
+    {
+      'title': 'meetings',
+      'icon': AppImages.meetings,
+      'icon_width': 29.0,
+      'icon_height': 27.5,
+    },
+    {
+      'title': 'complaint',
+      'icon': AppImages.complaintDrawer,
+      'icon_width': 29.5,
+      'icon_height': 25.0,
+    },
+    {
+      'title': 'ticket',
+      'icon': AppImages.ticketMenuDrawer,
+      'icon_width': 28.0,
+      'icon_height': 28.5,
+    },
+    {
+      'title': 'sign_in_out',
+      'icon': AppImages.signOutDrawer,
+      'icon_width': 23.5,
+      'icon_height': 21.0,
+    },
+    {
+      'title': 'custody',
+      'icon': AppImages.custodyDrawer,
+      'icon_width': 22.5,
+      'icon_height': 28.0,
+    },
+    {
+      'title': 'purchase',
+      'icon': AppImages.purchaseDrawer,
+      'icon_width': 20.20,
+      'icon_height': 28.0,
+    },
+    {
+      'title': 'settings',
+      'icon': AppImages.settingDrawer,
+      'icon_width': 24.0,
+      'icon_height': 27.0,
+    },
+  ];
 
   /// SCREEN LIFE CYCLE
   @override
@@ -417,6 +515,189 @@ class DashboardController extends BaseController {
         meetingIconColor.value = AppColors.white;
         break;
       case 16:
+        // Navigate to settings
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => SettingsScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+
+      default:
+        Get.back();
+        pageIndex.value = 1;
+    }
+  }
+
+  onTapChairmanDrawer(int index) {
+    Get.nestedKey(pageIndex.value + 1)
+        ?.currentState
+        ?.popUntil((route) => route.isFirst);
+    switch (index) {
+      case 0:
+        // Navigate to Dashboard
+        Get.back();
+        pageIndex.value = 2;
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 1:
+        // Navigate to Decision
+        Get.back();
+        pageIndex.value = 0;
+        decisionsIconColor.value = AppColors.primary;
+        vacationsIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        searchIconColor.value = AppColors.white;
+        break;
+      case 2:
+        // Navigate vacation
+        Get.back();
+        pageIndex.value = 1;
+        vacationsIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        break;
+      case 3:
+        // Navigate to evaluation
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => EvaluationsScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 4:
+        // Navigate to loan
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => LoanScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 5:
+        // Navigate to Bonus
+        Get.back();
+        pageIndex.value = 4;
+        searchIconColor.value = AppColors.primary;
+        innTechIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 6:
+        // Navigate to punishments
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => PunishmentsScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 7:
+        // Navigate to Alerts
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => AlertScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 8:
+        // Navigate to messages
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => MailScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 9:
+        // Navigate to meetings
+        Get.back();
+        pageIndex.value = 3;
+        meetingIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        innTechIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        break;
+      case 10:
+        // Navigate to complaint
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => ComplaintScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 11:
+        // Navigate to ticket
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => TicketScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 12:
+        // Navigate to sign out
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => SignInOutScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 13:
+        // Navigate to custody
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => CustodyScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 14:
+        // Navigate to purchase
+        Get.back();
+        pageIndex.value = 2;
+        Get.to(() => PurchaseScreen());
+        innTechIconColor.value = AppColors.primary;
+        searchIconColor.value = AppColors.white;
+        vacationsIconColor.value = AppColors.white;
+        decisionsIconColor.value = AppColors.white;
+        meetingIconColor.value = AppColors.white;
+        break;
+      case 15:
         // Navigate to settings
         Get.back();
         pageIndex.value = 2;

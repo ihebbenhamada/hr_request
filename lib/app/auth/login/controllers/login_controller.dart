@@ -43,8 +43,8 @@ class LoginController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    idTextEditingController = TextEditingController(text: '4010');
-    passwordTextEditingController = TextEditingController(text: 'Req@12');
+    idTextEditingController = TextEditingController(text: '');
+    passwordTextEditingController = TextEditingController(text: '');
     idErrorText = "invalid_email";
     isIdError = false;
     isPasswordVisible = false;
@@ -89,10 +89,14 @@ class LoginController extends BaseController {
           storage.write('token', value.token);
           if (value.userRoles[0].roleName == "Employee") {
             storage.write('isAdmin', false);
+            storage.write('isChairman', false);
+          } else if (value.userRoles[0].roleName == "General Manager") {
+            storage.write('isAdmin', true);
+            storage.write('isChairman', true);
           } else {
             storage.write('isAdmin', true);
           }
-          storage.write('isChairman', false);
+
           storage.write('user', value.toJson());
           storage.write('employee', value.employee.toJson());
           Get.offAll(

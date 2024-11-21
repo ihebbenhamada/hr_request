@@ -105,7 +105,8 @@ class AlertDetailsScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(20.h),
                                           border: Border.all(
-                                              color: AppColors.blue1),
+                                            color: AppColors.blue1,
+                                          ),
                                         ),
                                         child: Center(
                                           child: Image.asset(
@@ -119,7 +120,7 @@ class AlertDetailsScreen extends StatelessWidget {
                                       Text(
                                         Get.locale?.languageCode == 'en'
                                             ? _alertDetailsController.alertItem
-                                                    .value.byAssigneeName ??
+                                                    .value.byAssigneeNameEn ??
                                                 ''
                                             : _alertDetailsController.alertItem
                                                     .value.byAssigneeName ??
@@ -157,10 +158,10 @@ class AlertDetailsScreen extends StatelessWidget {
                                       Text(
                                         Get.locale?.languageCode == 'en'
                                             ? _alertDetailsController.alertItem
-                                                    .value.byAssigneeName ??
+                                                    .value.jobNameEn ??
                                                 ''
                                             : _alertDetailsController.alertItem
-                                                    .value.byAssigneeName ??
+                                                    .value.jobNameAr ??
                                                 '',
                                         style: TextStyle(
                                           color: AppColors.white,
@@ -211,6 +212,7 @@ class AlertDetailsScreen extends StatelessWidget {
                               left: Get.locale?.languageCode == 'ar' ? 0 : null,
                               child: AvatarCircle(
                                 image: AppImages.profile,
+                                isNetworkImage: false,
                                 size: 112.h,
                                 iconSize: 22.h,
                                 imageSize: 95.h,

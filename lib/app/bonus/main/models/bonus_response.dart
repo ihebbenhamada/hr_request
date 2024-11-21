@@ -43,6 +43,9 @@ class Bonus {
   final int? fKReqBonusId;
   final String? assigneeName;
   final String? byAssigneeName;
+  final String? byAssigneeNameEn;
+  final String? jobName;
+  final String? jobNameEn;
   final String? imagePath;
   final String? subject;
   final String? description;
@@ -59,6 +62,9 @@ class Bonus {
     this.fKReqBonusId,
     this.assigneeName,
     this.byAssigneeName,
+    this.byAssigneeNameEn,
+    this.jobName,
+    this.jobNameEn,
     this.imagePath,
     this.subject,
     this.description,
@@ -77,6 +83,9 @@ class Bonus {
       fKReqBonusId: json['fK_ReqBonusId'] as int?,
       creationDate: json['creationDate'] as String?,
       byAssigneeName: json['byAssigneeName'] as String?,
+      byAssigneeNameEn: json['byAssigneeNameEn'] as String?,
+      jobNameEn: json['jobNameEn'] as String?,
+      jobName: json['jobName'] as String?,
       subject: json['subject'] as String?,
       description: json['description'] as String?,
       amount: json['amount'] as double?,
@@ -96,6 +105,9 @@ class Bonus {
       'fK_ReqBonusId': fKReqBonusId,
       'creationDate': creationDate,
       'byAssigneeName': byAssigneeName,
+      'byAssigneeNameEn': byAssigneeNameEn,
+      'jobName': jobName,
+      'jobNameEn': jobNameEn,
       'subject': subject,
       'description': description,
       'amount': amount,

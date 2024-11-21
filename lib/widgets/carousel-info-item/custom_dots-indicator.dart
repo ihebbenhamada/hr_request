@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:request_hr/config/colors/colors.dart';
@@ -18,6 +20,8 @@ class CustomDotsIndicator extends StatefulWidget {
 class _CustomDotsIndicatorState extends State<CustomDotsIndicator> {
   @override
   Widget build(BuildContext context) {
+    log('length : => ' + widget.length.toString());
+    log('current : => ' + widget.current.toString());
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(

@@ -11,47 +11,47 @@ String notificationToJson(List<Notification> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Notification {
-  int id;
+  int? id;
   String notificationText;
   int requestType;
   int fKRefrecnceId;
   String? refrecnceLink;
   bool showApprovalButton;
-  int fKCreatorId;
+  int? fKCreatorId;
   String creatorName;
   String creationDate;
-  String creationDateString;
-  bool isRead;
-  int notificationCount;
+  String? creationDateString;
+  bool? isRead;
+  int? notificationCount;
 
   Notification({
-    required this.id,
+    this.id,
     required this.notificationText,
     required this.requestType,
     required this.fKRefrecnceId,
     required this.refrecnceLink,
     required this.showApprovalButton,
-    required this.fKCreatorId,
+    this.fKCreatorId,
     required this.creatorName,
     required this.creationDate,
-    required this.creationDateString,
-    required this.isRead,
-    required this.notificationCount,
+    this.creationDateString,
+    this.isRead,
+    this.notificationCount,
   });
 
   factory Notification.fromJson(Map<String, dynamic> json) => Notification(
-        id: json["id"],
+        id: json["id"] as int?,
         notificationText: json["notificationText"],
         requestType: json["requestType"],
         fKRefrecnceId: json["fK_RefrecnceId"],
         refrecnceLink: json["refrecnceLink"],
         showApprovalButton: json["showApprovalButton"],
-        fKCreatorId: json["fK_CreatorId"],
+        fKCreatorId: json["fK_CreatorId"] as int?,
         creatorName: json["creatorName"],
         creationDate: json["creationDate"],
-        creationDateString: json["creationDateString"],
-        isRead: json["isRead"],
-        notificationCount: json["notificationCount"],
+        creationDateString: json["creationDateString"] as String?,
+        isRead: json["isRead"] as bool?,
+        notificationCount: json["notificationCount"] as int?,
       );
 
   Map<String, dynamic> toJson() => {

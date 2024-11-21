@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:request_hr/app/bonus/main/controllers/bonus_controller.dart';
 import 'package:request_hr/app/bonus/main/models/bonus_response.dart';
@@ -88,13 +89,16 @@ class BonusScreen extends StatelessWidget {
                                           .bonusResponse.value.bonuses[index];
                                       // Display real items
                                       return BonusItem(
-                                        employeeName: item.assigneeName ?? "",
+                                        employeeName:
+                                            Get.locale?.languageCode == 'en'
+                                                ? item.byAssigneeNameEn ?? ''
+                                                : item.byAssigneeName ?? '',
                                         employeeBonus: item.amount ?? 0.0,
                                         employeeImage: item.imagePath ?? "",
                                         date: item.creationDate
                                                 ?.substring(0, 10) ??
                                             "",
-                                        editable: true,
+                                        editable: GetStorage().read('isAdmin'),
                                         onClick: () => _bonusController
                                             .onClickItemBonus(item),
                                       );

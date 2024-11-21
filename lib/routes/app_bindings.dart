@@ -13,6 +13,7 @@ import 'package:request_hr/app/dashboard/tabs/home/controllers/home_controller.d
 import 'package:request_hr/app/dashboard/tabs/meetings/main/controllers/meetings_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/meetings/meetings-details/controllers/meetings_details_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/controllers/vacations_controller.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/show_all_vacations/controllers/show_all_vacations_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/success-vacation/controllers/success_vacation_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/controllers/vacations_form_controller.dart';
 import 'package:request_hr/app/delete/controllers/delete_controller.dart';
@@ -86,6 +87,13 @@ class VacationPageBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<VacationsController>(() => VacationsController());
+  }
+}
+
+class ShowAllVacationsPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<ShowAllVacationsController>(() => ShowAllVacationsController());
   }
 }
 

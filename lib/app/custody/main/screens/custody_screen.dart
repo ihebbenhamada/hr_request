@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/custody/main/controllers/custody_controller.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/widgets/vacation_categories.dart';
 import 'package:request_hr/config/colors/colors.dart';
@@ -46,26 +47,34 @@ class CustodyScreen extends StatelessWidget {
               ),
             ),
             7.h.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'request_custody'.tr,
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 16.sp,
+            !GetStorage().read('isChairman')
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'request_custody'.tr,
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: _custodyController.navigateAndRefresh,
+                        child: Image.asset(
+                          AppImages.addDecision,
+                          height: 34.h,
+                          width: 34.h,
+                        ),
+                      )
+                    ],
+                  )
+                : Text(
+                    'employees_custodies'.tr,
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: _custodyController.navigateAndRefresh,
-                  child: Image.asset(
-                    AppImages.addDecision,
-                    height: 34.h,
-                    width: 34.h,
-                  ),
-                )
-              ],
-            ),
             16.h.verticalSpace,
             CategoriesFilter(
               selectedFilter: _custodyController.selectedFilter,

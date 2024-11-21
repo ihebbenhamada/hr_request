@@ -47,7 +47,9 @@ class ComplaintController extends BaseController {
   /// FUNCTIONS
   getComplaints() {
     AppInterceptor.showLoader();
-    _complaintService.getComplaints().then((value) {
+    _complaintService
+        .getComplaints(Get.locale?.languageCode ?? 'en')
+        .then((value) {
       if (value != null) {
         complaintResponse.value = value;
         for (var i = 0; i < value.reqComplaintChart.count.length; i++) {

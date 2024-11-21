@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
+import 'package:request_hr/app/dashboard/tabs/vacations/main/models/get_employee_vacations_response.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/main/models/vacation.dart';
-import 'package:request_hr/app/dashboard/tabs/vacations/show_all_vacations/screens/show_all_vacations_screen.dart';
 import 'package:request_hr/app/dashboard/tabs/vacations/vacation-form/screens/vacations_form_screen.dart';
 import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/interceptor/interceptor.dart';
@@ -12,13 +10,13 @@ import 'package:request_hr/config/interceptor/interceptor.dart';
 import '../../../../../../config/controllerConfig/base_controller.dart';
 import '../../../../../../config/image_urls/image_urls.dart';
 import '../../../../main/controller/dashboard-controller.dart';
-import '../models/get_employee_vacations_response.dart';
-import '../models/get_update_response.dart';
-import '../services/vacations_service.dart';
+import '../../main/models/get_update_response.dart';
+import '../services/show_all_vacations_service.dart';
 
-class VacationsController extends BaseController {
+class ShowAllVacationsController extends BaseController {
   /// SERVICES
-  final VacationsService _vacationsService = VacationsService();
+  final ShowAllVacationsService _showAllVacationsService =
+      ShowAllVacationsService();
 
   /// CONTROLLERS
   final DashboardController _dashboardController = Get.find();
@@ -26,44 +24,12 @@ class VacationsController extends BaseController {
   /// VARIABLES
   RxInt selectedFilter = 0.obs;
   RxInt currentVacationIndex = 0.obs;
-  RxInt currentOfficialVacationIndex = 0.obs;
   RxList<Vacation> allVacationsList = <Vacation>[].obs;
   RxList<Vacation> pendingVacationsList = <Vacation>[].obs;
   RxList<Vacation> approvedVacationsList = <Vacation>[].obs;
   RxList<Vacation> rejectedVacationList = <Vacation>[].obs;
+
   RxList<Vacation> vacationsList = <Vacation>[].obs;
-  Rx<EmployeeVacations> empVacRes = EmployeeVacations(
-    all: [],
-    pending: [],
-    approved: [],
-    rejected: [],
-    vacationsPercentage: 0.0,
-    takenDays: 0,
-    leftDays: 0,
-    nextVacation: '',
-  ).obs;
-  final List<Map<String, dynamic>> officialVacationList = [
-    {
-      'title': 'national_day',
-      'date': 'national_day_date',
-    },
-    {
-      'title': 'founding_day',
-      'date': 'founding_day_date',
-    },
-    {
-      'title': 'eid_al_adha',
-      'date': 'eid_al_adha_date',
-    },
-    {
-      'title': 'eid_al_fitr',
-      'date': 'eid_al_fitr_date',
-    },
-  ];
-  RxDouble takenDays = 0.0.obs;
-  RxDouble leftDays = 0.0.obs;
-  RxDouble vacationPercentage = 0.0.obs;
-  RxString nextVacation = "".obs;
   GetUpdateVacationResponse? selectedVacation;
 
   /// VALIDATION
@@ -77,20 +43,21 @@ class VacationsController extends BaseController {
 
   /// INITIALISATION
   void initValues() {
-    getListVacations();
+    if (Get.arguments != null) {
+      EmployeeVacations employeeVacations = Get.arguments[0];
+      selectedFilter.value = Get.arguments[1];
+      allVacationsList.value = employeeVacations.all;
+      pendingVacationsList.value = employeeVacations.pending;
+      approvedVacationsList.value = employeeVacations.approved;
+      rejectedVacationList.value = employeeVacations.rejected;
+      onSelectFilter(selectedFilter.value);
+    }
   }
 
   getListVacations() {
-    _vacationsService.getEmployeeVacations().then((value) async {
+    _showAllVacationsService.getEmployeeVacations().then((value) {
       if (value != null) {
-        empVacRes.value = value;
-        leftDays.value = value.leftDays;
-        takenDays.value = value.takenDays;
-        vacationPercentage.value = value.vacationsPercentage;
-        nextVacation.value = value.nextVacation.toLowerCase().contains("no")
-            ? "No vacations"
-            : value.nextVacation;
-        allVacationsList.value = await value.all.map((e) {
+        allVacationsList.value = value.all.map((e) {
           e.color = e.fKReqStatusId == 9
               ? AppColors.gray5
               : e.fKReqStatusId == 10
@@ -110,28 +77,28 @@ class VacationsController extends BaseController {
 
           return e;
         }).toList();
-        pendingVacationsList.value = await value.pending.map((e) {
+        pendingVacationsList.value = value.pending.map((e) {
           e.color = AppColors.gray5;
           e.icon = AppImages.progress;
           e.iconHeight = 30.0;
           e.withAlert = false;
           return e;
         }).toList();
-        approvedVacationsList.value = await value.approved.map((e) {
+        approvedVacationsList.value = value.approved.map((e) {
           e.color = AppColors.primary;
           e.icon = AppImages.doubleCheck;
           e.iconHeight = 15.0;
           e.withAlert = true;
           return e;
         }).toList();
-        rejectedVacationList.value = await value.rejected.map((e) {
+        rejectedVacationList.value = value.rejected.map((e) {
           e.color = AppColors.redLight;
           e.icon = AppImages.x;
           e.iconHeight = 23.0;
           e.withAlert = false;
           return e;
         }).toList();
-        onSelectFilter(selectedFilter.value);
+        vacationsList.value = allVacationsList;
       }
       _dashboardController.isVacationLoading.value = false;
       if (_dashboardController.isDecisionLoading.isFalse &&
@@ -160,17 +127,14 @@ class VacationsController extends BaseController {
   }
 
   onChangeVacationList(int index, CarouselPageChangedReason reason) {
-    log(index.toString());
     currentVacationIndex.value = index;
-  }
-
-  onChangeOfficialVacationList(int index, CarouselPageChangedReason reason) {
-    currentOfficialVacationIndex.value = index;
   }
 
   onClickVacationItem(int id) {
     AppInterceptor.showLoader();
-    _vacationsService.getUpdateVacation(vacationId: id).then((value) async {
+    _showAllVacationsService
+        .getUpdateVacation(vacationId: id)
+        .then((value) async {
       if (value != null) {
         AppInterceptor.hideLoader();
         selectedVacation = value;
@@ -191,8 +155,7 @@ class VacationsController extends BaseController {
   void navigateAndRefresh() async {
     selectedVacation = null;
     final result = await Get.to(
-      id: 2,
-      () => VacationsFormScreen(),
+      () => VacationsFormScreen(from: 'showAll'),
       transition: Transition.leftToRight,
       curve: Curves.ease,
       duration: const Duration(milliseconds: 500),
@@ -205,15 +168,5 @@ class VacationsController extends BaseController {
   Future<void> handleRefresh() async {
     AppInterceptor.showLoader();
     getListVacations();
-  }
-
-  handleShowAll() {
-    Get.to(
-      () => ShowAllVacationsScreen(),
-      arguments: [empVacRes.value, selectedFilter.value],
-      transition: Transition.leftToRight,
-      curve: Curves.ease,
-      duration: const Duration(milliseconds: 500),
-    );
   }
 }

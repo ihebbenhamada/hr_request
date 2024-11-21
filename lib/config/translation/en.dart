@@ -85,6 +85,7 @@ class En {
         ///VACATION
         'new_vacation': 'New Vacation',
         'vacation': 'Vacation',
+        'employees_vacations': 'Employees vacation',
         'no_vacation_found': 'No Vacation found',
         'remaining_vacation':
             'Leave taken by the employee, the remaining leave, and the percentage',
@@ -171,6 +172,7 @@ class En {
 
         ///LOAN SCREEN
         'create_loan': 'Create Loan',
+        'employees_loans': 'Employees loans',
         'no_loan_found': 'No Loan found',
         'loan_year': 'Your Loan this Year',
         'loans_requested':
@@ -253,6 +255,7 @@ class En {
 
         ///COMPLAINT
         'create_complaint': 'Create Complaint',
+        'employees_complaints': 'Employees complaints',
         'detail_complaint': 'Complaint details',
         'no_complaint_found': 'No Complaint found',
         'your_complaint_chart': 'Your Complaint Chart',
@@ -264,6 +267,7 @@ class En {
 
         ///CUSTODY
         'request_custody': 'Request Custody',
+        'employees_custodies': 'Employees custodies',
         'create_custody': 'Create custody',
         'total_custody_amount': 'Total Custody Amount',
         'custody_name': 'Custody Name',
@@ -279,6 +283,7 @@ class En {
 
         ///SIGN IN OUT SCREEN
         'create_signin_out': 'Create SignIn / SignOut',
+        'employees_sign_in_out': 'Employees Sign In & Out',
         'time': 'time',
         'location': 'Location',
         'area': 'Area',
@@ -286,6 +291,7 @@ class En {
 
         ///TICKET
         'create_Ticket': 'Create New Ticket',
+        'employees_tickets': 'Employee tickets',
         'ticket_detail': 'Ticket details',
         'request_ticket': 'Request ticket',
         'data_not_completed': 'Travel Data Not Completed',
@@ -299,6 +305,7 @@ class En {
 
         ///PURCHASE
         'request_purchase': 'Request Purchase',
+        'employees_purchases': 'Employees purchases',
         'responsible_person': 'Responsible Person',
         'purchase_order_no': 'Purchase Order NO',
         'order_date': 'Order Date',
@@ -321,5 +328,7 @@ class En {
         'vacation_taken_year': 'Vacations Taken for this year',
         'total_alert_year': 'Total Alert for this Year',
         'total_alert_sent': 'Total Alert sent from Managers to employees',
+        'low_rated': 'Low Rated',
+        'most_rated': 'Most Rated',
       };
 }

@@ -229,8 +229,8 @@ class VacationsFormController extends BaseController {
     }
   }
 
-  onClickBack() {
-    Get.back(id: 2);
+  onClickBack(String? from) {
+    from == 'showAll' ? Get.back() : Get.back(id: 2);
   }
 
   onClickCompleteProcedures() {

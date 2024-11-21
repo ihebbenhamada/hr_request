@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/complaint/main/controllers/complaint_controller.dart';
 import 'package:request_hr/app/complaint/main/models/complaint_response.dart';
 import 'package:request_hr/config/colors/colors.dart';
@@ -48,26 +49,34 @@ class ComplaintScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'create_complaint'.tr,
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 16.sp,
+            !GetStorage().read('isChairman')
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'create_complaint'.tr,
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: _complaintController.onClickCreateComplaint,
+                        child: Image.asset(
+                          AppImages.addDecision,
+                          height: 34.h,
+                          width: 34.h,
+                        ),
+                      )
+                    ],
+                  )
+                : Text(
+                    'employees_complaints'.tr,
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: _complaintController.onClickCreateComplaint,
-                  child: Image.asset(
-                    AppImages.addDecision,
-                    height: 34.h,
-                    width: 34.h,
-                  ),
-                )
-              ],
-            ),
             20.h.verticalSpace,
             Expanded(
               child: RefreshIndicator(
@@ -107,12 +116,18 @@ class ComplaintScreen extends StatelessWidget {
                                                 .reqComplaintMobile[index];
                                         // Display real items
                                         return EvaluationItem(
-                                          employeeName: item.senderName,
-                                          employeePosition: item.subject,
+                                          employeeName:
+                                              Get.locale?.languageCode == 'en'
+                                                  ? item.senderNameEn ?? ''
+                                                  : item.senderName ?? '',
+                                          employeePosition:
+                                              Get.locale?.languageCode == 'en'
+                                                  ? item.jobNameEn ?? ''
+                                                  : item.jobNameAr ?? '',
                                           employeeImage: item.senderImagePath,
                                           date: item.complaintDate
                                               .substring(0, 10),
-                                          editable: true,
+                                          editable: false,
                                           onClick: () => _complaintController
                                               .onClickItemComplaint(item),
                                         );

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -77,6 +79,7 @@ class FinalExitService {
         return null;
       }
     } on DioException catch (e) {
+      log(e.response.toString());
       Fluttertoast.showToast(
         msg: "error".tr,
         toastLength: Toast.LENGTH_LONG,

@@ -110,14 +110,17 @@ class PunishmentsScreen extends StatelessWidget {
                                             .punishmentList[index];
                                         // Display real items
                                         return PunishmentItem(
-                                          employeeName: item.assigneeName ?? "",
+                                          employeeName:
+                                              Get.locale?.languageCode == 'en'
+                                                  ? item.byAssigneeNameEn ?? ''
+                                                  : item.byAssigneeName ?? '',
                                           employeePunishment:
                                               item.amount ?? 0.0,
                                           employeeImage: item.imagePath ?? "",
                                           date: item.creationDate
                                                   ?.substring(0, 10) ??
                                               "",
-                                          editable: true,
+                                          editable: false,
                                           onClick: () => _punishmentsController
                                               .onClickItemPunishments(item),
                                         );

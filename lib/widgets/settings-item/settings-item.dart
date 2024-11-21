@@ -58,7 +58,7 @@ class SettingsItem extends StatelessWidget {
                   width: 28,
                   color: isDarkMode ? AppColors.white : AppColors.primary,
                 ),
-                isSwitchVisible != null && !isSwitchVisible
+                !isSwitchVisible
                     ? SizedBox(
                         height: 16,
                         width: 33,

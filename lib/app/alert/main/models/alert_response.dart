@@ -36,6 +36,10 @@ class Alert {
   final int? fKReqAlertId;
   final String? assigneeName;
   final String? byAssigneeName;
+  final String? byAssigneeNameEn;
+  final String? jobNameEn;
+  final String? jobNameAr;
+  final String? remark;
   final String? imagePath;
   final String? subject;
   final String? creationDate;
@@ -50,6 +54,10 @@ class Alert {
     this.fKReqAlertId,
     this.assigneeName,
     this.byAssigneeName,
+    this.byAssigneeNameEn,
+    this.jobNameEn,
+    this.jobNameAr,
+    this.remark,
     this.imagePath,
     this.subject,
     this.creationDate,
@@ -66,6 +74,10 @@ class Alert {
       fKReqAlertId: json['fK_ReqAlertId'] as int?,
       creationDate: json['creationDate'] as String?,
       byAssigneeName: json['byAssigneeName'] as String?,
+      byAssigneeNameEn: json['byAssigneeNameEn'] as String?,
+      jobNameAr: json['jobNameAr'] as String?,
+      jobNameEn: json['jobNameEn'] as String?,
+      remark: json['remark'] as String?,
       subject: json['subject'] as String?,
       imagePath: json['imagePath'] as String?,
       assigneeName: json['assigneeName'] as String?,
@@ -83,7 +95,11 @@ class Alert {
       'fK_ReqAlertId': fKReqAlertId,
       'creationDate': creationDate,
       'byAssigneeName': byAssigneeName,
+      'byAssigneeNameEn': byAssigneeNameEn,
+      'jobNameEn': jobNameEn,
+      'jobNameAr': jobNameAr,
       'subject': subject,
+      'remark': remark,
       'imagePath': imagePath,
       'assigneeName': assigneeName,
       'lastModifiedDate': lastModifiedDate,

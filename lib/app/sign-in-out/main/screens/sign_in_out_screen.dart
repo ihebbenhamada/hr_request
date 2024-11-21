@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:request_hr/app/sign-in-out/main/controllers/sign_in_out_controller.dart';
 import 'package:request_hr/app/sign-in-out/main/model/sign_in_out.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
@@ -43,26 +44,34 @@ class SignInOutScreen extends StatelessWidget {
               ),
             ),
             7.h.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'sign_in_out'.tr,
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 16.sp,
+            !GetStorage().read('isChairman')
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'sign_in_out'.tr,
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: _signInOutController.navigateAndRefresh,
+                        child: Image.asset(
+                          AppImages.addDecision,
+                          height: 34.h,
+                          width: 34.h,
+                        ),
+                      )
+                    ],
+                  )
+                : Text(
+                    'employees_sign_in_out'.tr,
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: _signInOutController.navigateAndRefresh,
-                  child: Image.asset(
-                    AppImages.addDecision,
-                    height: 34.h,
-                    width: 34.h,
-                  ),
-                )
-              ],
-            ),
             20.h.verticalSpace,
             Expanded(
               child: RefreshIndicator(

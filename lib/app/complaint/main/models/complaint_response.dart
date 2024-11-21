@@ -64,6 +64,9 @@ class ReqComplaintMobile {
   int id;
   int fkHrEmployeeId;
   String senderName;
+  String senderNameEn;
+  String jobNameEn;
+  String jobNameAr;
   String senderImagePath;
   String subject;
   String description;
@@ -74,6 +77,9 @@ class ReqComplaintMobile {
     required this.id,
     required this.fkHrEmployeeId,
     required this.senderName,
+    required this.senderNameEn,
+    required this.jobNameAr,
+    required this.jobNameEn,
     required this.senderImagePath,
     required this.subject,
     required this.description,
@@ -91,6 +97,9 @@ class ReqComplaintMobile {
         id: json["id"],
         fkHrEmployeeId: json["fK_HrEmployeeId"],
         senderName: json["senderName"],
+        senderNameEn: json["senderNameEn"],
+        jobNameEn: json["jobNameEn"],
+        jobNameAr: json["jobNameAr"],
         senderImagePath: json["senderImagePath"],
         subject: json["subject"],
         description: json["description"],
@@ -102,6 +111,9 @@ class ReqComplaintMobile {
         "id": id,
         "fK_HrEmployeeId": fkHrEmployeeId,
         "senderName": senderName,
+        "senderNameEn": senderNameEn,
+        "jobNameEn": jobNameEn,
+        "jobNameAr": jobNameAr,
         "senderImagePath": senderImagePath,
         "subject": subject,
         "description": description,

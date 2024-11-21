@@ -144,6 +144,8 @@ class EndPoints {
 
   /// NOTIFICATIONS
   static const String INDEX_NOTIFICATIONS_URL = '/NotificationAPI/Index';
+  static const String GET_ADMIN_NOTIFICATIONS_URL =
+      '/NotificationAPI/GetNotificationsForAll';
   static const String GET_NOTIFICATIONS_URL =
       '/NotificationAPI/GetNotifications';
   static const String GET_NOTIFICATIONS_COUNTER_URL =
@@ -159,8 +161,8 @@ class EndPoints {
   static const String GET_ALL_JOB_TYPES_URL = '/ReqComplaintAPI/GetAllJobTypes';
   static const String GET_EMPLOYEE_COMPLAINTS_DETAILS_URL =
       '/ReqComplaintAPI/GetEmployeeDetails?lang=';
-  static const String GET_COMPLAINTS_HOME_PAGE_URL =
-      '/ReqComplaintAPI/GetHomePage?lang=';
+  static String GET_COMPLAINTS_HOME_PAGE_URL(String lang) =>
+      '/ReqComplaintAPI/GetHomePage?lang=$lang';
   static const String CREATE_COMPLAINT_URL = '/ReqComplaintAPI/Create';
   static const String CREATE_COMPLAINT_DETAILS_URL =
       '/ReqComplaintAPI/CreateComplaintDetails';
@@ -231,4 +233,7 @@ class EndPoints {
       '/ReqMessagesAPI/GetAllMessageType';
   static const String SEND_MESSAGE_URL = '/ReqMessagesAPI/SendMessage';
   static const String REPLY_MESSAGE_URL = '/ReqMessagesAPI/ReplyMessage';
+
+  ///CHAIRMAN
+  static const String ADMIN_DASHBOARD_URL = '/ChairmanAPI/Dashboard';
 }

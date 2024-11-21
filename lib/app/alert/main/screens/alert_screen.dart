@@ -112,7 +112,9 @@ class AlertScreen extends StatelessWidget {
                                         return EvaluationItem(
                                           employeeName: item.assigneeName ?? "",
                                           employeePosition:
-                                              item.byAssigneeName ?? "",
+                                              Get.locale?.languageCode == 'en'
+                                                  ? item.jobNameEn ?? ""
+                                                  : item.jobNameAr ?? "",
                                           employeeImage: item.imagePath ?? "",
                                           date: item.creationDate
                                                   ?.substring(0, 10) ??

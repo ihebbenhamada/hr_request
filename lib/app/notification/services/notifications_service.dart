@@ -35,4 +35,31 @@ class NotificationsService {
       return null;
     }
   }
+
+  Future<List<Notification>?> getAdminNotifications() async {
+    try {
+      Response? response =
+          await AppInterceptor.dio?.get(EndPoints.GET_ADMIN_NOTIFICATIONS_URL);
+      if (response != null && response.statusCode == 200) {
+        List<Notification> notificationList = (response.data as List<dynamic>)
+            .map((json) => Notification.fromJson(json))
+            .toList();
+
+        return notificationList;
+      } else {
+        return null;
+      }
+    } on DioException catch (e) {
+      Fluttertoast.showToast(
+        msg: "error".tr,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: AppColors.redLight,
+        textColor: AppColors.white,
+        fontSize: 16.0.sp,
+      );
+      return null;
+    }
+  }
 }
