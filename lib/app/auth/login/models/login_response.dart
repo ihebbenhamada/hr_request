@@ -18,7 +18,7 @@ class LoginResponse {
   String token;
   bool isAdmin;
   String refreshTokenExpiration;
-  User user;
+  User? user;
   Emp employee;
   List<UserRole> userRoles;
 
@@ -61,7 +61,7 @@ class LoginResponse {
         "token": token,
         "isAdmin": isAdmin,
         "refreshTokenExpiration": refreshTokenExpiration,
-        "user": user.toJson(),
+        "user": user?.toJson(),
         "employee": employee.toJson(),
         "userRoles": userRoles.map((map) => map.toJson()).toList(),
       };
