@@ -44,13 +44,18 @@ class HomeScreen extends StatelessWidget {
           ),
           12.h.verticalSpace,
           CarouselSlider.builder(
-            itemCount: _homeController.carouselData.length,
+            itemCount:
+                _homeController.dashboardInfo.value.getGeneralInfos().length,
             itemBuilder: (context, index, i) {
-              Map<String, dynamic> item = _homeController.carouselData[index];
+              Map<String, dynamic> item =
+                  _homeController.dashboardInfo.value.getGeneralInfos()[index];
+              //Logger().e(item.toString());
+              print(item);
               return CarouselInfoItem(
                 title: item['title'],
                 value: item['value'],
                 image: item['image'],
+                color: item['color'],
               );
             },
             options: CarouselOptions(
@@ -72,12 +77,29 @@ class HomeScreen extends StatelessWidget {
           12.h.verticalSpace,
           Obx(
             () => CustomDotsIndicator(
-              length: _homeController.carouselData.length,
+              length:
+                  _homeController.dashboardInfo.value.getGeneralInfos().length,
               current: _homeController.current.value,
             ),
           ),
           15.h.verticalSpace,
-          const GeneralInformation(),
+          Obx(
+            () => GeneralInformation(
+              contractFrom:
+                  _homeController.dashboardInfo.value.contractDateFrom,
+              contractTo: _homeController.dashboardInfo.value.contractDateTo,
+              workPeriod: _homeController.workPeriod.value,
+              vacationsCount: _homeController
+                  .dashboardInfo.value.annualLeaveCount
+                  .toString(),
+              hasTicket: _homeController.dashboardInfo.value.hasAirlineTicket
+                  ? 'Yes'
+                  : 'No',
+              indemnity: '19-02-2040',
+              meetings:
+                  _homeController.dashboardInfo.value.meetingsCount.toString(),
+            ),
+          ),
           19.h.verticalSpace,
           Text(
             '${'find_your'.tr}\n${'bonus'.tr}${','.tr} ${'punishments'.tr} ${'and'.tr} ${'alerts'.tr}',

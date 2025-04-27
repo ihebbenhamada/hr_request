@@ -217,8 +217,8 @@ class ComplaintScreen extends StatelessWidget {
                                     clipBehavior: Clip.none,
                                     child: Center(
                                       child: BarChart(
-                                        swapAnimationCurve: Curves.bounceIn,
-                                        swapAnimationDuration:
+                                        curve: Curves.bounceIn,
+                                        duration:
                                             const Duration(milliseconds: 0),
                                         BarChartData(
                                           backgroundColor: AppColors.white,
@@ -249,7 +249,19 @@ class ComplaintScreen extends StatelessWidget {
                                                 getTitlesWidget:
                                                     (value, titleMeta) {
                                                   return SideTitleWidget(
-                                                    axisSide: AxisSide.bottom,
+                                                    meta: TitleMeta(
+                                                      axisPosition: 0,
+                                                      appliedInterval: 30,
+                                                      axisSide: AxisSide.bottom,
+                                                      formattedValue:
+                                                          value.toString(),
+                                                      max: 1000000,
+                                                      min: 0,
+                                                      parentAxisSize:
+                                                          double.infinity,
+                                                      rotationQuarterTurns: 0,
+                                                      sideTitles: SideTitles(),
+                                                    ),
                                                     child: Text(
                                                       value.toInt().toString(),
                                                       style: TextStyle(
@@ -271,8 +283,22 @@ class ComplaintScreen extends StatelessWidget {
                                                   switch (value.toInt()) {
                                                     case 1:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           _complaintController
                                                               .complaintResponse
@@ -292,8 +318,22 @@ class ComplaintScreen extends StatelessWidget {
                                                       );
                                                     case 2:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           _complaintController
                                                               .complaintResponse
@@ -313,8 +353,22 @@ class ComplaintScreen extends StatelessWidget {
                                                       );
                                                     case 3:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           _complaintController
                                                               .complaintResponse
@@ -334,8 +388,22 @@ class ComplaintScreen extends StatelessWidget {
                                                       );
                                                     case 4:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           _complaintController
                                                               .complaintResponse
@@ -355,8 +423,22 @@ class ComplaintScreen extends StatelessWidget {
                                                       );
                                                     case 5:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           _complaintController
                                                               .complaintResponse
@@ -376,8 +458,22 @@ class ComplaintScreen extends StatelessWidget {
                                                       );
                                                     case 6:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           _complaintController
                                                               .complaintResponse
@@ -398,8 +494,22 @@ class ComplaintScreen extends StatelessWidget {
                                                     // Add more cases as needed...
                                                     default:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'no_month'.tr,
                                                           style: TextStyle(

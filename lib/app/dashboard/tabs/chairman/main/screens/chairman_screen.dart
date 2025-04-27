@@ -149,9 +149,8 @@ class ChairmanScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 16),
                             child: Center(
                               child: BarChart(
-                                swapAnimationCurve: Curves.bounceIn,
-                                swapAnimationDuration:
-                                    const Duration(milliseconds: 0),
+                                curve: Curves.bounceIn,
+                                duration: const Duration(milliseconds: 0),
                                 BarChartData(
                                   backgroundColor: AppColors.white,
                                   borderData: FlBorderData(
@@ -406,7 +405,17 @@ class ChairmanScreen extends StatelessWidget {
                                       interval: 100000,
                                       getTitlesWidget: (value, titleMeta) {
                                         return SideTitleWidget(
-                                          axisSide: AxisSide.bottom,
+                                          meta: TitleMeta(
+                                            axisPosition: 0,
+                                            appliedInterval: 30,
+                                            axisSide: AxisSide.bottom,
+                                            formattedValue: value.toString(),
+                                            max: 1000000,
+                                            min: 0,
+                                            parentAxisSize: double.infinity,
+                                            rotationQuarterTurns: 0,
+                                            sideTitles: SideTitles(),
+                                          ),
                                           child: Text(
                                             value.toInt().toString(),
                                             style: TextStyle(

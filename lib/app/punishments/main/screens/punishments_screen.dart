@@ -233,7 +233,19 @@ class PunishmentsScreen extends StatelessWidget {
                                                 getTitlesWidget:
                                                     (value, titleMeta) {
                                                   return SideTitleWidget(
-                                                    axisSide: AxisSide.bottom,
+                                                    meta: TitleMeta(
+                                                      axisPosition: 0,
+                                                      appliedInterval: 30,
+                                                      axisSide: AxisSide.bottom,
+                                                      formattedValue:
+                                                          value.toString(),
+                                                      max: 1000000,
+                                                      min: 0,
+                                                      parentAxisSize:
+                                                          double.infinity,
+                                                      rotationQuarterTurns: 0,
+                                                      sideTitles: SideTitles(),
+                                                    ),
                                                     child: Text(
                                                       value.toInt().toString(),
                                                       style: TextStyle(
@@ -255,8 +267,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                   switch (value.toInt()) {
                                                     case 1:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'jan'.tr,
                                                           style: TextStyle(
@@ -268,8 +294,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 2:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'feb'.tr,
                                                           style: TextStyle(
@@ -281,8 +321,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 3:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'mar'.tr,
                                                           style: TextStyle(
@@ -294,8 +348,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 4:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'apr'.tr,
                                                           style: TextStyle(
@@ -307,8 +375,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 5:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'may'.tr,
                                                           style: TextStyle(
@@ -320,8 +402,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 6:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'jun'.tr,
                                                           style: TextStyle(
@@ -333,8 +429,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 7:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'jul'.tr,
                                                           style: TextStyle(
@@ -346,8 +456,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 8:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'aug'.tr,
                                                           style: TextStyle(
@@ -359,8 +483,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 9:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'sep'.tr,
                                                           style: TextStyle(
@@ -372,8 +510,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 10:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'oct'.tr,
                                                           style: TextStyle(
@@ -385,8 +537,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 11:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'nov'.tr,
                                                           style: TextStyle(
@@ -398,8 +564,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                       );
                                                     case 12:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'dec'.tr,
                                                           style: TextStyle(
@@ -412,8 +592,22 @@ class PunishmentsScreen extends StatelessWidget {
                                                     // Add more cases as needed...
                                                     default:
                                                       return SideTitleWidget(
-                                                        axisSide:
-                                                            AxisSide.bottom,
+                                                        meta: TitleMeta(
+                                                          axisPosition: 0,
+                                                          appliedInterval: 30,
+                                                          axisSide:
+                                                              AxisSide.bottom,
+                                                          formattedValue:
+                                                              value.toString(),
+                                                          max: 1000000,
+                                                          min: 0,
+                                                          parentAxisSize:
+                                                              double.infinity,
+                                                          rotationQuarterTurns:
+                                                              0,
+                                                          sideTitles:
+                                                              SideTitles(),
+                                                        ),
                                                         child: Text(
                                                           'no_month'.tr,
                                                           style: TextStyle(

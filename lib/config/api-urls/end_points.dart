@@ -5,6 +5,10 @@ class EndPoints {
   /// LOGIN
   static const String LOGIN_URL = '/Authentication/Login';
 
+  /// DASHBOARD
+  static String DASHBOARD_URL(String empId) =>
+      '/DashboardAPI/GetEmployeeGeneralInformation?employeeId=$empId';
+
   /// VACATION
   static const String GET_EMPLOYEE_VACATIONS_URL =
       '/ReqVacation/GetEmployeeVacations';

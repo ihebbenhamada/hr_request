@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:get/get.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 import '../../../../../config/controllerConfig/base_controller.dart';
+import '../models/dash.dart';
 import '../services/home_service.dart';
 
 class HomeController extends BaseController {
@@ -15,55 +18,23 @@ class HomeController extends BaseController {
   RxInt current = 0.obs;
   RxInt currentBonusPunishments = 0.obs;
   RxInt currentMeeting = 0.obs;
-  final List<Map<String, dynamic>> carouselData = [
-    {
-      'image': AppImages.basicSalary,
-      'title': 'basic_salary',
-      'value': 9000,
-    },
-    {
-      'image': AppImages.allowances,
-      'title': 'allowances',
-      'value': 100,
-    },
-    {
-      'image': AppImages.totalExtra,
-      'title': 'total_extra',
-      'value': 0,
-    },
-    {
-      'image': AppImages.totalLoan,
-      'title': 'total_loan',
-      'value': 500,
-    },
-    {
-      'image': AppImages.punishments,
-      'title': 'punishments1',
-      'value': 500,
-    },
-    {
-      'image': AppImages.netSalary,
-      'title': 'net_salary',
-      'value': 12000,
-    },
-  ];
   final List<Map<String, dynamic>> carouselBonusPunishmentsData = [
     {
       'image': AppImages.gift,
       'title': 'bonus',
-      'amount': 200.00,
+      'amount': 0.0,
       'type': 0,
     },
     {
       'image': AppImages.checkList,
       'title': 'punishments',
-      'amount': 200.00,
+      'amount': 0.0,
       'type': 1,
     },
     {
       'image': AppImages.loan,
       'title': 'loan',
-      'amount': 200.00,
+      'amount': 0.0,
       'type': 0,
     },
   ];
@@ -106,6 +77,26 @@ class HomeController extends BaseController {
     }
   ];
   RxInt selectedBonusPunishments = 0.obs;
+  Rx<DashBoardInfo> dashboardInfo = DashBoardInfo(
+    employeeId: 0,
+    employeeNameAr: '',
+    employeeNameEn: '',
+    employeeJob: '',
+    basicSalary: 0,
+    allowances: 0,
+    totalExtra: 0,
+    totalLoan: 0,
+    totalBonus: 0,
+    punishments: 0,
+    netSalary: 0,
+    contractDateFrom: '',
+    contractDateTo: '',
+    annualLeaveCount: 0,
+    hasAirlineTicket: false,
+    meetingsCount: 0,
+    incomingMeetings: [],
+  ).obs;
+  RxDouble workPeriod = 0.0.obs;
 
   /// VALIDATION
 
@@ -122,9 +113,54 @@ class HomeController extends BaseController {
   }
 
   /// INITIALISATION
-  void initValues() {}
+  void initValues() {
+    getDashInfo();
+  }
 
   /// FUNCTIONS
+  getDashInfo() {
+    _homeService.getDashboardInfo().then((value) {
+      if (value != null) {
+        dashboardInfo.value = value;
+        workPeriod.value = calculateWorkPeriodPercentage(
+          contractStart: value.contractDateFrom,
+          contractEnd: value.contractDateTo,
+        );
+
+        log('wwwwwwww => ' +
+            calculateWorkPeriodPercentage(
+              contractStart: value.contractDateFrom,
+              contractEnd: value.contractDateTo,
+            ).toString());
+
+        carouselBonusPunishmentsData.map((e) => {e['amount'] = 3000.0});
+      }
+    });
+  }
+
+  double calculateWorkPeriodPercentage({
+    required String contractStart,
+    required String contractEnd,
+  }) {
+    final DateTime today = DateTime.now();
+    final DateTime startDate = DateTime.parse(contractStart);
+    final DateTime endDate = DateTime.parse(contractEnd);
+    // Handle edge cases
+    if (today.isBefore(startDate)) return 0.0;
+    if (today.isAfter(endDate)) return 1.0;
+
+    // Total duration of the contract
+    final int totalDays = endDate.difference(startDate).inDays;
+
+    // Days passed since the start date
+    final int passedDays = today.difference(startDate).inDays;
+
+    // Percentage calculation
+    double percentage = (passedDays / totalDays) * 100;
+
+    return percentage;
+  }
+
   onChangeCarousel(int index, CarouselPageChangedReason reason) {
     current.value = index;
   }

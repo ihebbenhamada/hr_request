@@ -10,11 +10,13 @@ class CarouselInfoItem extends StatelessWidget {
     required this.title,
     required this.image,
     required this.value,
+    this.color,
   });
 
   final String title;
   final String image;
-  final int value;
+  final double value;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -51,6 +53,7 @@ class CarouselInfoItem extends StatelessWidget {
                 child: Image.asset(
                   image,
                   height: 26.h,
+                  color: color,
                 ),
               ),
             ),

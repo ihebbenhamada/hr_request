@@ -6,7 +6,24 @@ import 'package:request_hr/config/colors/colors.dart';
 import 'package:request_hr/config/image_urls/image_urls.dart';
 
 class GeneralInformation extends StatelessWidget {
-  const GeneralInformation({super.key});
+  const GeneralInformation({
+    super.key,
+    required this.contractFrom,
+    required this.contractTo,
+    required this.workPeriod,
+    required this.vacationsCount,
+    required this.hasTicket,
+    required this.indemnity,
+    required this.meetings,
+  });
+
+  final String contractFrom;
+  final String contractTo;
+  final double workPeriod;
+  final String vacationsCount;
+  final String hasTicket;
+  final String indemnity;
+  final String meetings;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +47,7 @@ class GeneralInformation extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              21.h.verticalSpace,
+              20.h.verticalSpace,
               Text(
                 'contract'.tr,
                 style: TextStyle(
@@ -38,14 +55,14 @@ class GeneralInformation extends StatelessWidget {
                   fontSize: 16.sp,
                 ),
               ),
-              25.h.verticalSpace,
+              20.h.verticalSpace,
               CircularPercentIndicator(
                 radius: 45.0,
                 lineWidth: 10.0,
                 animation: true,
-                percent: 0.5,
+                percent: workPeriod,
                 center: Text(
-                  '50%',
+                  "${workPeriod * 100}%",
                   style: TextStyle(
                     color: AppColors.white,
                     fontSize: 16.sp,
@@ -55,9 +72,9 @@ class GeneralInformation extends StatelessWidget {
                 progressColor: AppColors.white,
                 backgroundColor: AppColors.blueLight,
               ),
-              34.h.verticalSpace,
+              30.h.verticalSpace,
               Text(
-                '${'start'.tr} : 1/1/2023',
+                '${'start'.tr} : ${contractFrom.substring(0, 10)}',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 10.sp,
@@ -65,12 +82,12 @@ class GeneralInformation extends StatelessWidget {
               ),
               3.h.verticalSpace,
               Text(
-                '${'end'.tr} : 1/1/2025',
+                '${'end'.tr} : ${contractTo.substring(0, 10)}',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 10.sp,
                 ),
-              ),
+              )
             ],
           ),
         ),
@@ -137,7 +154,7 @@ class GeneralInformation extends StatelessWidget {
                           ),
                           5.h.verticalSpace,
                           Text(
-                            '${'left'.tr} 27',
+                            '${'left'.tr} $vacationsCount',
                             style: TextStyle(
                               color: AppColors.blueDark,
                               fontSize: 12.sp,
@@ -238,7 +255,7 @@ class GeneralInformation extends StatelessWidget {
                           ),
                           5.h.verticalSpace,
                           Text(
-                            'yes'.tr,
+                            hasTicket.tr,
                             style: TextStyle(
                               color: AppColors.blueDark,
                               fontSize: 12.sp,
@@ -275,7 +292,7 @@ class GeneralInformation extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '${'total_meetings'.tr}\n30',
+                            '${'total_meetings'.tr}\n$meetings',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.blueDark,
