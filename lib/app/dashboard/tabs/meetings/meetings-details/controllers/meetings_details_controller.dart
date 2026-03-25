@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -104,13 +103,13 @@ class MeetingsDetailsController extends BaseController {
   }
 
   uploadAttachment() {
-    FilePicker.platform.pickFiles(allowMultiple: true).then((result) {
+    /*FilePicker.platform.pickFiles(allowMultiple: true).then((result) {
       if (result != null) {
         files.value = result.paths.map((path) => File(path!)).toList();
       } else {
         // User canceled the picker
       }
-    });
+    });*/
   }
 
   void selectDate(

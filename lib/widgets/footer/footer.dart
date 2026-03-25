@@ -25,7 +25,7 @@ class Footer extends StatelessWidget {
             ),
             Image.asset(
               AppImages.innTechDark,
-              height: 42.h,
+              height: 35.h,
             ),
             const Flexible(
               child: Divider(
@@ -37,7 +37,7 @@ class Footer extends StatelessWidget {
             ),
           ],
         ),
-        10.h.verticalSpace,
+        5.h.verticalSpace,
         Center(
           child: Text(
             'Request System V1.1',

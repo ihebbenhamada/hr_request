@@ -2,12 +2,10 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:open_file_plus/open_file_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:request_hr/app/mail/mail-details/services/mail_details_service.dart';
@@ -88,7 +86,7 @@ class MailDetailsController extends BaseController {
   }
 
   Future<void> openFile(String filePath) async {
-    final result = await OpenFile.open(filePath, type: 'pdf');
+    //final result = await OpenFile.open(filePath, type: 'pdf');
   }
 
   void downloadFile() async {
@@ -96,7 +94,7 @@ class MailDetailsController extends BaseController {
     String filePath = '';
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     Permission permissionToRequest;
-    if (Platform.isAndroid) {
+    /*if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       if (androidInfo.version.sdkInt <= 32) {
         permissionToRequest = Permission.storage;
@@ -144,7 +142,7 @@ class MailDetailsController extends BaseController {
       if (taskId != null) {
         openFile(filePath);
       }
-    }
+    }*/
   }
 
   /// FUNCTIONS

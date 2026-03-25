@@ -1,17 +1,25 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import '../colors/colors.dart';
 
 class NetworkController extends GetxController {
   final Connectivity _connectivity = Connectivity();
   @override
   void onInit() {
-    /*initConnectivity();
-    _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);*/
+    initConnectivity();
+    _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+
     super.onInit();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  /* Future<void> initConnectivity() async {
+  Future<void> initConnectivity() async {
     late List<ConnectivityResult> result;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -54,5 +62,5 @@ class NetworkController extends GetxController {
         Get.closeCurrentSnackbar();
       }
     }
-  }*/
+  }
 }

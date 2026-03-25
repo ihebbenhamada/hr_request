@@ -74,7 +74,7 @@ class GeneralInformation extends StatelessWidget {
               ),
               30.h.verticalSpace,
               Text(
-                '${'start'.tr} : ${contractFrom.substring(0, 10)}',
+                '${'start'.tr} : ${contractFrom.length >= 10 ? contractFrom.substring(0, 10) : contractFrom}',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 10.sp,
@@ -82,7 +82,7 @@ class GeneralInformation extends StatelessWidget {
               ),
               3.h.verticalSpace,
               Text(
-                '${'end'.tr} : ${contractTo.substring(0, 10)}',
+                '${'end'.tr} : ${contractTo.length >= 10 ? contractTo.substring(0, 10) : contractTo}',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 10.sp,

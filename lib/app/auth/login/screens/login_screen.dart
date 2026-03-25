@@ -125,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 40.0),
                 child: Footer(),
               ),
-              10.h.verticalSpace,
+              24.h.verticalSpace,
             ],
           ),
         ),

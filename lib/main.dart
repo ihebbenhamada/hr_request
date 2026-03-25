@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:request_hr/config/network/dependency_injection.dart';
 import 'package:request_hr/requestApp.dart';
 
 import 'config/colors/colors.dart';
 import 'config/custom_loading_animation.dart';
+import 'config/network/dependency_injection.dart';
 
 Future<void> main() async {
   /// INITIALIZE STORAGE
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(
+  /*await FlutterDownloader.initialize(
     debug: true,
     ignoreSsl: true,
-  );
+  );*/
   configureGlobalLoader();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
